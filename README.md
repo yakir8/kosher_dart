@@ -9,8 +9,9 @@ The library is released under the LGPL 2.1 license.
 
 ## Getting Started
 
-Add this line to your pubspec.yaml file under dependencies part.
-
+Add this to your package's pubspec.yaml file:
+``` pubspec.yaml
 kosher_dart:
   git:
     url: https://github.com/yakir8/kosher_dart.git
+```
