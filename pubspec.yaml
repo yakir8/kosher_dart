@@ -1,18 +1,22 @@
 name: kosher_dart
-description: This Plugin for a specialized calendar that can calculate different astronomical times including sunrise and sunset and
-  Jewish zmanim or religious times for prayers and other Jewish religious duties.
-version: 2.0.0
+description: This Plugin for a specialized calendar that can calculate different
+  astronomical times for Jewish zmanim or religious times for prayers and other Jewish religious duties.
+version: 2.0.1
+homepage: https://pub.dev/packages/kosher_dart
+repository: https://github.com/yakir8/kosher_dart
 author: Yakir Benin
-homepage:
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
+  flutter: ">=1.12.0 <2.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  intl: ^0.16.1
+  vector_math: ^2.0.8
 
 
 dev_dependencies:
@@ -21,5 +25,6 @@ dev_dependencies:
 
 flutter:
   plugin:
-    androidPackage: com.beninsapps.kosher_dart
-    pluginClass: KosherDartPlugin
+    platforms:
+      androidPackage: com.beninsapps.kosher_dart
+      pluginClass: KosherDartPlugin

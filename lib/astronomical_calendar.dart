@@ -405,7 +405,7 @@ class AstronomicalCalendar {
     return (endOfDay.millisecondsSinceEpoch - startOfDay.millisecondsSinceEpoch) / 12;
   }
 
-  /// A method that returns sundial or solar noon. It occurs when the Sun is <a href
+  /// A method that returns sundial or solarnoon. It occurs when the Sun is <a href
   /// ="http://en.wikipedia.org/wiki/Transit_%28astronomy%29">transiting</a> the <a
   /// href="http://en.wikipedia.org/wiki/Meridian_%28astronomy%29">celestial meridian</a>. In this class it is
   /// calculated as halfway between the sunrise and sunset passed to this method. This time can be slightly off the

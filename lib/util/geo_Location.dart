@@ -74,7 +74,8 @@ class GeoLocation {
   ///            sunrise and set.
   /// @param timeZone
   ///            the <code>TimeZone</code> for the location.
-  GeoLocation.setLocation(String name, double latitude, double longitude, DateTime dateTime,[double elevation = 0]) {
+  GeoLocation.setLocation(String name, double latitude, double longitude, DateTime dateTime,
+      [double elevation = 0]) {
     setLocationName(name);
     setLatitude(latitude: latitude);
     setLongitude(longitude: longitude);
@@ -103,26 +104,25 @@ class GeoLocation {
   ///            <a href="http://en.wikipedia.org/wiki/Minute_of_arc#Cartography">seconds of arc</a>
   /// @param direction
   ///            N for north and S for south. An IllegalArgumentException will be thrown if the value is not S or N.
-  void setLatitude({int degrees, int minutes, double seconds, String direction,double latitude}) {
+  void setLatitude({int degrees, int minutes, double seconds, String direction, double latitude}) {
     if (latitude != null) {
       if (latitude > 90 || latitude < -90) {
         throw new ArgumentError("Latitude must be between -90 and  90");
       }
       this._latitude = latitude;
-    }
-    else if (degrees == null || minutes == null || seconds == null || direction == null)
-      throw new ArgumentError("Longitude must be between 0 and  180.  Use a direction of W instead of negative.");
+    } else if (degrees == null || minutes == null || seconds == null || direction == null)
+      throw new ArgumentError(
+          "Longitude must be between 0 and  180.  Use a direction of W instead of negative.");
     else {
       double tempLat = degrees + ((minutes + (seconds / 60.0)) / 60.0);
-      if (tempLat > 90 || tempLat <
-          0) { //FIXME An exception should be thrown if degrees, minutes or seconds are negative
+      if (tempLat > 90 || tempLat < 0) {
+        //FIXME An exception should be thrown if degrees, minutes or seconds are negative
         throw new ArgumentError(
             "Latitude must be between 0 and  90. Use direction of S instead of negative.");
       }
       if (direction == "S") {
         tempLat *= -1;
-      }
-      else if (direction != "N") {
+      } else if (direction != "N") {
         throw new ArgumentError("Latitude direction must be N or S");
       }
       this._latitude = tempLat;
@@ -147,25 +147,26 @@ class GeoLocation {
   ///            E for east of the <a href="http://en.wikipedia.org/wiki/Prime_Meridian">Prime Meridian </a> or W for west of it.
   ///            An IllegalArgumentException will be thrown if
   ///            the value is not E or W.
-  void setLongitude({int degrees, int minutes, double seconds, String direction,double longitude}) {
-    if (longitude != null){
+  void setLongitude(
+      {int degrees, int minutes, double seconds, String direction, double longitude}) {
+    if (longitude != null) {
       if (longitude > 180 || longitude < -180) {
         throw new ArgumentError("Longitude must be between -180 and  180");
       }
       this._longitude = longitude;
     } else if (degrees == null || minutes == null || seconds == null || direction == null)
-      throw new ArgumentError("Longitude must be between 0 and  180.  Use a direction of W instead of negative.");
+      throw new ArgumentError(
+          "Longitude must be between 0 and  180.  Use a direction of W instead of negative.");
     else {
       double longTemp = degrees + ((minutes + (seconds / 60.0)) / 60.0);
-      if (longTemp > 180 || this._longitude <
-          0) { //FIXME An exception should be thrown if degrees, minutes or seconds are negative
+      if (longTemp > 180 || this._longitude < 0) {
+        //FIXME An exception should be thrown if degrees, minutes or seconds are negative
         throw new ArgumentError(
             "Longitude must be between 0 and  180.  Use a direction of W instead of negative.");
       }
       if (direction == "W") {
         longTemp *= -1;
-      }
-      else if (direction != "E") {
+      } else if (direction != "E") {
         throw new ArgumentError("Longitude direction must be E or W");
       }
       this._longitude = longTemp;
@@ -222,7 +223,8 @@ class GeoLocation {
   ///         East of the 15&deg; timezone line, and a negative value West of it.
   /// @since 1.1
   double getLocalMeanTimeOffset() {
-    return (getLongitude() * 4 * _MINUTE_MILLIS - getDateTime().timeZoneOffset.inMilliseconds).toDouble();
+    return (getLongitude() * 4 * _MINUTE_MILLIS - getDateTime().timeZoneOffset.inMilliseconds)
+        .toDouble();
   }
 
   /// Adjust the date for <a href="https://en.wikipedia.org/wiki/180th_meridian">antimeridian</a> crossover. This is
@@ -243,10 +245,12 @@ class GeoLocation {
   int getAntimeridianAdjustment() {
     double localHoursOffset = getLocalMeanTimeOffset() / _HOUR_MILLIS;
 
-    if (localHoursOffset >= 20){// if the offset is 20 hours or more in the future (never expected anywhere other
+    if (localHoursOffset >= 20) {
+      // if the offset is 20 hours or more in the future (never expected anywhere other
       // than a location using a timezone across the anti meridian to the east such as Samoa)
       return 1; // roll the date forward a day
-    } else if (localHoursOffset <= -20) {	// if the offset is 20 hours or more in the past (no current location is known
+    } else if (localHoursOffset <= -20) {
+      // if the offset is 20 hours or more in the past (no current location is known
       //that crosses the antimeridian to the west, but better safe than sorry)
       return -1; // roll the date back a day
     }
@@ -312,10 +316,8 @@ class GeoLocation {
     double L = radians(location.getLongitude() - getLongitude());
     double u1 = atan((1 - f) * tan(radians(getLatitude())));
     double u2 = atan((1 - f) * tan(radians(location.getLatitude())));
-    double sinU1 = sin(u1),
-        cosU1 = cos(u1);
-    double sinU2 = sin(u2),
-        cosU2 = cos(u2);
+    double sinU1 = sin(u1), cosU1 = cos(u1);
+    double sinU2 = sin(u2), cosU2 = cos(u2);
 
     double lambda = L;
     double lambdaP = 2 * pi;
@@ -332,34 +334,41 @@ class GeoLocation {
     while ((lambda - lambdaP).abs() > 1e-12 && --iterLimit > 0) {
       sinLambda = sin(lambda);
       cosLambda = cos(lambda);
-      sinSigma = sqrt((cosU2 * sinLambda) * (cosU2 * sinLambda)
-          + (cosU1 * sinU2 - sinU1 * cosU2 * cosLambda) * (cosU1 * sinU2 - sinU1 * cosU2 * cosLambda));
-      if (sinSigma == 0)
-        return 0; // co-incident points
+      sinSigma = sqrt((cosU2 * sinLambda) * (cosU2 * sinLambda) +
+          (cosU1 * sinU2 - sinU1 * cosU2 * cosLambda) *
+              (cosU1 * sinU2 - sinU1 * cosU2 * cosLambda));
+      if (sinSigma == 0) return 0; // co-incident points
       cosSigma = sinU1 * sinU2 + cosU1 * cosU2 * cosLambda;
       sigma = atan2(sinSigma, cosSigma);
       sinAlpha = cosU1 * cosU2 * sinLambda / sinSigma;
       cosSqAlpha = 1 - sinAlpha * sinAlpha;
       cos2SigmaM = cosSigma - 2 * sinU1 * sinU2 / cosSqAlpha;
-      if (cos2SigmaM.isNaN)
-        cos2SigmaM = 0; // equatorial line: cosSqAlpha=0 (§6)
+      if (cos2SigmaM.isNaN) cos2SigmaM = 0; // equatorial line: cosSqAlpha=0 (§6)
       C = f / 16 * cosSqAlpha * (4 + f * (4 - 3 * cosSqAlpha));
       lambdaP = lambda;
-      lambda = L + (1 - C) * f * sinAlpha
-          * (sigma + C * sinSigma * (cos2SigmaM + C * cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM)));
+      lambda = L +
+          (1 - C) *
+              f *
+              sinAlpha *
+              (sigma +
+                  C * sinSigma * (cos2SigmaM + C * cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM)));
     }
-    if (iterLimit == 0)
-      return double.nan; // formula failed to converge
+    if (iterLimit == 0) return double.nan; // formula failed to converge
 
     double uSq = cosSqAlpha * (a * a - b * b) / (b * b);
     double A = 1 + uSq / 16384 * (4096 + uSq * (-768 + uSq * (320 - 175 * uSq)));
     double B = uSq / 1024 * (256 + uSq * (-128 + uSq * (74 - 47 * uSq)));
-    double deltaSigma = B
-        * sinSigma
-        * (cos2SigmaM + B
-            / 4
-            * (cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM) - B / 6 * cos2SigmaM
-                * (-3 + 4 * sinSigma * sinSigma) * (-3 + 4 * cos2SigmaM * cos2SigmaM)));
+    double deltaSigma = B *
+        sinSigma *
+        (cos2SigmaM +
+            B /
+                4 *
+                (cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM) -
+                    B /
+                        6 *
+                        cos2SigmaM *
+                        (-3 + 4 * sinSigma * sinSigma) *
+                        (-3 + 4 * cos2SigmaM * cos2SigmaM)));
     double distance = b * A * (sigma - deltaSigma);
 
     // initial bearing
@@ -372,7 +381,8 @@ class GeoLocation {
       return fwdAz;
     } else if (formula == _FINAL_BEARING) {
       return revAz;
-    } else { // should never happen
+    } else {
+      // should never happen
       return double.nan;
     }
   }
@@ -385,10 +395,9 @@ class GeoLocation {
   /// @return the bearing in degrees
   double getRhumbLineBearing(GeoLocation location) {
     double dLon = radians(location.getLongitude() - getLongitude());
-    double dPhi = log(tan(radians(location.getLatitude()) / 2 + pi / 4)
-        / tan(radians(getLatitude()) / 2 + pi / 4));
-    if (dLon.abs() > pi)
-      dLon = dLon > 0 ? -(2 * pi - dLon) : (2 * pi + dLon);
+    double dPhi = log(tan(radians(location.getLatitude()) / 2 + pi / 4) /
+        tan(radians(getLatitude()) / 2 + pi / 4));
+    if (dLon.abs() > pi) dLon = dLon > 0 ? -(2 * pi - dLon) : (2 * pi + dLon);
     return degrees(atan2(dLon, dPhi));
   }
 
@@ -402,8 +411,8 @@ class GeoLocation {
     double earthRadius = 6378137; // Earth's radius in meters (WGS-84)
     double dLat = radians(location.getLatitude()) - radians(getLatitude());
     double dLon = (radians(location.getLongitude()) - radians(getLongitude())).abs();
-    double dPhi = log(tan(radians(location.getLatitude()) / 2 + pi / 4)
-        / tan(radians(getLatitude()) / 2 + pi / 4));
+    double dPhi = log(tan(radians(location.getLatitude()) / 2 + pi / 4) /
+        tan(radians(getLatitude()) / 2 + pi / 4));
     double q = dLat / dPhi;
 
     if (!q.isFinite) {
@@ -416,6 +425,7 @@ class GeoLocation {
     double d = sqrt(dLat * dLat + q * q * dLon * dLon);
     return d * earthRadius;
   }
+
 /*
   /// A method that returns an XML formatted <code>String</code> representing the serialized <code>Object</code>. Very
   /// similar to the toString method but the return value is in an xml format. The format currently used (subject to
@@ -457,10 +467,13 @@ class GeoLocation {
     if (this == object) return true;
     try {
       GeoLocation geo = object as GeoLocation;
-      return this._latitude == geo._latitude && this._longitude == geo._longitude &&
+      return this._latitude == geo._latitude &&
+          this._longitude == geo._longitude &&
           this._elevation == geo._elevation &&
-          (this._locationName == null ? geo._locationName == null : this._locationName == geo._locationName) &&
-          (this._dateTime == null ? geo._dateTime  == null : this._dateTime  == geo._dateTime );
+          (this._locationName == null
+              ? geo._locationName == null
+              : this._locationName == geo._locationName) &&
+          (this._dateTime == null ? geo._dateTime == null : this._dateTime == geo._dateTime);
     } catch (e) {
       return false;
     }

@@ -430,7 +430,7 @@ class ZmanimCalendar extends AstronomicalCalendar {
   ///
   /// return the <code>long</code> millisecond length of a _shaah zmanis_ calculated from sunrise to sunset.
   ///         If the calculation can't be computed such as in the Arctic Circle where there is at least one day a year
-  ///         where the sun does not rise, and one where it does not set, [double.MIN_VALUE] will be returned. See
+  ///         where the sun does not rise, and one where it does not set, double.minPositive will be returned. See
   ///         detailed explanation on top of the [AstronomicalCalendar] documentation.
   /// _see [getTemporalHour]_
   /// _see [getSeaLevelSunrise]_

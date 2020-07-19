@@ -342,7 +342,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// return the <code>double</code> millisecond length of a _shaah zmanis_. If the calculation can't be computed
   ///         such as northern and southern locations even south of the Arctic Circle and north of the Antarctic Circle
-  ///         where the sun may not reach low enough below the horizon for this calculation, a [double.MIN_VALUE]
+  ///         where the sun may not reach low enough below the horizon for this calculation, a double.minPositive
   ///         will be returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
   double getShaahZmanis19Point8Degrees() =>
       getTemporalHour(getAlos19Point8Degrees(), getTzais19Point8Degrees());
@@ -356,7 +356,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// return the <code>double</code> millisecond length of a _shaah zmanis_. If the calculation can't be computed
   ///         such as northern and southern locations even south of the Arctic Circle and north of the Antarctic Circle
-  ///         where the sun may not reach low enough below the horizon for this calculation, a [double.MIN_VALUE]
+  ///         where the sun may not reach low enough below the horizon for this calculation, a double.minPositive
   ///         will be returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
   double getShaahZmanis18Degrees() => getTemporalHour(getAlos18Degrees(), getTzais18Degrees());
 
@@ -369,7 +369,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// return the <code>double</code> millisecond length of a _shaah zmanis_. If the calculation can't be computed
   ///         such as northern and southern locations even south of the Arctic Circle and north of the Antarctic Circle
-  ///         where the sun may not reach low enough below the horizon for this calculation, a [double.MIN_VALUE]
+  ///         where the sun may not reach low enough below the horizon for this calculation, a double.minPositive
   ///         will be returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
   double getShaahZmanis26Degrees() => getTemporalHour(getAlos26Degrees(), getTzais26Degrees());
 
@@ -381,7 +381,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// return the <code>double</code> millisecond length of a _shaah zmanis_. If the calculation can't be computed
   ///         such as northern and southern locations even south of the Arctic Circle and north of the Antarctic Circle
-  ///         where the sun may not reach low enough below the horizon for this calculation, a [double.MIN_VALUE]
+  ///         where the sun may not reach low enough below the horizon for this calculation, a double.minPositive
   ///         will be returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
   ///
   /// _see [getAlos16Point1Degrees]_
@@ -403,7 +403,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// return the <code>double</code> millisecond length of a _shaah zmanis_. If the calculation can't be computed
   ///         such as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one
-  ///         where it does not set, a [double.MIN_VALUE] will be returned. See detailed explanation on top of the
+  ///         where it does not set, a double.minPositive will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
   double getShaahZmanis60Minutes() => getTemporalHour(getAlos60(), getTzais60());
 
@@ -416,7 +416,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// return the <code>double</code> millisecond length of a _shaah zmanis_. If the calculation can't be computed
   ///         such as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one
-  ///         where it does not set, a [double.MIN_VALUE] will be returned. See detailed explanation on top of the
+  ///         where it does not set, a double.minPositive will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
   double getShaahZmanis72Minutes() => getShaahZmanisMGA();
 
@@ -430,7 +430,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// return the <code>double</code> millisecond length of a _shaah zmanis_. If the calculation can't be computed
   ///         such as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one
-  ///         where it does not set, a [double.MIN_VALUE] will be returned. See detailed explanation on top of the
+  ///         where it does not set, a double.minPositive will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
   /// _see [getAlos72Zmanis]_
   /// _see [getTzais72Zmanis]_
@@ -444,7 +444,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// return the <code>double</code> millisecond length of a _shaah zmanis_. If the calculation can't be computed
   ///         such as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one
-  ///         where it does not set, a [double.MIN_VALUE] will be returned. See detailed explanation on top of the
+  ///         where it does not set, a double.minPositive will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
   double getShaahZmanis90Minutes() => getTemporalHour(getAlos90(), getTzais90());
 
@@ -458,7 +458,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// return the <code>double</code> millisecond length of a _shaah zmanis_. If the calculation can't be computed
   ///         such as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one
-  ///         where it does not set, a [double.MIN_VALUE] will be returned. See detailed explanation on top of the
+  ///         where it does not set, a double.minPositive will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
   /// _see [getAlos90Zmanis]_
   /// _see [getTzais90Zmanis]_
@@ -474,7 +474,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// return the <code>double</code> millisecond length of a _shaah zmanis_. If the calculation can't be computed
   ///         such as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one
-  ///         where it does not set, a [double.MIN_VALUE] will be returned. See detailed explanation on top of the
+  ///         where it does not set, a double.minPositive will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
   /// _see [getAlos96Zmanis]_
   /// _see [getTzais96Zmanis]_
@@ -491,7 +491,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// return the <code>double</code> millisecond length of a _shaah zmanis_. If the calculation can't be computed
   ///         such as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one
-  ///         where it does not set, a [double.MIN_VALUE] will be returned. See detailed explanation on top of the
+  ///         where it does not set, a double.minPositive will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
   /// _see [getAlos72Zmanis]_
   /// _see [getTzaisAteretTorah]_
@@ -507,7 +507,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// return the <code>double</code> millisecond length of a _shaah zmanis_. If the calculation can't be computed
   ///         such as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one
-  ///         where it does not set, a [double.MIN_VALUE] will be returned. See detailed explanation on top of the
+  ///         where it does not set, a double.minPositive will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
   double getShaahZmanis96Minutes() => getTemporalHour(getAlos96(), getTzais96());
 
@@ -519,7 +519,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// return the <code>double</code> millisecond length of a _shaah zmanis_. If the calculation can't be computed
   ///         such as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one
-  ///         where it does not set, a [double.MIN_VALUE] will be returned. See detailed explanation on top of the
+  ///         where it does not set, a double.minPositive will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
   double getShaahZmanis120Minutes() => getTemporalHour(getAlos120(), getTzais120());
 
@@ -533,7 +533,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// return the <code>double</code> millisecond length of a _shaah zmanis_. If the calculation can't be computed
   ///         such as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one
-  ///         where it does not set, a [double.MIN_VALUE] will be returned. See detailed explanation on top of the
+  ///         where it does not set, a double.minPositive will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
   /// _see [getAlos120Zmanis]_
   /// _see [getTzais120Zmanis]_
@@ -761,7 +761,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see _[ASTRONOMICAL_ZENITH]_
   DateTime getAlos19Degrees() => getSunriseOffsetByDegrees(ZENITH_19_DEGREES);
 
-  /// Method to return _alos_ (dawn) calculated when the sun is [ZENITH_19_POINT]_8 19.8° below the
+  /// Method to return _alos_ (dawn) calculated when the sun is [ZENITH_19_POINT_8] 19.8° below the
   /// eastern geometric horizon before sunrise. This calculation is based on the same calculation of
   /// [getAlos90] 90 minutes but uses a degree based calculation instead of 90 exact minutes. This calculation
   /// is based on the position of the sun 90 minutes before sunrise in Jerusalem during the equinox (on March 16,
@@ -776,7 +776,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getAlos90]_
   DateTime getAlos19Point8Degrees() => getSunriseOffsetByDegrees(ZENITH_19_POINT_8);
 
-  /// Method to return _alos_ (dawn) calculated when the sun is [ZENITH_16_POINT]_1 16.1° below the
+  /// Method to return _alos_ (dawn) calculated when the sun is [ZENITH_16_POINT_1] 16.1° below the
   /// eastern geometric horizon before sunrise. This calculation is based on the same calculation of
   /// [getAlos72] 72 minutes but uses a degree based calculation instead of 72 exact minutes. This calculation
   /// is based on the position of the sun 72 minutes before sunrise in Jerusalem during the equinox (on March 16,
@@ -2616,7 +2616,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// return the <code>double</code> millisecond length of a _shaah zmanis_ calculated from
   ///         [getSunriseBaalHatanya] _netz amiti_ (sunrise) to [getSunsetBaalHatanya] _shkiah amiti_
   ///         ("real" sunset). If the calculation can't be computed such as in the Arctic Circle where there is at least one day a
-  ///         year where the sun does not rise, and one where it does not set, [double.MIN_VALUE] will be returned. See
+  ///         year where the sun does not rise, and one where it does not set, double.minPositive will be returned. See
   ///         detailed explanation on top of the [AstronomicalCalendar] documentation.
   ///
   /// _see [getTemporalHour]_
