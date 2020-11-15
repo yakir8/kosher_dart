@@ -15,13 +15,13 @@
  */
 import 'dart:core';
 
-import 'package:kosher_dart/zmanim_calendar.dart';
-import 'package:kosher_dart/util/geo_Location.dart';
-import 'package:kosher_dart/astronomical_calendar.dart';
-import 'package:kosher_dart/hebrewcalendar/jewish_date.dart';
-import 'package:kosher_dart/util/astronomical_calculator.dart';
-import 'package:kosher_dart/hebrewcalendar/jewish_calendar.dart';
-import 'package:kosher_dart/hebrewcalendar/hebrew_date_formatter.dart';
+import 'package:kosher_dart/src/zmanim_calendar.dart';
+import 'package:kosher_dart/src/util/geo_Location.dart';
+import 'package:kosher_dart/src/astronomical_calendar.dart';
+import 'package:kosher_dart/src/hebrewcalendar/jewish_date.dart';
+import 'package:kosher_dart/src/util/astronomical_calculator.dart';
+import 'package:kosher_dart/src/hebrewcalendar/jewish_calendar.dart';
+import 'package:kosher_dart/src/hebrewcalendar/hebrew_date_formatter.dart';
 
 /// <p>This class extends ZmanimCalendar and provides many more zmanim than available in the ZmanimCalendar. The basis for
 /// most zmanim in this class are from the _sefer_ <b><a href="http://hebrewbooks.org/9765">Yisroel Vehazmanim</a></b>
@@ -324,6 +324,18 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getAteretTorahSunsetOffset]_
   /// _see [setAteretTorahSunsetOffset]_
   double _ateretTorahSunsetOffset = 40;
+
+  ///
+  Map<String, int> shiftTimeByLocationName = {
+    'Jerusalem': -37,
+    'Petah Tiqva': -37,
+    'Safed': -25,
+    'Tiberias': -25,
+    'Haifa': -25,
+    'Beer-Sheba': -17,
+    'Ashdod': -17,
+    "Ra'anana": -15,
+  };
 
   ComplexZmanimCalendar.intGeoLocation(GeoLocation location) : super.intGeolocation(location);
 
@@ -2776,4 +2788,102 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         top of the [AstronomicalCalendar] documentation.
   /// _see [ZENITH_6_DEGREES]_
   DateTime getTzaisBaalHatanya() => this.getSunsetOffsetByDegrees(ZENITH_6_DEGREES);
+
+  DateTime getMidday() => getSolarMidnight().add(Duration(hours: -12));
+
+  /// A method that return Shabbos entry date of this week
+  DateTime getShabbosStartTime() {
+    ComplexZmanimCalendar complexZmanimCalendar = this.clone();
+    int delta = 7 - complexZmanimCalendar.getCalendar().day;
+    complexZmanimCalendar
+        .setCalendar(complexZmanimCalendar.getCalendar().add(Duration(days: delta)));
+    DateTime date = complexZmanimCalendar.getSunset();
+    return date.add(Duration(minutes: _shiftTime()));
+  }
+
+  /// A method that return time of Shabbos exit in this week
+  DateTime getShabbosExitTime() {
+    ComplexZmanimCalendar complexZmanimCalendar = this.clone();
+    int delta = 6 - complexZmanimCalendar.getCalendar().day;
+    complexZmanimCalendar
+        .setCalendar(complexZmanimCalendar.getCalendar().add(Duration(days: delta)));
+    DateTime date = complexZmanimCalendar.getBainHasmashosRT13Point5MinutesBefore7Point083Degrees();
+    return date.add(Duration(minutes: 22));
+  }
+
+  /// A method that return entry time of the closer Yom Tov
+  DateTime getYomTovStartTime() {
+    ComplexZmanimCalendar complexZmanimCalendar = this.clone();
+    JewishCalendar jewishCalendar = JewishCalendar.fromDateTime(getCalendar());
+    while (!jewishCalendar.isErevYomTov()) jewishCalendar.forward();
+    complexZmanimCalendar.setCalendar(jewishCalendar.getGregorianCalendar());
+    DateTime date = complexZmanimCalendar.getSunset();
+    return date.add(Duration(minutes: _shiftTime()));
+  }
+
+  /// A method that return exit time of the closer Yom Tov
+  DateTime getYomTovExitTime() {
+    ComplexZmanimCalendar complexZmanimCalendar = this.clone();
+    JewishCalendar jewishCalendar = JewishCalendar.fromDateTime(getCalendar());
+    while (!jewishCalendar.isYomTov()) jewishCalendar.forward();
+    complexZmanimCalendar.setCalendar(jewishCalendar.getGregorianCalendar());
+    DateTime date = complexZmanimCalendar.getBainHasmashosRT13Point5MinutesBefore7Point083Degrees();
+    return date.add(Duration(minutes: 22));
+  }
+
+  DateTime getTaanisStartTime({bool inIsrael = false, isAshkenaz = false}) {
+    JewishCalendar jewishCalendar =
+        JewishCalendar.fromDateTime(DateTime.parse(getCalendar().toIso8601String()));
+    DateTime calendar = DateTime.parse(getCalendar().toIso8601String());
+    jewishCalendar.setInIsrael(inIsrael);
+    while (!jewishCalendar.isTaanis()) {
+      calendar = calendar.add(Duration(days: 1));
+      jewishCalendar.setDate(calendar);
+    }
+    ComplexZmanimCalendar complexZmanimCalendar = this.clone();
+    complexZmanimCalendar.setCalendar(calendar);
+    // for Tisha Beav
+    if (jewishCalendar.getYomTovIndex() == JewishCalendar.TISHA_BEAV) {
+      return complexZmanimCalendar.getSunset();
+      // for all other Taanis
+    } else {
+      return isAshkenaz
+          ? complexZmanimCalendar.getAlosHashachar().add(Duration(minutes: -20))
+          : complexZmanimCalendar.getAlos72().add(Duration(minutes: -20));
+    }
+  }
+
+  DateTime getTaanisExitTime({bool inIsrael = false}) {
+    JewishCalendar jewishCalendar = JewishCalendar.fromDateTime(DateTime.parse(getCalendar().toIso8601String()));
+    DateTime calendar = DateTime.parse(getCalendar().toIso8601String());
+    jewishCalendar.setInIsrael(inIsrael);
+    while (!jewishCalendar.isTaanis()) {
+      calendar = calendar.add(Duration(days: 1));
+      jewishCalendar.setDate(calendar);
+    }
+    ComplexZmanimCalendar complexZmanimCalendar = this.clone();
+    complexZmanimCalendar.setCalendar(calendar);
+    return complexZmanimCalendar.getBainHasmashosRT13Point5MinutesBefore7Point083Degrees();
+  }
+
+  /// The Sabbath enters a fixed number of minutes before the astronomical sunset.
+  /// Number of minutes that varies according to local custom. for example custom of Jerusalem and Petah Tikva is 40 minutes before sunset,
+  /// Safed, Tiberias, Haifa and Samaria 30 minutes before sunset, Tel Aviv and Gush Dan custom 21 minutes before sunset,
+  /// The custom of Beer Sheva and Ashdod is 22 minutes Raanana custom is 20 minutes before sunset.
+  /// In other places whose practice is unknown to us, the Sabbath entry time is 30 minutes before the astronomical sunset time.
+  /// this method that return this number of minutes before the astronomical sunset base on on the location
+  int _shiftTime() {
+    shiftTimeByLocationName.forEach((key, value) {
+      if (this.getGeoLocation().getLocationName().toLowerCase().contains(key)) return value;
+    });
+    if ((this.getGeoLocation().getLongitude() > 34.461262940608364 ||
+            this.getGeoLocation().getLatitude() < 35.2408) &&
+        (this.getGeoLocation().getLongitude() > 31.83538 ||
+            this.getGeoLocation().getLongitude() < 32.263563983577995)) return -21;
+    return -25;
+  }
+
+  ComplexZmanimCalendar clone() {
+    return ComplexZmanimCalendar.intGeoLocation(this.geoLocation.clone());
+  }
 }

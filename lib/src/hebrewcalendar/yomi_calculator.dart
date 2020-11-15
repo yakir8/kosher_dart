@@ -15,8 +15,8 @@
  */
 
 import 'dart:core';
-import 'package:kosher_dart/hebrewcalendar/daf.dart';
-import 'package:kosher_dart/hebrewcalendar/jewish_calendar.dart';
+import 'package:kosher_dart/src/hebrewcalendar/daf.dart';
+import 'package:kosher_dart/src/hebrewcalendar/jewish_calendar.dart';
 
 /// This class calculates the Daf Yomi Bavli page (daf) for a given date. To calculate Daf Yomi Yerushalmi
 /// use the {@link YerushalmiYomiCalculator}. The library may cover Mishna Yomi etc. at some point in the future.
@@ -24,7 +24,8 @@ import 'package:kosher_dart/hebrewcalendar/jewish_calendar.dart';
 /// @author &copy; Bob Newell (original C code)
 /// @author &copy; Eliyahu Hershfeld 2011 - 2020
 class YomiCalculator {
-  static final DateTime _dafYomiStartDay = DateTime(1923, DateTime.september, 11);
+  static final DateTime _dafYomiStartDay =
+      DateTime(1923, DateTime.september, 11);
   static final int _dafYomiJulianStartDay = _getJulianDay(_dafYomiStartDay);
   static final DateTime _shekalimChangeDay = DateTime(1975, DateTime.june, 24);
   static final int shekalimJulianChangeDay = _getJulianDay(_shekalimChangeDay);
@@ -112,7 +113,7 @@ class YomiCalculator {
           _dafYomiStartDay.toString());
     }
     if (dateTime.isAtSameMomentAs(_shekalimChangeDay) ||
-        dateTime.isAtSameMomentAs(_shekalimChangeDay)) {
+        dateTime.isAfter(_shekalimChangeDay)) {
       cycleNo = 8 + ((julianDay - shekalimJulianChangeDay) ~/ 2711);
       dafNo = ((julianDay - shekalimJulianChangeDay) % 2711);
     } else {
@@ -168,7 +169,11 @@ class YomiCalculator {
     }
     int a = year ~/ 100;
     int b = 2 - a + a ~/ 4;
-    return ((365.25 * (year + 4716)).floor() + (30.6001 * (month + 1)).floor() + day + b - 1524.5)
+    return ((365.25 * (year + 4716)).floor() +
+            (30.6001 * (month + 1)).floor() +
+            day +
+            b -
+            1524.5)
         .toInt();
   }
 }

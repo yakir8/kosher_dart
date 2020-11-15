@@ -16,8 +16,8 @@
 
 import 'dart:math';
 import 'package:vector_math/vector_math.dart';
-import 'package:kosher_dart/util/astronomical_calculator.dart';
-import 'package:kosher_dart/util/geo_Location.dart';
+import 'package:kosher_dart/src/util/astronomical_calculator.dart';
+import 'package:kosher_dart/src/util/geo_Location.dart';
 
 /// Implementation of sunrise and sunset methods to calculate astronomical times based on the <a
 /// href="http://noaa.gov">NOAA</a> algorithm. This calculator uses the Java algorithm based on the implementation by <a
@@ -43,13 +43,13 @@ class NOAACalculator extends AstronomicalCalculator {
   }
 
   /// @see net.sourceforge.zmanim.util.AstronomicalCalculator#getUTCSunrise(Calendar, GeoLocation, double, boolean)
-  double getUTCSunrise(
-      DateTime dateTime, GeoLocation geoLocation, double zenith, bool adjustForElevation) {
+  double getUTCSunrise(DateTime dateTime, GeoLocation geoLocation,
+      double zenith, bool adjustForElevation) {
     double elevation = adjustForElevation ? geoLocation.getElevation() : 0;
     double adjustedZenith = adjustZenith(zenith, elevation);
 
-    double sunrise = _getSunriseUTC(_getJulianDay(dateTime), geoLocation.getLatitude(),
-        -geoLocation.getLongitude(), adjustedZenith);
+    double sunrise = _getSunriseUTC(_getJulianDay(dateTime),
+        geoLocation.getLatitude(), -geoLocation.getLongitude(), adjustedZenith);
     sunrise = sunrise / 60;
 
     // ensure that the time is >= 0 and < 24
@@ -63,13 +63,13 @@ class NOAACalculator extends AstronomicalCalculator {
   }
 
   /// @see net.sourceforge.zmanim.util.AstronomicalCalculator#getUTCSunset(Calendar, GeoLocation, double, boolean)
-  double getUTCSunset(
-      DateTime dateTime, GeoLocation geoLocation, double zenith, bool adjustForElevation) {
+  double getUTCSunset(DateTime dateTime, GeoLocation geoLocation, double zenith,
+      bool adjustForElevation) {
     double elevation = adjustForElevation ? geoLocation.getElevation() : 0;
     double adjustedZenith = adjustZenith(zenith, elevation);
 
-    double sunset = _getSunsetUTC(_getJulianDay(dateTime), geoLocation.getLatitude(),
-        -geoLocation.getLongitude(), adjustedZenith);
+    double sunset = _getSunsetUTC(_getJulianDay(dateTime),
+        geoLocation.getLatitude(), -geoLocation.getLongitude(), adjustedZenith);
     sunset = sunset / 60;
 
     // ensure that the time is >= 0 and < 24
@@ -99,7 +99,11 @@ class NOAACalculator extends AstronomicalCalculator {
     int a = year ~/ 100;
     int b = 2 - a + a ~/ 4;
 
-    return (365.25 * (year + 4716)).floor() + (30.6001 * (month + 1)).floor() + day + b - 1524.5;
+    return (365.25 * (year + 4716)).floor() +
+        (30.6001 * (month + 1)).floor() +
+        day +
+        b -
+        1524.5;
   }
 
   /// Convert <a href="http://en.wikipedia.org/wiki/Julian_day">Julian day</a> to centuries since J2000.0.
@@ -126,7 +130,8 @@ class NOAACalculator extends AstronomicalCalculator {
   ///            the number of Julian centuries since J2000.0
   /// @return the Geometric Mean Longitude of the Sun in degrees
   static double _getSunGeometricMeanLongitude(double julianCenturies) {
-    double longitude = 280.46646 + julianCenturies * (36000.76983 + 0.0003032 * julianCenturies);
+    double longitude = 280.46646 +
+        julianCenturies * (36000.76983 + 0.0003032 * julianCenturies);
     while (longitude > 360.0) {
       longitude -= 360.0;
     }
@@ -143,7 +148,9 @@ class NOAACalculator extends AstronomicalCalculator {
   ///            the number of Julian centuries since J2000.0
   /// @return the Geometric Mean Anomaly of the Sun in degrees
   static double _getSunGeometricMeanAnomaly(double julianCenturies) {
-    return 357.52911 + julianCenturies * (35999.05029 - 0.0001537 * julianCenturies); // in degrees
+    return 357.52911 +
+        julianCenturies *
+            (35999.05029 - 0.0001537 * julianCenturies); // in degrees
   }
 
   /// Return the <a href="http://en.wikipedia.org/wiki/Eccentricity_%28orbit%29">eccentricity of earth's orbit</a>.
@@ -153,7 +160,8 @@ class NOAACalculator extends AstronomicalCalculator {
   /// @return the unitless eccentricity
   static double _getEarthOrbitEccentricity(double julianCenturies) {
     return 0.016708634 -
-        julianCenturies * (0.000042037 + 0.0000001267 * julianCenturies); // unitless
+        julianCenturies *
+            (0.000042037 + 0.0000001267 * julianCenturies); // unitless
   }
 
   /// Returns the <a href="http://en.wikipedia.org/wiki/Equation_of_the_center">equation of center</a> for the sun.
@@ -169,7 +177,9 @@ class NOAACalculator extends AstronomicalCalculator {
     double sin2m = sin(mrad + mrad);
     double sin3m = sin(mrad + mrad + mrad);
 
-    return sinm * (1.914602 - julianCenturies * (0.004817 + 0.000014 * julianCenturies)) +
+    return sinm *
+            (1.914602 -
+                julianCenturies * (0.004817 + 0.000014 * julianCenturies)) +
         sin2m * (0.019993 - 0.000101 * julianCenturies) +
         sin3m * 0.000289; // in degrees
   }
@@ -220,7 +230,9 @@ class NOAACalculator extends AstronomicalCalculator {
   /// @return the mean obliquity in degrees
   static double _getMeanObliquityOfEcliptic(double julianCenturies) {
     double seconds = 21.448 -
-        julianCenturies * (46.8150 + julianCenturies * (0.00059 - julianCenturies * (0.001813)));
+        julianCenturies *
+            (46.8150 +
+                julianCenturies * (0.00059 - julianCenturies * (0.001813)));
     return 23.0 + (26.0 + (seconds / 60.0)) / 60.0; // in degrees
   }
 
@@ -291,7 +303,8 @@ class NOAACalculator extends AstronomicalCalculator {
   /// @param zenith
   ///            the zenith
   /// @return hour angle of sunrise in radians
-  static double _getSunHourAngleAtSunrise(double lat, double solarDec, double zenith) {
+  static double _getSunHourAngleAtSunrise(
+      double lat, double solarDec, double zenith) {
     double latRad = radians(lat);
     double sdRad = radians(solarDec);
 
@@ -310,12 +323,13 @@ class NOAACalculator extends AstronomicalCalculator {
   /// @param zenith
   ///            the zenith
   /// @return the hour angle of sunset in radians
-  static double _getSunHourAngleAtSunset(double lat, double solarDec, double zenith) {
+  static double _getSunHourAngleAtSunset(
+      double lat, double solarDec, double zenith) {
     double latRad = radians(lat);
     double sdRad = radians(solarDec);
 
-    double hourAngle =
-        (acos(cos(radians(zenith)) / (cos(latRad) * cos(sdRad)) - tan(latRad) * tan(sdRad)));
+    double hourAngle = (acos(cos(radians(zenith)) / (cos(latRad) * cos(sdRad)) -
+        tan(latRad) * tan(sdRad)));
     return -hourAngle; // in radians
   }
 
@@ -337,16 +351,16 @@ class NOAACalculator extends AstronomicalCalculator {
 
     double eot = _getEquationOfTime(julianCenturies);
 
-    double longitude =
-        (dateTime.hour + 12.0) + (dateTime.minute + eot + dateTime.second / 60.0) / 60.0;
+    double longitude = (dateTime.hour + 12.0) +
+        (dateTime.minute + eot + dateTime.second / 60.0) / 60.0;
 
     longitude = -(longitude * 360.0 / 24.0) % 360.0;
     double hourAngleRad = radians(lon - longitude);
     double declination = _getSunDeclination(julianCenturies);
     double decRad = radians(declination);
     double latRad = radians(lat);
-    return degrees(
-        asin((sin(latRad) * sin(decRad)) + (cos(latRad) * cos(decRad) * cos(hourAngleRad))));
+    return degrees(asin((sin(latRad) * sin(decRad)) +
+        (cos(latRad) * cos(decRad) * cos(hourAngleRad))));
   }
 
   /// Return the <a href="http://en.wikipedia.org/wiki/Celestial_coordinate_system">Solar Azimuth</a> for the
@@ -367,8 +381,8 @@ class NOAACalculator extends AstronomicalCalculator {
 
     double eot = _getEquationOfTime(julianCenturies);
 
-    double longitude =
-        (dateTime.hour + 12.0) + (dateTime.minute + eot + dateTime.second / 60.0) / 60.0;
+    double longitude = (dateTime.hour + 12.0) +
+        (dateTime.minute + eot + dateTime.second / 60.0) / 60.0;
 
     longitude = -(longitude * 360.0 / 24.0) % 360.0;
     double hourAngleRad = radians(lon - longitude);
@@ -377,7 +391,8 @@ class NOAACalculator extends AstronomicalCalculator {
     double latRad = radians(lat);
 
     return degrees(atan(sin(hourAngleRad) /
-            ((cos(hourAngleRad) * sin(latRad)) - (tan(decRad) * cos(latRad))))) +
+            ((cos(hourAngleRad) * sin(latRad)) -
+                (tan(decRad) * cos(latRad))))) +
         180;
   }
 
@@ -393,14 +408,16 @@ class NOAACalculator extends AstronomicalCalculator {
   /// @param zenith
   ///            the zenith
   /// @return the time in minutes from zero UTC
-  static double _getSunriseUTC(double julianDay, double latitude, double longitude, double zenith) {
+  static double _getSunriseUTC(
+      double julianDay, double latitude, double longitude, double zenith) {
     double julianCenturies = _getJulianCenturiesFromJulianDay(julianDay);
 
     // Find the time of solar noon at the location, and use that declination. This is better than start of the
     // Julian day
 
     double noonmin = _getSolarNoonUTC(julianCenturies, longitude);
-    double tnoon = _getJulianCenturiesFromJulianDay(julianDay + noonmin / 1440.0);
+    double tnoon =
+        _getJulianCenturiesFromJulianDay(julianDay + noonmin / 1440.0);
 
     // First pass to approximate sunrise (using solar noon)
 
@@ -442,7 +459,9 @@ class NOAACalculator extends AstronomicalCalculator {
     double solNoonUTC = 720 + (longitude * 4) - eqTime; // min
 
     double newt = _getJulianCenturiesFromJulianDay(
-        _getJulianDayFromJulianCenturies(julianCenturies) - 0.5 + solNoonUTC / 1440.0);
+        _getJulianDayFromJulianCenturies(julianCenturies) -
+            0.5 +
+            solNoonUTC / 1440.0);
 
     eqTime = _getEquationOfTime(newt);
     return 720 + (longitude * 4) - eqTime; // min
@@ -460,14 +479,16 @@ class NOAACalculator extends AstronomicalCalculator {
   /// @param zenith
   ///            zenith
   /// @return the time in minutes from zero Universal Coordinated Time (UTC)
-  static double _getSunsetUTC(double julianDay, double latitude, double longitude, double zenith) {
+  static double _getSunsetUTC(
+      double julianDay, double latitude, double longitude, double zenith) {
     double julianCenturies = _getJulianCenturiesFromJulianDay(julianDay);
 
     // Find the time of solar noon at the location, and use that declination. This is better than start of the
     // Julian day
 
     double noonmin = _getSolarNoonUTC(julianCenturies, longitude);
-    double tnoon = _getJulianCenturiesFromJulianDay(julianDay + noonmin / 1440.0);
+    double tnoon =
+        _getJulianCenturiesFromJulianDay(julianDay + noonmin / 1440.0);
 
     // First calculates sunrise and approx length of day
 

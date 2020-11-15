@@ -14,11 +14,11 @@
  * or connect to: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
  */
 
-import 'package:kosher_dart/hebrewcalendar/jewish_calendar.dart';
-import 'package:kosher_dart/util/geo_Location.dart';
-import 'package:kosher_dart/astronomical_calendar.dart';
-import 'package:kosher_dart/complex_zmanim_calendar.dart';
-import 'package:kosher_dart/util/astronomical_calculator.dart';
+import 'package:kosher_dart/src/hebrewcalendar/jewish_calendar.dart';
+import 'package:kosher_dart/src/util/geo_Location.dart';
+import 'package:kosher_dart/src/astronomical_calendar.dart';
+import 'package:kosher_dart/src/complex_zmanim_calendar.dart';
+import 'package:kosher_dart/src/util/astronomical_calculator.dart';
 
 /// The ZmanimCalendar is arrow_expand specialized calendar that can calculate sunrise and sunset and Jewish _zmanim_
 /// (religious times) for prayers and other Jewish religious duties. This class contains the main functionality of the
@@ -52,7 +52,19 @@ class ZmanimCalendar extends AstronomicalCalendar {
   /// Is elevation factored in for some zmanim (see [isUseElevation] for additional information).
   /// * see [isUseElevation]
   /// * see [setUseElevation]
-  bool _useElevation;
+  bool _useElevation = false;
+
+  /// Default constructor will set a default [GeoLocation.GeoLocation], a default
+  /// [AstronomicalCalculator.getDefault] AstronomicalCalculator and default the calendar to the current date.
+  ///
+  /// _see [AstronomicalCalendar.AstronomicalCalendar]_
+  ZmanimCalendar() : super();
+
+  /// A constructor that takes a [GeoLocation] as a parameter.
+  ///
+  /// [location] the location
+  ZmanimCalendar.intGeolocation(GeoLocation location)
+      : super(geoLocation: location);
 
   /// Is elevation above sea level calculated for times besides sunrise and sunset. According to Rabbi Dovid Yehuda
   /// Bursztyn in his [Zmanim Kehilchasam (second edition published in 2007)](http://www.worldcat.org/oclc/659793988)
@@ -99,7 +111,8 @@ class ZmanimCalendar extends AstronomicalCalendar {
   /// _see [ComplexZmanimCalendar.getPlagHamincha16Point1Degrees]_
   /// _see [ComplexZmanimCalendar.getPlagAlos16Point1ToTzaisGeonim7Point083Degrees]_
   /// _see [ComplexZmanimCalendar.getSofZmanShmaAlos16Point1ToSunset]_
-  static const double ZENITH_16_POINT_1 = AstronomicalCalculator.GEOMETRIC_ZENITH + 16.1;
+  static const double ZENITH_16_POINT_1 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 16.1;
 
   /// The zenith of 8.5° below geometric zenith (90°). This calculation is used for calculating _alos_
   /// (dawn) and _tzais_ (nightfall) in some opinions. This calculation is based on the position of the sun 36
@@ -110,7 +123,8 @@ class ZmanimCalendar extends AstronomicalCalendar {
   ///
   /// _see [getTzais]_
   /// _see [ComplexZmanimCalendar.getTzaisGeonim8Point5Degrees]_
-  static const double ZENITH_8_POINT_5 = AstronomicalCalculator.GEOMETRIC_ZENITH + 8.5;
+  static const double ZENITH_8_POINT_5 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 8.5;
 
   /// The default _Shabbos_ candle lighting offset is 18 minutes. This can be changed via the
   /// [setCandleLightingOffset] and retrieved by the [getCandleLightingOffset].
@@ -237,8 +251,8 @@ class ZmanimCalendar extends AstronomicalCalendar {
   /// return the <code>Date</code> of the latest zman shema according to the GRA. If the calculation can't be computed
   /// such as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one where it
   /// does not set, a null will be returned. See the detailed explanation on top of the [AstronomicalCalendar] documentation.
-  DateTime getSofZmanShmaGRA() =>
-      getSofZmanShma(getElevationAdjustedSunrise(), getElevationAdjustedSunset());
+  DateTime getSofZmanShmaGRA() => getSofZmanShma(
+      getElevationAdjustedSunrise(), getElevationAdjustedSunset());
 
   /// This method returns the latest _zman krias shema_ (time to recite shema in the morning) that is 3 *
   /// _[getShaahZmanisMGA] shaos zmaniyos_ (solar hours) after [getAlos72], according to the
@@ -284,7 +298,8 @@ class ZmanimCalendar extends AstronomicalCalendar {
   /// _see [getCandleLightingOffset]_
   /// _see [setCandleLightingOffset]_
   DateTime getCandleLighting() => AstronomicalCalendar.getTimeOffset(
-      getSeaLevelSunset(), -getCandleLightingOffset() * AstronomicalCalendar.MINUTE_MILLIS);
+      getSeaLevelSunset(),
+      -getCandleLightingOffset() * AstronomicalCalendar.MINUTE_MILLIS);
 
   /// A generic method for calculating the latest _zman tfilah_ (time to recite the morning prayers)
   /// that is 4 * _shaos zmaniyos_ (temporal hours) after the start of the day, calculated using the start and
@@ -324,8 +339,8 @@ class ZmanimCalendar extends AstronomicalCalendar {
   /// return the <code>Date</code> of the latest zman tfilah. If the calculation can't be computed such as in the
   ///         Arctic Circle where there is at least one day a year where the sun does not rise, and one where it does
   ///         not set, a null will be returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
-  DateTime getSofZmanTfilaGRA() =>
-      getSofZmanTfila(getElevationAdjustedSunrise(), getElevationAdjustedSunset());
+  DateTime getSofZmanTfilaGRA() => getSofZmanTfila(
+      getElevationAdjustedSunrise(), getElevationAdjustedSunset());
 
   /// This method returns the latest _zman tfila_ (time to recite shema in the morning) that is 4 *
   /// _getShaahZmanisMGA] shaos zmaniyos_ (solar hours) after [getAlos72] according to the
@@ -367,7 +382,8 @@ class ZmanimCalendar extends AstronomicalCalendar {
       double shaahZmanis = getTemporalHour(startOfDay, endOfDay);
       return AstronomicalCalendar.getTimeOffset(startOfDay, shaahZmanis * 6.5);
     }
-    return getMinchaGedola(getElevationAdjustedSunrise(), getElevationAdjustedSunset());
+    return getMinchaGedola(
+        getElevationAdjustedSunrise(), getElevationAdjustedSunset());
   }
 
   /// A generic method for calculating _mincha ketana_, (the preferred time to recite the mincha prayers in
@@ -393,7 +409,8 @@ class ZmanimCalendar extends AstronomicalCalendar {
       double shaahZmanis = getTemporalHour(startOfDay, endOfDay);
       return AstronomicalCalendar.getTimeOffset(startOfDay, shaahZmanis * 9.5);
     }
-    return getMinchaKetana(getElevationAdjustedSunrise(), getElevationAdjustedSunset());
+    return getMinchaKetana(
+        getElevationAdjustedSunrise(), getElevationAdjustedSunset());
   }
 
   /// A generic method for calculating _plag hamincha_ (the earliest time that Shabbos can be started) that is
@@ -415,9 +432,11 @@ class ZmanimCalendar extends AstronomicalCalendar {
   DateTime getPlagHamincha([DateTime startOfDay, DateTime endOfDay]) {
     if (startOfDay != null && endOfDay != null) {
       double shaahZmanis = getTemporalHour(startOfDay, endOfDay);
-      return AstronomicalCalendar.getTimeOffset(startOfDay, shaahZmanis * 10.75);
+      return AstronomicalCalendar.getTimeOffset(
+          startOfDay, shaahZmanis * 10.75);
     }
-    return getPlagHamincha(getElevationAdjustedSunrise(), getElevationAdjustedSunset());
+    return getPlagHamincha(
+        getElevationAdjustedSunrise(), getElevationAdjustedSunset());
   }
 
   /// A method that returns a _shaah zmanis_ ([getTemporalHour] temporal hour) according to
@@ -436,8 +455,8 @@ class ZmanimCalendar extends AstronomicalCalendar {
   /// _see [getSeaLevelSunrise]_
   /// _see [getSeaLevelSunset]_
   /// _see [ComplexZmanimCalendar.getShaahZmanisBaalHatanya]_
-  double getShaahZmanisGra() =>
-      getTemporalHour(getElevationAdjustedSunrise(), getElevationAdjustedSunset());
+  double getShaahZmanisGra() => getTemporalHour(
+      getElevationAdjustedSunrise(), getElevationAdjustedSunset());
 
   /// A method that returns a _shaah zmanis_ (temporal hour) according to the opinion of the
   /// _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_ based on a 72 minutes _alos_
@@ -453,17 +472,6 @@ class ZmanimCalendar extends AstronomicalCalendar {
   ///         where it does not set, {@link Long#MIN_VALUE} will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
   double getShaahZmanisMGA() => getTemporalHour(getAlos72(), getTzais72());
-
-  /// Default constructor will set a default [GeoLocation.GeoLocation], a default
-  /// [AstronomicalCalculator.getDefault] AstronomicalCalculator and default the calendar to the current date.
-  ///
-  /// _see [AstronomicalCalendar.AstronomicalCalendar]_
-  ZmanimCalendar() : super();
-
-  /// A constructor that takes a [GeoLocation] as a parameter.
-  ///
-  /// [location] the location
-  ZmanimCalendar.intGeolocation(GeoLocation location) : super(geoLocation: location);
 
   /// A method to get the offset in minutes before [AstronomicalCalendar.getSeaLevelSunset] sea level sunset which
   /// is used in calculating candle lighting time. The default time used is 18 minutes before sea level sunset. Some
@@ -501,7 +509,8 @@ class ZmanimCalendar extends AstronomicalCalendar {
   /// _see [JewishCalendar.setInIsrael]_
   bool isAssurBemlacha(DateTime currentTime, DateTime tzais, bool inIsrael) {
     JewishCalendar jewishCalendar = new JewishCalendar();
-    jewishCalendar.setGregorianDate(getCalendar().year, getCalendar().month, getCalendar().day);
+    jewishCalendar.setGregorianDate(
+        getCalendar().year, getCalendar().month, getCalendar().day);
     jewishCalendar.setInIsrael(inIsrael);
 
     if (jewishCalendar.hasCandleLighting() &&
@@ -510,7 +519,8 @@ class ZmanimCalendar extends AstronomicalCalendar {
       return true;
     }
 
-    if (jewishCalendar.isAssurBemelacha() && currentTime.compareTo(tzais) <= 0) {
+    if (jewishCalendar.isAssurBemelacha() &&
+        currentTime.compareTo(tzais) <= 0) {
       //is shabbos or YT and it is before tzais
       return true;
     }

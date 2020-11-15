@@ -16,8 +16,8 @@
 
 import 'dart:core';
 
-import 'package:kosher_dart/util/astronomical_calculator.dart';
-import 'package:kosher_dart/util/geo_Location.dart';
+import 'package:kosher_dart/src/util/astronomical_calculator.dart';
+import 'package:kosher_dart/src/util/geo_Location.dart';
 
 /// A Java calendar that calculates astronomical times such as {@link #getSunrise() sunrise}, {@link #getSunset()
 /// sunset} and twilight times. This class contains a {@link #getCalendar() Calendar} and can therefore use the standard
@@ -260,7 +260,8 @@ class AstronomicalCalendar {
     if (time == null || offset == double.minPositive) {
       return null;
     }
-    return DateTime.parse(time.add(Duration(milliseconds: offset.toInt())).toIso8601String());
+    return DateTime.parse(
+        time.add(Duration(milliseconds: offset.toInt())).toIso8601String());
   }
 
   /// A utility method that returns the time of an offset by degrees below or above the horizon of
@@ -402,7 +403,9 @@ class AstronomicalCalendar {
       startOfDay = getSeaLevelSunrise();
       endOfDay = getSeaLevelSunset();
     }
-    return (endOfDay.millisecondsSinceEpoch - startOfDay.millisecondsSinceEpoch) / 12;
+    return (endOfDay.millisecondsSinceEpoch -
+            startOfDay.millisecondsSinceEpoch) /
+        12;
   }
 
   /// A method that returns sundial or solarnoon. It occurs when the Sun is <a href
@@ -444,8 +447,9 @@ class AstronomicalCalendar {
     double calculatedTime = time;
 
     DateTime adjustedCalendar = getAdjustedCalendar();
-    DateTime cal = DateTime(adjustedCalendar.year, adjustedCalendar.month, adjustedCalendar.day);
-
+    DateTime cal = DateTime(
+        adjustedCalendar.year, adjustedCalendar.month, adjustedCalendar.day);
+    cal = cal.add(cal.timeZoneOffset);
     int hours = calculatedTime.toInt(); // retain only the hours
     calculatedTime -= hours;
     int minutes = (calculatedTime *= 60).toInt(); // retain only the minutes
@@ -475,7 +479,8 @@ class AstronomicalCalendar {
   /// @see #getSunsetSolarDipFromOffset(double)
   double getSunriseSolarDipFromOffset(double minutes) {
     DateTime offsetByDegrees = getSeaLevelSunrise();
-    DateTime offsetByTime = getTimeOffset(getSeaLevelSunrise(), -(minutes * MINUTE_MILLIS));
+    DateTime offsetByTime =
+        getTimeOffset(getSeaLevelSunrise(), -(minutes * MINUTE_MILLIS));
 
     double degrees = 0;
     double incrementor = 0.0001;
@@ -499,7 +504,8 @@ class AstronomicalCalendar {
   /// @see #getSunriseSolarDipFromOffset(double)
   double getSunsetSolarDipFromOffset(double minutes) {
     DateTime offsetByDegrees = getSeaLevelSunset();
-    DateTime offsetByTime = getTimeOffset(getSeaLevelSunset(), minutes * MINUTE_MILLIS);
+    DateTime offsetByTime =
+        getTimeOffset(getSeaLevelSunset(), minutes * MINUTE_MILLIS);
     double degrees = 0;
     double incrementor = 0.001;
     while (offsetByDegrees == null || offsetByDegrees.isAfter(offsetByTime)) {
@@ -591,7 +597,8 @@ class AstronomicalCalendar {
   ///
   /// @param astronomicalCalculator
   ///            The astronomicalCalculator to set.
-  void setAstronomicalCalculator(AstronomicalCalculator astronomicalCalculator) {
+  void setAstronomicalCalculator(
+      AstronomicalCalculator astronomicalCalculator) {
     this.astronomicalCalculator = astronomicalCalculator;
   }
 

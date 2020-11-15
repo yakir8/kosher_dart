@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
-import 'package:kosher_dart/hebrewcalendar/jewish_date.dart';
-import 'package:kosher_dart/hebrewcalendar/jewish_calendar.dart';
-import 'package:kosher_dart/hebrewcalendar/hebrew_date_formatter.dart';
+import 'package:kosher_dart/kosher_dart.dart';
 
 void main() => runApp(MyApp());
 
@@ -45,8 +43,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    hebrewDateFormatter.setHebrewFormat(true);
-    hebrewDateFormatter.setUseGershGershayim(true);
+    hebrewDateFormatter.hebrewFormat = true;
+    hebrewDateFormatter.useGershGershayim = true;
     super.initState();
   }
 }

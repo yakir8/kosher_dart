@@ -16,9 +16,9 @@
 
 import 'dart:core';
 import 'dart:math';
+import 'package:kosher_dart/src/util/noaa_calculator.dart';
 import 'package:vector_math/vector_math.dart';
-import 'package:kosher_dart/util/geo_Location.dart';
-import 'package:kosher_dart/util/sun_times_calculator.dart';
+import 'package:kosher_dart/src/util/geo_Location.dart';
 
 /// An abstract class that all sun time calculating classes extend. This allows the algorithm used to be changed at
 /// runtime, easily allowing comparison the results of using different algorithms.
@@ -71,7 +71,7 @@ abstract class AstronomicalCalculator {
   /// @return AstronomicalCalculator the default class for calculating sunrise and sunset. In the current
   ///         implementation the default calculator returned is the {@link NOAACalculator}.
   static AstronomicalCalculator getDefault() {
-    return SunTimesCalculator();
+    return NOAACalculator();
   }
 
   /// Returns the name of the algorithm.
@@ -105,8 +105,8 @@ abstract class AstronomicalCalculator {
   ///         the calculation (expected behavior for some locations such as near the poles,
   ///         {@link java.lang.Double#NaN} will be returned.
   /// @see #getElevationAdjustment(double)
-  double getUTCSunrise(
-      DateTime dateTime, GeoLocation geoLocation, double zenith, bool adjustForElevation);
+  double getUTCSunrise(DateTime dateTime, GeoLocation geoLocation,
+      double zenith, bool adjustForElevation);
 
   /// A method that calculates UTC sunset as well as any time based on an angle above or below sunset. This abstract
   /// method is implemented by the classes that extend this class.
@@ -127,8 +127,8 @@ abstract class AstronomicalCalculator {
   ///         the calculation (expected behavior for some locations such as near the poles,
   ///         {@link java.lang.Double#NaN} will be returned.
   /// @see #getElevationAdjustment(double)
-  double getUTCSunset(
-      DateTime dateTime, GeoLocation geoLocation, double zenith, bool adjustForElevation);
+  double getUTCSunset(DateTime dateTime, GeoLocation geoLocation, double zenith,
+      bool adjustForElevation);
 
   /// Method to return the adjustment to the zenith required to account for the elevation. Since a person at a higher
   /// elevation can see farther below the horizon, the calculation for sunrise / sunset is calculated below the horizon
@@ -155,7 +155,8 @@ abstract class AstronomicalCalculator {
   /// @return the adjusted zenith
   double getElevationAdjustment(double elevation) {
     // double elevationAdjustment = 0.0347 * Math.sqrt(elevation);
-    double elevationAdjustment = degrees(acos(_earthRadius / (_earthRadius + (elevation / 1000))));
+    double elevationAdjustment =
+        degrees(acos(_earthRadius / (_earthRadius + (elevation / 1000))));
     return elevationAdjustment;
   }
 
@@ -188,8 +189,10 @@ abstract class AstronomicalCalculator {
     double adjustedZenith = zenith;
     if (zenith == GEOMETRIC_ZENITH) {
       // only adjust if it is exactly sunrise or sunset
-      adjustedZenith =
-          zenith + (getSolarRadius() + getRefraction() + getElevationAdjustment(elevation));
+      adjustedZenith = zenith +
+          (getSolarRadius() +
+              getRefraction() +
+              getElevationAdjustment(elevation));
     }
     return adjustedZenith;
   }

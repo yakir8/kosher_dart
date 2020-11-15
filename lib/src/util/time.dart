@@ -118,7 +118,8 @@ class Time {
     double hourMillis = (this.hours * _HOUR_MILLIS).toDouble();
     double minutesMillis = (this.minutes * _MINUTE_MILLIS).toDouble();
     double secondsMillis = (this.seconds * _SECOND_MILLIS).toDouble();
-    return (hourMillis + minutesMillis + secondsMillis + this.milliseconds).toDouble();
+    return (hourMillis + minutesMillis + secondsMillis + this.milliseconds)
+        .toDouble();
   }
 
   String toString() {

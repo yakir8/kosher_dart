@@ -60,8 +60,8 @@ class GeoLocation {
 
   /// GeoLocation constructor with parameters for all required fields.
   ///
-  /// @param name
-  ///            The location name for display use such as &quot;Lakewood, NJ&quot;
+  /// @param locationName
+  ///            The location name for display use such as "Lakewood, NJ"
   /// @param latitude
   ///            the latitude in a double format such as 40.095965 for Lakewood, NJ.
   ///            <b>Note: </b> For latitudes south of the equator, a negative value should be used.
@@ -74,9 +74,10 @@ class GeoLocation {
   ///            sunrise and set.
   /// @param timeZone
   ///            the <code>TimeZone</code> for the location.
-  GeoLocation.setLocation(String name, double latitude, double longitude, DateTime dateTime,
+  GeoLocation.setLocation(
+      String locationName, double latitude, double longitude, DateTime dateTime,
       [double elevation = 0]) {
-    setLocationName(name);
+    setLocationName(locationName);
     setLatitude(latitude: latitude);
     setLongitude(longitude: longitude);
     setElevation(elevation);
@@ -104,13 +105,21 @@ class GeoLocation {
   ///            <a href="http://en.wikipedia.org/wiki/Minute_of_arc#Cartography">seconds of arc</a>
   /// @param direction
   ///            N for north and S for south. An IllegalArgumentException will be thrown if the value is not S or N.
-  void setLatitude({int degrees, int minutes, double seconds, String direction, double latitude}) {
+  void setLatitude(
+      {int degrees,
+      int minutes,
+      double seconds,
+      String direction,
+      double latitude}) {
     if (latitude != null) {
       if (latitude > 90 || latitude < -90) {
         throw new ArgumentError("Latitude must be between -90 and  90");
       }
       this._latitude = latitude;
-    } else if (degrees == null || minutes == null || seconds == null || direction == null)
+    } else if (degrees == null ||
+        minutes == null ||
+        seconds == null ||
+        direction == null)
       throw new ArgumentError(
           "Longitude must be between 0 and  180.  Use a direction of W instead of negative.");
     else {
@@ -148,13 +157,20 @@ class GeoLocation {
   ///            An IllegalArgumentException will be thrown if
   ///            the value is not E or W.
   void setLongitude(
-      {int degrees, int minutes, double seconds, String direction, double longitude}) {
+      {int degrees,
+      int minutes,
+      double seconds,
+      String direction,
+      double longitude}) {
     if (longitude != null) {
       if (longitude > 180 || longitude < -180) {
         throw new ArgumentError("Longitude must be between -180 and  180");
       }
       this._longitude = longitude;
-    } else if (degrees == null || minutes == null || seconds == null || direction == null)
+    } else if (degrees == null ||
+        minutes == null ||
+        seconds == null ||
+        direction == null)
       throw new ArgumentError(
           "Longitude must be between 0 and  180.  Use a direction of W instead of negative.");
     else {
@@ -223,7 +239,8 @@ class GeoLocation {
   ///         East of the 15&deg; timezone line, and a negative value West of it.
   /// @since 1.1
   double getLocalMeanTimeOffset() {
-    return (getLongitude() * 4 * _MINUTE_MILLIS - getDateTime().timeZoneOffset.inMilliseconds)
+    return (getLongitude() * 4 * _MINUTE_MILLIS -
+            getDateTime().timeZoneOffset.inMilliseconds)
         .toDouble();
   }
 
@@ -343,7 +360,8 @@ class GeoLocation {
       sinAlpha = cosU1 * cosU2 * sinLambda / sinSigma;
       cosSqAlpha = 1 - sinAlpha * sinAlpha;
       cos2SigmaM = cosSigma - 2 * sinU1 * sinU2 / cosSqAlpha;
-      if (cos2SigmaM.isNaN) cos2SigmaM = 0; // equatorial line: cosSqAlpha=0 (§6)
+      if (cos2SigmaM.isNaN)
+        cos2SigmaM = 0; // equatorial line: cosSqAlpha=0 (§6)
       C = f / 16 * cosSqAlpha * (4 + f * (4 - 3 * cosSqAlpha));
       lambdaP = lambda;
       lambda = L +
@@ -351,12 +369,16 @@ class GeoLocation {
               f *
               sinAlpha *
               (sigma +
-                  C * sinSigma * (cos2SigmaM + C * cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM)));
+                  C *
+                      sinSigma *
+                      (cos2SigmaM +
+                          C * cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM)));
     }
     if (iterLimit == 0) return double.nan; // formula failed to converge
 
     double uSq = cosSqAlpha * (a * a - b * b) / (b * b);
-    double A = 1 + uSq / 16384 * (4096 + uSq * (-768 + uSq * (320 - 175 * uSq)));
+    double A =
+        1 + uSq / 16384 * (4096 + uSq * (-768 + uSq * (320 - 175 * uSq)));
     double B = uSq / 1024 * (256 + uSq * (-128 + uSq * (74 - 47 * uSq)));
     double deltaSigma = B *
         sinSigma *
@@ -372,9 +394,11 @@ class GeoLocation {
     double distance = b * A * (sigma - deltaSigma);
 
     // initial bearing
-    double fwdAz = degrees(atan2(cosU2 * sinLambda, cosU1 * sinU2 - sinU1 * cosU2 * cosLambda));
+    double fwdAz = degrees(
+        atan2(cosU2 * sinLambda, cosU1 * sinU2 - sinU1 * cosU2 * cosLambda));
     // final bearing
-    double revAz = degrees(atan2(cosU1 * sinLambda, -sinU1 * cosU2 + cosU1 * sinU2 * cosLambda));
+    double revAz = degrees(
+        atan2(cosU1 * sinLambda, -sinU1 * cosU2 + cosU1 * sinU2 * cosLambda));
     if (formula == _DISTANCE) {
       return distance;
     } else if (formula == _INITIAL_BEARING) {
@@ -410,12 +434,13 @@ class GeoLocation {
   double getRhumbLineDistance(GeoLocation location) {
     double earthRadius = 6378137; // Earth's radius in meters (WGS-84)
     double dLat = radians(location.getLatitude()) - radians(getLatitude());
-    double dLon = (radians(location.getLongitude()) - radians(getLongitude())).abs();
+    double dLon =
+        (radians(location.getLongitude()) - radians(getLongitude())).abs();
     double dPhi = log(tan(radians(location.getLatitude()) / 2 + pi / 4) /
         tan(radians(getLatitude()) / 2 + pi / 4));
     double q = dLat / dPhi;
 
-    if (!q.isFinite) {
+    if (!(q.abs() <= double.maxFinite)) {
       q = cos(radians(getLatitude()));
     }
     // if dLon over 180° take shorter rhumb across 180° meridian:
@@ -462,6 +487,7 @@ class GeoLocation {
     return sb.toString();
   }
 */
+
   /// @see java.lang.Object#equals(Object)
   bool equals(Object object) {
     if (this == object) return true;
@@ -473,11 +499,14 @@ class GeoLocation {
           (this._locationName == null
               ? geo._locationName == null
               : this._locationName == geo._locationName) &&
-          (this._dateTime == null ? geo._dateTime == null : this._dateTime == geo._dateTime);
+          (this._dateTime == null
+              ? geo._dateTime == null
+              : this._dateTime == geo._dateTime);
     } catch (e) {
       return false;
     }
   }
+
 /*
   /*
    * @see java.lang.Object#hashCode()
@@ -514,27 +543,14 @@ class GeoLocation {
     sb.append("\nTimezone DST Offset:\t\t").append(getTimeZone().getDSTSavings() / _HOUR_MILLIS);
     return sb.toString();
   }
+*/
 
-  /// An implementation of the {@link java.lang.Object#clone()} method that creates a <a
-  /// href="http://en.wikipedia.org/wiki/Object_copy#Deep_copy">deep copy</a> of the object.
-  /// <b>Note:</b> If the {@link java.util.TimeZone} in the clone will be changed from the original, it is critical
-  /// that {@link net.sourceforge.zmanim.AstronomicalCalendar#getCalendar()}.
-  /// {@link java.util.Calendar#setTimeZone(TimeZone) setTimeZone(TimeZone)} is called after cloning in order for the
-  /// AstronomicalCalendar to output times in the expected offset.
-  ///
-  /// @see java.lang.Object#clone()
-  /// @since 1.1
-  Object clone() {
-    GeoLocation clone = null;
-    try {
-      clone = (GeoLocation) super.clone();
-    } catch (CloneNotSupportedException cnse) {
-    //Required by the compiler. Should never be reached since we implement clone()
-    }
-    clone.timeZone = (TimeZone) getTimeZone().clone();
-    clone._locationName = getLocationName();
-    return clone;
+  /// Create clone of this GeoLocation
+  GeoLocation clone() {
+    return GeoLocation.setLocation(
+        this.getLocationName(),
+        this.getLatitude(),
+        this.getLongitude(),
+        DateTime.parse(this.getDateTime().toIso8601String()));
   }
-
- */
 }

@@ -18,9 +18,13 @@
 ///
 /// @author &copy; Eliyahu Hershfeld 2011 - 2019
 class Daf {
+  /// {@link #getMasechtaNumber()} and {@link #setMasechtaNumber(int)}.
   int _masechtaNumber;
+
+  /// See {@link #getDaf()} and {@link #setDaf(int)}.
   int _daf;
 
+  /// See {@link #getMasechtaTransliterated()} and {@link #setMasechtaTransliterated(String[])}.
   static List<String> _masechtosBavliTransliterated = [
     "Berachos",
     "Shabbos",
@@ -64,6 +68,7 @@ class Daf {
     "Niddah"
   ];
 
+  /// See {@link #getMasechta()}.
   static List<String> _masechtosBavli = [
     "\u05D1\u05E8\u05DB\u05D5\u05EA",
     "\u05E9\u05D1\u05EA",
@@ -107,6 +112,7 @@ class Daf {
     "\u05E0\u05D3\u05D4"
   ];
 
+  /// See {@link #getYerushlmiMasechtaTransliterated()}.
   static List<String> _masechtosYerushalmiTransliterated = [
     "Berachos",
     "Pe'ah",
@@ -150,6 +156,7 @@ class Daf {
     "No Daf Today"
   ];
 
+  /// See {@link #getYerushalmiMasechta()}.
   static List<String> _masechtosYerushlmi = [
     "\u05d1\u05e8\u05db\u05d5\u05ea",
     "\u05e4\u05d9\u05d0\u05d4",

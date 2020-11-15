@@ -174,8 +174,10 @@ class Zman {
   /// Please note that this class will will sort cases where either the {@code Zman} is a null or {@link #label} returns a null
   /// as empty {@code String}s.
   static final Comparator<Zman> nameOrder = (Zman zman1, Zman zman2) {
-    String firstLabel = (zman1 == null || zman1.getLabel() == null) ? "" : zman1.getLabel();
-    String secondLabel = (zman2 == null || zman2.getLabel() == null) ? "" : zman2.getLabel();
+    String firstLabel =
+        (zman1 == null || zman1.getLabel() == null) ? "" : zman1.getLabel();
+    String secondLabel =
+        (zman2 == null || zman2.getLabel() == null) ? "" : zman2.getLabel();
     return firstLabel.compareTo(secondLabel);
   };
 
@@ -186,9 +188,13 @@ class Zman {
   /// integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second.
   /// Please note that this class will will sort cases where {@code Zman} is a null.
   static final Comparator<Zman> durationOrder = (Zman zman1, Zman zman2) {
-    double firstDuration = zman1 == null ? double.maxFinite : zman1.getDuration();
-    double secondDuration = zman2 == null ? double.maxFinite : zman2.getDuration();
-    return firstDuration == secondDuration ? 0 : firstDuration > secondDuration ? 1 : -1;
+    double firstDuration =
+        zman1 == null ? double.maxFinite : zman1.getDuration();
+    double secondDuration =
+        zman2 == null ? double.maxFinite : zman2.getDuration();
+    return firstDuration == secondDuration
+        ? 0
+        : firstDuration > secondDuration ? 1 : -1;
   };
 
   /// @see java.lang.Object#toString()
@@ -201,7 +207,7 @@ class Zman {
     sb.write("\nDuration:\t\t\t");
     sb.write(getDuration());
     sb.write("\nDescription:\t\t\t");
-    sb.write(getDuration());
+    sb.write(getDescription());
     return sb.toString();
   }
 }

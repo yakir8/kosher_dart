@@ -16,8 +16,8 @@
 
 import 'dart:core';
 
-import 'package:kosher_dart/hebrewcalendar/daf.dart';
-import 'package:kosher_dart/hebrewcalendar/jewish_calendar.dart';
+import 'package:kosher_dart/src/hebrewcalendar/daf.dart';
+import 'package:kosher_dart/src/hebrewcalendar/jewish_calendar.dart';
 
 /// This class calculates the <a href="https://en.wikipedia.org/wiki/Jerusalem_Talmud">Yerusalmi</a> <a href=
 /// "https://en.wikipedia.org/wiki/Daf_Yomi">Daf Yomi</a> page ({@link Daf}) for the a given date.
@@ -108,8 +108,9 @@ class YerushalmiYomiCalculator {
       prevCycle = DateTime.parse(nextCycle.toIso8601String());
 
       // Adds the number of whole shas dafs. and the number of days that not have daf.
-      nextCycle.add(Duration(days: WHOLE_SHAS_DAFS));
-      nextCycle.add(Duration(days: _getNumOfSpecialDays(prevCycle, nextCycle)));
+      nextCycle = nextCycle.add(Duration(days: WHOLE_SHAS_DAFS));
+      nextCycle = nextCycle
+          .add(Duration(days: _getNumOfSpecialDays(prevCycle, nextCycle)));
     }
 
     // Get the number of days from cycle start until request.

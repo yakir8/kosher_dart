@@ -16,7 +16,7 @@
 
 import 'dart:math';
 import 'package:vector_math/vector_math.dart';
-import 'package:kosher_dart/util/geo_Location.dart';
+import 'package:kosher_dart/src/util/geo_Location.dart';
 
 /// A class for various location calculations
 /// Most of the code in this class is ported from <a href="http://www.movable-type.co.uk/">Chris Veness'</a>
@@ -39,7 +39,8 @@ class GeoLocationUtils {
   /// @param destination
   ///            the destination location
   /// @return the geodesic bearing
-  static double getGeodesicInitialBearing(GeoLocation location, GeoLocation destination) {
+  static double getGeodesicInitialBearing(
+      GeoLocation location, GeoLocation destination) {
     return _vincentyFormula(location, destination, _INITIAL_BEARING);
   }
 
@@ -53,7 +54,8 @@ class GeoLocationUtils {
   /// @param destination
   ///            the destination location
   /// @return the geodesic bearing
-  static double getGeodesicFinalBearing(GeoLocation location, GeoLocation destination) {
+  static double getGeodesicFinalBearing(
+      GeoLocation location, GeoLocation destination) {
     return _vincentyFormula(location, destination, _FINAL_BEARING);
   }
 
@@ -69,7 +71,8 @@ class GeoLocationUtils {
   /// @param destination
   ///            the destination location
   /// @return the geodesic distance in Meters
-  static double getGeodesicDistance(GeoLocation location, GeoLocation destination) {
+  static double getGeodesicDistance(
+      GeoLocation location, GeoLocation destination) {
     return _vincentyFormula(location, destination, _DISTANCE);
   }
 
@@ -92,7 +95,8 @@ class GeoLocationUtils {
   /// @see #getGeodesicDistance(GeoLocation, GeoLocation)
   /// @see #getGeodesicInitialBearing(GeoLocation, GeoLocation)
   /// @see #getGeodesicFinalBearing(GeoLocation, GeoLocation)
-  static double _vincentyFormula(GeoLocation location, GeoLocation destination, int formula) {
+  static double _vincentyFormula(
+      GeoLocation location, GeoLocation destination, int formula) {
     double a =
         6378137; // length of semi-major axis of the ellipsoid (radius at equator) in metres based on WGS-84
     double b =
@@ -101,11 +105,11 @@ class GeoLocationUtils {
     double L = radians(destination.getLongitude() -
         location.getLongitude()); //difference in longitude of two points;
     double u1 = atan((1 - f) *
-        tan(radians(
-            location.getLatitude()))); // reduced latitude (latitude on the auxiliary sphere)
+        tan(radians(location
+            .getLatitude()))); // reduced latitude (latitude on the auxiliary sphere)
     double u2 = atan((1 - f) *
-        tan(radians(
-            destination.getLatitude()))); // reduced latitude (latitude on the auxiliary sphere)
+        tan(radians(destination
+            .getLatitude()))); // reduced latitude (latitude on the auxiliary sphere)
 
     double sinU1 = sin(u1), cosU1 = cos(u1);
     double sinU2 = sin(u2), cosU2 = cos(u2);
@@ -134,7 +138,8 @@ class GeoLocationUtils {
       sinAlpha = cosU1 * cosU2 * sinLambda / sinSigma;
       cosSqAlpha = 1 - sinAlpha * sinAlpha;
       cos2SigmaM = cosSigma - 2 * sinU1 * sinU2 / cosSqAlpha;
-      if (cos2SigmaM.isNaN) cos2SigmaM = 0; // equatorial line: cosSqAlpha=0 (§6)
+      if (cos2SigmaM.isNaN)
+        cos2SigmaM = 0; // equatorial line: cosSqAlpha=0 (§6)
       C = f / 16 * cosSqAlpha * (4 + f * (4 - 3 * cosSqAlpha));
       lambdaP = lambda;
       lambda = L +
@@ -142,12 +147,16 @@ class GeoLocationUtils {
               f *
               sinAlpha *
               (sigma +
-                  C * sinSigma * (cos2SigmaM + C * cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM)));
+                  C *
+                      sinSigma *
+                      (cos2SigmaM +
+                          C * cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM)));
     }
     if (iterLimit == 0) return double.nan; // formula failed to converge
 
     double uSq = cosSqAlpha * (a * a - b * b) / (b * b);
-    double A = 1 + uSq / 16384 * (4096 + uSq * (-768 + uSq * (320 - 175 * uSq)));
+    double A =
+        1 + uSq / 16384 * (4096 + uSq * (-768 + uSq * (320 - 175 * uSq)));
     double B = uSq / 1024 * (256 + uSq * (-128 + uSq * (74 - 47 * uSq)));
     double deltaSigma = B *
         sinSigma *
@@ -163,9 +172,11 @@ class GeoLocationUtils {
     double distance = b * A * (sigma - deltaSigma);
 
     // initial bearing
-    double fwdAz = degrees(atan2(cosU2 * sinLambda, cosU1 * sinU2 - sinU1 * cosU2 * cosLambda));
+    double fwdAz = degrees(
+        atan2(cosU2 * sinLambda, cosU1 * sinU2 - sinU1 * cosU2 * cosLambda));
     // final bearing
-    double revAz = degrees(atan2(cosU1 * sinLambda, -sinU1 * cosU2 + cosU1 * sinU2 * cosLambda));
+    double revAz = degrees(
+        atan2(cosU1 * sinLambda, -sinU1 * cosU2 + cosU1 * sinU2 * cosLambda));
     if (formula == _DISTANCE) {
       return distance;
     } else if (formula == _INITIAL_BEARING) {
@@ -186,7 +197,8 @@ class GeoLocationUtils {
   /// @param destination
   ///            the destination location
   /// @return the bearing in degrees
-  static double getRhumbLineBearing(GeoLocation location, GeoLocation destination) {
+  static double getRhumbLineBearing(
+      GeoLocation location, GeoLocation destination) {
     double dLon = radians(destination.getLongitude() - location.getLongitude());
     double dPhi = log(tan(radians(destination.getLatitude()) / 2 + pi / 4) /
         tan(radians(location.getLatitude()) / 2 + pi / 4));
@@ -202,10 +214,14 @@ class GeoLocationUtils {
   /// @param destination
   ///            the destination location
   /// @return the distance in Meters
-  static double getRhumbLineDistance(GeoLocation location, GeoLocation destination) {
+  static double getRhumbLineDistance(
+      GeoLocation location, GeoLocation destination) {
     double earthRadius = 6378137; // Earth's radius in meters (WGS-84)
-    double dLat = radians(location.getLatitude()) - radians(destination.getLatitude());
-    double dLon = (radians(location.getLongitude()) - radians(destination.getLongitude())).abs();
+    double dLat =
+        radians(location.getLatitude()) - radians(destination.getLatitude());
+    double dLon =
+        (radians(location.getLongitude()) - radians(destination.getLongitude()))
+            .abs();
     double dPhi = log(tan(radians(location.getLatitude()) / 2 + pi / 4) /
         tan(radians(destination.getLatitude()) / 2 + pi / 4));
     double q = dLat / dPhi;
