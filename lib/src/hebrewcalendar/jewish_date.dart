@@ -1226,7 +1226,9 @@ class JewishDate implements Comparable<JewishDate> {
   int compareTo(JewishDate jewishDate) {
     return _gregorianAbsDate < jewishDate.getAbsDate()
         ? -1
-        : _gregorianAbsDate > jewishDate.getAbsDate() ? 1 : 0;
+        : _gregorianAbsDate > jewishDate.getAbsDate()
+            ? 1
+            : 0;
   }
 
   /// Returns the Gregorian month (between 0-11).

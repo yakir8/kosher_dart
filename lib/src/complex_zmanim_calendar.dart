@@ -116,7 +116,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// before the equinox, the day that a solar hour is 60 minutes.
   ///
   /// _see [getTzaisGeonim3Point7Degrees]_
-  static const double ZENITH_3_POINT_7 = AstronomicalCalculator.GEOMETRIC_ZENITH + 3.7;
+  static const double ZENITH_3_POINT_7 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 3.7;
 
   /// The zenith of 3.8° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _tzais_ (nightfall) based on the opinion of the _Geonim_ that _tzais_ is the
@@ -125,7 +126,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// before the equinox, the day that a solar hour is 60 minutes.
   ///
   /// _see [getTzaisGeonim3Point8Degrees]_
-  static const double ZENITH_3_POINT_8 = AstronomicalCalculator.GEOMETRIC_ZENITH + 3.8;
+  static const double ZENITH_3_POINT_8 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 3.8;
 
   /// The zenith of 5.95° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _tzais_ (nightfall) according to some opinions. This calculation is based on the position of
@@ -133,7 +135,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// hour is 60 minutes, which calculates to 5.95° below [GEOMETRIC_ZENITH] geometric zenith.
   ///
   /// _see [getTzaisGeonim5Point95Degrees]_
-  static const double ZENITH_5_POINT_95 = AstronomicalCalculator.GEOMETRIC_ZENITH + 5.95;
+  static const double ZENITH_5_POINT_95 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 5.95;
 
   /// The zenith of 7.083° below [GEOMETRIC_ZENITH] geometric zenith (90°). This is often referred to as
   /// 7°5' or 7° and 5 minutes. This calculation is used for calculating _alos_ (dawn) and
@@ -148,7 +151,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// _see [getTzaisGeonim7Point083Degrees]_
   /// _see [getBainHasmashosRT13Point5MinutesBefore7Point083Degrees]_
-  static const double ZENITH_7_POINT_083 = AstronomicalCalculator.GEOMETRIC_ZENITH + 7 + (5.0 / 60);
+  static const double ZENITH_7_POINT_083 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 7 + (5.0 / 60);
 
   /// The zenith of 10.2° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _misheyakir_ according to some opinions. This calculation is based on the position of the sun
@@ -156,7 +160,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// that a solar hour is 60 minutes which calculates to 10.2° below [GEOMETRIC_ZENITH] geometric zenith.
   ///
   /// _see [getMisheyakir10Point2Degrees]_
-  static const double ZENITH_10_POINT_2 = AstronomicalCalculator.GEOMETRIC_ZENITH + 10.2;
+  static const double ZENITH_10_POINT_2 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 10.2;
 
   /// The zenith of 11° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _misheyakir_ according to some opinions. This calculation is based on the position of the sun
@@ -164,7 +169,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// that a solar hour is 60 minutes which calculates to 11° below [GEOMETRIC_ZENITH] geometric zenith
   ///
   /// _see [getMisheyakir11Degrees]_
-  static const double ZENITH_11_DEGREES = AstronomicalCalculator.GEOMETRIC_ZENITH + 11;
+  static const double ZENITH_11_DEGREES =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 11;
 
   /// The zenith of 11.5° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _misheyakir_ according to some opinions. This calculation is based on the position of the sun
@@ -172,7 +178,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// that a solar hour is 60 minutes which calculates to 11.5° below [GEOMETRIC_ZENITH] geometric zenith
   ///
   /// _see [getMisheyakir11Point5Degrees]_
-  static const double ZENITH_11_POINT_5 = AstronomicalCalculator.GEOMETRIC_ZENITH + 11.5;
+  static const double ZENITH_11_POINT_5 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 11.5;
 
   /// The zenith of 13.24° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _Rabbeinu Tam's bain hashmashos_ according to some opinions.
@@ -180,14 +187,16 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// _see [getBainHasmashosRT13Point24Degrees]_
   ///
-  static const double ZENITH_13_POINT_24 = AstronomicalCalculator.GEOMETRIC_ZENITH + 13.24;
+  static const double ZENITH_13_POINT_24 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 13.24;
 
   /// The zenith of 19° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _alos_ according to some opinions.
   ///
   /// _see [getAlos19Degrees]_
   /// _see [getAlos18Degrees]_
-  static const double ZENITH_19_DEGREES = AstronomicalCalculator.GEOMETRIC_ZENITH + 19;
+  static const double ZENITH_19_DEGREES =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 19;
 
   /// The zenith of 19.8° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _alos_ (dawn) and _tzais_ (nightfall) according to some opinions. This calculation is
@@ -198,7 +207,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getAlos19Point8Degrees]_
   /// _see [getAlos90]_
   /// _see [getTzais90]_
-  static const double ZENITH_19_POINT_8 = AstronomicalCalculator.GEOMETRIC_ZENITH + 19.8;
+  static const double ZENITH_19_POINT_8 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 19.8;
 
   /// The zenith of 26° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _alos_ (dawn) and _tzais_ (nightfall) according to some opinions. This calculation is
@@ -210,7 +220,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getTzais26Degrees]_
   /// _see [getAlos120]_
   /// _see [getTzais120]_
-  static const double ZENITH_26_DEGREES = AstronomicalCalculator.GEOMETRIC_ZENITH + 26.0;
+  static const double ZENITH_26_DEGREES =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 26.0;
 
   /// The zenith of 4.37° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _tzais_ (nightfall) according to some opinions. This calculation is based on the position of
@@ -219,7 +230,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// to 4.37° below [GEOMETRIC_ZENITH] geometric zenith
   ///
   /// _see [getTzaisGeonim4Point37Degrees]_
-  static const double ZENITH_4_POINT_37 = AstronomicalCalculator.GEOMETRIC_ZENITH + 4.37;
+  static const double ZENITH_4_POINT_37 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 4.37;
 
   /// The zenith of 4.61° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _tzais_ (nightfall) according to some opinions. This calculation is based on the position of
@@ -228,12 +240,14 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// below [GEOMETRIC_ZENITH] geometric zenith
   ///
   /// _see [getTzaisGeonim4Point61Degrees]_
-  static const double ZENITH_4_POINT_61 = AstronomicalCalculator.GEOMETRIC_ZENITH + 4.61;
+  static const double ZENITH_4_POINT_61 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 4.61;
 
   /// The zenith of 5.88° below [GEOMETRIC_ZENITH] geometric zenith (90°).
   /// todo Add more documentation.
   /// _see [getTzaisGeonim4Point8Degrees]_
-  static const double ZENITH_4_POINT_8 = AstronomicalCalculator.GEOMETRIC_ZENITH + 4.8;
+  static const double ZENITH_4_POINT_8 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 4.8;
 
   /// The zenith of 3.65° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _tzais_ (nightfall) according to some opinions. This calculation is based on the position of
@@ -242,15 +256,18 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// 3.65° below [GEOMETRIC_ZENITH] geometric zenith
   ///
   /// _see [getTzaisGeonim3Point65Degrees]_
-  static const double ZENITH_3_POINT_65 = AstronomicalCalculator.GEOMETRIC_ZENITH + 3.65;
+  static const double ZENITH_3_POINT_65 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 3.65;
 
   /// The zenith of 3.676° below [GEOMETRIC_ZENITH] geometric zenith (90°).
   /// todo Add more documentation.
-  static const double ZENITH_3_POINT_676 = AstronomicalCalculator.GEOMETRIC_ZENITH + 3.676;
+  static const double ZENITH_3_POINT_676 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 3.676;
 
   /// The zenith of 5.88° below [GEOMETRIC_ZENITH] geometric zenith (90°).
   /// todo Add more documentation.
-  static const double ZENITH_5_POINT_88 = AstronomicalCalculator.GEOMETRIC_ZENITH + 5.88;
+  static const double ZENITH_5_POINT_88 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 5.88;
 
   /// The zenith of 1.583° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _netz amiti_ (sunrise) and _shkiah amiti_ (sunset) based on the opinion of the
@@ -258,7 +275,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// _see [getSunriseBaalHatanya]_
   /// _see [getSunsetBaalHatanya]_
-  static const double ZENITH_1_POINT_583 = AstronomicalCalculator.GEOMETRIC_ZENITH + 1.583;
+  static const double ZENITH_1_POINT_583 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 1.583;
 
   /// The zenith of 16.9° below geometric zenith (90°). This calculation is used for determining _alos_
   /// (dawn) based on the opinion of the _Baal Hatanya_. It is based on the calculation that the time between dawn
@@ -269,7 +287,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// [GEOMETRIC_ZENITH] geometric zenith.
   ///
   /// _see [getAlosBaalHatanya]_
-  static const double ZENITH_16_POINT_9 = AstronomicalCalculator.GEOMETRIC_ZENITH + 16.9;
+  static const double ZENITH_16_POINT_9 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 16.9;
 
   /// The zenith of 6° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for calculating
   /// _tzais_ (nightfall) based on the opinion of the _Baal Hatanya_. This calculation is based on the position
@@ -277,7 +296,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// that a solar hour is 60 minutes, which is 6° below [GEOMETRIC_ZENITH] geometric zenith.
   ///
   /// _see [getTzaisBaalHatanya]_
-  static const double ZENITH_6_DEGREES = AstronomicalCalculator.GEOMETRIC_ZENITH + 6;
+  static const double ZENITH_6_DEGREES =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 6;
 
   /// The zenith of 6.45° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _tzais_ (nightfall) according to some opinions. This is based on the calculations of
@@ -287,37 +307,43 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// [GEOMETRIC_ZENITH] geometric zenith.
   ///
   /// _see #[getTzaisGeonim6Point45Degrees]_
-  static const double ZENITH_6_POINT_45 = AstronomicalCalculator.GEOMETRIC_ZENITH + 6.45;
+  static const double ZENITH_6_POINT_45 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 6.45;
 
   /// The zenith of 7.65° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _misheyakir_ according to some opinions.
   ///
   /// _see [getMisheyakir7Point65Degrees]_
-  static const double ZENITH_7_POINT_65 = AstronomicalCalculator.GEOMETRIC_ZENITH + 7.65;
+  static const double ZENITH_7_POINT_65 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 7.65;
 
   /// The zenith of 7.67° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _tzais_ according to some opinions.
   ///
   /// _see [getMisheyakir7Point65Degrees]_
-  static const double ZENITH_7_POINT_67 = AstronomicalCalculator.GEOMETRIC_ZENITH + 7.67;
+  static const double ZENITH_7_POINT_67 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 7.67;
 
   /// The zenith of 9.3° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _tzais_ (nightfall) according to some opinions.
   ///
   /// _see [getTzaisGeonim9Point3Degrees]_
-  static const double ZENITH_9_POINT_3 = AstronomicalCalculator.GEOMETRIC_ZENITH + 9.3;
+  static const double ZENITH_9_POINT_3 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 9.3;
 
   /// The zenith of 9.5° below [[GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _misheyakir_ according to some opinions.
   ///
   /// _see [getMisheyakir9Point5Degrees]_
-  static const double ZENITH_9_POINT_5 = AstronomicalCalculator.GEOMETRIC_ZENITH + 9.5;
+  static const double ZENITH_9_POINT_5 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 9.5;
 
   /// The zenith of 9.75° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for
   /// calculating _alos_ (dawn) and _tzais_ (nightfall) according to some opinions.
   ///
   /// _see [getTzaisGeonim9Point75Degrees]_
-  static const double ZENITH_9_POINT_75 = AstronomicalCalculator.GEOMETRIC_ZENITH + 9.75;
+  static const double ZENITH_9_POINT_75 =
+      AstronomicalCalculator.GEOMETRIC_ZENITH + 9.75;
 
   /// The offset in minutes (defaults to 40) after sunset used for _tzeit_ for Ateret Torah calculations.
   /// _see [getTzaisAteretTorah]_
@@ -337,7 +363,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     "Ra'anana": -15,
   };
 
-  ComplexZmanimCalendar.intGeoLocation(GeoLocation location) : super.intGeolocation(location);
+  ComplexZmanimCalendar.intGeoLocation(GeoLocation location)
+      : super.intGeolocation(location);
 
   /// Default constructor will set a default [GeoLocation], a default
   /// [AstronomicalCalculator.getDefault] AstronomicalCalculator and default the calendar to the current date.
@@ -370,7 +397,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         such as northern and southern locations even south of the Arctic Circle and north of the Antarctic Circle
   ///         where the sun may not reach low enough below the horizon for this calculation, a double.minPositive
   ///         will be returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
-  double getShaahZmanis18Degrees() => getTemporalHour(getAlos18Degrees(), getTzais18Degrees());
+  double getShaahZmanis18Degrees() =>
+      getTemporalHour(getAlos18Degrees(), getTzais18Degrees());
 
   /// Method to return a _shaah zmanis_ (temporal hour) calculated using a dip of 26°. This calculation
   /// divides the day based on the opinion of the _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_
@@ -383,7 +411,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         such as northern and southern locations even south of the Arctic Circle and north of the Antarctic Circle
   ///         where the sun may not reach low enough below the horizon for this calculation, a double.minPositive
   ///         will be returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
-  double getShaahZmanis26Degrees() => getTemporalHour(getAlos26Degrees(), getTzais26Degrees());
+  double getShaahZmanis26Degrees() =>
+      getTemporalHour(getAlos26Degrees(), getTzais26Degrees());
 
   /// Method to return a _shaah zmanis_ (temporal hour) calculated using a dip of 16.1°. This calculation
   /// divides the day based on the opinion that the day runs from dawn to dusk. Dawn for this calculation is when the
@@ -417,7 +446,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         such as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one
   ///         where it does not set, a double.minPositive will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
-  double getShaahZmanis60Minutes() => getTemporalHour(getAlos60(), getTzais60());
+  double getShaahZmanis60Minutes() =>
+      getTemporalHour(getAlos60(), getTzais60());
 
   /// Method to return a _shaah zmanis_ (solar hour) according to the opinion of the
   /// _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_. This calculation
@@ -446,7 +476,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         [AstronomicalCalendar] documentation.
   /// _see [getAlos72Zmanis]_
   /// _see [getTzais72Zmanis]_
-  double getShaahZmanis72MinutesZmanis() => getTemporalHour(getAlos72Zmanis(), getTzais72Zmanis());
+  double getShaahZmanis72MinutesZmanis() =>
+      getTemporalHour(getAlos72Zmanis(), getTzais72Zmanis());
 
   /// Method to return a _shaah zmanis_ (temporal hour) calculated using a dip of 90 minutes. This calculation
   /// divides the day based on the opinion of the _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_
@@ -458,7 +489,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         such as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one
   ///         where it does not set, a double.minPositive will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
-  double getShaahZmanis90Minutes() => getTemporalHour(getAlos90(), getTzais90());
+  double getShaahZmanis90Minutes() =>
+      getTemporalHour(getAlos90(), getTzais90());
 
   /// Method to return a _shaah zmanis_ (temporal hour) according to the opinion of the
   /// _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_ based on
@@ -474,7 +506,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         [AstronomicalCalendar] documentation.
   /// _see [getAlos90Zmanis]_
   /// _see [getTzais90Zmanis]_
-  double getShaahZmanis90MinutesZmanis() => getTemporalHour(getAlos90Zmanis(), getTzais90Zmanis());
+  double getShaahZmanis90MinutesZmanis() =>
+      getTemporalHour(getAlos90Zmanis(), getTzais90Zmanis());
 
   /// Method to return a _shaah zmanis_ (temporal hour) according to the opinion of the
   /// _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_ based on
@@ -490,7 +523,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         [AstronomicalCalendar] documentation.
   /// _see [getAlos96Zmanis]_
   /// _see [getTzais96Zmanis]_
-  double getShaahZmanis96MinutesZmanis() => getTemporalHour(getAlos96Zmanis(), getTzais96Zmanis());
+  double getShaahZmanis96MinutesZmanis() =>
+      getTemporalHour(getAlos96Zmanis(), getTzais96Zmanis());
 
   /// Method to return a _shaah zmanis_ (temporal hour) according to the opinion of the
   /// _Chacham Yosef Harari-Raful_ of _Yeshivat Ateret Torah_ calculated with _alos_ being 1/10th
@@ -509,7 +543,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getTzaisAteretTorah]_
   /// _see [getAteretTorahSunsetOffset]_
   /// _see [setAteretTorahSunsetOffset]_
-  double getShaahZmanisAteretTorah() => getTemporalHour(getAlos72Zmanis(), getTzaisAteretTorah());
+  double getShaahZmanisAteretTorah() =>
+      getTemporalHour(getAlos72Zmanis(), getTzaisAteretTorah());
 
   /// Method to return a _shaah zmanis_ (temporal hour) calculated using a dip of 96 minutes. This calculation
   /// divides the day based on the opinion of the _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_
@@ -521,7 +556,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         such as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one
   ///         where it does not set, a double.minPositive will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
-  double getShaahZmanis96Minutes() => getTemporalHour(getAlos96(), getTzais96());
+  double getShaahZmanis96Minutes() =>
+      getTemporalHour(getAlos96(), getTzais96());
 
   /// Method to return a _shaah zmanis_ (temporal hour) calculated using a dip of 120 minutes. This calculation
   /// divides the day based on the opinion of the _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_
@@ -533,7 +569,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         such as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one
   ///         where it does not set, a double.minPositive will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
-  double getShaahZmanis120Minutes() => getTemporalHour(getAlos120(), getTzais120());
+  double getShaahZmanis120Minutes() =>
+      getTemporalHour(getAlos120(), getTzais120());
 
   /// Method to return a _shaah zmanis_ (temporal hour) according to the opinion of the
   /// _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_ based on
@@ -576,7 +613,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         [AstronomicalCalendar] documentation.
   ///
   /// see #getShaahZmanis120Minutes]
-  DateTime getPlagHamincha120Minutes() => getPlagHamincha(getAlos120(), getTzais120());
+  DateTime getPlagHamincha120Minutes() =>
+      getPlagHamincha(getAlos120(), getTzais120());
 
   /// Method to return _alos_ (dawn) calculated as 60 minutes before sunrise. This is the time to walk the
   /// distance of 4 _Mil_ at 15 minutes a _Mil_. This seems to be the opinion of the
@@ -604,8 +642,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         documentation.
   ///
   /// _see [getTzaisGeonim9Point75Degrees]
-  DateTime getAlos60() =>
-      AstronomicalCalendar.getTimeOffset(getSunrise(), -60 * AstronomicalCalendar.MINUTE_MILLIS);
+  DateTime getAlos60() => AstronomicalCalendar.getTimeOffset(
+      getSunrise(), -60 * AstronomicalCalendar.MINUTE_MILLIS);
 
   /// Method to return _alos_ (dawn) calculated using 72 minutes _zmaniyos_ or 1/10th of the day before
   /// sunrise. This is based on an 18 minute _Mil_ so the time for 4 _Mil_ is 72 minutes which is 1/10th
@@ -625,7 +663,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     if (shaahZmanis == double.minPositive) {
       return null;
     }
-    return AstronomicalCalendar.getTimeOffset(getElevationAdjustedSunrise(), (shaahZmanis * -1.2));
+    return AstronomicalCalendar.getTimeOffset(
+        getElevationAdjustedSunrise(), (shaahZmanis * -1.2));
   }
 
   /// Method to return _alos_ (dawn) calculated using 96 minutes before before [getSunrise] sunrise or
@@ -660,7 +699,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     if (shaahZmanis == double.minPositive) {
       return null;
     }
-    return AstronomicalCalendar.getTimeOffset(getElevationAdjustedSunrise(), (shaahZmanis * -1.5));
+    return AstronomicalCalendar.getTimeOffset(
+        getElevationAdjustedSunrise(), (shaahZmanis * -1.5));
   }
 
   /// This method returns _alos_ (dawn) calculated using 96 minutes _zmaniyos_ or 1/7.5th of the day before
@@ -681,7 +721,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     if (shaahZmanis == double.minPositive) {
       return null;
     }
-    return AstronomicalCalendar.getTimeOffset(getElevationAdjustedSunrise(), (shaahZmanis * -1.6));
+    return AstronomicalCalendar.getTimeOffset(
+        getElevationAdjustedSunrise(), (shaahZmanis * -1.6));
   }
 
   /// Method to return _alos_ (dawn) calculated using 90 minutes before [getSeaLevelSunrise] sea level
@@ -729,7 +770,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     if (shaahZmanis == double.minPositive) {
       return null;
     }
-    return AstronomicalCalendar.getTimeOffset(getElevationAdjustedSunrise(), shaahZmanis * -2);
+    return AstronomicalCalendar.getTimeOffset(
+        getElevationAdjustedSunrise(), shaahZmanis * -2);
   }
 
   /// A method to return _alos_ (dawn) calculated when the sun is [ZENITH_26_DEGREES] 26° below the
@@ -786,7 +828,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         explanation on top of the [AstronomicalCalendar] documentation.
   /// _see [ZENITH_19_POINT_8]_
   /// _see [getAlos90]_
-  DateTime getAlos19Point8Degrees() => getSunriseOffsetByDegrees(ZENITH_19_POINT_8);
+  DateTime getAlos19Point8Degrees() =>
+      getSunriseOffsetByDegrees(ZENITH_19_POINT_8);
 
   /// Method to return _alos_ (dawn) calculated when the sun is [ZENITH_16_POINT_1] 16.1° below the
   /// eastern geometric horizon before sunrise. This calculation is based on the same calculation of
@@ -801,7 +844,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         explanation on top of the [AstronomicalCalendar] documentation.
   /// _see [ZENITH_16_POINT_1]
   /// _see [getAlos72]
-  DateTime getAlos16Point1Degrees() => getSunriseOffsetByDegrees(ZmanimCalendar.ZENITH_16_POINT_1);
+  DateTime getAlos16Point1Degrees() =>
+      getSunriseOffsetByDegrees(ZmanimCalendar.ZENITH_16_POINT_1);
 
   /// This method returns _misheyakir_ based on the position of the sun when it is [ZENITH_11_DEGREES]
   /// 11.5° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for calculating
@@ -815,7 +859,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         not reach low enough below the horizon for this calculation, a null will be returned. See detailed
   ///         explanation on top of the [AstronomicalCalendar] documentation.
   /// _see [ZENITH_11_POINT_5]_
-  DateTime getMisheyakir11Point5Degrees() => getSunriseOffsetByDegrees(ZENITH_11_POINT_5);
+  DateTime getMisheyakir11Point5Degrees() =>
+      getSunriseOffsetByDegrees(ZENITH_11_POINT_5);
 
   /// This method returns _misheyakir_ based on the position of the sun when it is [ZENITH_11_DEGREES]
   /// 11° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for calculating
@@ -829,7 +874,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         this calculation, a null will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
   /// _see [ZENITH_11_DEGREES]_
-  DateTime getMisheyakir11Degrees() => getSunriseOffsetByDegrees(ZENITH_11_DEGREES);
+  DateTime getMisheyakir11Degrees() =>
+      getSunriseOffsetByDegrees(ZENITH_11_DEGREES);
 
   /// This method returns _misheyakir_ based on the position of the sun when it is [ZENITH_10_POINT_2]
   /// 10.2° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is used for calculating
@@ -843,7 +889,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         the sun may not reach low enough below the horizon for this calculation, a null will be returned. See
   ///         detailed explanation on top of the [AstronomicalCalendar] documentation.
   /// _see [ZENITH_10_POINT_2]_
-  DateTime getMisheyakir10Point2Degrees() => getSunriseOffsetByDegrees(ZENITH_10_POINT_2);
+  DateTime getMisheyakir10Point2Degrees() =>
+      getSunriseOffsetByDegrees(ZENITH_10_POINT_2);
 
   /// This method returns _misheyakir_ based on the position of the sun when it is [ZENITH_7_POINT_65]
   /// 7.65° below [GEOMETRIC_ZENITH] geometric zenith (90°). The degrees are based on a 35/36 minute zman
@@ -871,7 +918,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// _see [ZENITH_7_POINT_65]_
   /// _see [getMisheyakir9Point5Degrees]_
-  DateTime getMisheyakir7Point65Degrees() => getSunriseOffsetByDegrees(ZENITH_7_POINT_65);
+  DateTime getMisheyakir7Point65Degrees() =>
+      getSunriseOffsetByDegrees(ZENITH_7_POINT_65);
 
   /// This method returns _misheyakir_ based on the position of the sun when it is [ZENITH_9_POINT_5]
   /// 9.5° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is based on Rabbi Dovid Kronglass's
@@ -894,7 +942,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// _see [ZENITH_9_POINT_5]_
   /// _see [getMisheyakir7Point65Degrees]_
-  DateTime getMisheyakir9Point5Degrees() => getSunriseOffsetByDegrees(ZENITH_9_POINT_5);
+  DateTime getMisheyakir9Point5Degrees() =>
+      getSunriseOffsetByDegrees(ZENITH_9_POINT_5);
 
   /// This method returns the latest _zman krias shema_ (time to recite Shema in the morning) according to the
   /// opinion of the _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_ based
@@ -944,7 +993,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         See detailed explanation on top of the [AstronomicalCalendar] documentation.
   /// _see [getShaahZmanis18Degrees]
   /// _see [getAlos18Degrees]
-  DateTime getSofZmanShmaMGA18Degrees() => getSofZmanShma(getAlos18Degrees(), getTzais18Degrees());
+  DateTime getSofZmanShmaMGA18Degrees() =>
+      getSofZmanShma(getAlos18Degrees(), getTzais18Degrees());
 
   /// This method returns the latest _zman krias shema_ (time to recite Shema in the morning) according to the
   /// opinion of the _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_ based on _alos_ being
@@ -996,7 +1046,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         [AstronomicalCalendar] documentation.
   /// _see [getShaahZmanis90Minutes]
   /// _see [getAlos90]
-  DateTime getSofZmanShmaMGA90Minutes() => getSofZmanShma(getAlos90(), getTzais90());
+  DateTime getSofZmanShmaMGA90Minutes() =>
+      getSofZmanShma(getAlos90(), getTzais90());
 
   /// This method returns the latest _zman krias shema_ (time to recite Shema in the morning) according to the
   /// opinion of the _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_ based on _alos_
@@ -1030,7 +1081,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         [AstronomicalCalendar] documentation.
   /// _see [getShaahZmanis96Minutes]_
   /// _see [getAlos96]_
-  DateTime getSofZmanShmaMGA96Minutes() => getSofZmanShma(getAlos96(), getTzais96());
+  DateTime getSofZmanShmaMGA96Minutes() =>
+      getSofZmanShma(getAlos96(), getTzais96());
 
   /// This method returns the latest _zman krias shema_ (time to recite Shema in the morning) according to the
   /// opinion of the _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_ based on _alos_
@@ -1063,7 +1115,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// see [ZmanimCalendar.getChatzos]_
   /// see [getSofZmanTfila2HoursBeforeChatzos]_
   DateTime getSofZmanShma3HoursBeforeChatzos() =>
-      AstronomicalCalendar.getTimeOffset(getChatzos(), -180 * AstronomicalCalendar.MINUTE_MILLIS);
+      AstronomicalCalendar.getTimeOffset(
+          getChatzos(), -180 * AstronomicalCalendar.MINUTE_MILLIS);
 
   /// This method returns the latest _zman krias shema_ (time to recite Shema in the morning) according to the
   /// opinion of the _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_
@@ -1078,7 +1131,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         [AstronomicalCalendar] documentation.
   /// _see [getShaahZmanis120Minutes]_
   /// _see [getAlos120]_
-  DateTime getSofZmanShmaMGA120Minutes() => getSofZmanShma(getAlos120(), getTzais120());
+  DateTime getSofZmanShmaMGA120Minutes() =>
+      getSofZmanShma(getAlos120(), getTzais120());
 
   /// This method returns the latest _zman krias shema_ (time to recite Shema in the morning) based on the
   /// opinion that the day starts at _[getAlos16Point1Degrees] alos 16.1°_ and ends at
@@ -1115,7 +1169,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getTzaisGeonim7Point083Degrees]_
 
   DateTime getSofZmanShmaAlos16Point1ToTzaisGeonim7Point083Degrees() =>
-      getSofZmanShma(getAlos16Point1Degrees(), getTzaisGeonim7Point083Degrees());
+      getSofZmanShma(
+          getAlos16Point1Degrees(), getTzaisGeonim7Point083Degrees());
 
   /// From the GRA in Kol Eliyahu on Berachos #173 that states that _zman krias shema_ is calculated as half the
   /// time from [getSeaLevelSunrise] sea level sunrise to [getFixedLocalChatzos] fixed local chatzos.
@@ -1238,7 +1293,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         [AstronomicalCalendar] documentation.
   /// _see [getShaahZmanis90Minutes]_
   /// _see [getAlos90]_
-  DateTime getSofZmanTfilaMGA90Minutes() => getSofZmanTfila(getAlos90(), getTzais90());
+  DateTime getSofZmanTfilaMGA90Minutes() =>
+      getSofZmanTfila(getAlos90(), getTzais90());
 
   /// This method returns the latest _zman tfila_ (time to the morning prayers) according to the opinion of the
   /// _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_ based on _alos_ being [getAlos90Zmanis] 90 minutes _zmaniyos_ before
@@ -1270,7 +1326,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         [AstronomicalCalendar] documentation.
   /// _see [getShaahZmanis96Minutes]_
   /// _see [getAlos96]_
-  DateTime getSofZmanTfilaMGA96Minutes() => getSofZmanTfila(getAlos96(), getTzais96());
+  DateTime getSofZmanTfilaMGA96Minutes() =>
+      getSofZmanTfila(getAlos96(), getTzais96());
 
   /// This method returns the latest _zman tfila_ (time to the morning prayers) according to the opinion of the
   /// _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_ based on _alos_ being [getAlos96Zmanis] 96 minutes _zmaniyos_ before
@@ -1302,7 +1359,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         [AstronomicalCalendar] documentation.
   /// _see [getShaahZmanis120Minutes]_
   /// _see [getAlos120]_
-  DateTime getSofZmanTfilaMGA120Minutes() => getSofZmanTfila(getAlos120(), getTzais120());
+  DateTime getSofZmanTfilaMGA120Minutes() =>
+      getSofZmanTfila(getAlos120(), getTzais120());
 
   /// This method returns the latest _zman tfila_ (time to recite the morning prayers) calculated as 2 hours
   /// before [ZmanimCalendar.getChatzos]. This is based on the opinions that calculate
@@ -1316,7 +1374,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// see [ZmanimCalendar.getChatzos]
   /// see [getSofZmanShma3HoursBeforeChatzos]
   DateTime getSofZmanTfila2HoursBeforeChatzos() =>
-      AstronomicalCalendar.getTimeOffset(getChatzos(), -120 * AstronomicalCalendar.MINUTE_MILLIS);
+      AstronomicalCalendar.getTimeOffset(
+          getChatzos(), -120 * AstronomicalCalendar.MINUTE_MILLIS);
 
   /// This method returns mincha gedola calculated as 30 minutes after _[getChatzos] chatzos_ and not
   /// 1/2 of a _[getShaahZmanisGra] shaah zmanis_ after _[getChatzos] chatzos_ as
@@ -1334,8 +1393,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         [AstronomicalCalendar] documentation.
   /// _see [getMinchaGedola]_
   /// _see [getMinchaGedolaGreaterThan30]_
-  DateTime getMinchaGedola30Minutes() =>
-      AstronomicalCalendar.getTimeOffset(getChatzos(), AstronomicalCalendar.MINUTE_MILLIS * 30);
+  DateTime getMinchaGedola30Minutes() => AstronomicalCalendar.getTimeOffset(
+      getChatzos(), AstronomicalCalendar.MINUTE_MILLIS * 30);
 
   /// This method returns the time of _mincha gedola_ according to the Magen Avraham with the day starting 72
   /// minutes before sunrise and ending 72 minutes after sunset. This is the earliest time to pray _mincha_. For
@@ -1351,7 +1410,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         Arctic Circle where there is at least one day a year where the sun does not rise, and one where it does
   ///         not set, a null will be returned. See detailed explanation on top of the [AstronomicalCalendar]
   ///         documentation.
-  DateTime getMinchaGedola72Minutes() => getMinchaGedola(getAlos72(), getTzais72());
+  DateTime getMinchaGedola72Minutes() =>
+      getMinchaGedola(getAlos72(), getTzais72());
 
   /// This method returns the time of _mincha gedola_ according to the Magen Avraham with the day starting and
   /// ending 16.1° below the horizon. This is the earliest time to pray _mincha_. For more information on
@@ -1419,7 +1479,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         Arctic Circle where there is at least one day a year where the sun does not rise, and one where it does
   ///         not set, a null will be returned. See detailed explanation on top of the [AstronomicalCalendar]
   ///         documentation.
-  DateTime getMinchaKetana72Minutes() => getMinchaKetana(getAlos72(), getTzais72());
+  DateTime getMinchaKetana72Minutes() =>
+      getMinchaKetana(getAlos72(), getTzais72());
 
   /// This method returns the time of _plag hamincha_ according to the _Magen Avraham_ with the day
   /// starting 60 minutes before sunrise and ending 60 minutes after sunset. This is calculated as 10.75 hours after
@@ -1432,7 +1493,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         [AstronomicalCalendar] documentation.
   ///
   /// _see [getShaahZmanis60Minutes]_
-  DateTime getPlagHamincha60Minutes() => getPlagHamincha(getAlos60(), getTzais60());
+  DateTime getPlagHamincha60Minutes() =>
+      getPlagHamincha(getAlos60(), getTzais60());
 
   /// This method returns the time of _plag hamincha_ according to the _Magen Avraham_ with the day
   /// starting 72 minutes before sunrise and ending 72 minutes after sunset. This is calculated as 10.75 hours after
@@ -1445,7 +1507,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         [AstronomicalCalendar] documentation.
   ///
   /// _see [getShaahZmanis72Minutes]_
-  DateTime getPlagHamincha72Minutes() => getPlagHamincha(getAlos72(), getTzais72());
+  DateTime getPlagHamincha72Minutes() =>
+      getPlagHamincha(getAlos72(), getTzais72());
 
   /// This method returns the time of _plag hamincha_ according to the _Magen Avraham_ with the day
   /// starting 90 minutes before sunrise and ending 90 minutes after sunset. This is calculated as 10.75 hours after
@@ -1457,7 +1520,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         does not set, a null will be returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
   ///
   /// _see [getShaahZmanis90Minutes]_
-  DateTime getPlagHamincha90Minutes() => getPlagHamincha(getAlos90(), getTzais90());
+  DateTime getPlagHamincha90Minutes() =>
+      getPlagHamincha(getAlos90(), getTzais90());
 
   /// This method returns the time of _plag hamincha_ according to the _Magen Avraham_ with the day
   /// starting 96 minutes before sunrise and ending 96 minutes after sunset. This is calculated as 10.75 hours after
@@ -1469,7 +1533,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         does not set, a null will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
   /// _see [getShaahZmanis96Minutes]_
-  DateTime getPlagHamincha96Minutes() => getPlagHamincha(getAlos96(), getTzais96());
+  DateTime getPlagHamincha96Minutes() =>
+      getPlagHamincha(getAlos96(), getTzais96());
 
   /// This method returns the time of _plag hamincha_. This is calculated as 10.75 hours after
   /// [getAlos96Zmanis] dawn. The formula used is
@@ -1545,7 +1610,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         detailed explanation on top of the [AstronomicalCalendar] documentation.
   ///
   /// _see [getShaahZmanis26Degrees]_
-  DateTime getPlagHamincha26Degrees() => getPlagHamincha(getAlos26Degrees(), getTzais26Degrees());
+  DateTime getPlagHamincha26Degrees() =>
+      getPlagHamincha(getAlos26Degrees(), getTzais26Degrees());
 
   /// This method returns the time of _plag hamincha_ based on the opinion that the day starts at
   /// _[getAlos18Degrees] alos 18°_ and ends at _[getTzais18Degrees] tzais 18°_
@@ -1558,7 +1624,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         detailed explanation on top of the [AstronomicalCalendar] documentation.
   ///
   /// _see [getShaahZmanis18Degrees]_
-  DateTime getPlagHamincha18Degrees() => getPlagHamincha(getAlos18Degrees(), getTzais18Degrees());
+  DateTime getPlagHamincha18Degrees() =>
+      getPlagHamincha(getAlos18Degrees(), getTzais18Degrees());
 
   /// This method returns the time of _plag hamincha_ based on the opinion that the day starts at
   /// _[getAlos16Point1Degrees] alos 16.1°_ and ends at [getSunset] sunset. 10.75 shaos
@@ -1595,7 +1662,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getAlos16Point1Degrees]_
   /// _see [getTzaisGeonim7Point083Degrees]_
   DateTime getPlagAlos16Point1ToTzaisGeonim7Point083Degrees() =>
-      getPlagHamincha(getAlos16Point1Degrees(), getTzaisGeonim7Point083Degrees());
+      getPlagHamincha(
+          getAlos16Point1Degrees(), getTzaisGeonim7Point083Degrees());
 
   /// Method to return _Bain Hashmashos_ of _Rabbeinu Tam_ calculated when the sun is
   /// [ZENITH_13_POINT_24] 13.24° below the western [GEOMETRIC_ZENITH] geometric horizon (90°)
@@ -1618,7 +1686,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// _see [ZENITH_13_POINT_24]_
   /// _see [getBainHasmashosRT58Point5Minutes]_
-  DateTime getBainHasmashosRT13Point24Degrees() => getSunsetOffsetByDegrees(ZENITH_13_POINT_24);
+  DateTime getBainHasmashosRT13Point24Degrees() =>
+      getSunsetOffsetByDegrees(ZENITH_13_POINT_24);
 
   /// This method returns _Bain Hashmashos_ of _Rabbeinu Tam_ calculated as a 58.5 minute offset after
   /// sunset. _Bain hashmashos_ is 3/4 of a _Mil_ before _tzais_ or 3 1/4 _Mil_ after
@@ -1629,8 +1698,9 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         not set, a null will be returned. See detailed explanation on top of the [AstronomicalCalendar]
   ///         documentation.
   ///
-  DateTime getBainHasmashosRT58Point5Minutes() => AstronomicalCalendar.getTimeOffset(
-      getElevationAdjustedSunset(), 58.5 * AstronomicalCalendar.MINUTE_MILLIS);
+  DateTime getBainHasmashosRT58Point5Minutes() =>
+      AstronomicalCalendar.getTimeOffset(getElevationAdjustedSunset(),
+          58.5 * AstronomicalCalendar.MINUTE_MILLIS);
 
   /// This method returns the time of _bain hashmashos_ based on the calculation of 13.5 minutes (3/4 of an 18
   /// minute _Mil_ before shkiah calculated as [getTzaisGeonim7Point083Degrees] 7.083°.
@@ -1643,7 +1713,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getTzaisGeonim7Point083Degrees]_
   DateTime getBainHasmashosRT13Point5MinutesBefore7Point083Degrees() =>
       AstronomicalCalendar.getTimeOffset(
-          getSunsetOffsetByDegrees(ZENITH_7_POINT_083), -13.5 * AstronomicalCalendar.MINUTE_MILLIS);
+          getSunsetOffsetByDegrees(ZENITH_7_POINT_083),
+          -13.5 * AstronomicalCalendar.MINUTE_MILLIS);
 
   /// This method returns _bain hashmashos_ of _Rabbeinu Tam_ calculated according to the opinion of the
   /// _Divrei Yosef_ (see Yisrael Vehazmanim) calculated 5/18th (27.77%) of the time between _alos_
@@ -1661,8 +1732,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     if (alos19Point8 == null || sunrise == null) {
       return null;
     }
-    return AstronomicalCalendar.getTimeOffset(
-        getElevationAdjustedSunset(), (sunrise.difference(alos19Point8)).inMilliseconds * (5 / 18));
+    return AstronomicalCalendar.getTimeOffset(getElevationAdjustedSunset(),
+        (sunrise.difference(alos19Point8)).inMilliseconds * (5 / 18));
   }
 
   /// This method returns the _tzais_ (nightfall) based on the opinion of the _Geonim_ calculated at the
@@ -1670,14 +1741,16 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// return the <code>DateTime</code> representing the time when the sun is 3.7° below sea level.
   /// _see [ZENITH_3_POINT_7]_
-  DateTime getTzaisGeonim3Point7Degrees() => getSunsetOffsetByDegrees(ZENITH_3_POINT_7);
+  DateTime getTzaisGeonim3Point7Degrees() =>
+      getSunsetOffsetByDegrees(ZENITH_3_POINT_7);
 
   /// This method returns the _tzais_ (nightfall) based on the opinion of the _Geonim_ calculated at the
   /// sun's position at [ZENITH_3_POINT_8] 3.8° below the western horizon.
   ///
   /// return the <code>DateTime</code> representing the time when the sun is 3.8° below sea level.
   /// _see [ZENITH_3_POINT_8]_
-  DateTime getTzaisGeonim3Point8Degrees() => getSunsetOffsetByDegrees(ZENITH_3_POINT_8);
+  DateTime getTzaisGeonim3Point8Degrees() =>
+      getSunsetOffsetByDegrees(ZENITH_3_POINT_8);
 
   /// This method returns the _tzais_ (nightfall) based on the opinion of the _Geonim_ calculated at the
   /// sun's position at [ZENITH_5_POINT_95] 5.95° below the western horizon.
@@ -1687,7 +1760,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         the Antarctic Circle where the sun may not reach low enough below the horizon for this calculation, a
   ///         null will be returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
   /// _see [ZENITH_5_POINT_95]_
-  DateTime getTzaisGeonim5Point95Degrees() => getSunsetOffsetByDegrees(ZENITH_5_POINT_95);
+  DateTime getTzaisGeonim5Point95Degrees() =>
+      getSunsetOffsetByDegrees(ZENITH_5_POINT_95);
 
   /// This method returns the _tzais_ (nightfall) based on the opinion of the _Geonim_ calculated as 3/4
   /// of a [Mil](http://en.wikipedia.org/wiki/Biblical_and_Talmudic_units_of_measurement) based on an 18
@@ -1699,7 +1773,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         the Antarctic Circle where the sun may not reach low enough below the horizon for this calculation, a
   ///         null will be returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
   /// _see [ZENITH_3_POINT_65]_
-  DateTime getTzaisGeonim3Point65Degrees() => getSunsetOffsetByDegrees(ZENITH_3_POINT_65);
+  DateTime getTzaisGeonim3Point65Degrees() =>
+      getSunsetOffsetByDegrees(ZENITH_3_POINT_65);
 
   /// This method returns the _tzais_ (nightfall) based on the opinion of the _Geonim_ calculated as 3/4
   /// of a [Mil](http://en.wikipedia.org/wiki/Biblical_and_Talmudic_units_of_measurement) based on an 18
@@ -1713,7 +1788,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         calculation, a null will be returned. See detailed explanation on top of the [AstronomicalCalendar]
   ///         documentation.
   /// _see [ZENITH_3_POINT_676]_
-  DateTime getTzaisGeonim3Point676Degrees() => getSunsetOffsetByDegrees(ZENITH_3_POINT_676);
+  DateTime getTzaisGeonim3Point676Degrees() =>
+      getSunsetOffsetByDegrees(ZENITH_3_POINT_676);
 
   /// This method returns the _tzais_ (nightfall) based on the opinion of the _Geonim_ calculated as 3/4
   /// of a [Mil](http://en.wikipedia.org/wiki/Biblical_and_Talmudic_units_of_measurement) based on a 24
@@ -1725,7 +1801,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         the Antarctic Circle where the sun may not reach low enough below the horizon for this calculation, a
   ///         null will be returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
   /// _see [ZENITH_4_POINT_61]_
-  DateTime getTzaisGeonim4Point61Degrees() => getSunsetOffsetByDegrees(ZENITH_4_POINT_61);
+  DateTime getTzaisGeonim4Point61Degrees() =>
+      getSunsetOffsetByDegrees(ZENITH_4_POINT_61);
 
   /// This method returns the _tzais_ (nightfall) based on the opinion of the _Geonim_ calculated as 3/4
   /// of a [Mil](http://en.wikipedia.org/wiki/Biblical_and_Talmudic_units_of_measurement), based on a 22.5
@@ -1737,7 +1814,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         the Antarctic Circle where the sun may not reach low enough below the horizon for this calculation, a
   ///         null will be returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
   /// _see [ZENITH_4_POINT_37]_
-  DateTime getTzaisGeonim4Point37Degrees() => getSunsetOffsetByDegrees(ZENITH_4_POINT_37);
+  DateTime getTzaisGeonim4Point37Degrees() =>
+      getSunsetOffsetByDegrees(ZENITH_4_POINT_37);
 
   /// This method returns the _tzais_ (nightfall) based on the opinion of the _Geonim_ calculated as 3/4
   /// of a 24 minute _[Mil](http://en.wikipedia.org/wiki/Biblical_and_Talmudic_units_of_measurement)_,
@@ -1751,7 +1829,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         the Antarctic Circle where the sun may not reach low enough below the horizon for this calculation, a
   ///         null will be returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
   /// _see [ZENITH_5_POINT_88]_
-  DateTime getTzaisGeonim5Point88Degrees() => getSunsetOffsetByDegrees(ZENITH_5_POINT_88);
+  DateTime getTzaisGeonim5Point88Degrees() =>
+      getSunsetOffsetByDegrees(ZENITH_5_POINT_88);
 
   /// This method returns the _tzais_ (nightfall) based on the opinion of the _Geonim_ calculated as 3/4
   /// of a [Mil](http://en.wikipedia.org/wiki/Biblical_and_Talmudic_units_of_measurement) based on the
@@ -1764,7 +1843,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         the Antarctic Circle where the sun may not reach low enough below the horizon for this calculation, a
   ///         null will be returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
   /// _see [ZENITH_4_POINT_8]_
-  DateTime getTzaisGeonim4Point8Degrees() => getSunsetOffsetByDegrees(ZENITH_4_POINT_8);
+  DateTime getTzaisGeonim4Point8Degrees() =>
+      getSunsetOffsetByDegrees(ZENITH_4_POINT_8);
 
   /// This method returns the _tzais_ (nightfall) based on the opinion of the _Geonim_ as calculated by
   /// [Rabbi Yechiel Michel Tucazinsky](https://en.wikipedia.org/wiki/Yechiel_Michel_Tucazinsky). It is
@@ -1779,7 +1859,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         calculation, a null will be returned. See detailed explanation on top of the [AstronomicalCalendar]
   ///         documentation.
   /// _see [ZENITH_6_POINT_45]_
-  DateTime getTzaisGeonim6Point45Degrees() => getSunsetOffsetByDegrees(ZENITH_6_POINT_45);
+  DateTime getTzaisGeonim6Point45Degrees() =>
+      getSunsetOffsetByDegrees(ZENITH_6_POINT_45);
 
   /// This method returns the _tzais_ (nightfall) based on the opinion of the _Geonim_ calculated as 30
   /// minutes after sunset during the equinox (on March 16, about 4 days before the astronomical equinox, the day that
@@ -1793,7 +1874,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         calculation, a null will be returned. See detailed explanation on top of the [AstronomicalCalendar]
   ///         documentation.
   /// _see [ZENITH_7_POINT_083]_
-  DateTime getTzaisGeonim7Point083Degrees() => getSunsetOffsetByDegrees(ZENITH_7_POINT_083);
+  DateTime getTzaisGeonim7Point083Degrees() =>
+      getSunsetOffsetByDegrees(ZENITH_7_POINT_083);
 
   /// This method returns _tzais_ (nightfall) based on the opinion of the _Geonim_ calculated as 45 minutes
   /// after sunset during the summer solstice in New York, when the _neshef_ (twilight) is the longest. The sun's
@@ -1816,7 +1898,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         calculation, a null will be returned. See detailed explanation on top of the [AstronomicalCalendar]
   ///         documentation.
   /// _see [ZENITH_7_POINT_67]_
-  DateTime getTzaisGeonim7Point67Degrees() => getSunsetOffsetByDegrees(ZENITH_7_POINT_67);
+  DateTime getTzaisGeonim7Point67Degrees() =>
+      getSunsetOffsetByDegrees(ZENITH_7_POINT_67);
 
   /// This method returns the _tzais_ (nightfall) based on the opinion of the _Geonim_ calculated at the
   /// sun's position at [ZENITH_8_POINT_5] 8.5° below the western horizon.
@@ -1837,7 +1920,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         can't be computed such as northern and southern locations even south of the Arctic Circle and north of
   ///         the Antarctic Circle where the sun may not reach low enough below the horizon for this calculation, a
   ///         null will be returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
-  DateTime getTzaisGeonim9Point3Degrees() => getSunsetOffsetByDegrees(ZENITH_9_POINT_3);
+  DateTime getTzaisGeonim9Point3Degrees() =>
+      getSunsetOffsetByDegrees(ZENITH_9_POINT_3);
 
   /// This method returns the _tzais_ (nightfall) based on the opinion of the _Geonim_ calculated as 60
   /// minutes after sunset during the equinox (on March 16, about 4 days before the astronomical equinox, the day that
@@ -1853,7 +1937,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         null will be returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
   ///
   /// _see [getTzais60]_
-  DateTime getTzaisGeonim9Point75Degrees() => getSunsetOffsetByDegrees(ZENITH_9_POINT_75);
+  DateTime getTzaisGeonim9Point75Degrees() =>
+      getSunsetOffsetByDegrees(ZENITH_9_POINT_75);
 
   /// This method returns the _tzais_ (nightfall) based on the opinion of the _
   /// [Chavas Yair](https://en.wikipedia.org/wiki/Yair_Bacharach)_ and _Divrei Malkiel_ that the time
@@ -1882,7 +1967,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
   /// _see [getAteretTorahSunsetOffset]_
   /// _see [setAteretTorahSunsetOffset]_
-  DateTime getTzaisAteretTorah() => AstronomicalCalendar.getTimeOffset(getElevationAdjustedSunset(),
+  DateTime getTzaisAteretTorah() => AstronomicalCalendar.getTimeOffset(
+      getElevationAdjustedSunset(),
       getAteretTorahSunsetOffset() * AstronomicalCalendar.MINUTE_MILLIS);
 
   /// Returns the offset in minutes after sunset used to calculate sunset for the Ateret Torah zmanim. The default
@@ -1921,7 +2007,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getAteretTorahSunsetOffset]_
   /// _see [setAteretTorahSunsetOffset]_
   /// _see [getShaahZmanisAteretTorah]_
-  DateTime getSofZmanShmaAteretTorah() => getSofZmanShma(getAlos72Zmanis(), getTzaisAteretTorah());
+  DateTime getSofZmanShmaAteretTorah() =>
+      getSofZmanShma(getAlos72Zmanis(), getTzaisAteretTorah());
 
   /// This method returns the latest _zman tfila_ (time to recite the morning prayers) based on the calculation
   /// of Chacham Yosef Harari-Raful of Yeshivat Ateret Torah, that the day starts [getAlos72Zmanis] 1/10th of
@@ -2025,7 +2112,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     if (shaahZmanis == double.minPositive) {
       return null;
     }
-    return AstronomicalCalendar.getTimeOffset(getElevationAdjustedSunset(), shaahZmanis * 1.2);
+    return AstronomicalCalendar.getTimeOffset(
+        getElevationAdjustedSunset(), shaahZmanis * 1.2);
   }
 
   /// Method to return _tzais_ (dusk) calculated using 90 minutes zmaniyos after [getSeaLevelSunset] sea level sunset.
@@ -2040,7 +2128,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     if (shaahZmanis == double.minPositive) {
       return null;
     }
-    return AstronomicalCalendar.getTimeOffset(getElevationAdjustedSunset(), shaahZmanis * 1.5);
+    return AstronomicalCalendar.getTimeOffset(
+        getElevationAdjustedSunset(), shaahZmanis * 1.5);
   }
 
   /// Method to return _tzais_ (dusk) calculated using 96 minutes zmaniyos after [getSeaLevelSunset] sea level sunset.
@@ -2055,7 +2144,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     if (shaahZmanis == double.minPositive) {
       return null;
     }
-    return AstronomicalCalendar.getTimeOffset(getElevationAdjustedSunset(), shaahZmanis * 1.6);
+    return AstronomicalCalendar.getTimeOffset(
+        getElevationAdjustedSunset(), shaahZmanis * 1.6);
   }
 
   /// Method to return _tzais_ (dusk) calculated as 90 minutes after sea level sunset. This method returns
@@ -2101,7 +2191,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     if (shaahZmanis == double.minPositive) {
       return null;
     }
-    return AstronomicalCalendar.getTimeOffset(getElevationAdjustedSunset(), shaahZmanis * 2.0);
+    return AstronomicalCalendar.getTimeOffset(
+        getElevationAdjustedSunset(), shaahZmanis * 2.0);
   }
 
   /// For information on how this is calculated see the comments on [getAlos16Point1Degrees]
@@ -2112,7 +2203,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         explanation on top of the [AstronomicalCalendar] documentation.
   /// _see [getTzais72]_
   /// _see [getAlos16Point1Degrees] for more information on this calculation._
-  DateTime getTzais16Point1Degrees() => getSunsetOffsetByDegrees(ZmanimCalendar.ZENITH_16_POINT_1);
+  DateTime getTzais16Point1Degrees() =>
+      getSunsetOffsetByDegrees(ZmanimCalendar.ZENITH_16_POINT_1);
 
   /// For information on how this is calculated see the comments on [getAlos26Degrees]
   ///
@@ -2142,7 +2234,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         explanation on top of the [AstronomicalCalendar] documentation.
   /// _see [getTzais90]_
   /// _see [getAlos19Point8Degrees]_
-  DateTime getTzais19Point8Degrees() => getSunsetOffsetByDegrees(ZENITH_19_POINT_8);
+  DateTime getTzais19Point8Degrees() =>
+      getSunsetOffsetByDegrees(ZENITH_19_POINT_8);
 
   /// A method to return _tzais_ (dusk) calculated as 96 minutes after sea level sunset. For information on how
   /// this is calculated see the comments on [getAlos96].
@@ -2215,19 +2308,25 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getSofZmanKidushLevanaBetweenMoldos]_
   /// _see [getSofZmanKidushLevana15Days(Date, Date)_
   /// _see [JewishCalendar.getSofZmanKidushLevanaBetweenMoldos]_
-  DateTime getSofZmanKidushLevanaBetweenMoldos([DateTime alos, DateTime tzais]) {
+  DateTime getSofZmanKidushLevanaBetweenMoldos(
+      [DateTime alos, DateTime tzais]) {
     JewishCalendar jewishCalendar = new JewishCalendar();
-    jewishCalendar.setGregorianDate(getCalendar().year, getCalendar().month, getCalendar().day);
+    jewishCalendar.setGregorianDate(
+        getCalendar().year, getCalendar().month, getCalendar().day);
 
     // Do not calculate for impossible dates, but account for extreme cases. In the extreme case of Rapa Iti in French
     // Polynesia on Dec 2027 when kiddush Levana 3 days can be said on _Rosh Chodesh_, the sof zman Kiddush Levana
     // will be on the 12th of the Teves. In the case of Anadyr, Russia on Jan, 2071, sof zman Kiddush Levana between the
     // moldos will occur is on the night of 17th of Shevat. See Rabbi Dovid Heber's Shaarei Zmanim chapter 4 (pages 28 and 32).
-    if (jewishCalendar.getJewishDayOfMonth() < 11 || jewishCalendar.getJewishDayOfMonth() > 16) {
+    if (jewishCalendar.getJewishDayOfMonth() < 11 ||
+        jewishCalendar.getJewishDayOfMonth() > 16) {
       return null;
     }
     return getMoladBasedTime(
-        jewishCalendar.getSofZmanKidushLevanaBetweenMoldos(), alos, tzais, false);
+        jewishCalendar.getSofZmanKidushLevanaBetweenMoldos(),
+        alos,
+        tzais,
+        false);
   }
 
   /// Returns the Date of the molad based time if it occurs on the current date.Since Kiddush Levana can only be said
@@ -2246,12 +2345,15 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///            is it the start of Kiddush Levana time or the end? If it is start roll it to the next _tzais_, and and if it
   ///            is the end, return the end of the previous night (alos passed in). Ignored if either alos or tzais are null.
   /// return the molad based time. If the zman does not occur during the current date, null will be returned.
-  DateTime getMoladBasedTime(DateTime moladBasedTime, DateTime alos, DateTime tzais, bool techila) {
+  DateTime getMoladBasedTime(
+      DateTime moladBasedTime, DateTime alos, DateTime tzais, bool techila) {
     DateTime lastMidnight = getMidnightLastNight();
     DateTime midnightTonigh = getMidnightTonight();
-    if (!(moladBasedTime.isBefore(lastMidnight) || moladBasedTime.isAfter(midnightTonigh))) {
+    if (!(moladBasedTime.isBefore(lastMidnight) ||
+        moladBasedTime.isAfter(midnightTonigh))) {
       if (alos != null || tzais != null) {
-        if (techila && !(moladBasedTime.isBefore(tzais) || moladBasedTime.isAfter(alos))) {
+        if (techila &&
+            !(moladBasedTime.isBefore(tzais) || moladBasedTime.isAfter(alos))) {
           return tzais;
         } else {
           return alos;
@@ -2292,16 +2394,19 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [JewishCalendar.getSofZmanKidushLevana15Days]_
   DateTime getSofZmanKidushLevana15Days([DateTime alos, DateTime tzais]) {
     JewishCalendar jewishCalendar = new JewishCalendar();
-    jewishCalendar.setGregorianDate(getCalendar().year, getCalendar().month, getCalendar().day);
+    jewishCalendar.setGregorianDate(
+        getCalendar().year, getCalendar().month, getCalendar().day);
 
     // Do not calculate for impossible dates, but account for extreme cases. In the extreme case of Rapa Iti in
     // French Polynesia on Dec 2027 when kiddush Levana 3 days can be said on _Rosh Chodesh_, the sof zman Kiddush
     // Levana will be on the 12th of the Teves. in the case of Anadyr, Russia on Jan, 2071, sof zman kiddush levana will
     // occur after midnight on the 17th of Shevat. See Rabbi Dovid Heber's Shaarei Zmanim chapter 4 (pages 28 and 32).
-    if (jewishCalendar.getJewishDayOfMonth() < 11 || jewishCalendar.getJewishDayOfMonth() > 17) {
+    if (jewishCalendar.getJewishDayOfMonth() < 11 ||
+        jewishCalendar.getJewishDayOfMonth() > 17) {
       return null;
     }
-    return getMoladBasedTime(jewishCalendar.getSofZmanKidushLevana15Days(), alos, tzais, false);
+    return getMoladBasedTime(
+        jewishCalendar.getSofZmanKidushLevana15Days(), alos, tzais, false);
   }
 
   /// Returns the earliest time of _Kiddush Levana_ according to _Rabbeinu Yonah_'s opinion that it can
@@ -2328,25 +2433,28 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [JewishCalendar.getTchilasZmanKidushLevana3Days]_
   DateTime getTchilasZmanKidushLevana3Days([DateTime alos, DateTime tzais]) {
     JewishCalendar jewishCalendar = new JewishCalendar();
-    jewishCalendar.setGregorianDate(getCalendar().year, getCalendar().month, getCalendar().day);
+    jewishCalendar.setGregorianDate(
+        getCalendar().year, getCalendar().month, getCalendar().day);
 
     // Do not calculate for impossible dates, but account for extreme cases. Tchilas zman kiddush Levana 3 days for
     // the extreme case of Rapa Iti in French Polynesia on Dec 2027 when kiddush Levana 3 days can be said on the evening
     // of the 30th, the second night of Rosh Chodesh. The 3rd day after the _molad_ will be on the 4th of the month.
     // In the case of Anadyr, Russia on Jan, 2071, when sof zman kiddush levana is on the 17th of the month, the 3rd day
     // from the molad will be on the 5th day of Shevat. See Rabbi Dovid Heber's Shaarei Zmanim chapter 4 (pages 28 and 32).
-    if (jewishCalendar.getJewishDayOfMonth() > 5 && jewishCalendar.getJewishDayOfMonth() < 30) {
+    if (jewishCalendar.getJewishDayOfMonth() > 5 &&
+        jewishCalendar.getJewishDayOfMonth() < 30) {
       return null;
     }
 
-    DateTime zman =
-        getMoladBasedTime(jewishCalendar.getTchilasZmanKidushLevana3Days(), alos, tzais, true);
+    DateTime zman = getMoladBasedTime(
+        jewishCalendar.getTchilasZmanKidushLevana3Days(), alos, tzais, true);
 
     //Get the following month's zman kiddush Levana for the extreme case of Rapa Iti in French Polynesia on Dec 2027 when
     // kiddush Levana can be said on Rosh Chodesh (the evening of the 30th). See Rabbi Dovid Heber's Shaarei Zmanim chapter 4 (page 32)
     if (zman == null && jewishCalendar.getJewishDayOfMonth() == 30) {
       jewishCalendar.forward(Calendar.MONTH, 1);
-      zman = getMoladBasedTime(jewishCalendar.getTchilasZmanKidushLevana3Days(), null, null, true);
+      zman = getMoladBasedTime(
+          jewishCalendar.getTchilasZmanKidushLevana3Days(), null, null, true);
     }
 
     return zman;
@@ -2363,20 +2471,24 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [JewishCalendar#getMoladAsDate]_
   DateTime getZmanMolad() {
     JewishCalendar jewishCalendar = new JewishCalendar();
-    jewishCalendar.setGregorianDate(getCalendar().year, getCalendar().month, getCalendar().day);
+    jewishCalendar.setGregorianDate(
+        getCalendar().year, getCalendar().month, getCalendar().day);
 
     // Optimize to not calculate for impossible dates, but account for extreme cases. The molad in the extreme case of Rapa
     // Iti in French Polynesia on Dec 2027 occurs on the night of the 27th of Kislev. In the case of Anadyr, Russia on
     // Jan 2071, the molad will be on the 2nd day of Shevat. See Rabbi Dovid Heber's Shaarei Zmanim chapter 4 (pages 28 and 32).
-    if (jewishCalendar.getJewishDayOfMonth() > 2 && jewishCalendar.getJewishDayOfMonth() < 27) {
+    if (jewishCalendar.getJewishDayOfMonth() > 2 &&
+        jewishCalendar.getJewishDayOfMonth() < 27) {
       return null;
     }
-    DateTime molad = getMoladBasedTime(jewishCalendar.getMoladAsDateTime(), null, null, true);
+    DateTime molad = getMoladBasedTime(
+        jewishCalendar.getMoladAsDateTime(), null, null, true);
 
     // deal with molad that happens on the end of the previous month
     if (molad == null && jewishCalendar.getJewishDayOfMonth() > 26) {
       jewishCalendar.forward(Calendar.MONTH, 1);
-      molad = getMoladBasedTime(jewishCalendar.getMoladAsDateTime(), null, null, true);
+      molad = getMoladBasedTime(
+          jewishCalendar.getMoladAsDateTime(), null, null, true);
     }
     return molad;
   }
@@ -2385,8 +2497,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getMoladBasedTime]_
   /// return previous midnight
   DateTime getMidnightLastNight() {
-    DateTime midnight =
-        DateTime(getCalendar().year, getCalendar().month, getCalendar().day, 0, 0, 0, 0, 0);
+    DateTime midnight = DateTime(getCalendar().year, getCalendar().month,
+        getCalendar().day, 0, 0, 0, 0, 0);
     return midnight;
   }
 
@@ -2394,8 +2506,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getMoladBasedTime]_
   /// return following midnight
   DateTime getMidnightTonight() {
-    DateTime midnight =
-        DateTime(getCalendar().year, getCalendar().month, getCalendar().day, 0, 0, 0, 0, 0);
+    DateTime midnight = DateTime(getCalendar().year, getCalendar().month,
+        getCalendar().day, 0, 0, 0, 0, 0);
     midnight.add(Duration(days: 1));
     return midnight;
   }
@@ -2422,18 +2534,21 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [JewishCalendar#getTchilasZmanKidushLevana7Days]_
   DateTime getTchilasZmanKidushLevana7Days([DateTime alos, DateTime tzais]) {
     JewishCalendar jewishCalendar = new JewishCalendar();
-    jewishCalendar.setGregorianDate(getCalendar().year, getCalendar().month, getCalendar().day);
+    jewishCalendar.setGregorianDate(
+        getCalendar().year, getCalendar().month, getCalendar().day);
 
     // Optimize to not calculate for impossible dates, but account for extreme cases. Tchilas zman kiddush Levana 7 days for
     // the extreme case of Rapa Iti in French Polynesia on Jan 2028 (when kiddush Levana 3 days can be said on the evening
     // of the 30th, the second night of Rosh Chodesh), the 7th day after the molad will be on the 4th of the month.
     // In the case of Anadyr, Russia on Jan, 2071, when sof zman kiddush levana is on the 17th of the month, the 7th day
     // from the molad will be on the 9th day of Shevat. See Rabbi Dovid Heber's Shaarei Zmanim chapter 4 (pages 28 and 32).
-    if (jewishCalendar.getJewishDayOfMonth() < 4 || jewishCalendar.getJewishDayOfMonth() > 9) {
+    if (jewishCalendar.getJewishDayOfMonth() < 4 ||
+        jewishCalendar.getJewishDayOfMonth() > 9) {
       return null;
     }
 
-    return getMoladBasedTime(jewishCalendar.getTchilasZmanKidushLevana7Days(), alos, tzais, true);
+    return getMoladBasedTime(
+        jewishCalendar.getTchilasZmanKidushLevana7Days(), alos, tzais, true);
   }
 
   /// This method returns the latest time one is allowed eating chametz on Erev Pesach according to the opinion of the
@@ -2466,7 +2581,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getShaahZmanisMGA]_
   /// _see [getAlos72]_
   /// _see [getSofZmanTfilaMGA72Minutes]_
-  DateTime getSofZmanAchilasChametzMGA72Minutes() => getSofZmanTfilaMGA72Minutes();
+  DateTime getSofZmanAchilasChametzMGA72Minutes() =>
+      getSofZmanTfilaMGA72Minutes();
 
   /// This method returns the latest time one is allowed eating chametz on Erev Pesach according to the opinion of the
   /// _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_ based on _alos_ being [getAlos16Point1Degrees] 16.1° before
@@ -2483,7 +2599,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getShaahZmanis16Point1Degrees]_
   /// _see [getAlos16Point1Degrees]_
   /// _see [getSofZmanTfilaMGA16Point1Degrees]_
-  DateTime getSofZmanAchilasChametzMGA16Point1Degrees() => getSofZmanTfilaMGA16Point1Degrees();
+  DateTime getSofZmanAchilasChametzMGA16Point1Degrees() =>
+      getSofZmanTfilaMGA16Point1Degrees();
 
   /// This method returns the latest time for burning chametz on Erev Pesach according to the opinion of the
   /// _[GRA](https://en.wikipedia.org/wiki/Vilna_Gaon)_ This time is 5 hours into the day based on the opinion of the
@@ -2495,8 +2612,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         computed such as in the Arctic Circle where there is at least one day a year where the sun does not rise,
   ///         and one where it does not set, a null will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
-  DateTime getSofZmanBiurChametzGRA() =>
-      AstronomicalCalendar.getTimeOffset(getElevationAdjustedSunrise(), getShaahZmanisGra() * 5);
+  DateTime getSofZmanBiurChametzGRA() => AstronomicalCalendar.getTimeOffset(
+      getElevationAdjustedSunrise(), getShaahZmanisGra() * 5);
 
   /// This method returns the latest time for burning chametz on Erev Pesach according to the opinion of the
   /// _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_ based on _alos_ being [getAlos72] 72 minutes before [getSunrise] sunrise.
@@ -2528,8 +2645,9 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///
   /// _see [getShaahZmanis16Point1Degrees]_
   /// _see [getAlos16Point1Degrees]_
-  DateTime getSofZmanBiurChametzMGA16Point1Degrees() => AstronomicalCalendar.getTimeOffset(
-      getAlos16Point1Degrees(), getShaahZmanis16Point1Degrees() * 5);
+  DateTime getSofZmanBiurChametzMGA16Point1Degrees() =>
+      AstronomicalCalendar.getTimeOffset(
+          getAlos16Point1Degrees(), getShaahZmanis16Point1Degrees() * 5);
 
   /// A method that returns "solar" midnight, or the time when the sun is at its [nadir](http://en.wikipedia.org/wiki/Nadir).
   /// <b>Note:</b> this method is experimental and might be removed.
@@ -2544,7 +2662,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     clonedCal.setCalendar(clonedCal.getCalendar().add(Duration(days: 1)));
     DateTime sunset = getSeaLevelSunset();
     DateTime sunrise = clonedCal.getSeaLevelSunrise();
-    return AstronomicalCalendar.getTimeOffset(sunset, getTemporalHour(sunset, sunrise) * 6);
+    return AstronomicalCalendar.getTimeOffset(
+        sunset, getTemporalHour(sunset, sunrise) * 6);
   }
 
   /// A method that returns the _[Baal Hatanya](https://en.wikipedia.org/wiki/Shneur_Zalman_of_Liadi)_'s
@@ -2577,7 +2696,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getSeaLevelSunrise]_
   /// _see [getSunsetBaalHatanya]_
   /// _see [ZENITH_1_POINT_583]_
-  DateTime getSunriseBaalHatanya() => getSunriseOffsetByDegrees(ZENITH_1_POINT_583);
+  DateTime getSunriseBaalHatanya() =>
+      getSunriseOffsetByDegrees(ZENITH_1_POINT_583);
 
   /// A method that returns the _[Baal Hatanya](https://en.wikipedia.org/wiki/Shneur_Zalman_of_Liadi)_'s
   /// _shkiah amiti_ (sunset) without {link AstronomicalCalculator#getElevationAdjustment(double)
@@ -2603,7 +2723,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getSeaLevelSunset]_
   /// _see [getSunriseBaalHatanya]_
   /// _see [#ZENITH_1_POINT_583]_
-  DateTime getSunsetBaalHatanya() => getSunsetOffsetByDegrees(ZENITH_1_POINT_583);
+  DateTime getSunsetBaalHatanya() =>
+      getSunsetOffsetByDegrees(ZENITH_1_POINT_583);
 
   /// A method that returns the _[Baal Hatanya](https://en.wikipedia.org/wiki/Shneur_Zalman_of_Liadi)_'s
   /// a _shaah zmanis_ ([getTemporalHour] temporal hour). This forms the base for the
@@ -2692,7 +2813,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         such as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one
   ///         where it does not set, a null will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
-  DateTime getSofZmanAchilasChametzBaalHatanya() => getSofZmanTfilaBaalHatanya();
+  DateTime getSofZmanAchilasChametzBaalHatanya() =>
+      getSofZmanTfilaBaalHatanya();
 
   /// This method returns the latest time for burning chametz on Erev Pesach according to the opinion of the
   /// _Baal Hatanya_. This time is 5 hours into the day based on the opinion of the
@@ -2705,7 +2827,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         and one where it does not set, a null will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
   DateTime getSofZmanBiurChametzBaalHatanya() =>
-      AstronomicalCalendar.getTimeOffset(getSunriseBaalHatanya(), getShaahZmanisBaalHatanya() * 5);
+      AstronomicalCalendar.getTimeOffset(
+          getSunriseBaalHatanya(), getShaahZmanisBaalHatanya() * 5);
 
   /// This method returns the time of _mincha gedola_. _Mincha gedola_ is the earliest time one can pray
   /// mincha. The _[Rambam](https://en.wikipedia.org/wiki/Maimonides)_ is of the opinion that it is
@@ -2738,10 +2861,13 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         where the sun does not rise, and one where it does not set, a null will be returned. See detailed
   ///         explanation on top of the [AstronomicalCalendar] documentation.
   DateTime getMinchaGedolaBaalHatanyaGreaterThan30() {
-    if (getMinchaGedola30Minutes() == null || getMinchaGedolaBaalHatanya() == null) {
+    if (getMinchaGedola30Minutes() == null ||
+        getMinchaGedolaBaalHatanya() == null) {
       return null;
     } else {
-      return getMinchaGedola30Minutes().compareTo(getMinchaGedolaBaalHatanya()) > 0
+      return getMinchaGedola30Minutes()
+                  .compareTo(getMinchaGedolaBaalHatanya()) >
+              0
           ? getMinchaGedola30Minutes()
           : getMinchaGedolaBaalHatanya();
     }
@@ -2787,16 +2913,17 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         low enough below the horizon for this calculation, a null will be returned. See detailed explanation on
   ///         top of the [AstronomicalCalendar] documentation.
   /// _see [ZENITH_6_DEGREES]_
-  DateTime getTzaisBaalHatanya() => this.getSunsetOffsetByDegrees(ZENITH_6_DEGREES);
+  DateTime getTzaisBaalHatanya() =>
+      this.getSunsetOffsetByDegrees(ZENITH_6_DEGREES);
 
   DateTime getMidday() => getSolarMidnight().add(Duration(hours: -12));
 
   /// A method that return Shabbos entry date of this week
   DateTime getShabbosStartTime() {
     ComplexZmanimCalendar complexZmanimCalendar = this.clone();
-    int delta = 7 - complexZmanimCalendar.getCalendar().day;
-    complexZmanimCalendar
-        .setCalendar(complexZmanimCalendar.getCalendar().add(Duration(days: delta)));
+    int delta = 7 - complexZmanimCalendar.getCalendar().weekday;
+    complexZmanimCalendar.setCalendar(
+        complexZmanimCalendar.getCalendar().add(Duration(days: delta)));
     DateTime date = complexZmanimCalendar.getSunset();
     return date.add(Duration(minutes: _shiftTime()));
   }
@@ -2804,10 +2931,11 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// A method that return time of Shabbos exit in this week
   DateTime getShabbosExitTime() {
     ComplexZmanimCalendar complexZmanimCalendar = this.clone();
-    int delta = 6 - complexZmanimCalendar.getCalendar().day;
-    complexZmanimCalendar
-        .setCalendar(complexZmanimCalendar.getCalendar().add(Duration(days: delta)));
-    DateTime date = complexZmanimCalendar.getBainHasmashosRT13Point5MinutesBefore7Point083Degrees();
+    int delta = 6 - complexZmanimCalendar.getCalendar().weekday;
+    complexZmanimCalendar.setCalendar(
+        complexZmanimCalendar.getCalendar().add(Duration(days: delta)));
+    DateTime date = complexZmanimCalendar
+        .getBainHasmashosRT13Point5MinutesBefore7Point083Degrees();
     return date.add(Duration(minutes: 22));
   }
 
@@ -2827,13 +2955,14 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     JewishCalendar jewishCalendar = JewishCalendar.fromDateTime(getCalendar());
     while (!jewishCalendar.isYomTov()) jewishCalendar.forward();
     complexZmanimCalendar.setCalendar(jewishCalendar.getGregorianCalendar());
-    DateTime date = complexZmanimCalendar.getBainHasmashosRT13Point5MinutesBefore7Point083Degrees();
+    DateTime date = complexZmanimCalendar
+        .getBainHasmashosRT13Point5MinutesBefore7Point083Degrees();
     return date.add(Duration(minutes: 22));
   }
 
   DateTime getTaanisStartTime({bool inIsrael = false, isAshkenaz = false}) {
-    JewishCalendar jewishCalendar =
-        JewishCalendar.fromDateTime(DateTime.parse(getCalendar().toIso8601String()));
+    JewishCalendar jewishCalendar = JewishCalendar.fromDateTime(
+        DateTime.parse(getCalendar().toIso8601String()));
     DateTime calendar = DateTime.parse(getCalendar().toIso8601String());
     jewishCalendar.setInIsrael(inIsrael);
     while (!jewishCalendar.isTaanis()) {
@@ -2854,7 +2983,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   }
 
   DateTime getTaanisExitTime({bool inIsrael = false}) {
-    JewishCalendar jewishCalendar = JewishCalendar.fromDateTime(DateTime.parse(getCalendar().toIso8601String()));
+    JewishCalendar jewishCalendar = JewishCalendar.fromDateTime(
+        DateTime.parse(getCalendar().toIso8601String()));
     DateTime calendar = DateTime.parse(getCalendar().toIso8601String());
     jewishCalendar.setInIsrael(inIsrael);
     while (!jewishCalendar.isTaanis()) {
@@ -2863,7 +2993,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     }
     ComplexZmanimCalendar complexZmanimCalendar = this.clone();
     complexZmanimCalendar.setCalendar(calendar);
-    return complexZmanimCalendar.getBainHasmashosRT13Point5MinutesBefore7Point083Degrees();
+    return complexZmanimCalendar
+        .getBainHasmashosRT13Point5MinutesBefore7Point083Degrees();
   }
 
   /// The Sabbath enters a fixed number of minutes before the astronomical sunset.
@@ -2874,12 +3005,14 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// this method that return this number of minutes before the astronomical sunset base on on the location
   int _shiftTime() {
     shiftTimeByLocationName.forEach((key, value) {
-      if (this.getGeoLocation().getLocationName().toLowerCase().contains(key)) return value;
+      if (this.getGeoLocation().getLocationName().toLowerCase().contains(key))
+        return value;
     });
     if ((this.getGeoLocation().getLongitude() > 34.461262940608364 ||
             this.getGeoLocation().getLatitude() < 35.2408) &&
         (this.getGeoLocation().getLongitude() > 31.83538 ||
-            this.getGeoLocation().getLongitude() < 32.263563983577995)) return -21;
+            this.getGeoLocation().getLongitude() < 32.263563983577995))
+      return -21;
     return -25;
   }
 

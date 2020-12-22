@@ -40,7 +40,7 @@ class HebrewDateFormatter {
   /// When formatting a Hebrew Year, traditionally the thousands digit is omitted and output for a year such as 5729
   /// (1969 Gregorian) would be calculated for 729 and format as תשכ״ט. This method
   /// allows setting this to true to return the long format year such as ה׳ תשכ״ט for 5729/1969.
-  bool useLonghebrewYears = false;
+  bool useLongHebrewYears = false;
 
   /// Sets whether to use the Geresh ׳ and Gershayim ״ in formatting Hebrew dates and numbers. The default
   /// value is true and output would look like כ״א שבט תש״כ
@@ -692,7 +692,9 @@ class HebrewDateFormatter {
     String returnValue = formatHebrewNumber(roshHashanaDayOfweek);
     returnValue += (kviah == JewishDate.CHASERIM
         ? "ח"
-        : kviah == JewishDate.SHELAIMIM ? "ש" : "כ");
+        : kviah == JewishDate.SHELAIMIM
+            ? "ש"
+            : "כ");
     jewishDate.setJewishDate(
         jewishYear, JewishDate.NISSAN, 15); // set to Pesach of the given year
     int pesachDayOfweek = jewishDate.getDayOfWeek();
@@ -792,7 +794,7 @@ class HebrewDateFormatter {
       sb.write(
           ALAFIM); // add # of thousands plus word thousand (overide alafim boolean)
       return sb.toString();
-    } else if (useLonghebrewYears && number >= 1000) {
+    } else if (useLongHebrewYears && number >= 1000) {
       // if alafim boolean display thousands
       sb.write(jOnes[thousands]);
       if (useGershGershayim) {

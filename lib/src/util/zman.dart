@@ -194,7 +194,9 @@ class Zman {
         zman2 == null ? double.maxFinite : zman2.getDuration();
     return firstDuration == secondDuration
         ? 0
-        : firstDuration > secondDuration ? 1 : -1;
+        : firstDuration > secondDuration
+            ? 1
+            : -1;
   };
 
   /// @see java.lang.Object#toString()

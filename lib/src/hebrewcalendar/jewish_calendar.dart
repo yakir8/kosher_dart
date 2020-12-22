@@ -1945,4 +1945,10 @@ int hashCode() {
 }
 
  */
+
+  /// A method that creates a <a href="http://en.wikipedia.org/wiki/Object_copy#Deep_copy">deep copy</a> of the object.
+  ///
+  /// @see Object#clone()
+  JewishCalendar clone() => JewishCalendar.initDate(
+      getJewishYear(), getJewishMonth(), getJewishDayOfMonth());
 }
