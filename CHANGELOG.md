@@ -1,3 +1,7 @@
+## 2.0.3
+- Add support null safety
+- Fix Taanis times
+
 ## 2.0.2
 
 - Now only need to import kosher_dart.dart file

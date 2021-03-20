@@ -1263,7 +1263,6 @@ class JewishCalendar extends JewishDate {
           break;
         default:
           return -1;
-          break;
       }
     } else {
       //not a leap year
@@ -1311,7 +1310,6 @@ class JewishCalendar extends JewishDate {
           break;
         default:
           return -1;
-          break;
       }
     }
     return -1; //keep the compiler happy

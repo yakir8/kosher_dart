@@ -860,9 +860,9 @@ class HebrewDateFormatter {
   ///         Bereshis or Nitzavim Vayeilech or an empty string if there are none.
   String formatParsha(JewishCalendar jewishCalendar) {
     Parsha parsha = jewishCalendar.getParshah();
-    return hebrewFormat
+    return (hebrewFormat
         ? _hebrewParshaMap[parsha]
-        : transliteratedParshaMap[parsha];
+        : transliteratedParshaMap[parsha])!;
   }
 
   /// Returns a String with the name of the current parsha(ios) on this week. If the formatter is set to format in Hebrew, returns
@@ -900,15 +900,15 @@ class HebrewDateFormatter {
   ///         Zachor, Parah or Hachodesh. An empty string if there are none.
   String formatSpecialParsha(JewishCalendar jewishCalendar) {
     Parsha specialParsha = jewishCalendar.getSpecialShabbos();
-    return hebrewFormat
+    return (hebrewFormat
         ? _hebrewParshaMap[specialParsha]
-        : transliteratedParshaMap[specialParsha];
+        : transliteratedParshaMap[specialParsha])!;
   }
 
   List<String> getEventsList(JewishCalendar jewishCalendar,
       ComplexZmanimCalendar complexZmanimCalendar,
       {int maxEvents = 9}) {
-    List<String> events = List();
+    List<String> events = List.empty(growable: true);
     maxEvents = maxEvents > 9 ? 9 : maxEvents;
     if (jewishCalendar.isErevYomTov()) events.add(formatYomTov(jewishCalendar));
     if (jewishCalendar.isYomTov()) events.add(formatYomTov(jewishCalendar));
@@ -970,7 +970,7 @@ class HebrewDateFormatter {
           DateFormat('HH:mm')
               .format(complexZmanimCalendar.getYomTovExitTime()));
     return events.length > maxEvents
-        ? events.getRange(0, maxEvents - 1)
+        ? events.getRange(0, maxEvents - 1).toList()
         : events;
   }
 

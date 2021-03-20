@@ -146,12 +146,77 @@ class JewishDate implements Comparable<JewishDate> {
   /// @see HebrewDateFormatter#getFormattedKviah(int)
   static const int SHELAIMIM = 2;
 
-  int _jewishMonth;
-  int _jewishDay;
-  int _jewishYear;
-  int _moladHours;
-  int _moladMinutes;
-  int _moladChalakim;
+  late int _jewishMonth;
+  late int _jewishDay;
+  late int _jewishYear;
+  late int _moladHours;
+  late int _moladMinutes;
+  late int _moladChalakim;
+
+  /// The month, where 1 == January, 2 == February, etc... Note that this is different than the Java's Calendar class
+  /// where January ==0
+  late int _gregorianMonth;
+
+  /// The day of the Gregorian month */
+  late int _gregorianDayOfMonth;
+
+  /// The Gregorian year */
+  late int _gregorianYear;
+
+  /// 1 == Sunday, 2 == Monday, etc... */
+  late int _dayOfWeek;
+
+  late int _gregorianAbsDate;
+
+  /// Default constructor will set a default date to the current system date.
+  JewishDate() {
+    resetDate();
+  }
+
+  /// Creates a Jewish date based on a Jewish year, month and day of month.
+  ///
+  /// @param jewishYear
+  ///            the Jewish year
+  /// @param jewishMonth
+  ///            the Jewish month. The method expects a 1 for Nissan ... 12 for Adar and 13 for Adar II. Use the
+  ///            constants {@link #NISSAN} ... {@link #ADAR} (or {@link #ADAR_II} for a leap year Adar II) to avoid any
+  ///            confusion.
+  /// @param jewishDayOfMonth
+  ///            the Jewish day of month. If 30 is passed in for a month with only 29 days (for example {@link #IYAR},
+  ///            or {@link #KISLEV} in a year that {@link #isKislevShort()}), the 29th (last valid date of the month)
+  ///            will be set
+  /// @throws IllegalArgumentException
+  ///             if the day of month is &lt; 1 or &gt; 30, or a year of &lt; 0 is passed in.
+  JewishDate.initDate(
+      {required int jewishYear,
+      required int jewishMonth,
+      required int jewishDayOfMonth}) {
+    setJewishDate(jewishYear, jewishMonth, jewishDayOfMonth);
+  }
+
+  /// A constructor that initializes the date to the {@link java.util.Date Date} paremeter.
+  ///
+  /// @param date
+  ///            the <code>Date</code> to set the calendar to
+  /// @throws IllegalArgumentException
+  ///             if the date would fall prior to the January 1, 1 AD
+  JewishDate.fromDateTime(DateTime dateTime) {
+    setDate(dateTime);
+  }
+
+  /// Constructor that creates a JewishDate based on a molad passed in. The molad would be the number of chalakim/parts
+  /// starting at the beginning of Sunday prior to the molad Tohu BeHaRaD (Be = Monday, Ha= 5 hours and Rad =204
+  /// chalakim/parts) - prior to the start of the Jewish calendar. BeHaRaD is 23:11:20 on Sunday night(5 hours 204/1080
+  /// chalakim after sunset on Sunday evening).
+  ///
+  /// @param molad the number of chalakim since the beginning of Sunday prior to BaHaRaD
+  JewishDate.fromMolad(double molad) {
+    _absDateToDate(_moladToAbsDate(molad));
+    // long chalakimSince = getChalakimSinceMoladTohu(year, TISHREI);// tishrei
+    int conjunctionDay = molad ~/ _CHALAKIM_PER_DAY;
+    int conjunctionParts = (molad - conjunctionDay * _CHALAKIM_PER_DAY).toInt();
+    _setMoladTime(conjunctionParts);
+  }
 
   /// Returns the molad hours. Only a JewishDate object populated with {@link #getMolad()},
   /// {@link #setJewishDate(int, int, int, int, int, int)} or {@link #setMoladHours(int)} will have this field
@@ -240,21 +305,6 @@ class JewishDate implements Comparable<JewishDate> {
     return _getLastDayOfGregorianMonth(month, _gregorianYear);
   }
 
-  /// The month, where 1 == January, 2 == February, etc... Note that this is different than the Java's Calendar class
-  /// where January ==0
-  int _gregorianMonth;
-
-  /// The day of the Gregorian month */
-  int _gregorianDayOfMonth;
-
-  /// The Gregorian year */
-  int _gregorianYear;
-
-  /// 1 == Sunday, 2 == Monday, etc... */
-  int _dayOfWeek;
-
-  int _gregorianAbsDate;
-
   /// Returns the number of days in a given month in a given month and year.
   ///
   /// @param month
@@ -270,7 +320,6 @@ class JewishDate implements Comparable<JewishDate> {
         } else {
           return 28;
         }
-        break;
       case 4:
       case 6:
       case 9:
@@ -807,20 +856,6 @@ class JewishDate implements Comparable<JewishDate> {
     return ((chalakim / _CHALAKIM_PER_DAY) + _JEWISH_EPOCH).toInt();
   }
 
-  /// Constructor that creates a JewishDate based on a molad passed in. The molad would be the number of chalakim/parts
-  /// starting at the beginning of Sunday prior to the molad Tohu BeHaRaD (Be = Monday, Ha= 5 hours and Rad =204
-  /// chalakim/parts) - prior to the start of the Jewish calendar. BeHaRaD is 23:11:20 on Sunday night(5 hours 204/1080
-  /// chalakim after sunset on Sunday evening).
-  ///
-  /// @param molad the number of chalakim since the beginning of Sunday prior to BaHaRaD
-  JewishDate.fromMolad(double molad) {
-    _absDateToDate(_moladToAbsDate(molad));
-    // long chalakimSince = getChalakimSinceMoladTohu(year, TISHREI);// tishrei
-    int conjunctionDay = molad ~/ _CHALAKIM_PER_DAY;
-    int conjunctionParts = (molad - conjunctionDay * _CHALAKIM_PER_DAY).toInt();
-    _setMoladTime(conjunctionParts);
-  }
-
   /// Sets the molad time (hours minutes and chalakim) based on the number of chalakim since the start of the day.
   ///
   /// @param chalakim
@@ -870,39 +905,6 @@ class JewishDate implements Comparable<JewishDate> {
   int getDaysSinceStartOfJewishYear() {
     return _getDaysSinceStartOfJewishYear(
         getJewishYear(), getJewishMonth(), getJewishDayOfMonth());
-  }
-
-  /// Creates a Jewish date based on a Jewish year, month and day of month.
-  ///
-  /// @param jewishYear
-  ///            the Jewish year
-  /// @param jewishMonth
-  ///            the Jewish month. The method expects a 1 for Nissan ... 12 for Adar and 13 for Adar II. Use the
-  ///            constants {@link #NISSAN} ... {@link #ADAR} (or {@link #ADAR_II} for a leap year Adar II) to avoid any
-  ///            confusion.
-  /// @param jewishDayOfMonth
-  ///            the Jewish day of month. If 30 is passed in for a month with only 29 days (for example {@link #IYAR},
-  ///            or {@link #KISLEV} in a year that {@link #isKislevShort()}), the 29th (last valid date of the month)
-  ///            will be set
-  /// @throws IllegalArgumentException
-  ///             if the day of month is &lt; 1 or &gt; 30, or a year of &lt; 0 is passed in.
-  JewishDate.initDate({int jewishYear, int jewishMonth, int jewishDayOfMonth}) {
-    setJewishDate(jewishYear, jewishMonth, jewishDayOfMonth);
-  }
-
-  /// Default constructor will set a default date to the current system date.
-  JewishDate() {
-    resetDate();
-  }
-
-  /// A constructor that initializes the date to the {@link java.util.Date Date} paremeter.
-  ///
-  /// @param date
-  ///            the <code>Date</code> to set the calendar to
-  /// @throws IllegalArgumentException
-  ///             if the date would fall prior to the January 1, 1 AD
-  JewishDate.fromDateTime(DateTime dateTime) {
-    setDate(dateTime);
   }
 
   /// Sets the date based on a {@link java.util.Calendar Calendar} object. Modifies the Jewish date as well.

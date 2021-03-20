@@ -222,10 +222,7 @@ class Daf {
   ///
   /// @param masechtaNumber the masechtaNumber in the order of the Daf Yomi to set
   /// @param daf the daf (page) number to set
-  Daf(int masechtaNumber, int daf) {
-    this._masechtaNumber = masechtaNumber;
-    this._daf = daf;
-  }
+  Daf(this._masechtaNumber, this._daf);
 
   /// Returns the daf (page number) of the Daf Yomi
   /// @return the daf (page number) of the Daf Yomi

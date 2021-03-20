@@ -95,11 +95,11 @@ class AstronomicalCalendar {
   static const double HOUR_MILLIS = MINUTE_MILLIS * 60;
 
   /// The Java Calendar encapsulated by this class to track the current date used by the class
-  DateTime _calendar;
+  late DateTime _calendar;
 
-  GeoLocation geoLocation;
+  late GeoLocation geoLocation;
 
-  AstronomicalCalculator astronomicalCalculator;
+  late AstronomicalCalculator astronomicalCalculator;
 
   /// The getSunrise method Returns a <code>Date</code> representing the
   /// {@link AstronomicalCalculator#getElevationAdjustment(double) elevation adjusted} sunrise time. The zenith used
@@ -115,7 +115,7 @@ class AstronomicalCalendar {
   /// @see AstronomicalCalculator#adjustZenith
   /// @see #getSeaLevelSunrise()
   /// @see AstronomicalCalendar#getUTCSunrise
-  DateTime getSunrise() {
+  DateTime? getSunrise() {
     double sunrise = getUTCSunrise(GEOMETRIC_ZENITH);
     if (sunrise.isNaN) {
       return null;
@@ -135,7 +135,7 @@ class AstronomicalCalendar {
   /// @see AstronomicalCalendar#getSunrise
   /// @see AstronomicalCalendar#getUTCSeaLevelSunrise
   /// @see #getSeaLevelSunset()
-  DateTime getSeaLevelSunrise() {
+  DateTime? getSeaLevelSunrise() {
     double sunrise = getUTCSeaLevelSunrise(GEOMETRIC_ZENITH);
     if (sunrise.isNaN) {
       return null;
@@ -149,7 +149,7 @@ class AstronomicalCalendar {
   /// @return The <code>Date</code> of the beginning of civil twilight using a zenith of 96&deg;. If the calculation
   ///         can't be computed, null will be returned. See detailed explanation on top of the page.
   /// @see #CIVIL_ZENITH
-  DateTime getBeginCivilTwilight() {
+  DateTime? getBeginCivilTwilight() {
     return getSunriseOffsetByDegrees(CIVIL_ZENITH);
   }
 
@@ -158,7 +158,7 @@ class AstronomicalCalendar {
   /// @return The <code>Date</code> of the beginning of nautical twilight using a zenith of 102&deg;. If the
   ///         calculation can't be computed null will be returned. See detailed explanation on top of the page.
   /// @see #NAUTICAL_ZENITH
-  DateTime getBeginNauticalTwilight() {
+  DateTime? getBeginNauticalTwilight() {
     return getSunriseOffsetByDegrees(NAUTICAL_ZENITH);
   }
 
@@ -168,7 +168,7 @@ class AstronomicalCalendar {
   /// @return The <code>Date</code> of the beginning of astronomical twilight using a zenith of 108&deg;. If the
   ///         calculation can't be computed, null will be returned. See detailed explanation on top of the page.
   /// @see #ASTRONOMICAL_ZENITH
-  DateTime getBeginAstronomicalTwilight() {
+  DateTime? getBeginAstronomicalTwilight() {
     return getSunriseOffsetByDegrees(ASTRONOMICAL_ZENITH);
   }
 
@@ -189,7 +189,7 @@ class AstronomicalCalendar {
   /// @see AstronomicalCalculator#adjustZenith
   /// @see #getSeaLevelSunset()
   /// @see AstronomicalCalendar#getUTCSunset
-  DateTime getSunset() {
+  DateTime? getSunset() {
     double sunset = getUTCSunset(GEOMETRIC_ZENITH);
     if (sunset.isNaN) {
       return null;
@@ -208,7 +208,7 @@ class AstronomicalCalendar {
   ///         where it does not set, a null will be returned. See detailed explanation on top of the page.
   /// @see AstronomicalCalendar#getSunset
   /// @see AstronomicalCalendar#getUTCSeaLevelSunset 2see {@link #getSunset()}
-  DateTime getSeaLevelSunset() {
+  DateTime? getSeaLevelSunset() {
     double sunset = getUTCSeaLevelSunset(GEOMETRIC_ZENITH);
     if (sunset.isNaN) {
       return null;
@@ -222,7 +222,7 @@ class AstronomicalCalendar {
   /// @return The <code>Date</code> of the end of civil twilight using a zenith of {@link #CIVIL_ZENITH 96&deg;}. If
   ///         the calculation can't be computed, null will be returned. See detailed explanation on top of the page.
   /// @see #CIVIL_ZENITH
-  DateTime getEndCivilTwilight() {
+  DateTime? getEndCivilTwilight() {
     return getSunsetOffsetByDegrees(CIVIL_ZENITH);
   }
 
@@ -232,7 +232,7 @@ class AstronomicalCalendar {
   ///         . If the calculation can't be computed, null will be returned. See detailed explanation on top of the
   ///         page.
   /// @see #NAUTICAL_ZENITH
-  DateTime getEndNauticalTwilight() {
+  DateTime? getEndNauticalTwilight() {
     return getSunsetOffsetByDegrees(NAUTICAL_ZENITH);
   }
 
@@ -242,7 +242,7 @@ class AstronomicalCalendar {
   ///         108&deg;}. If the calculation can't be computed, null will be returned. See detailed explanation on top
   ///         of the page.
   /// @see #ASTRONOMICAL_ZENITH
-  DateTime getEndAstronomicalTwilight() {
+  DateTime? getEndAstronomicalTwilight() {
     return getSunsetOffsetByDegrees(ASTRONOMICAL_ZENITH);
   }
 
@@ -256,7 +256,7 @@ class AstronomicalCalendar {
   /// @param offset
   ///            the offset in milliseconds to add to the time.
   /// @return the {@link java.util.Date} with the offset in milliseconds added to it
-  static DateTime getTimeOffset(DateTime time, double offset) {
+  static DateTime? getTimeOffset(DateTime? time, double offset) {
     if (time == null || offset == double.minPositive) {
       return null;
     }
@@ -277,7 +277,7 @@ class AstronomicalCalendar {
   ///         can't be computed such as in the Arctic Circle where there is at least one day a year where the sun does
   ///         not rise, and one where it does not set, a null will be returned. See detailed explanation on top of the
   ///         page.
-  DateTime getSunriseOffsetByDegrees(double offsetZenith) {
+  DateTime? getSunriseOffsetByDegrees(double offsetZenith) {
     double dawn = getUTCSunrise(offsetZenith);
     if (dawn.isNaN) {
       return null;
@@ -298,7 +298,7 @@ class AstronomicalCalendar {
   ///         be computed such as in the Arctic Circle where there is at least one day a year where the sun does not
   ///         rise, and one where it does not set, a null will be returned. See detailed explanation on top of the
   ///         page.
-  DateTime getSunsetOffsetByDegrees(double offsetZenith) {
+  DateTime? getSunsetOffsetByDegrees(double offsetZenith) {
     double sunset = getUTCSunset(offsetZenith);
     if (sunset.isNaN) {
       return null;
@@ -315,7 +315,7 @@ class AstronomicalCalendar {
   ///            The location information used for calculating astronomical sun times.
   ///
   /// @see #setAstronomicalCalculator(AstronomicalCalculator) for changing the calculator class.
-  AstronomicalCalendar({GeoLocation geoLocation}) {
+  AstronomicalCalendar({GeoLocation? geoLocation}) {
     if (geoLocation == null) geoLocation = GeoLocation();
     setCalendar(geoLocation.getDateTime());
     setGeoLocation(geoLocation); // duplicate call
@@ -398,13 +398,13 @@ class AstronomicalCalendar {
   ///         {@link Long#MIN_VALUE} will be returned. See detailed explanation on top of the page.
   ///
   /// @see #getTemporalHour()
-  double getTemporalHour([DateTime startOfDay, DateTime endOfDay]) {
+  double getTemporalHour([DateTime? startOfDay, DateTime? endOfDay]) {
     if (startOfDay == null || endOfDay == null) {
       startOfDay = getSeaLevelSunrise();
       endOfDay = getSeaLevelSunset();
     }
-    return (endOfDay.millisecondsSinceEpoch -
-            startOfDay.millisecondsSinceEpoch) /
+    return (endOfDay!.millisecondsSinceEpoch -
+            startOfDay!.millisecondsSinceEpoch) /
         12;
   }
 
@@ -424,7 +424,7 @@ class AstronomicalCalendar {
   /// @return the <code>Date</code> representing Sun's transit. If the calculation can't be computed such as in the
   ///         Arctic Circle where there is at least one day a year where the sun does not rise, and one where it does
   ///         not set, null will be returned. See detailed explanation on top of the page.
-  DateTime getSunTransit([DateTime startOfDay, DateTime endOfDay]) {
+  DateTime? getSunTransit([DateTime? startOfDay, DateTime? endOfDay]) {
     if (startOfDay == null || endOfDay == null) {
       startOfDay = getSeaLevelSunrise();
       endOfDay = getSeaLevelSunset();
@@ -440,7 +440,7 @@ class AstronomicalCalendar {
   ///            for 6:45:00 PM.time is sunrise and false if it is sunset
   /// @param isSunrise true if the
   /// @return The Date.
-  DateTime getDateFromTime(double time, bool isSunrise) {
+  DateTime? getDateFromTime(double time, bool isSunrise) {
     if (time.isNaN) {
       return null;
     }
@@ -478,13 +478,13 @@ class AstronomicalCalendar {
   /// @return the degrees below the horizon before sunrise that match the offset in minutes passed it as a parameter.
   /// @see #getSunsetSolarDipFromOffset(double)
   double getSunriseSolarDipFromOffset(double minutes) {
-    DateTime offsetByDegrees = getSeaLevelSunrise();
-    DateTime offsetByTime =
+    DateTime? offsetByDegrees = getSeaLevelSunrise();
+    DateTime? offsetByTime =
         getTimeOffset(getSeaLevelSunrise(), -(minutes * MINUTE_MILLIS));
 
     double degrees = 0;
     double incrementor = 0.0001;
-    while (offsetByDegrees == null || offsetByDegrees.isAfter(offsetByTime)) {
+    while (offsetByDegrees == null || offsetByDegrees.isAfter(offsetByTime!)) {
       //FIXME needs some work
       //while (offsetByDegrees != null && offsetByDegrees.getTime() > offsetByTime.getTime()) {
       degrees += incrementor;
@@ -503,12 +503,12 @@ class AstronomicalCalendar {
   /// @return the degrees below the horizon after sunset that match the offset in minutes passed it as a parameter.
   /// @see #getSunriseSolarDipFromOffset(double)
   double getSunsetSolarDipFromOffset(double minutes) {
-    DateTime offsetByDegrees = getSeaLevelSunset();
-    DateTime offsetByTime =
+    DateTime? offsetByDegrees = getSeaLevelSunset();
+    DateTime? offsetByTime =
         getTimeOffset(getSeaLevelSunset(), minutes * MINUTE_MILLIS);
     double degrees = 0;
     double incrementor = 0.001;
-    while (offsetByDegrees == null || offsetByDegrees.isAfter(offsetByTime)) {
+    while (offsetByDegrees == null || offsetByDegrees.isAfter(offsetByTime!)) {
       // FIXME needs some work
       //while (offsetByDegrees != null && offsetByDegrees.getTime() < offsetByTime.getTime()) {
       degrees += incrementor;

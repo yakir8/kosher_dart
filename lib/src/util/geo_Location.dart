@@ -25,11 +25,11 @@ import 'package:vector_math/vector_math.dart';
 /// @author &copy; Eliyahu Hershfeld 2004 - 2018
 /// @version 1.1
 class GeoLocation {
-  double _latitude;
-  double _longitude;
-  String _locationName;
-  DateTime _dateTime;
-  double _elevation;
+  late double _latitude;
+  late double _longitude;
+  late String _locationName;
+  late DateTime _dateTime;
+  double? _elevation;
   static const int _DISTANCE = 0;
   static const int _INITIAL_BEARING = 1;
   static const int _FINAL_BEARING = 2;
@@ -40,22 +40,14 @@ class GeoLocation {
   /// constant for milliseconds in an hour (3,600,000) */
   static const double _HOUR_MILLIS = _MINUTE_MILLIS * 60;
 
-  /// Method to get the elevation in Meters.
-  ///
-  /// @return Returns the elevation in Meters.
-  double getElevation() {
-    return _elevation;
-  }
-
-  /// Method to set the elevation in Meters <b>above </b> sea level.
-  ///
-  /// @param elevation
-  ///            The elevation to set in Meters. An IllegalArgumentException will be thrown if the value is a negative.
-  void setElevation(double elevation) {
-    if (elevation < 0) {
-      throw new ArgumentError("Elevation cannot be negative");
-    }
-    this._elevation = elevation;
+  /// Default GeoLocation constructor will set location to the Prime Meridian at Greenwich, England and a TimeZone of
+  /// GMT. The longitude will be set to 0 and the latitude will be 51.4772 to match the location of the <a
+  /// href="http://www.rog.nmm.ac.uk">Royal Observatory, Greenwich </a>. No daylight savings time will be used.
+  GeoLocation() {
+    setLocationName("Greenwich, England");
+    setLongitude(longitude: 0); // added for clarity
+    setLatitude(latitude: 51.4772);
+    setDateTime(DateTime.now().toUtc());
   }
 
   /// GeoLocation constructor with parameters for all required fields.
@@ -84,14 +76,22 @@ class GeoLocation {
     setDateTime(dateTime);
   }
 
-  /// Default GeoLocation constructor will set location to the Prime Meridian at Greenwich, England and a TimeZone of
-  /// GMT. The longitude will be set to 0 and the latitude will be 51.4772 to match the location of the <a
-  /// href="http://www.rog.nmm.ac.uk">Royal Observatory, Greenwich </a>. No daylight savings time will be used.
-  GeoLocation() {
-    setLocationName("Greenwich, England");
-    setLongitude(longitude: 0); // added for clarity
-    setLatitude(latitude: 51.4772);
-    setDateTime(DateTime.now().toUtc());
+  /// Method to get the elevation in Meters.
+  ///
+  /// @return Returns the elevation in Meters.
+  double? getElevation() {
+    return _elevation;
+  }
+
+  /// Method to set the elevation in Meters <b>above </b> sea level.
+  ///
+  /// @param elevation
+  ///            The elevation to set in Meters. An IllegalArgumentException will be thrown if the value is a negative.
+  void setElevation(double elevation) {
+    if (elevation < 0) {
+      throw new ArgumentError("Elevation cannot be negative");
+    }
+    this._elevation = elevation;
   }
 
   /// Method to set the latitude in degrees, minutes and seconds.
@@ -106,11 +106,11 @@ class GeoLocation {
   /// @param direction
   ///            N for north and S for south. An IllegalArgumentException will be thrown if the value is not S or N.
   void setLatitude(
-      {int degrees,
-      int minutes,
-      double seconds,
-      String direction,
-      double latitude}) {
+      {int? degrees,
+      int? minutes,
+      double? seconds,
+      String? direction,
+      double? latitude}) {
     if (latitude != null) {
       if (latitude > 90 || latitude < -90) {
         throw new ArgumentError("Latitude must be between -90 and  90");
@@ -157,11 +157,11 @@ class GeoLocation {
   ///            An IllegalArgumentException will be thrown if
   ///            the value is not E or W.
   void setLongitude(
-      {int degrees,
-      int minutes,
-      double seconds,
-      String direction,
-      double longitude}) {
+      {int? degrees,
+      int? minutes,
+      double? seconds,
+      String? direction,
+      double? longitude}) {
     if (longitude != null) {
       if (longitude > 180 || longitude < -180) {
         throw new ArgumentError("Longitude must be between -180 and  180");
@@ -496,12 +496,8 @@ class GeoLocation {
       return this._latitude == geo._latitude &&
           this._longitude == geo._longitude &&
           this._elevation == geo._elevation &&
-          (this._locationName == null
-              ? geo._locationName == null
-              : this._locationName == geo._locationName) &&
-          (this._dateTime == null
-              ? geo._dateTime == null
-              : this._dateTime == geo._dateTime);
+          (this._locationName == geo._locationName) &&
+          (this._dateTime == geo._dateTime);
     } catch (e) {
       return false;
     }

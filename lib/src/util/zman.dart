@@ -57,27 +57,24 @@ import 'dart:core';
 /// at the end, but they will not be sorted by duration. This should be N/A for label based sorting.
 class Zman {
   /// The name / label of the <em>zman</em>.
-  String _label;
+  late String _label;
 
   /// The {@link Date} of the <em>zman</em>
-  DateTime _zman;
+  DateTime? _zman;
 
   /// The duration if the <em>zman</em> is  a {@link net.sourceforge.zmanim.AstronomicalCalendar#getTemporalHour() temporal hour} (or the various
   /// <em>shaah zmanis</em> base times such as {@link net.sourceforge.zmanim.ZmanimCalendar#getShaahZmanisGra()  <em>shaah Zmanis GRA</em>} or
   /// {@link net.sourceforge.zmanim.ComplexZmanimCalendar#getShaahZmanis16Point1Degrees() <em>shaah Zmanis 16.1&deg;</em>}).
-  double _duration;
+  double? _duration;
 
   /// A longer description or explanation of a <em>zman</em>.
-  String _description;
+  String? _description;
 
   /// The constructor setting a {@link Date} based <em>zman</em> and a label.
   /// @param date the Date of the <em>zman</em>.
   /// @param label the label of the  <em>zman</em> such as "<em>Sof Zman Krias Shema GRA</em>".
   /// @see #Zman(long, String)
-  Zman(DateTime date, String label) {
-    this._label = label;
-    this._zman = date;
-  }
+  Zman(this._zman, this._label);
 
   /// The constructor setting a duration based <em>zman</em> such as
   /// {@link net.sourceforge.zmanim.AstronomicalCalendar#getTemporalHour() temporal hour} (or the various <em>shaah zmanis</em> times such as
@@ -86,15 +83,12 @@ class Zman {
   /// @param duration a duration based <em>zman</em> such as ({@link net.sourceforge.zmanim.AstronomicalCalendar#getTemporalHour()}
   /// @param label the label of the  <em>zman</em> such as "<em>Shaah Zmanis GRA</em>".
   /// @see #Zman(Date, String)
-  Zman.duration(double duration, String label) {
-    this._label = label;
-    this._duration = duration;
-  }
+  Zman.duration(this._duration, this._label);
 
   /// Returns the {@code Date} based <em>zman</em>.
   /// @return the <em>zman</em>.
   /// @see #setZman(Date)
-  DateTime getZman() {
+  DateTime? getZman() {
     return this._zman;
   }
 
@@ -110,7 +104,7 @@ class Zman {
   /// or {@link net.sourceforge.zmanim.ComplexZmanimCalendar#getShaahZmanis16Point1Degrees() <em>shaah zmanis 16.1&deg;</em>}).
   /// @return the duration based <em>zman</em>.
   /// @see #setDuration(long)
-  double getDuration() {
+  double? getDuration() {
     return this._duration;
   }
 
@@ -142,7 +136,7 @@ class Zman {
   /// {@link #setDescription(String)}
   /// @return the description or explanation of a <em>zman</em>.
   /// @see #setDescription(String)
-  String getDescription() {
+  String? getDescription() {
     return this._description;
   }
 
@@ -158,13 +152,13 @@ class Zman {
   /// order. Returns a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater
   /// than the second.
   /// Please note that this class will handle cases where either the {@code Zman} is a null or {@link #getZman()} returns a null.
-  static final Comparator<Zman> dateOrder = (Zman zman1, Zman zman2) {
-    double firstTime = (zman1 == null || zman1.getZman() == null)
+  static final Comparator<Zman> dateOrder = (Zman? zman1, Zman? zman2) {
+    num firstTime = (zman1 == null || zman1.getZman() == null)
         ? double.maxFinite
-        : zman1.getZman().millisecondsSinceEpoch;
-    double secondTime = (zman2 == null || zman2.getZman() == null)
+        : zman1.getZman()!.millisecondsSinceEpoch;
+    num secondTime = (zman2 == null || zman2.getZman() == null)
         ? double.maxFinite
-        : zman2.getZman().millisecondsSinceEpoch;
+        : zman2.getZman()!.millisecondsSinceEpoch;
     return firstTime.compareTo(secondTime);
   };
 
@@ -173,11 +167,9 @@ class Zman {
   /// than the second.
   /// Please note that this class will will sort cases where either the {@code Zman} is a null or {@link #label} returns a null
   /// as empty {@code String}s.
-  static final Comparator<Zman> nameOrder = (Zman zman1, Zman zman2) {
-    String firstLabel =
-        (zman1 == null || zman1.getLabel() == null) ? "" : zman1.getLabel();
-    String secondLabel =
-        (zman2 == null || zman2.getLabel() == null) ? "" : zman2.getLabel();
+  static final Comparator<Zman> nameOrder = (Zman? zman1, Zman? zman2) {
+    String firstLabel = (zman1 == null) ? "" : zman1.getLabel();
+    String secondLabel = (zman2 == null) ? "" : zman2.getLabel();
     return firstLabel.compareTo(secondLabel);
   };
 
@@ -187,11 +179,11 @@ class Zman {
   /// {@link net.sourceforge.zmanim.ComplexZmanimCalendar#getShaahZmanis16Point1Degrees() <em>shaah zmanis 16.1&deg;</em>}). Returns a negative
   /// integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second.
   /// Please note that this class will will sort cases where {@code Zman} is a null.
-  static final Comparator<Zman> durationOrder = (Zman zman1, Zman zman2) {
+  static final Comparator<Zman> durationOrder = (Zman? zman1, Zman? zman2) {
     double firstDuration =
-        zman1 == null ? double.maxFinite : zman1.getDuration();
+        zman1 == null ? double.maxFinite : zman1.getDuration()!;
     double secondDuration =
-        zman2 == null ? double.maxFinite : zman2.getDuration();
+        zman2 == null ? double.maxFinite : zman2.getDuration()!;
     return firstDuration == secondDuration
         ? 0
         : firstDuration > secondDuration

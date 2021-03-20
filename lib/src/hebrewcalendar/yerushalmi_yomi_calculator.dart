@@ -86,7 +86,7 @@ class YerushalmiYomiCalculator {
     DateTime prevCycle = DateTime.now();
     DateTime requested = calendar.getGregorianCalendar();
     int masechta = 0;
-    Daf dafYomi;
+    Daf dafYomi = new Daf(0, 0);
 
     // There isn't Daf Yomi in Yom Kippur and Tisha Beav.
     if (calendar.getYomTovIndex() == JewishCalendar.YOM_KIPPUR ||

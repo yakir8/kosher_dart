@@ -102,7 +102,7 @@ class YomiCalculator {
     ];
     DateTime dateTime = jewishCalendar.getGregorianCalendar();
 
-    Daf dafYomi;
+    Daf dafYomi = new Daf(0, 0);
     int julianDay = _getJulianDay(dateTime);
     int cycleNo = 0;
     int dafNo = 0;
