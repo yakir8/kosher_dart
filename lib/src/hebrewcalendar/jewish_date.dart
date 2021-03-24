@@ -583,11 +583,11 @@ class JewishDate implements Comparable<JewishDate> {
   static void _validateJewishDate(int year, int month, int dayOfMonth,
       int hours, int minutes, int chalakim) {
     if (month < NISSAN || month > _getLastMonthOfJewishYear(year)) {
-      throw new ArgumentError(
+      throw ArgumentError(
           "The Jewish month has to be between 1 and 12 (or 13 on a leap year). $month is invalid for the year $year.");
     }
     if (dayOfMonth < 1 || dayOfMonth > 30) {
-      throw new ArgumentError(
+      throw ArgumentError(
           "The Jewish day of month can't be < 1 or > 30.  $dayOfMonth is invalid.");
     }
     // reject dates prior to 18 Teves, 3761 (1/1/1 AD). This restriction can be relaxed if the date coding is
@@ -595,21 +595,20 @@ class JewishDate implements Comparable<JewishDate> {
     if ((year < 3761) ||
         (year == 3761 && (month >= TISHREI && month < TEVES)) ||
         (year == 3761 && month == TEVES && dayOfMonth < 18)) {
-      throw new ArgumentError(
+      throw ArgumentError(
           "A Jewish date earlier than 18 Teves, 3761 (1/1/1 Gregorian) can't be set. $year , $month, $dayOfMonth  is invalid.");
     }
     if (hours < 0 || hours > 23) {
-      throw new ArgumentError(
-          "Hours < 0 or > 23 can't be set. $hours is invalid.");
+      throw ArgumentError("Hours < 0 or > 23 can't be set. $hours is invalid.");
     }
 
     if (minutes < 0 || minutes > 59) {
-      throw new ArgumentError(
+      throw ArgumentError(
           "Minutes < 0 or > 59 can't be set. $minutes is invalid.");
     }
 
     if (chalakim < 0 || chalakim > 17) {
-      throw new ArgumentError(
+      throw ArgumentError(
           "Chalakim/parts < 0 or > 17 can't be set. $chalakim is invalid. For larger numbers such as "
           "793 (TaShTzaG) break the chalakim into minutes (18 chalakim per minutes, so it would be "
           "44 minutes and 1 chelek in the case of 793 (TaShTzaG)");
@@ -646,7 +645,7 @@ class JewishDate implements Comparable<JewishDate> {
   ///            {@link GregorianCalendar}, where {@link Calendar#JANUARY} has a value of 0.
   static void _validateGregorianMonth(int month) {
     if (month > 11 || month < 0) {
-      throw new ArgumentError(
+      throw ArgumentError(
           "The Gregorian month has to be between 0 - 11. $month is invalid.");
     }
   }
@@ -659,7 +658,7 @@ class JewishDate implements Comparable<JewishDate> {
   ///            see if there is any reason that the class needs days &gt; the maximum.
   static void _validateGregorianDayOfMonth(int dayOfMonth) {
     if (dayOfMonth <= 0) {
-      throw new ArgumentError(
+      throw ArgumentError(
           "The day of month can't be less than 1. $dayOfMonth  is invalid.");
     }
   }
@@ -670,8 +669,7 @@ class JewishDate implements Comparable<JewishDate> {
   ///            the Gregorian year to validate. It will reject any year &lt; 1.
   static void _validateGregorianYear(int year) {
     if (year < 1) {
-      throw new ArgumentError(
-          "Years < 1 can't be claculated.  $year  is invalid.");
+      throw ArgumentError("Years < 1 can't be claculated.  $year  is invalid.");
     }
   }
 
@@ -838,8 +836,7 @@ class JewishDate implements Comparable<JewishDate> {
   /// @return a JewishDate {@link Object} set to the date of the molad with the {@link #getMoladHours() hours},
   ///         {@link #getMoladMinutes() minutes} and {@link #getMoladChalakim() chalakim} set.
   JewishDate getMolad() {
-    JewishDate moladDate =
-        new JewishDate.fromMolad(getChalakimSinceMoladTohu());
+    JewishDate moladDate = JewishDate.fromMolad(getChalakimSinceMoladTohu());
     if (moladDate.getMoladHours() >= 6) {
       moladDate.forward(Calendar.DATE, 1);
     }
@@ -915,7 +912,7 @@ class JewishDate implements Comparable<JewishDate> {
   ///             if the {@link Calendar#ERA} is {@link GregorianCalendar#BC}
   void setDate(DateTime dateTime) {
     if (DateFormat('G').format(dateTime) == 'BC') {
-      throw new ArgumentError(
+      throw ArgumentError(
           "Calendars with arrow_expand BC era are not supported." +
               "The year ${dateTime.year}  BC is invalid.");
     }
@@ -1039,7 +1036,7 @@ class JewishDate implements Comparable<JewishDate> {
   /// @return the Jewish date in the form "day Month, year" e.g. "21 Shevat, 5729"
   /// @see HebrewDateFormatter#format(JewishDate)
   String toString() {
-    return new HebrewDateFormatter().format(this);
+    return HebrewDateFormatter().format(this);
   }
 
   /// Rolls the date, month or year forward by the amount passed in. It modifies both the Gregorian and Jewish dates accordingly.
@@ -1066,11 +1063,11 @@ class JewishDate implements Comparable<JewishDate> {
     if (field != Calendar.DATE &&
         field != Calendar.MONTH &&
         field != Calendar.YEAR) {
-      throw new ArgumentError(
+      throw ArgumentError(
           "Unsupported field was passed to Forward. Only Calendar.DATE, Calendar.MONTH or Calendar.YEAR are supported.");
     }
     if (amount < 1) {
-      throw new ArgumentError(
+      throw ArgumentError(
           "JewishDate.forward() does not support amounts less than 1. See JewishDate.back()");
     }
     if (field == Calendar.DATE) {
@@ -1135,7 +1132,7 @@ class JewishDate implements Comparable<JewishDate> {
   /// @param amount the number of months to roll the month forward
   void _forwardJewishMonth(int amount) {
     if (amount < 1) {
-      throw new ArgumentError(
+      throw ArgumentError(
           "the amount of months to forward has to be greater than zero.");
     }
     for (int i = 0; i < amount; i++) {

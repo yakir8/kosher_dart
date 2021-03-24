@@ -86,17 +86,17 @@ class YerushalmiYomiCalculator {
     DateTime prevCycle = DateTime.now();
     DateTime requested = calendar.getGregorianCalendar();
     int masechta = 0;
-    Daf dafYomi = new Daf(0, 0);
+    Daf dafYomi = Daf(0, 0);
 
     // There isn't Daf Yomi in Yom Kippur and Tisha Beav.
     if (calendar.getYomTovIndex() == JewishCalendar.YOM_KIPPUR ||
         calendar.getYomTovIndex() == JewishCalendar.TISHA_BEAV) {
-      return new Daf(39, 0);
+      return Daf(39, 0);
     }
 
     if (requested.isBefore(dafYomiStartDay)) {
       // TODO: should we return a null or throw an IllegalArgumentException?
-      throw new ArgumentError(
+      throw ArgumentError(
           "$requested is prior to organized Daf Yomi Yerushlmi cycles that started on $dafYomiStartDay");
     }
 
@@ -123,7 +123,7 @@ class YerushalmiYomiCalculator {
     // Finally find the daf.
     for (int j = 0; j < BLATT_PER_MASSECTA.length; j++) {
       if (total <= BLATT_PER_MASSECTA[j]) {
-        dafYomi = new Daf(masechta, total + 1);
+        dafYomi = Daf(masechta, total + 1);
         break;
       }
       total -= BLATT_PER_MASSECTA[j];
@@ -141,15 +141,15 @@ class YerushalmiYomiCalculator {
   /// @return the number of special days
   static int _getNumOfSpecialDays(DateTime start, DateTime end) {
     // Find the start and end Jewish years
-    int startYear = new JewishCalendar.fromDateTime(start).getJewishYear();
-    int endYear = new JewishCalendar.fromDateTime(end).getJewishYear();
+    int startYear = JewishCalendar.fromDateTime(start).getJewishYear();
+    int endYear = JewishCalendar.fromDateTime(end).getJewishYear();
 
     // Value to return
     int specialDays = 0;
 
     //Instant of special Dates
-    JewishCalendar yomKippur = new JewishCalendar.initDate(5770, 7, 10);
-    JewishCalendar tishaBeav = new JewishCalendar.initDate(5770, 5, 9);
+    JewishCalendar yomKippur = JewishCalendar.initDate(5770, 7, 10);
+    JewishCalendar tishaBeav = JewishCalendar.initDate(5770, 5, 9);
 
     // Go over the years and find special dates
     for (int i = startYear; i <= endYear; i++) {

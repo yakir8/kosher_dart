@@ -36,14 +36,14 @@ void main() {
 }
 
 void _shouldBeLeapYear(int year) {
-  JewishDate jewishDate = new JewishDate();
+  JewishDate jewishDate = JewishDate();
   jewishDate.setJewishYear(year);
 
   expect(jewishDate.isJewishLeapYear(), true);
 }
 
 void _shouldNotBeLeapYear(int year) {
-  JewishDate jewishDate = new JewishDate();
+  JewishDate jewishDate = JewishDate();
   jewishDate.setJewishYear(year);
 
   expect(jewishDate.isJewishLeapYear(), false);

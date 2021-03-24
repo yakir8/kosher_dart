@@ -747,9 +747,9 @@ class HebrewDateFormatter {
   ///
   String formatHebrewNumber(int number) {
     if (number < 0) {
-      throw new ArgumentError("negative numbers can't be formatted");
+      throw ArgumentError("negative numbers can't be formatted");
     } else if (number > 9999) {
-      throw new ArgumentError("numbers > 9999 can't be formatted");
+      throw ArgumentError("numbers > 9999 can't be formatted");
     }
 
     const String ALAFIM = "אלפים";
@@ -782,7 +782,7 @@ class HebrewDateFormatter {
         (shortNumber < 100 && shortNumber % 10 == 0) ||
         (shortNumber <= 400 && shortNumber % 100 == 0));
     int thousands = number ~/ 1000; // get # thousands
-    StringBuffer sb = new StringBuffer();
+    StringBuffer sb = StringBuffer();
     // append thousands to String
     if (number % 1000 == 0) {
       // in year is 5000, 4000 etc

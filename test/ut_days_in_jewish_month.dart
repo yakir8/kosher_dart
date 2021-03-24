@@ -41,7 +41,7 @@ void main() {
 }
 
 void _assertHaser(int year) {
-  JewishDate jewishDate = new JewishDate();
+  JewishDate jewishDate = JewishDate();
   jewishDate.setJewishYear(year);
 
   expect(jewishDate.isCheshvanLong(), false);
@@ -49,7 +49,7 @@ void _assertHaser(int year) {
 }
 
 void _assertHaserLeap(int year) {
-  JewishDate jewishDate = new JewishDate();
+  JewishDate jewishDate = JewishDate();
   jewishDate.setJewishYear(year);
 
   _assertHaser(year);
@@ -57,7 +57,7 @@ void _assertHaserLeap(int year) {
 }
 
 void _assertQesidrah(int year) {
-  JewishDate jewishDate = new JewishDate();
+  JewishDate jewishDate = JewishDate();
   jewishDate.setJewishYear(year);
 
   expect(jewishDate.isCheshvanLong(), false);
@@ -65,7 +65,7 @@ void _assertQesidrah(int year) {
 }
 
 void _assertQesidrahLeap(int year) {
-  JewishDate jewishDate = new JewishDate();
+  JewishDate jewishDate = JewishDate();
   jewishDate.setJewishYear(year);
 
   _assertQesidrah(year);
@@ -73,7 +73,7 @@ void _assertQesidrahLeap(int year) {
 }
 
 void _assertShalem(int year) {
-  JewishDate jewishDate = new JewishDate();
+  JewishDate jewishDate = JewishDate();
   jewishDate.setJewishYear(year);
 
   expect(jewishDate.isCheshvanLong(), true);
@@ -81,7 +81,7 @@ void _assertShalem(int year) {
 }
 
 void _assertShalemLeap(int year) {
-  JewishDate jewishDate = new JewishDate();
+  JewishDate jewishDate = JewishDate();
   jewishDate.setJewishYear(year);
 
   _assertShalem(year);

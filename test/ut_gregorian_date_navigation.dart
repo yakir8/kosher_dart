@@ -5,7 +5,7 @@ void main() {
   test('gregorianForwardMonthToMonth', () async {
     DateTime dateTime = DateTime.utc(2011, DateTime.january, 31);
 
-    JewishDate hebrewDate = new JewishDate.fromDateTime(dateTime);
+    JewishDate hebrewDate = JewishDate.fromDateTime(dateTime);
     expect(hebrewDate.getJewishYear(), 5771);
     expect(hebrewDate.getJewishMonth(), 11);
     expect(hebrewDate.getJewishDayOfMonth(), 26);
@@ -115,7 +115,7 @@ void main() {
   test('gregorianBackwardMonthToMonth', () async {
     DateTime dateTime = DateTime.utc(2011, DateTime.january, 1);
 
-    JewishDate hebrewDate = new JewishDate.fromDateTime(dateTime);
+    JewishDate hebrewDate = JewishDate.fromDateTime(dateTime);
     hebrewDate.back();
     expect(hebrewDate.getGregorianYear(), 2010);
     expect(hebrewDate.getGregorianMonth(), 12);

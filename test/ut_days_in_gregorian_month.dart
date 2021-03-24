@@ -4,7 +4,7 @@ import 'package:kosher_dart/kosher_dart.dart';
 
 void main() {
   test('testDaysInMonth', () async {
-    JewishDate hebrewDate = new JewishDate();
+    JewishDate hebrewDate = JewishDate();
     DateTime dateTime = DateTime.utc(2011, DateTime.january);
     hebrewDate.setDate(dateTime);
 
@@ -12,7 +12,7 @@ void main() {
   });
 
   test('testDaysInMonthLeapYear', () async {
-    JewishDate hebrewDate = new JewishDate();
+    JewishDate hebrewDate = JewishDate();
     DateTime dateTime = DateTime.utc(2012, DateTime.january);
     hebrewDate.setDate(dateTime);
 
@@ -20,7 +20,7 @@ void main() {
   });
 
   test('testDaysInMonth100Year', () async {
-    JewishDate hebrewDate = new JewishDate();
+    JewishDate hebrewDate = JewishDate();
     DateTime dateTime = DateTime.utc(2100, DateTime.january);
     hebrewDate.setDate(dateTime);
 
@@ -28,7 +28,7 @@ void main() {
   });
 
   test('testDaysInMonth400Year', () async {
-    JewishDate hebrewDate = new JewishDate();
+    JewishDate hebrewDate = JewishDate();
     DateTime dateTime = DateTime.utc(2400, DateTime.january);
     hebrewDate.setDate(dateTime);
 

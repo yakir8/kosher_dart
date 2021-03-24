@@ -2310,7 +2310,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [JewishCalendar.getSofZmanKidushLevanaBetweenMoldos]_
   DateTime? getSofZmanKidushLevanaBetweenMoldos(
       [DateTime? alos, DateTime? tzais]) {
-    JewishCalendar jewishCalendar = new JewishCalendar();
+    JewishCalendar jewishCalendar = JewishCalendar();
     jewishCalendar.setGregorianDate(
         getCalendar().year, getCalendar().month, getCalendar().day);
 
@@ -2394,7 +2394,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getSofZmanKidushLevanaBetweenMoldos]_
   /// _see [JewishCalendar.getSofZmanKidushLevana15Days]_
   DateTime? getSofZmanKidushLevana15Days([DateTime? alos, DateTime? tzais]) {
-    JewishCalendar jewishCalendar = new JewishCalendar();
+    JewishCalendar jewishCalendar = JewishCalendar();
     jewishCalendar.setGregorianDate(
         getCalendar().year, getCalendar().month, getCalendar().day);
 
@@ -2433,7 +2433,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getTchilasZmanKidushLevana7Days]_
   /// _see [JewishCalendar.getTchilasZmanKidushLevana3Days]_
   DateTime? getTchilasZmanKidushLevana3Days([DateTime? alos, DateTime? tzais]) {
-    JewishCalendar jewishCalendar = new JewishCalendar();
+    JewishCalendar jewishCalendar = JewishCalendar();
     jewishCalendar.setGregorianDate(
         getCalendar().year, getCalendar().month, getCalendar().day);
 
@@ -2471,7 +2471,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getTchilasZmanKidushLevana7Days]_
   /// _see [JewishCalendar#getMoladAsDate]_
   DateTime? getZmanMolad() {
-    JewishCalendar jewishCalendar = new JewishCalendar();
+    JewishCalendar jewishCalendar = JewishCalendar();
     jewishCalendar.setGregorianDate(
         getCalendar().year, getCalendar().month, getCalendar().day);
 
@@ -2534,7 +2534,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getTchilasZmanKidushLevana7Days]_
   /// _see [JewishCalendar#getTchilasZmanKidushLevana7Days]_
   DateTime? getTchilasZmanKidushLevana7Days([DateTime? alos, DateTime? tzais]) {
-    JewishCalendar jewishCalendar = new JewishCalendar();
+    JewishCalendar jewishCalendar = JewishCalendar();
     jewishCalendar.setGregorianDate(
         getCalendar().year, getCalendar().month, getCalendar().day);
 

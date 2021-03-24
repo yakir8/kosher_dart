@@ -89,7 +89,7 @@ class GeoLocation {
   ///            The elevation to set in Meters. An IllegalArgumentException will be thrown if the value is a negative.
   void setElevation(double elevation) {
     if (elevation < 0) {
-      throw new ArgumentError("Elevation cannot be negative");
+      throw ArgumentError("Elevation cannot be negative");
     }
     this._elevation = elevation;
   }
@@ -113,26 +113,26 @@ class GeoLocation {
       double? latitude}) {
     if (latitude != null) {
       if (latitude > 90 || latitude < -90) {
-        throw new ArgumentError("Latitude must be between -90 and  90");
+        throw ArgumentError("Latitude must be between -90 and  90");
       }
       this._latitude = latitude;
     } else if (degrees == null ||
         minutes == null ||
         seconds == null ||
         direction == null)
-      throw new ArgumentError(
+      throw ArgumentError(
           "Longitude must be between 0 and  180.  Use a direction of W instead of negative.");
     else {
       double tempLat = degrees + ((minutes + (seconds / 60.0)) / 60.0);
       if (tempLat > 90 || tempLat < 0) {
         //FIXME An exception should be thrown if degrees, minutes or seconds are negative
-        throw new ArgumentError(
+        throw ArgumentError(
             "Latitude must be between 0 and  90. Use direction of S instead of negative.");
       }
       if (direction == "S") {
         tempLat *= -1;
       } else if (direction != "N") {
-        throw new ArgumentError("Latitude direction must be N or S");
+        throw ArgumentError("Latitude direction must be N or S");
       }
       this._latitude = tempLat;
     }
@@ -164,26 +164,26 @@ class GeoLocation {
       double? longitude}) {
     if (longitude != null) {
       if (longitude > 180 || longitude < -180) {
-        throw new ArgumentError("Longitude must be between -180 and  180");
+        throw ArgumentError("Longitude must be between -180 and  180");
       }
       this._longitude = longitude;
     } else if (degrees == null ||
         minutes == null ||
         seconds == null ||
         direction == null)
-      throw new ArgumentError(
+      throw ArgumentError(
           "Longitude must be between 0 and  180.  Use a direction of W instead of negative.");
     else {
       double longTemp = degrees + ((minutes + (seconds / 60.0)) / 60.0);
       if (longTemp > 180 || this._longitude < 0) {
         //FIXME An exception should be thrown if degrees, minutes or seconds are negative
-        throw new ArgumentError(
+        throw ArgumentError(
             "Longitude must be between 0 and  180.  Use a direction of W instead of negative.");
       }
       if (direction == "W") {
         longTemp *= -1;
       } else if (direction != "E") {
-        throw new ArgumentError("Longitude direction must be E or W");
+        throw ArgumentError("Longitude direction must be E or W");
       }
       this._longitude = longTemp;
     }

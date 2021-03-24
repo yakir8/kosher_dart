@@ -193,7 +193,7 @@ class Zman {
 
   /// @see java.lang.Object#toString()
   String toString() {
-    StringBuffer sb = new StringBuffer();
+    StringBuffer sb = StringBuffer();
     sb.write("\nLabel:\t\t\t");
     sb.write(this.getLabel());
     sb.write("\nZman:\t\t\t");

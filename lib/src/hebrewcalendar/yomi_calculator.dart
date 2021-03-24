@@ -102,13 +102,13 @@ class YomiCalculator {
     ];
     DateTime dateTime = jewishCalendar.getGregorianCalendar();
 
-    Daf dafYomi = new Daf(0, 0);
+    Daf dafYomi = Daf(0, 0);
     int julianDay = _getJulianDay(dateTime);
     int cycleNo = 0;
     int dafNo = 0;
     if (dateTime.isBefore(_dafYomiStartDay)) {
       // TODO: should we return a null or throw an IllegalArgumentException?
-      throw new ArgumentError(dateTime.toString() +
+      throw ArgumentError(dateTime.toString() +
           " is prior to organized Daf Yomi Bavli cycles that started on " +
           _dafYomiStartDay.toString());
     }
@@ -146,7 +146,7 @@ class YomiCalculator {
         } else if (masechta == 38) {
           blatt += 32;
         }
-        dafYomi = new Daf(masechta, blatt);
+        dafYomi = Daf(masechta, blatt);
         break;
       }
     }

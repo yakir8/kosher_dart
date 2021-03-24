@@ -461,9 +461,9 @@ class AstronomicalCalendar {
     // actually not the target date, but the day prior or after
     int localTimeHours = getGeoLocation().getLongitude() ~/ 15;
     if (isSunrise && localTimeHours + hours > 18) {
-      cal.add(Duration(days: -1));
+      cal = cal.add(Duration(days: -1));
     } else if (!isSunrise && localTimeHours + hours < 6) {
-      cal.add(Duration(days: 1));
+      cal = cal.add(Duration(days: 1));
     }
     return cal.add(Duration(hours: hours, minutes: minutes, seconds: seconds));
   }

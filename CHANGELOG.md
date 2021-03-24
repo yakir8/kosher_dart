@@ -1,5 +1,8 @@
+# 2.0.4
+- Fix zmanim calculation on some time zone
+
 ## 2.0.3
-- Add support null safety
+- Add support for null safety
 - Fix Taanis times
 
 ## 2.0.2

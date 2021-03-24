@@ -1819,8 +1819,8 @@ class JewishCalendar extends JewishDate {
         : DateTime.now().minute.toString();
     DateTime dateTime =
         DateTime.parse("$year-$month-$day $hour:$minute Z+02:00");
-    GeoLocation geo = new GeoLocation.setLocation(
-        locationName, latitude, longitude, dateTime);
+    GeoLocation geo =
+        GeoLocation.setLocation(locationName, latitude, longitude, dateTime);
 
     double moladSeconds = molad.getMoladChalakim() * 10 / 3;
     double moladMillisecond = (1000 * (moladSeconds - moladSeconds));
