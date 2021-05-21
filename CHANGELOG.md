@@ -1,4 +1,7 @@
-# 2.0.4
+## 2.0.5
+- Fix _getSunHourAngleAtSunrise() always return null for same location
+
+## 2.0.4
 - Fix zmanim calculation on some time zone
 
 ## 2.0.3

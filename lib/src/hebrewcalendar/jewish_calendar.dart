@@ -1807,18 +1807,12 @@ class JewishCalendar extends JewishDate {
     // being incorrectly off by an hour in the summer due to DST. Proper adjustment for the actual time in DST will be done by the date
     // formatter class used to display the Date.
     String year = DateTime.now().year.toString();
-    String month = DateTime.now().month < 10
-        ? '0${DateTime.now().month.toString()}'
-        : DateTime.now().month.toString();
-    String day = DateTime.now().day.toString();
-    String hour = DateTime.now().hour < 10
-        ? '0${DateTime.now().hour.toString()}'
-        : DateTime.now().hour.toString();
-    String minute = DateTime.now().minute < 10
-        ? '0${DateTime.now().minute.toString()}'
-        : DateTime.now().minute.toString();
-    DateTime dateTime =
-        DateTime.parse("$year-$month-$day $hour:$minute Z+02:00");
+    String month = DateTime.now().month.toString().padLeft(2, '0');
+    String day = DateTime.now().day.toString().toString().padLeft(2, '0');
+    ;
+    String hour = DateTime.now().hour.toString().padLeft(2, '0');
+    String minute = DateTime.now().minute.toString().padLeft(2, '0');
+    DateTime dateTime = DateTime.parse("$year-$month-$day $hour:$minute");
     GeoLocation geo =
         GeoLocation.setLocation(locationName, latitude, longitude, dateTime);
 

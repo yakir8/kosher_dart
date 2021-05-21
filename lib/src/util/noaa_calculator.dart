@@ -45,7 +45,8 @@ class NOAACalculator extends AstronomicalCalculator {
   /// @see net.sourceforge.zmanim.util.AstronomicalCalculator#getUTCSunrise(Calendar, GeoLocation, double, boolean)
   double getUTCSunrise(DateTime dateTime, GeoLocation geoLocation,
       double zenith, bool adjustForElevation) {
-    double elevation = adjustForElevation ? geoLocation.getElevation()! : 0;
+    double elevation =
+        adjustForElevation ? (geoLocation.getElevation() ?? 0) : 0;
     double adjustedZenith = adjustZenith(zenith, elevation);
 
     double sunrise = _getSunriseUTC(_getJulianDay(dateTime),
@@ -65,7 +66,8 @@ class NOAACalculator extends AstronomicalCalculator {
   /// @see net.sourceforge.zmanim.util.AstronomicalCalculator#getUTCSunset(Calendar, GeoLocation, double, boolean)
   double getUTCSunset(DateTime dateTime, GeoLocation geoLocation, double zenith,
       bool adjustForElevation) {
-    double elevation = adjustForElevation ? geoLocation.getElevation()! : 0;
+    double elevation =
+        adjustForElevation ? (geoLocation.getElevation() ?? 0) : 0;
     double adjustedZenith = adjustZenith(zenith, elevation);
 
     double sunset = _getSunsetUTC(_getJulianDay(dateTime),
@@ -307,9 +309,10 @@ class NOAACalculator extends AstronomicalCalculator {
       double lat, double solarDec, double zenith) {
     double latRad = radians(lat);
     double sdRad = radians(solarDec);
-
-    return (acos(cos(radians(zenith)) / (cos(latRad) * cos(sdRad)) -
-        tan(latRad) * tan(sdRad))); // in radians
+    double x = (cos(radians(zenith)) / (cos(latRad) * cos(sdRad)) -
+        tan(latRad) * tan(sdRad));
+    x = max(min(1, x), -1);
+    return acos(x); // in radians
   }
 
   /// Returns the <a href="http://en.wikipedia.org/wiki/Hour_angle">hour angle</a> of the sun at sunset for the
