@@ -1,31 +1,35 @@
+## 2.0.6
+- Added method getTallisAndTefillin()
+- Added Usage section on README.md file.
+
 ## 2.0.5
-- Fix _getSunHourAngleAtSunrise() always return null for same location
+- Fixed _getSunHourAngleAtSunrise() always return null for same location.
 
 ## 2.0.4
-- Fix zmanim calculation on some time zone
+- Fixed zmanim calculation on some time zone.
 
 ## 2.0.3
-- Add support for null safety
-- Fix Taanis times
+- Add support for null safety.
+- Fixed Taanis times.
 
 ## 2.0.2
 
 - Now only need to import kosher_dart.dart file
-- Add method getEventsList() to hebrew_date_formatter.dart file. Return list of events for the day.
-- Add method getEvent() to hebrew_date_formatter.dart file. Return event for the day.
-- Add method for exit and entry Shabbos time of this week.
-- Add method for exit and entry of the closer Yom Tov.
-- Add method for exit and entry of the closer Taanis.
-- Bug fix Based on [KosherJava Zmanim API commit f7e24ce](https://github.com/KosherJava/zmanim/tree/f7e24ce604e3fcd1c10824fc0d18bb7c8a0b7e99)
+- Added method getEventsList() to hebrew_date_formatter.dart file. Return list of events for the day.
+- Added method getEvent() to hebrew_date_formatter.dart file. Return event for the day.
+- Added method for exit and entry Shabbos time of this week.
+- Added method for exit and entry of the closer Yom Tov.
+- Added method for exit and entry of the closer Taanis.
+- Bugs fixed Based on [KosherJava Zmanim API commit f7e24ce](https://github.com/KosherJava/zmanim/tree/f7e24ce604e3fcd1c10824fc0d18bb7c8a0b7e99)
 - Bug & Documentation fix
-- 
+
 ## 2.0.1
 
-- Bug & Documentation fix
+- Bug & Documentation fix.
 
 ## 2.0.0
 
-- Add `formatWeeklyParsha` function for getting String of Parsha in given week
+- Added `formatWeeklyParsha` function for getting String of Parsha in given week.
 - Bug fix Based on [KosherJava Zmanim API commit cb5977c](https://github.com/KosherJava/zmanim/tree/cb5977c9efa5396660f130eac0150d41b47613d2)
 
 ## 1.0.0

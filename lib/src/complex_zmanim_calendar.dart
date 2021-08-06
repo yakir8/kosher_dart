@@ -3000,6 +3000,16 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
         .add(Duration(minutes: isAshkenaz ? 20 : 0));
   }
 
+  /// A method that return Tallis And Tefillin Zman
+  DateTime? getTallisAndTefillin({bool inIsrael = false, isAshkenaz = false}) {
+    if (isAshkenaz)
+      return this.getMisheyakir10Point2Degrees();
+    else
+      return this.getAlosHashachar() == null
+          ? null
+          : this.getAlosHashachar()!.add(Duration(minutes: 6));
+  }
+
   /// The Sabbath enters a fixed number of minutes before the astronomical sunset.
   /// Number of minutes that varies according to local custom. for example custom of Jerusalem and Petah Tikva is 40 minutes before sunset,
   /// Safed, Tiberias, Haifa and Samaria 30 minutes before sunset, Tel Aviv and Gush Dan custom 21 minutes before sunset,
