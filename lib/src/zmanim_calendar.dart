@@ -285,10 +285,10 @@ class ZmanimCalendar extends AstronomicalCalendar {
       getElevationAdjustedSunset(), 72 * AstronomicalCalendar.MINUTE_MILLIS);
 
   /// A method to return candle lighting time, calculated as [getCandleLightingOffset] minutes before
-  /// [getSeaLevelSunset] sea level sunset. This will return the time for any day of the week, since it can be
-  /// used to calculate candle lighting time for _Yom Tov_ (mid-week holidays) as well. Elevation adjustments
-  /// are intentionally not performed by this method, but you can calculate it by passing the elevation adjusted sunset
-  /// to [getTimeOffset].
+  /// [getSeaLevelSunset] sea level sunset for Erev Shabat & Yom Tov, and calculated as after
+  /// TZEIT HACOCHAVIM for secand Yom Tov or Erev Yom Tov after Shabat. Else This method will return null.
+  /// Elevation adjustments are intentionally not performed by this method, but you can calculate it by
+  /// passing the elevation adjusted sunset to [getTimeOffset].
   ///
   /// return candle lighting time. If the calculation can't be computed such as in the Arctic Circle where there is at
   ///         least one day a year where the sun does not rise, and one where it does not set, a null will be returned.
@@ -297,9 +297,23 @@ class ZmanimCalendar extends AstronomicalCalendar {
   /// _see [getSeaLevelSunset]_
   /// _see [getCandleLightingOffset]_
   /// _see [setCandleLightingOffset]_
-  DateTime? getCandleLighting() => AstronomicalCalendar.getTimeOffset(
-      getSeaLevelSunset(),
-      -getCandleLightingOffset() * AstronomicalCalendar.MINUTE_MILLIS);
+  DateTime? getCandleLighting() {
+    JewishCalendar today = JewishCalendar.fromDateTime(getCalendar());
+    JewishCalendar yesterday =
+        JewishCalendar.fromDateTime(getCalendar().add(Duration(days: -1)));
+    int dayOfWeek = today.getDayOfWeek();
+    if ((dayOfWeek == 7 && today.isErevYomTov()) ||
+        (today.getYomTovIndex() == JewishCalendar.ROSH_HASHANA &&
+            yesterday.isErevYomTov())) {
+      return AstronomicalCalendar.getTimeOffset(
+          getSunsetOffsetByDegrees(ComplexZmanimCalendar.ZENITH_7_POINT_083),
+          -13.5 * AstronomicalCalendar.MINUTE_MILLIS);
+    }
+    if (dayOfWeek == 6 || today.isErevYomTov())
+      return AstronomicalCalendar.getTimeOffset(getSeaLevelSunset(),
+          -getCandleLightingOffset() * AstronomicalCalendar.MINUTE_MILLIS);
+    return null;
+  }
 
   /// A generic method for calculating the latest _zman tfilah_ (time to recite the morning prayers)
   /// that is 4 * _shaos zmaniyos_ (temporal hours) after the start of the day, calculated using the start and

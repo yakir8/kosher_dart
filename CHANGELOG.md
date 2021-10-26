@@ -1,3 +1,6 @@
+## 2.0.7
+- Fix method getCandleLighting()
+- 
 ## 2.0.6
 - Added method getTallisAndTefillin()
 - Added Usage section on README.md file.
