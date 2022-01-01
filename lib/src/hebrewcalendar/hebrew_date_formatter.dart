@@ -16,13 +16,12 @@
 
 import 'package:intl/intl.dart';
 import 'package:kosher_dart/kosher_dart.dart';
-import 'package:kosher_dart/src/hebrewcalendar/daf.dart';
-import 'package:kosher_dart/src/hebrewcalendar/jewish_date.dart';
-import 'package:kosher_dart/src/hebrewcalendar/jewish_calendar.dart';
 
 /// The HebrewDateFormatter class formats a {@link JewishDate}.
 ///
-/// The class formats Jewish dates in Hebrew or Latin chars, and has various settings. Sample full date output includes
+/// The class formats Jewish dates, numbers, Daf Yomi (Bavli and Yerushalmi), the Omer, Parshas Hashavua (including special parshiyos
+/// such as Shekalim, Zachor, Parah, Hachodesh), Yomim Tovim and the Molad (experimental) in Hebrew or Latin chars, and has various
+/// settings. Sample full date output includes
 /// (using various options):
 /// <ul>
 /// <li>21 Shevat, 5729</li>
@@ -63,7 +62,12 @@ class HebrewDateFormatter {
 
   bool useShortHolidayFormat = false;
 
+  /// The [gersh](https://en.wikipedia.org/wiki/Geresh#Punctuation_mark) character is the ׳; char
+  /// that is similar to a single quote and is used in formatting Hebrew numbers.
   static const String _GERESH = "׳";
+
+  /// The [gersh](https://en.wikipedia.org/wiki/Geresh#Punctuation_mark) character is the "; char
+  /// that is similar to a single quote and is used in formatting Hebrew numbers.
   static const String _GERSHAYIM = "״";
 
   /// Hebrew Omer prefix. By default it is the letter ב, but can be set to ל (or any other prefix).
@@ -129,9 +133,15 @@ class HebrewDateFormatter {
     "אדר א"
   ];
 
-  /// list of transliterated parshiyos using the default Ashkenazi pronounciation. The formatParsha method uses this
-  /// for transliterated parsha display. This list can be overridden (for Sephardi English transliteration for example)
-  /// by setting the {@link #setTransliteratedParshiosList(EnumMap)}.
+  /// List of transliterated parshiyos using the default Ashkenazi pronounciation.&nbsp; The formatParsha method uses this
+  /// for transliterated parsha formatting.&nbsp; This list can be overridden (for Sephardi English transliteration for
+  /// example) by setting the {@link #setTransliteratedParshiosList(EnumMap)}. The list includes double and special
+  /// parshiyos is set as "Bereshis, Noach, Lech Lecha, Vayera, Chayei Sara, Toldos, Vayetzei, Vayishlach, Vayeshev, Miketz,
+  /// Vayigash, Vayechi, Shemos, Vaera, Bo, Beshalach, Yisro, Mishpatim, Terumah, Tetzaveh, Ki Sisa, Vayakhel, Pekudei,
+  /// Vayikra, Tzav, Shmini, Tazria, Metzora, Achrei Mos, Kedoshim, Emor, Behar, Bechukosai, Bamidbar, Nasso, Beha'aloscha,
+  /// Sh'lach, Korach, Chukas, Balak, Pinchas, Matos, Masei, Devarim, Vaeschanan, Eikev, Re'eh, Shoftim, Ki Seitzei, Ki Savo,
+  /// Nitzavim, Vayeilech, Ha'Azinu, Vezos Habracha, Vayakhel Pekudei, Tazria Metzora, Achrei Mos Kedoshim, Behar Bechukosai,
+  /// Chukas Balak, Matos Masei, Nitzavim Vayeilech, Shekalim, Zachor, Parah, Hachodesh".
   ///
   /// @see #formatParsha(JewishCalendar)
   Map<Parsha, String> transliteratedParshaMap = {
@@ -566,23 +576,84 @@ class HebrewDateFormatter {
     }
   }
 
-  /// Formats the Jewish date. If the formatter is set to Hebrew, it will format in the form, "day Month year" for
-  /// example כ״א שבט תשכ״ט, and the format "21 Shevat, 5729" if not.
+  /// Formats the Jewish date. The default format is "day Month year", for example if the formatter is set to Hebrew
+  /// it will כ״א שבט תשכ״ט, and the format "21 Shevat, 5729" if not. The format can be change by pattern variable.
+  /// The following symbol are available in explicit patterns:
   ///
+  ///     Symbol   Meaning                Presentation       Example
+  ///     ------   -------                ------------       -------
+  ///     yy       year                   (Number)           תשכ"ט
+  ///     MM       month in year          (Text & Number)    שבט
+  ///     dd       day in month           (Number)           כ"א
+  ///     hh       hour in am/pm (1~12)   (Number)           12
+  ///     HH       hour in day (0~23)     (Number)           0
+  ///     mm       minute in hour         (Number)           30
+  ///     ss       second in minute       (Number)           55
+  ///     E        day of week            (Text)             שלישי
+  ///     D        day in year            (Number)           189
+  ///     a        am/pm marker           (Text)             PM
   /// @param jewishDate
   ///            the JewishDate to be formatted
-  /// @return the formatted date. If the formatter is set to Hebrew, it will format in the form, "day Month year" for
-  ///         example כ״א שבט תשכ״ט, and the format "21 Shevat, 5729" if not.
-  String format(JewishDate jewishDate) {
-    if (hebrewFormat) {
-      return formatHebrewNumber(jewishDate.getJewishDayOfMonth()) +
-          " " +
-          formatMonth(jewishDate) +
-          " " +
-          formatHebrewNumber(jewishDate.getJewishYear());
-    } else {
-      return "${jewishDate.getJewishDayOfMonth()} ${formatMonth(jewishDate)}, ${jewishDate.getJewishYear()}";
+  /// @param pattern
+  ///             The default pattern is "dd MM yy", for example if the formatter is set to Hebrew
+  ///             it will כ״א שבט תשכ״ט, and "21 Shevat, 5729" if not.
+  /// @return the formatted date.
+  ///             If the formatter is set to Hebrew, it will format in the form, "day Month year"
+  ///             by default for example כ״א שבט תשכ״ט, and the format "21 Shevat, 5729" if not.
+  String format(JewishDate jewishDate, {String pattern = 'dd MM yy'}) {
+    String formatDate;
+    StringBuffer stringBuffer = StringBuffer();
+    RegExp exp =
+        new RegExp(r"(dd)|(MM)|(yy)|(yyy)|(mm)|(hh)|(HH)|(ss)|[aED]|[/\-: ]");
+    Iterable<Match> matches = exp.allMatches(pattern);
+    matches.forEach((element) => stringBuffer.write(element.group(0)));
+    formatDate = stringBuffer.toString();
+    if (formatDate.contains("dd")) {
+      formatDate = formatDate.replaceAll(
+          "dd",
+          hebrewFormat
+              ? formatHebrewNumber(jewishDate.getJewishDayOfMonth())
+              : '${jewishDate.getJewishDayOfMonth()}');
     }
+    if (formatDate.contains("MM")) {
+      formatDate = formatDate.replaceAll("MM", formatMonth(jewishDate));
+    }
+    if (formatDate.contains("yy")) {
+      formatDate = formatDate.replaceAll(
+          "yy",
+          hebrewFormat
+              ? formatHebrewNumber(jewishDate.getJewishYear())
+              : '${jewishDate.getJewishYear()}');
+    }
+    if (formatDate.contains("hh")) {
+      formatDate = formatDate.replaceAll(
+          "hh", DateFormat("hh").format(jewishDate.getGregorianCalendar()));
+    }
+    if (formatDate.contains("HH")) {
+      formatDate = formatDate.replaceAll(
+          "HH", DateFormat("HH").format(jewishDate.getGregorianCalendar()));
+    }
+    if (formatDate.contains("mm")) {
+      formatDate = formatDate.replaceAll(
+          "mm", DateFormat("mm").format(jewishDate.getGregorianCalendar()));
+    }
+    if (formatDate.contains("ss")) {
+      formatDate = formatDate.replaceAll(
+          "ss", DateFormat("ss").format(jewishDate.getGregorianCalendar()));
+    }
+    if (formatDate.contains("a")) {
+      formatDate = formatDate.replaceAll(
+          "a", DateFormat("a").format(jewishDate.getGregorianCalendar()));
+    }
+    if (formatDate.contains("E")) {
+      formatDate = formatDate.replaceAll("E", formatDayOfWeek(jewishDate));
+    }
+    if (formatDate.contains("D")) {
+      formatDate = formatDate.replaceAll(
+          "D", jewishDate.getDaysInJewishYear().toString());
+    }
+
+    return formatDate;
   }
 
   /// Returns a string of the current Hebrew month such as "Tishrei".
@@ -708,6 +779,14 @@ class HebrewDateFormatter {
     return returnValue;
   }
 
+  ///
+  /// Formats the [Daf Yomi](https://en.wikipedia.org/wiki/Daf_Yomi) Bavli in the format of
+  /// "&#x05E2;&#x05D9;&#x05E8;&#x05D5;&#x05D1;&#x05D9;&#x05DF; &#x05E0;&#x05F4;&#x05D1;" in [hebrewFormat],
+  /// or the transliterated format of "Eruvin 52".
+  ///
+  /// @param daf the Daf to be formatted.
+  /// @return the formatted daf.
+  ///
   String formatDafYomiBavli(Daf daf) {
     if (hebrewFormat) {
       return daf.getMasechta() + " " + formatHebrewNumber(daf.getDaf());
@@ -716,6 +795,14 @@ class HebrewDateFormatter {
     }
   }
 
+  ///
+  /// Formats the [Daf Yomi Yerushalmi](https://en.wikipedia.org/wiki/Jerusalem_Talmud#Daf_Yomi_Yerushalmi) in the format
+  /// of "&#x05E2;&#x05D9;&#x05E8;&#x05D5;&#x05D1;&#x05D9;&#x05DF; &#x05E0;&#x05F4;&#x05D1;" in {@link #isHebrewFormat() Hebrew}, or
+  /// the transliterated format of "Eruvin 52".
+  ///
+  /// @param daf the Daf to be formatted.
+  /// @return the formatted daf.
+  ///
   String formatDafYomiYerushalmi(Daf daf) {
     if (hebrewFormat) {
       String dafName =

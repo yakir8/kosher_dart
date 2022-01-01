@@ -24,8 +24,16 @@ import 'package:kosher_dart/src/util/geo_Location.dart';
 ///
 /// @author &copy; Eliyahu Hershfeld 2009 - 2018
 class GeoLocationUtils {
+  /// Constant for a distance type calculation.
+  /// @see #getGeodesicDistance(GeoLocation, GeoLocation)
   static const int _DISTANCE = 0;
+
+  /// Constant for a initial bearing type calculation.
+  /// @see #getGeodesicInitialBearing(GeoLocation, GeoLocation)
   static const int _INITIAL_BEARING = 1;
+
+  /// Constant for a final bearing type calculation.
+  /// @see #getGeodesicFinalBearing(GeoLocation, GeoLocation)
   static const int _FINAL_BEARING = 2;
 
   /// Calculate the <a href="http://en.wikipedia.org/wiki/Great_circle">geodesic</a> initial bearing between this Object and

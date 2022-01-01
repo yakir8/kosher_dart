@@ -25,13 +25,32 @@ import 'package:vector_math/vector_math.dart';
 /// @author &copy; Eliyahu Hershfeld 2004 - 2018
 /// @version 1.1
 class GeoLocation {
+  /// @see #getLatitude()
+  /// @see #setLatitude(double)
+  /// @see #setLatitude(int, int, double, String)
   late double _latitude;
+
+  /// @see #getLongitude()
+  /// @see #setLongitude(double)
+  /// @see #setLongitude(int, int, double, String)
   late double _longitude;
   late String _locationName;
   late DateTime _dateTime;
+
+  /// @see #getElevation()
+  /// @see #setElevation(double)
   double? _elevation;
+
+  /// Constant for a distance type calculation.
+  /// @see #getGeodesicDistance(GeoLocation)
   static const int _DISTANCE = 0;
+
+  /// Constant for a initial bearing type calculation.
+  /// @see #getGeodesicInitialBearing(GeoLocation)
   static const int _INITIAL_BEARING = 1;
+
+  /// Constant for a final bearing type calculation.
+  /// @see #getGeodesicFinalBearing(GeoLocation)
   static const int _FINAL_BEARING = 2;
 
   /// constant for milliseconds in a minute (60,000) */

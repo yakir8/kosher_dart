@@ -484,11 +484,16 @@ class AstronomicalCalendar {
 
     double degrees = 0;
     double incrementor = 0.0001;
-    while (offsetByDegrees == null || offsetByDegrees.isAfter(offsetByTime!)) {
-      //FIXME needs some work
-      //while (offsetByDegrees != null && offsetByDegrees.getTime() > offsetByTime.getTime()) {
-      degrees += incrementor;
+    while (offsetByDegrees == null ||
+        ((minutes < 0.0 && offsetByDegrees.isBefore(offsetByTime!)) ||
+            (minutes > 0.0 && offsetByDegrees.isAfter(offsetByTime!)))) {
+      if (minutes > 0.0) {
+        degrees += incrementor;
+      } else {
+        degrees -= incrementor;
+      }
       offsetByDegrees = getSunriseOffsetByDegrees(GEOMETRIC_ZENITH + degrees);
+      //System.out.println("offsetByDegrees: " + offsetByDegrees);
     }
     return degrees;
   }
@@ -508,10 +513,14 @@ class AstronomicalCalendar {
         getTimeOffset(getSeaLevelSunset(), minutes * MINUTE_MILLIS);
     double degrees = 0;
     double incrementor = 0.001;
-    while (offsetByDegrees == null || offsetByDegrees.isAfter(offsetByTime!)) {
-      // FIXME needs some work
-      //while (offsetByDegrees != null && offsetByDegrees.getTime() < offsetByTime.getTime()) {
-      degrees += incrementor;
+    while (offsetByDegrees == null ||
+        ((minutes > 0.0 && offsetByDegrees.isBefore(offsetByTime!)) ||
+            (minutes < 0.0 && offsetByDegrees.isAfter(offsetByTime!)))) {
+      if (minutes > 0.0) {
+        degrees += incrementor;
+      } else {
+        degrees -= incrementor;
+      }
       offsetByDegrees = getSunsetOffsetByDegrees(GEOMETRIC_ZENITH + degrees);
     }
     return degrees;

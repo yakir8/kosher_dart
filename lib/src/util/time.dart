@@ -21,10 +21,11 @@
 /// @author &copy; Eliyahu Hershfeld 2004 - 2011
 /// @version 0.9.0
 class Time {
+  ///  milliseconds in a second.
   static const int _SECOND_MILLIS = 1000;
-
+  /// milliseconds in a minute.
   static const int _MINUTE_MILLIS = _SECOND_MILLIS * 60;
-
+  /// milliseconds in an hour.
   static const int _HOUR_MILLIS = _MINUTE_MILLIS * 60;
 
   int hours = 0;
@@ -37,6 +38,12 @@ class Time {
 
   bool _isNegative = false;
 
+  /// Constructor with parameters for the hours, minutes, seconds and millisecods.
+  ///
+  /// @param hours the hours to set
+  /// @param minutes the minutes to set
+  /// @param seconds the seconds to set
+  /// @param milliseconds the milliseconds to set
   Time(int hours, int minutes, int seconds, int milliseconds) {
     this.hours = hours;
     this.minutes = minutes;
@@ -44,6 +51,9 @@ class Time {
     this.milliseconds = milliseconds;
   }
 
+  /// A constructor that sets the time by milliseconds. The milliseconds are converted to hours, minutes, seconds
+  /// and milliseconds. If the milliseconds are negative it will call {@link #setIsNegative(boolean)}.
+  /// @param millis the milliseconds to set.
   Time.millis(double millis) {
     double adjustedMillis = millis;
     if (adjustedMillis < 0) {
@@ -62,6 +72,8 @@ class Time {
     this.milliseconds = adjustedMillis.toInt();
   }
 
+  /// Set this to represent a negative time.
+  /// @param isNegative that the Time represents negative time
   bool isNegative() {
     return this._isNegative;
   }
@@ -114,6 +126,8 @@ class Time {
     this.milliseconds = milliseconds;
   }
 
+   ///Returns the time in milliseconds by converting hours, minutes and seconds into milliseconds.
+   ///@return the time in milliseconds
   double getTime() {
     double hourMillis = (this.hours * _HOUR_MILLIS).toDouble();
     double minutesMillis = (this.minutes * _MINUTE_MILLIS).toDouble();

@@ -115,13 +115,28 @@ class JewishDate implements Comparable<JewishDate> {
   /// of the year.
   static const int ADAR_II = 13;
 
+  static const int sunday = 1;
+  static const int monday = 2;
+  static const int tuesday = 3;
+  static const int wednesday = 4;
+  static const int thursday = 5;
+  static const int friday = 6;
+  static const int saturday = 7;
+
   /// the Jewish epoch using the RD (Rata Die/Fixed Date or Reingold Dershowitz) day used in Calendrical Calculations.
   /// Day 1 is January 1, 0001 Gregorian
   static const int _JEWISH_EPOCH = -1373429;
 
+  /// The number  of <em>chalakim</em> (18) in a minute.
   static const int _CHALAKIM_PER_MINUTE = 18;
+
+  /// The number  of <em>chalakim</em> (1080) in an hour.
   static const int _CHALAKIM_PER_HOUR = 1080;
+
+  /// The number of <em>chalakim</em> (25,920) in a 24 hour day.
   static const int _CHALAKIM_PER_DAY = 25920; // 24 * 1080
+  /// The number  of <em>chalakim</em> in an average Jewish month. A month has 29 days, 12 hours and 793
+  /// <em>chalakim</em> (44 minutes and 3.3 seconds) for a total of 765,433 <em>chalakim</em>
   static const double _CHALAKIM_PER_MONTH =
       765433; // (29 * 24 + 12) * 1080 + 793
   /// Days from the beginning of Sunday till molad BaHaRaD. Calculated as 1 day, 5 hours and 204 chalakim = (24 + 5) *
@@ -146,12 +161,27 @@ class JewishDate implements Comparable<JewishDate> {
   /// @see HebrewDateFormatter#getFormattedKviah(int)
   static const int SHELAIMIM = 2;
 
+  /// the internal Jewish month.
   late int _jewishMonth;
+
+  /// the internal Jewish day.
   late int _jewishDay;
+
+  /// the internal Jewish year.
   late int _jewishYear;
+
+  /// the internal count of <em>molad</em> hours.
   late int _moladHours;
+
+  /// the internal count of <em>molad</em> minutes.
   late int _moladMinutes;
+
+  /// the internal count of <em>molad</em> <em>chalakim</em>.
   late int _moladChalakim;
+
+  int? _hour;
+  int? _minute;
+  int? _second;
 
   /// The month, where 1 == January, 2 == February, etc... Note that this is different than the Java's Calendar class
   /// where January ==0
@@ -166,6 +196,9 @@ class JewishDate implements Comparable<JewishDate> {
   /// 1 == Sunday, 2 == Monday, etc... */
   late int _dayOfWeek;
 
+  /// Returns the absolute date (days since January 1, 0001 on the Gregorian calendar).
+  /// @see #getAbsDate()
+  /// @see #absDateToJewishDate()
   late int _gregorianAbsDate;
 
   /// Default constructor will set a default date to the current system date.
@@ -190,7 +223,13 @@ class JewishDate implements Comparable<JewishDate> {
   JewishDate.initDate(
       {required int jewishYear,
       required int jewishMonth,
-      required int jewishDayOfMonth}) {
+      required int jewishDayOfMonth,
+      int hour = 12,
+      int minute = 0,
+      int second = 0}) {
+    _hour = hour;
+    _minute = _minute;
+    _second = second;
     setJewishDate(jewishYear, jewishMonth, jewishDayOfMonth);
   }
 
@@ -783,7 +822,7 @@ class JewishDate implements Comparable<JewishDate> {
     return _getDaysInJewishMonth(getJewishMonth(), getJewishYear());
   }
 
-  /// Computes the Jewish date from the absolute date. ND+ER
+  /// Computes the Jewish date from the absolute date.
   void _absDateToJewishDate() {
     // Approximation from below
     _jewishYear = (_gregorianAbsDate - _JEWISH_EPOCH) ~/ 366;
@@ -919,6 +958,9 @@ class JewishDate implements Comparable<JewishDate> {
     _gregorianMonth = dateTime.month;
     _gregorianDayOfMonth = dateTime.day;
     _gregorianYear = dateTime.year;
+    _hour = dateTime.hour;
+    _minute = dateTime.minute;
+    _second = dateTime.second;
     _gregorianAbsDate = _gregorianDateToAbsDate(
         _gregorianYear, _gregorianMonth, _gregorianDayOfMonth); // init the date
     _absDateToJewishDate();
@@ -1021,8 +1063,8 @@ class JewishDate implements Comparable<JewishDate> {
   ///
   /// @return The {@link java.util.Calendar}
   DateTime getGregorianCalendar() {
-    return DateTime.utc(
-        getGregorianYear(), getGregorianMonth(), getGregorianDayOfMonth());
+    return DateTime.utc(getGregorianYear(), getGregorianMonth(),
+        getGregorianDayOfMonth(), _hour ?? 12, _minute ?? 0, _second ?? 0);
   }
 
   /// Resets this date to the current system date.
@@ -1149,7 +1191,7 @@ class JewishDate implements Comparable<JewishDate> {
   }
 
   /// Rolls the date back by 1 day. It modifies both the Gregorian and Jewish dates accordingly. The API does not
-  /// currently offer the ability to forward more than one day t a time, or to forward by month or year. If such
+  /// currently offer the ability to forward more than one day at a time, or to forward by month or year. If such
   /// manipulation is required use the {@link Calendar} class {@link Calendar#add(int, int)} or
   /// {@link Calendar#roll(int, int)} methods in the following manner.
   ///
@@ -1347,6 +1389,13 @@ class JewishDate implements Comparable<JewishDate> {
     setJewishDate(_jewishYear, _jewishMonth, dayOfMonth);
   }
 
+  /// Returns is the year passed in is a [Gregorian leap year](https://en.wikipedia.org/wiki/Leap_year#Gregorian_calendar).
+  /// @param year the Gregorian year
+  /// @return if the year in question is a leap year.
+  bool isGregorianLeapYear(int year) {
+    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+  }
+
   /// A method that creates a <a href="http://en.wikipedia.org/wiki/Object_copy#Deep_copy">deep copy</a> of the object.
   ///
   /// @see Object#clone()
@@ -1356,6 +1405,7 @@ class JewishDate implements Comparable<JewishDate> {
         _gregorianYear, _gregorianMonth, _gregorianDayOfMonth);
     return clone;
   }
+
 /*
   /// @see Object#hashCode()
   int hashCode() {

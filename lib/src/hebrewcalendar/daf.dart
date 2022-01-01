@@ -247,6 +247,15 @@ class Daf {
     return _masechtosBavliTransliterated[_masechtaNumber];
   }
 
+  ///Setter method to allow overriding of the default list of masechtos transliterated into into Latin chars. The default
+  ///uses Ashkenazi American English transliteration.
+  ///
+  ///@param masechtosBavliTransliterated the list of transliterated Bavli masechtos to set.
+  ///@see #getMasechtaTransliterated()
+  void setMasechtaTransliterated(List<String> masechtosBavliTransliterated) {
+    _masechtosBavliTransliterated = masechtosBavliTransliterated;
+  }
+
   /// Returns the masechta (tractate) of the Daf Yomi in Hebrew, It will return
   /// &#x05D1;&#x05E8;&#x05DB;&#x05D5;&#x05EA; for Berachos.
   ///
@@ -265,6 +274,17 @@ class Daf {
   /// @return the transliterated name of the masechta (tractate) of the Daf Yomi such as Berachos.
   String getYerushlmiMasechtaTransliterated() {
     return _masechtosYerushalmiTransliterated[_masechtaNumber];
+  }
+
+  ///
+  /// Setter method to allow overriding of the default list of Yerushalmi masechtos transliterated into into Latin chars.
+  /// The default uses Ashkenazi American English transliteration.
+  ///
+  /// @param masechtosYerushalmiTransliterated the list of transliterated Yerushalmi masechtos to set.
+  ///
+  void setYerushlmiMasechtaTransliterated(
+      List<String> masechtosYerushalmiTransliterated) {
+    _masechtosYerushalmiTransliterated = masechtosYerushalmiTransliterated;
   }
 
   /// Returns the Yerushlmi masechta (tractate) of the Daf Yomi in Hebrew, It will return

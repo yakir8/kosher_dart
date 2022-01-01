@@ -1,3 +1,14 @@
+## 2.0.9
+- Added method isShoavavimWeek()
+- Improved implementation of format() method with 'pattern' parameter for building date format
+- Changes have been made base on KosherJava (last commit 28.12.2021)
+  - Fix AstronomicalCalendar getSunriseSolarDipFromOffset() and getSunsetSolarDipFromOffset (they are still inefficient) to properly allow calculations before and after sun rise/set.
+  - Simplify and reduce code duplication in ZmanimCalendar generic zmanim calculations.
+  - Added Daf.setMasechtaTransliterated(List<String> masechtosBavliTransliterated) and Daf.setYerushlmiMasechtaTransliterated(List<String> masechtosYerushalmiTransliterated).
+  - Added JewishCalendar.isTaanisBechoros().
+  - Add seasonal davening based zmanim including Vesein Tal Umatar/ Vesein Berachah / Mashiv Haruach.
+  - Fix an issue with sof zman kiddush levana being off by an hour when the molad is on one side of the DST change, and the sof zman on the other.
+
 ## 2.0.8
 - Fix method getCandleLighting() for Chanukah
 

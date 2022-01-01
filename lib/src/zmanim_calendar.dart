@@ -22,29 +22,32 @@ import 'package:kosher_dart/src/util/astronomical_calculator.dart';
 
 /// The ZmanimCalendar is arrow_expand specialized calendar that can calculate sunrise and sunset and Jewish _zmanim_
 /// (religious times) for prayers and other Jewish religious duties. This class contains the main functionality of the
-/// Zmanim library. For a much more extensive list of zmanim use the {@link ComplexZmanimCalendar} that extends this
-/// class. See documentation for the {@link ComplexZmanimCalendar} and {@link AstronomicalCalendar} for simple examples
-///  on using the API. According to Rabbi Dovid Yehudah Bursztyn in his <a href="http://www.worldcat.org/oclc/659793988"
-///  >Zmanim Kehilchasam (second edition published in 2007)</a> chapter 2 (pages 186-187) no zmanim besides sunrise and
-///  sunset should use elevation. However Rabbi Yechiel Avrahom Zilber in the <a href="http://hebrewbooks.org/51654"
-///  >Birur Halacha Vol. 6</a> Ch. 58 Pages <a href="http://hebrewbooks.org/pdfpager.aspx?req=51654&amp;pgnum=42">34</a>
-///  and <a href="http://hebrewbooks.org/pdfpager.aspx?req=51654&amp;pgnum=50">42</a> is of the opinion that elevation
-///  should be accounted for in zmanim calculations. Related to this, Rabbi Yaakov Karp in <a href=
-///  "http://www.worldcat.org/oclc/919472094">Shimush Zekeinim</a>, Ch. 1, page 17 states that obstructing horizons should
-///  be factored into zmanim calculations. The setting defaults to false (elevation will not be used for zmanim calculations),
-///  unless the setting is changed to true in {@link #setUseElevation(boolean)}. This will impact sunrise and sunset based
-///  zmanim such as {@link #getSunrise()}, {@link #getSunset()}, {@link #getSofZmanShmaGRA()}, alos based zmanim such as
-///  {@link #getSofZmanShmaMGA()} that are based on a fixed offset of sunrise or sunset and zmanim based on a percentage of
-///  the day such as {@link ComplexZmanimCalendar#getSofZmanShmaMGA90MinutesZmanis()} that are based on sunrise and sunset.
-///  It will not impact zmanim that are a degree based offset of sunrise and sunset, such as
-///  {@link ComplexZmanimCalendar#getSofZmanShmaMGA16Point1Degrees()} or {@link ComplexZmanimCalendar#getSofZmanShmaBaalHatanya()}.
+///  <em>Zmanim</em> library. For a much more extensive list of <em>zmanim</em>, use the {@link ComplexZmanimCalendar} that
+/// extends this class. See documentation for the {@link ComplexZmanimCalendar} and {@link AstronomicalCalendar} for
+/// simple examples on using the API. According to Rabbi Dovid Yehudah Bursztyn in his
+/// <a href="http://www.worldcat.org/oclc/659793988">Zmanim Kehilchasam (second edition published in 2007)</a> chapter 2
+/// (pages 186-187) no <em>zmanim</em> besides sunrise and sunset should use elevation. However, Rabbi Yechiel Avrahom
+/// Zilber in the <a href="http://hebrewbooks.org/51654">Birur Halacha Vol. 6</a> Ch. 58 Pages
+/// <a href="http://hebrewbooks.org/pdfpager.aspx?req=51654&amp;pgnum=42">34</a> and
+/// <a href="http://hebrewbooks.org/pdfpager.aspx?req=51654&amp;pgnum=50">42</a> is of the opinion that elevation should be
+/// accounted for in <em>zmanim</em> calculations. Related to this, Rabbi Yaakov Karp in <a href=
+/// "http://www.worldcat.org/oclc/919472094">Shimush Zekeinim</a>, Ch. 1, page 17 states that obstructing horizons should
+///  be factored into <em>zmanim</em> calculations. The setting defaults to false (elevation will not be used for
+/// <em>zmanim</em> calculations besides sunrise and sunset), unless the setting is changed to true in {@link
+/// #setUseElevation(boolean)}. This will impact sunrise and sunset-based <em>zmanim<em> such as {@link #getSunrise()},
+/// {@link #getSunset()}, {@link #getSofZmanShmaGRA()}, <em>alos</em>-based <em>zmanim</em> such as {@link #getSofZmanShmaMGA()}
+/// that are based on a fixed offset of sunrise or sunset and <em>zmanim</em> based on a percentage of the day such as
+/// {@link ComplexZmanimCalendar#getSofZmanShmaMGA90MinutesZmanis()} that are based on sunrise and sunset. Even when set to
+/// true it will not impact <em>zmanim</em> that are a degree-based offset of sunrise and sunset, such as {@link
+/// ComplexZmanimCalendar#getSofZmanShmaMGA16Point1Degrees()} or {@link ComplexZmanimCalendar#getSofZmanShmaBaalHatanya()}.
 ///
 ///  <p><b>Note:</b> It is important to read the technical notes on top of the {@link AstronomicalCalculator} documentation
 ///  before using this code.
-///  <p>I would like to thank Rabbi Yaakov Shakow, the author of Luach Ikvei Hayom who spent a considerable amount of time
-///  reviewing, correcting and making suggestions on the documentation in this library.
-/// <h2>Disclaimer:</h2> I did my best to get accurate results, but please double-check before relying on these zmanim for
-/// _halacha lemaaseh_.
+/// <p>I would like to thank <a href="https://www.worldcat.org/search?q=au%3AShakow%2C+Yaakov">Rabbi Yaakov Shakow</a>, the
+/// author of Luach Ikvei Hayom who spent a considerable amount of time reviewing, correcting and making suggestions on the
+/// documentation in this library.
+/// <h2>Disclaimer:</h2> I did my best to get accurate results, but please double-check before relying on these
+/// <em>zmanim</em> for <em>halacha lemaaseh</em>.
 ///
 /// @author &copy; Eliyahu Hershfeld 2004 - 2020
 ///
@@ -227,14 +230,17 @@ class ZmanimCalendar extends AstronomicalCalendar {
   /// _[GRA](https://en.wikipedia.org/wiki/Vilna_Gaon)_.
   ///
   /// [startOfDay] the start of day for calculating _zman krias shema_. This can be sunrise or any alos passed to this method.
-  /// [endOfDay] the start of day for calculating _zman krias shema_. This can be sunset or any tzais passed to this method.
+  /// [endOfDay] the end of day for calculating _zman krias shema_. This can be sunset or any tzais passed to this method.
   /// return the <code>Date</code> of the latest _zman shema_ based on the start and end of day times passed to this
   ///         method. If the calculation can't be computed such as in the Arctic Circle where there is at least one day
   ///         a year where the sun does not rise, and one where it does not set, a null will be returned. See detailed
   ///         explanation on top of the [AstronomicalCalendar] documentation.
   DateTime? getSofZmanShma(DateTime? startOfDay, DateTime? endOfDay) {
-    double shaahZmanis = getTemporalHour(startOfDay, endOfDay);
-    return AstronomicalCalendar.getTimeOffset(startOfDay, shaahZmanis * 3);
+    if (startOfDay != null && endOfDay != null) {
+      return getShaahZmanisBasedZman(startOfDay, endOfDay, 3);
+    }
+    return getSofZmanShma(
+        getElevationAdjustedSunrise(), getElevationAdjustedSunset());
   }
 
   /// This method returns the latest _zman krias shema_ (time to recite shema in the morning) that is 3 *
@@ -271,10 +277,13 @@ class ZmanimCalendar extends AstronomicalCalendar {
   /// _see [ComplexZmanimCalendar#getSofZmanShmaMGA72Minutes]_
   DateTime? getSofZmanShmaMGA() => getSofZmanShma(getAlos72(), getTzais72());
 
-  /// This method returns the _tzais_ (nightfall) based on the opinion of the _[Rambam](https://en.wikipedia.org/wiki/Maimonides)_
-  /// and _Rabbeinu Tam_ that _tzais_ is calculated as 72 minutes, the time it takes to walk 4 _Mil_ at 18 minutes a _Mil_. Based on
-  /// the on the [isUseElevation] setting) a 72 minute offset from either [getSunset] sunset or
-  /// [getSeaLevelSunset] sea level sunset is used.
+  /// This method returns the <em>tzais</em> (nightfall) based on the opinion of <em>Rabbeinu Tam</em> that
+  /// <em>tzais hakochavim</em> is calculated as 72 minutes, the time it takes to walk 4 <em>Mil</em> at 18 minutes
+  /// a <em>Mil</em>. According to the [Machtzis Hashekel](https://en.wikipedia.org/wiki/Samuel_Loew) in
+  /// Orach Chaim 235:3, the [Pri Megadim](https://en.wikipedia.org/wiki/Joseph_ben_Meir_Teomim) in Orach
+  /// Chaim 261:2 (see the Biur Halacha) and others (see Hazmanim Bahalacha 17:3 and 17:5) the 72 minutes are standard
+  /// clock minutes any time of the year in any location. Depending on the {@link #isUseElevation()} setting) a 72
+  /// minute offset from  either {@link #getSunset() sunset} or {@link #getSeaLevelSunset() sea level sunset} is used.
   ///
   /// see [ComplexZmanimCalendar.getTzais16Point1Degrees]
   /// return the <code>Date</code> representing 72 minutes after sunset. If the calculation can't be
@@ -386,7 +395,7 @@ class ZmanimCalendar extends AstronomicalCalendar {
   ///            the start of day for calculating _Mincha gedola_. This can be sunrise or any alos passed to
   ///            this method.
   /// [endOfDay]
-  ///            the start of day for calculating _Mincha gedola_. This can be sunrise or any alos passed to
+  ///            the end of day for calculating _Mincha gedola_. This can be sunrise or any alos passed to
   ///            this method.
   /// return the <code>Date</code> of the time of _Mincha gedola_ based on the start and end of day times
   ///         passed to this method. If the calculation can't be computed such as in the Arctic Circle where there is
@@ -394,8 +403,7 @@ class ZmanimCalendar extends AstronomicalCalendar {
   ///         returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
   DateTime? getMinchaGedola([DateTime? startOfDay, DateTime? endOfDay]) {
     if (startOfDay != null && endOfDay != null) {
-      double shaahZmanis = getTemporalHour(startOfDay, endOfDay);
-      return AstronomicalCalendar.getTimeOffset(startOfDay, shaahZmanis * 6.5);
+      return getShaahZmanisBasedZman(startOfDay, endOfDay, 6.5);
     }
     return getMinchaGedola(
         getElevationAdjustedSunrise(), getElevationAdjustedSunset());
@@ -413,7 +421,7 @@ class ZmanimCalendar extends AstronomicalCalendar {
   /// _[GRA](https://en.wikipedia.org/wiki/Vilna_Gaon)_.
   ///
   /// [startOfDay] the start of day for calculating _Mincha ketana_. This can be sunrise or any alos passed to this method.
-  /// [endOfDay] the start of day for calculating _Mincha ketana_. This can be sunrise or any alos passed to this method.
+  /// [endOfDay] the end of day for calculating _Mincha ketana_. This can be sunrise or any alos passed to this method.
   /// return the <code>Date</code> of the time of _Mincha ketana_ based on the start and end of day times
   ///         passed to this method. If the calculation can't be computed such as in the Arctic Circle where there is
   ///         at least one day a year where the sun does not rise, and one where it does not set, a null will be
@@ -421,8 +429,7 @@ class ZmanimCalendar extends AstronomicalCalendar {
   ///
   DateTime? getMinchaKetana([DateTime? startOfDay, DateTime? endOfDay]) {
     if (startOfDay != null && endOfDay != null) {
-      double shaahZmanis = getTemporalHour(startOfDay, endOfDay);
-      return AstronomicalCalendar.getTimeOffset(startOfDay, shaahZmanis * 9.5);
+      return getShaahZmanisBasedZman(startOfDay, endOfDay, 9.5);
     }
     return getMinchaKetana(
         getElevationAdjustedSunrise(), getElevationAdjustedSunset());
@@ -439,16 +446,14 @@ class ZmanimCalendar extends AstronomicalCalendar {
   /// _[GRA](https://en.wikipedia.org/wiki/Vilna_Gaon)_.
   ///
   /// [startOfDay] the start of day for calculating plag. This can be sunrise or any alos passed to this method.
-  /// [endOfDay] the start of day for calculating plag. This can be sunrise or any alos passed to this method.
+  /// [endOfDay] the end of day for calculating plag. This can be sunrise or any alos passed to this method.
   /// return the <code>Date</code> of the time of _plag hamincha_ based on the start and end of day times
   ///         passed to this method. If the calculation can't be computed such as in the Arctic Circle where there is
   ///         at least one day a year where the sun does not rise, and one where it does not set, a null will be
   ///         returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
   DateTime? getPlagHamincha([DateTime? startOfDay, DateTime? endOfDay]) {
     if (startOfDay != null && endOfDay != null) {
-      double shaahZmanis = getTemporalHour(startOfDay, endOfDay);
-      return AstronomicalCalendar.getTimeOffset(
-          startOfDay, shaahZmanis * 10.75);
+      return getShaahZmanisBasedZman(startOfDay, endOfDay, 10.75);
     }
     return getPlagHamincha(
         getElevationAdjustedSunrise(), getElevationAdjustedSunset());
@@ -541,5 +546,34 @@ class ZmanimCalendar extends AstronomicalCalendar {
     }
 
     return false;
+  }
+
+  /**
+   * A generic utility method for calculating any <em>shaah zmanis</em> (temporal hour) based <em>zman</em> with the
+   * day defined as the start and end of day (or night) and the number of <em>shaahos zmaniyos</em> passed to the
+   * method. This simplifies the code in other methods such as {@link #getPlagHamincha(Date, Date)} and cuts down on
+   * code replication. As an example, passing {@link #getSunrise() sunrise} and {@link #getSunset sunset} or {@link
+   * #getSeaLevelSunrise() sea level sunrise} and {@link #getSeaLevelSunset() sea level sunset} (depending on the
+   * {@link #isUseElevation()} elevation setting) and 10.75 hours to this method will return <em>plag mincha</em>
+   * according to the opinion of the [GRA](https://en.wikipedia.org/wiki/Vilna_Gaon).
+   *
+   * @param startOfDay
+   *            the start of day for calculating the <em>zman</em>. This can be sunrise or any <em>alos</em> passed
+   *            to this method.
+   * @param endOfDay
+   *            the end of day for calculating the <em>zman</em>. This can be sunrise or any <em>alos</em> passed to
+   *            this method.
+   * @param hours
+   *            the number of <em>shaahos zmaniyos</em> (temporal hours) to offset from the start of day
+   * @return the <code>Date</code> of the time of <em>zman</em> with the <em>shaahos zmaniyos</em> (temporal hours)
+   *         in the day offset from the start of day passed to this method. If the calculation can't be computed such
+   *         as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one
+   *         where it does not set, a null will be  returned. See detailed explanation on top of the {@link
+   *         AstronomicalCalendar} documentation.
+   */
+  DateTime? getShaahZmanisBasedZman(
+      DateTime startOfDay, DateTime endOfDay, double hours) {
+    double shaahZmanis = getTemporalHour(startOfDay, endOfDay);
+    return AstronomicalCalendar.getTimeOffset(startOfDay, shaahZmanis * hours);
   }
 }
