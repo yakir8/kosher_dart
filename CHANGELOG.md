@@ -1,3 +1,7 @@
+## 2.0.10
+- Fix bug on getShabbosStartTime()
+- General syntax fix
+
 ## 2.0.9
 - Added method isShoavavimWeek()
 - Improved implementation of format() method with 'pattern' parameter for building date format

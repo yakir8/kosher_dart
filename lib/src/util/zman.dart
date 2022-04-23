@@ -89,14 +89,14 @@ class Zman {
   /// @return the <em>zman</em>.
   /// @see #setZman(Date)
   DateTime? getZman() {
-    return this._zman;
+    return _zman;
   }
 
   /// Sets a {@code Date} based <em>zman</em>.
   /// @param date a {@code Date} based <em>zman</em>
   /// @see #getZman()
   void setZman(DateTime date) {
-    this._zman = date;
+    _zman = date;
   }
 
   /// Returns a duration based <em>zman</em> such as {@link net.sourceforge.zmanim.AstronomicalCalendar#getTemporalHour() temporal hour}
@@ -105,7 +105,7 @@ class Zman {
   /// @return the duration based <em>zman</em>.
   /// @see #setDuration(long)
   double? getDuration() {
-    return this._duration;
+    return _duration;
   }
 
   ///  Sets a duration based <em>zman</em> such as {@link net.sourceforge.zmanim.AstronomicalCalendar#getTemporalHour() temporal hour}
@@ -114,7 +114,7 @@ class Zman {
   /// @param duration duration based <em>zman</em> such as {@link net.sourceforge.zmanim.AstronomicalCalendar#getTemporalHour()}.
   /// @see #getDuration()
   void setDuration(double duration) {
-    this._duration = duration;
+    _duration = duration;
   }
 
   /// Returns the name / label of the <em>zman</em> such as "<em>Sof Zman Krias Shema GRA</em>". There are no automatically set labels
@@ -122,14 +122,14 @@ class Zman {
   /// @return the name/label of the <em>zman</em>.
   /// @see #setLabel(String)
   String getLabel() {
-    return this._label;
+    return _label;
   }
 
   /// Sets the the name / label of the <em>zman</em> such as "<em>Sof Zman Krias Shema GRA</em>".
   /// @param label the name / label to set for the <em>zman</em>.
   /// @see #getLabel()
   void setLabel(String label) {
-    this._label = label;
+    _label = label;
   }
 
   /// Returns the longer description or explanation of a <em>zman</em>. There is no default value for this and it must be set using
@@ -137,7 +137,7 @@ class Zman {
   /// @return the description or explanation of a <em>zman</em>.
   /// @see #setDescription(String)
   String? getDescription() {
-    return this._description;
+    return _description;
   }
 
   /// Sets the longer description or explanation of a <em>zman</em>.
@@ -145,57 +145,15 @@ class Zman {
   ///            the <em>zman</em> description to set.
   /// @see #getDescription()
   void setDescription(String description) {
-    this._description = description;
+    _description = description;
   }
 
-  /// A {@link Comparator} that will compare and sort <em>zmanim</em> by date/time order. Compares its two arguments by the zman's date/time
-  /// order. Returns a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater
-  /// than the second.
-  /// Please note that this class will handle cases where either the {@code Zman} is a null or {@link #getZman()} returns a null.
-  static final Comparator<Zman> dateOrder = (Zman? zman1, Zman? zman2) {
-    num firstTime = (zman1 == null || zman1.getZman() == null)
-        ? double.maxFinite
-        : zman1.getZman()!.millisecondsSinceEpoch;
-    num secondTime = (zman2 == null || zman2.getZman() == null)
-        ? double.maxFinite
-        : zman2.getZman()!.millisecondsSinceEpoch;
-    return firstTime.compareTo(secondTime);
-  };
-
-  /// A {@link Comparator} that will compare and sort zmanim by zmanim label order. Compares its two arguments by the zmanim label
-  /// name order. Returns a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater
-  /// than the second.
-  /// Please note that this class will will sort cases where either the {@code Zman} is a null or {@link #label} returns a null
-  /// as empty {@code String}s.
-  static final Comparator<Zman> nameOrder = (Zman? zman1, Zman? zman2) {
-    String firstLabel = (zman1 == null) ? "" : zman1.getLabel();
-    String secondLabel = (zman2 == null) ? "" : zman2.getLabel();
-    return firstLabel.compareTo(secondLabel);
-  };
-
-  /// A {@link Comparator} that will compare and sort duration based <em>zmanim</em>  such as
-  /// {@link net.sourceforge.zmanim.AstronomicalCalendar#getTemporalHour() temporal hour} (or the various <em>shaah zmanis</em> times
-  /// such as <em>{@link net.sourceforge.zmanim.ZmanimCalendar#getShaahZmanisGra() shaah zmanis GRA}</em> or
-  /// {@link net.sourceforge.zmanim.ComplexZmanimCalendar#getShaahZmanis16Point1Degrees() <em>shaah zmanis 16.1&deg;</em>}). Returns a negative
-  /// integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second.
-  /// Please note that this class will will sort cases where {@code Zman} is a null.
-  static final Comparator<Zman> durationOrder = (Zman? zman1, Zman? zman2) {
-    double firstDuration =
-        zman1 == null ? double.maxFinite : zman1.getDuration()!;
-    double secondDuration =
-        zman2 == null ? double.maxFinite : zman2.getDuration()!;
-    return firstDuration == secondDuration
-        ? 0
-        : firstDuration > secondDuration
-            ? 1
-            : -1;
-  };
-
   /// @see java.lang.Object#toString()
+  @override
   String toString() {
     StringBuffer sb = StringBuffer();
     sb.write("\nLabel:\t\t\t");
-    sb.write(this.getLabel());
+    sb.write(getLabel());
     sb.write("\nZman:\t\t\t");
     sb.write(getZman());
     sb.write("\nDuration:\t\t\t");

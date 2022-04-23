@@ -278,7 +278,7 @@ class JewishDate implements Comparable<JewishDate> {
   /// @see #setJewishDate(int, int, int, int, int, int)
   ///
   void setMoladHours(int moladHours) {
-    this._moladHours = moladHours;
+    _moladHours = moladHours;
   }
 
   /// Returns the molad minutes. Only an object populated with {@link #getMolad()},
@@ -305,7 +305,7 @@ class JewishDate implements Comparable<JewishDate> {
   /// @see #setJewishDate(int, int, int, int, int, int)
   ///
   void setMoladMinutes(int moladMinutes) {
-    this._moladMinutes = moladMinutes;
+    _moladMinutes = moladMinutes;
   }
 
   /// Sets the molad chalakim/parts. The expectation is that the traditional minute-less chalakim will be broken out to
@@ -320,7 +320,7 @@ class JewishDate implements Comparable<JewishDate> {
   /// @see #setJewishDate(int, int, int, int, int, int)
   ///
   void setMoladChalakim(int moladChalakim) {
-    this._moladChalakim = moladChalakim;
+    _moladChalakim = moladChalakim;
   }
 
   /// Returns the molad chalakim/parts. Only an object populated with {@link #getMolad()},
@@ -952,8 +952,7 @@ class JewishDate implements Comparable<JewishDate> {
   void setDate(DateTime dateTime) {
     if (DateFormat('G').format(dateTime) == 'BC') {
       throw ArgumentError(
-          "Calendars with arrow_expand BC era are not supported." +
-              "The year ${dateTime.year}  BC is invalid.");
+          "Calendars with arrow_expand BC era are not supported. The year ${dateTime.year}  BC is invalid.");
     }
     _gregorianMonth = dateTime.month;
     _gregorianDayOfMonth = dateTime.day;
@@ -1077,6 +1076,7 @@ class JewishDate implements Comparable<JewishDate> {
   ///
   /// @return the Jewish date in the form "day Month, year" e.g. "21 Shevat, 5729"
   /// @see HebrewDateFormatter#format(JewishDate)
+  @override
   String toString() {
     return HebrewDateFormatter().format(this);
   }
@@ -1254,7 +1254,7 @@ class JewishDate implements Comparable<JewishDate> {
     if (this == object) {
       return true;
     }
-    if (!(object is JewishDate)) {
+    if (object is! JewishDate) {
       return false;
     }
     JewishDate jewishDate = object;
@@ -1264,6 +1264,7 @@ class JewishDate implements Comparable<JewishDate> {
   /// Compares two dates as per the compareTo() method in the Comparable interface. Returns a value less than 0 if this
   /// date is "less than" (before) the date, greater than 0 if this date is "greater than" (after) the date, or 0 if
   /// they are equal.
+  @override
   int compareTo(JewishDate jewishDate) {
     return _gregorianAbsDate < jewishDate.getAbsDate()
         ? -1

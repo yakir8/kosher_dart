@@ -116,7 +116,7 @@ class YerushalmiYomiCalculator {
       prevCycle = DateTime.parse(nextCycle.toIso8601String());
 
       // Adds the number of whole shas dafs. and the number of days that not have daf.
-      nextCycle = nextCycle.add(Duration(days: WHOLE_SHAS_DAFS));
+      nextCycle = nextCycle.add(const Duration(days: WHOLE_SHAS_DAFS));
       nextCycle = nextCycle
           .add(Duration(days: _getNumOfSpecialDays(prevCycle, nextCycle)));
     }

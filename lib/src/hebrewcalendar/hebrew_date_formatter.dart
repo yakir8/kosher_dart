@@ -214,7 +214,7 @@ class HebrewDateFormatter {
   };
 
   /// list of Hebrew parshiyos.
-  Map<Parsha, String> _hebrewParshaMap = {
+  final Map<Parsha, String> _hebrewParshaMap = {
     Parsha.NONE: "",
     Parsha.BERESHIS: "בראשית",
     Parsha.NOACH: "נח",
@@ -326,7 +326,7 @@ class HebrewDateFormatter {
   ];
 
   /// Hebrew holiday list
-  List<String> _hebrewHolidays = [
+  final List<String> _hebrewHolidays = [
     'ערב פסח',
     'פסח',
     'חול המועד פסח',
@@ -365,7 +365,7 @@ class HebrewDateFormatter {
     'פורים שושן קטן'
   ];
 
-  List<String> _hebrewShortHolidays = [
+  final List<String> _hebrewShortHolidays = [
     'ער״פ',
     'פסח',
     'חוהמ״פ',
@@ -404,7 +404,7 @@ class HebrewDateFormatter {
     'פורים שושן קטן'
   ];
 
-  static List<String> _longOmerDay = [
+  static final List<String> _longOmerDay = [
     "הַיּוֹם יוֹם אֶחָד לָעֹמֶר:",
     "הַיּוֹם שְׁנֵי יָמִים לָעֹמֶר:",
     "הַיּוֹם שְׁלֹשָׁה יָמִים לָעֹמֶר:",
@@ -604,9 +604,11 @@ class HebrewDateFormatter {
     String formatDate;
     StringBuffer stringBuffer = StringBuffer();
     RegExp exp =
-        new RegExp(r"(dd)|(MM)|(yy)|(yyy)|(mm)|(hh)|(HH)|(ss)|[aED]|[/\-: ]");
+        RegExp(r"(dd)|(MM)|(yy)|(yyy)|(mm)|(hh)|(HH)|(ss)|[aED]|[/\-: ]");
     Iterable<Match> matches = exp.allMatches(pattern);
-    matches.forEach((element) => stringBuffer.write(element.group(0)));
+    for (var element in matches) {
+      stringBuffer.write(element.group(0));
+    }
     formatDate = stringBuffer.toString();
     if (formatDate.contains("dd")) {
       formatDate = formatDate.replaceAll(
@@ -1000,42 +1002,51 @@ class HebrewDateFormatter {
     if (jewishCalendar.isErevYomTov()) events.add(formatYomTov(jewishCalendar));
     if (jewishCalendar.isYomTov()) events.add(formatYomTov(jewishCalendar));
     if (jewishCalendar.isTaanis() &&
-        jewishCalendar.getYomTovIndex() != JewishCalendar.YOM_KIPPUR)
+        jewishCalendar.getYomTovIndex() != JewishCalendar.YOM_KIPPUR) {
       events.add(formatYomTov(jewishCalendar));
-    if (jewishCalendar.getDayOfWeek() == 7)
+    }
+    if (jewishCalendar.getDayOfWeek() == 7) {
       events.add(
           (hebrewFormat ? hebrewParshaPrefix : transliteratedParshaPrefix) +
               formatParsha(jewishCalendar));
-    if (jewishCalendar.isErevRoshChodesh())
+    }
+    if (jewishCalendar.isErevRoshChodesh()) {
       events.add(formatErevRoshChodesh(jewishCalendar));
-    if (jewishCalendar.isRoshChodesh())
+    }
+    if (jewishCalendar.isRoshChodesh()) {
       events.add(formatRoshChodesh(jewishCalendar));
-    if (jewishCalendar.getJewishDayOfMonth() == 15)
+    }
+    if (jewishCalendar.getJewishDayOfMonth() == 15) {
       events.add(
           hebrewFormat ? "סוף זמן קידוש הלבנה " : "Sof Zman Kidush Levana");
+    }
     if (jewishCalendar.isChanukah()) events.add(formatYomTov(jewishCalendar));
-    if (jewishCalendar.getDayOfOmer() != -1)
+    if (jewishCalendar.getDayOfOmer() != -1) {
       events.add(formatOmer(jewishCalendar));
-    if (jewishCalendar.getDayOfWeek() == 6 && !jewishCalendar.isErevYomTov())
+    }
+    if (jewishCalendar.getDayOfWeek() == 6 && !jewishCalendar.isErevYomTov()) {
       events.add((hebrewFormat
               ? hebrewShabbosStartPrefix
               : transliteratedShabbosStartPrefix) +
           DateFormat('HH:mm')
               .format(complexZmanimCalendar.getShabbosStartTime()));
+    }
     if (jewishCalendar.getDayOfWeek() == 7 &&
         !jewishCalendar.isYomTov() &&
-        !jewishCalendar.isErevYomTov())
+        !jewishCalendar.isErevYomTov()) {
       events.add((hebrewFormat
               ? hebrewShabbosEndPrefix
               : transliteratedShabbosEndPrefix) +
           DateFormat('HH:mm')
               .format(complexZmanimCalendar.getShabbosExitTime()));
-    if (jewishCalendar.isErevYomTov() && jewishCalendar.getDayOfWeek() != 7)
+    }
+    if (jewishCalendar.isErevYomTov() && jewishCalendar.getDayOfWeek() != 7) {
       events.add((hebrewFormat
               ? hebrewYomTovStartPrefix
               : transliteratedYomTovStartPrefix) +
           DateFormat('HH:mm')
               .format(complexZmanimCalendar.getYomTovStartTime()));
+    }
     if (jewishCalendar.isYomTov() &&
         !jewishCalendar.isCholHamoed() &&
         jewishCalendar.isChanukah() &&
@@ -1050,12 +1061,13 @@ class HebrewDateFormatter {
         jewishCalendar.getYomTovIndex() != JewishCalendar.SHUSHAN_PURIM_KATAN &&
         jewishCalendar.getYomTovIndex() != JewishCalendar.CHANUKAH &&
         (!jewishCalendar.isTaanis() ||
-            jewishCalendar.getYomTovIndex() != JewishCalendar.YOM_KIPPUR))
+            jewishCalendar.getYomTovIndex() != JewishCalendar.YOM_KIPPUR)) {
       events.add((hebrewFormat
               ? hebrewYomTovEndPrefix
               : transliteratedYomTovEndPrefix) +
           DateFormat('HH:mm')
               .format(complexZmanimCalendar.getYomTovExitTime()));
+    }
     return events.length > maxEvents
         ? events.getRange(0, maxEvents - 1).toList()
         : events;
@@ -1066,12 +1078,15 @@ class HebrewDateFormatter {
     if (jewishCalendar.isYomTov()) return formatYomTov(jewishCalendar);
     if (jewishCalendar.isTaanis()) return formatYomTov(jewishCalendar);
     if (jewishCalendar.getDayOfWeek() == 7) return formatParsha(jewishCalendar);
-    if (jewishCalendar.isErevRoshChodesh())
+    if (jewishCalendar.isErevRoshChodesh()) {
       return formatErevRoshChodesh(jewishCalendar);
-    if (jewishCalendar.isRoshChodesh())
+    }
+    if (jewishCalendar.isRoshChodesh()) {
       return formatRoshChodesh(jewishCalendar);
-    if (jewishCalendar.getJewishDayOfMonth() == 15)
+    }
+    if (jewishCalendar.getJewishDayOfMonth() == 15) {
       return hebrewFormat ? "סוף זמן קידוש הלבנה " : "Sof Zman Kidush Levana";
+    }
     if (jewishCalendar.isChanukah()) return formatYomTov(jewishCalendar);
     if (jewishCalendar.getDayOfOmer() != -1) return formatOmer(jewishCalendar);
     return "";

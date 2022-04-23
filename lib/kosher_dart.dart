@@ -1,7 +1,7 @@
 library kosher_dart;
 
 export 'src/zmanim_calendar.dart';
-export 'src/util/geo_Location.dart';
+export 'src/util/geo_location.dart';
 export 'src/hebrewcalendar/daf.dart';
 export 'src/complex_zmanim_calendar.dart';
 export 'src/hebrewcalendar/jewish_date.dart';

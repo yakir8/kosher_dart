@@ -17,7 +17,7 @@
 import 'dart:core';
 
 import 'package:kosher_dart/src/util/astronomical_calculator.dart';
-import 'package:kosher_dart/src/util/geo_Location.dart';
+import 'package:kosher_dart/src/util/geo_location.dart';
 
 /// A Java calendar that calculates astronomical times such as {@link #getSunrise() sunrise}, {@link #getSunset()
 /// sunset} and twilight times. This class contains a {@link #getCalendar() Calendar} and can therefore use the standard
@@ -316,7 +316,7 @@ class AstronomicalCalendar {
   ///
   /// @see #setAstronomicalCalculator(AstronomicalCalculator) for changing the calculator class.
   AstronomicalCalendar({GeoLocation? geoLocation}) {
-    if (geoLocation == null) geoLocation = GeoLocation();
+    geoLocation ??= GeoLocation();
     setCalendar(geoLocation.getDateTime());
     setGeoLocation(geoLocation); // duplicate call
     setAstronomicalCalculator(AstronomicalCalculator.getDefault());
@@ -461,9 +461,9 @@ class AstronomicalCalendar {
     // actually not the target date, but the day prior or after
     int localTimeHours = getGeoLocation().getLongitude() ~/ 15;
     if (isSunrise && localTimeHours + hours > 18) {
-      cal = cal.add(Duration(days: -1));
+      cal = cal.add(const Duration(days: -1));
     } else if (!isSunrise && localTimeHours + hours < 6) {
-      cal = cal.add(Duration(days: 1));
+      cal = cal.add(const Duration(days: 1));
     }
     return cal.add(Duration(hours: hours, minutes: minutes, seconds: seconds));
   }
@@ -577,7 +577,7 @@ class AstronomicalCalendar {
   ///
   /// @return Returns the geoLocation.
   GeoLocation getGeoLocation() {
-    return this.geoLocation;
+    return geoLocation;
   }
 
   /// Sets the {@link GeoLocation} <code>Object</code> to be used for astronomical calculations.
@@ -594,7 +594,7 @@ class AstronomicalCalendar {
   /// @return Returns the astronomicalCalculator.
   /// @see #setAstronomicalCalculator(AstronomicalCalculator)
   AstronomicalCalculator getAstronomicalCalculator() {
-    return this.astronomicalCalculator;
+    return astronomicalCalculator;
   }
 
   /// A method to set the {@link AstronomicalCalculator} used for astronomical calculations. The Zmanim package ships
@@ -615,12 +615,12 @@ class AstronomicalCalendar {
   ///
   /// @return Returns the calendar.
   DateTime getCalendar() {
-    return this._calendar;
+    return _calendar;
   }
 
   /// @param calendar
   ///            The calendar to set.
   void setCalendar(DateTime calendar) {
-    this._calendar = calendar;
+    _calendar = calendar;
   }
 }

@@ -16,7 +16,7 @@
 
 import 'dart:math';
 import 'package:kosher_dart/src/util/astronomical_calculator.dart';
-import 'package:kosher_dart/src/util/geo_Location.dart';
+import 'package:kosher_dart/src/util/geo_location.dart';
 
 /// Implementation of sunrise and sunset methods to calculate astronomical times. This calculator uses the Java algorithm
 /// written by <a href="http://web.archive.org/web/20090531215353/http://www.kevinboone.com/suntimes.html">Kevin
@@ -30,11 +30,13 @@ import 'package:kosher_dart/src/util/geo_Location.dart';
 /// @author &copy; Kevin Boone 2000
 class SunTimesCalculator extends AstronomicalCalculator {
   /// @see net.sourceforge.zmanim.util.AstronomicalCalculator#getCalculatorName()
+  @override
   String getCalculatorName() {
     return "US Naval Almanac Algorithm";
   }
 
   /// @see net.sourceforge.zmanim.util.AstronomicalCalculator#getUTCSunrise(Calendar, GeoLocation, double, boolean)
+  @override
   double getUTCSunrise(DateTime dateTime, GeoLocation geoLocation,
       double zenith, bool adjustForElevation) {
     double doubleTime = double.nan;
@@ -46,6 +48,7 @@ class SunTimesCalculator extends AstronomicalCalculator {
   }
 
   /// @see net.sourceforge.zmanim.util.AstronomicalCalculator#getUTCSunset(Calendar, GeoLocation, double, boolean)
+  @override
   double getUTCSunset(DateTime calendar, GeoLocation geoLocation, double zenith,
       bool adjustForElevation) {
     double doubleTime = double.nan;

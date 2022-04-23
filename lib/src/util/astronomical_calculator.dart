@@ -18,7 +18,7 @@ import 'dart:core';
 import 'dart:math';
 import 'package:kosher_dart/src/util/noaa_calculator.dart';
 import 'package:vector_math/vector_math.dart';
-import 'package:kosher_dart/src/util/geo_Location.dart';
+import 'package:kosher_dart/src/util/geo_location.dart';
 
 /// An abstract class that all sun time calculating classes extend. This allows the algorithm used to be changed at
 /// runtime, easily allowing comparison the results of using different algorithms.
@@ -59,7 +59,7 @@ abstract class AstronomicalCalculator {
   /// @param earthRadius
   ///            the earthRadius to set in KM
   void setEarthRadius(double earthRadius) {
-    this._earthRadius = earthRadius;
+    _earthRadius = earthRadius;
   }
 
   /// The zenith of astronomical sunrise and sunset. The sun is 90&deg; from the vertical 0&deg;
@@ -211,7 +211,7 @@ abstract class AstronomicalCalculator {
   ///
   /// @return The refraction in arc minutes.
   double getRefraction() {
-    return this._refraction;
+    return _refraction;
   }
 
   /// A method to allow overriding the default refraction of the calculator.
@@ -222,7 +222,7 @@ abstract class AstronomicalCalculator {
   ///            The refraction in arc minutes.
   /// @see #getRefraction()
   void setRefraction(double refraction) {
-    this._refraction = refraction;
+    _refraction = refraction;
   }
 
   /// Method to get the sun's radius. The default value is 16 arc minutes. The sun's radius as it appears from earth is
@@ -241,7 +241,7 @@ abstract class AstronomicalCalculator {
   ///
   /// @return The sun's radius in arc minutes.
   double getSolarRadius() {
-    return this._solarRadius;
+    return _solarRadius;
   }
 
   /// Method to set the sun's radius.
@@ -250,7 +250,7 @@ abstract class AstronomicalCalculator {
   ///            The sun's radius in arc minutes.
   /// @see #getSolarRadius()
   void setSolarRadius(double solarRadius) {
-    this._solarRadius = solarRadius;
+    _solarRadius = solarRadius;
   }
 /*
   /// @see java.lang.Object#clone()

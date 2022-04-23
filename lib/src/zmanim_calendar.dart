@@ -15,15 +15,15 @@
  */
 
 import 'package:kosher_dart/src/hebrewcalendar/jewish_calendar.dart';
-import 'package:kosher_dart/src/util/geo_Location.dart';
+import 'package:kosher_dart/src/util/geo_location.dart';
 import 'package:kosher_dart/src/astronomical_calendar.dart';
 import 'package:kosher_dart/src/complex_zmanim_calendar.dart';
 import 'package:kosher_dart/src/util/astronomical_calculator.dart';
 
 /// The ZmanimCalendar is arrow_expand specialized calendar that can calculate sunrise and sunset and Jewish _zmanim_
 /// (religious times) for prayers and other Jewish religious duties. This class contains the main functionality of the
-///  <em>Zmanim</em> library. For a much more extensive list of <em>zmanim</em>, use the {@link ComplexZmanimCalendar} that
-/// extends this class. See documentation for the {@link ComplexZmanimCalendar} and {@link AstronomicalCalendar} for
+///  <em>Zmanim</em> library. For a much more extensive list of <em>zmanim</em>, use the [ComplexZmanimCalendar] that
+/// extends this class. See documentation for the {@link ComplexZmanimCalendar} and [AstronomicalCalendar] for
 /// simple examples on using the API. According to Rabbi Dovid Yehudah Bursztyn in his
 /// <a href="http://www.worldcat.org/oclc/659793988">Zmanim Kehilchasam (second edition published in 2007)</a> chapter 2
 /// (pages 186-187) no <em>zmanim</em> besides sunrise and sunset should use elevation. However, Rabbi Yechiel Avrahom
@@ -94,7 +94,7 @@ class ZmanimCalendar extends AstronomicalCalendar {
   /// See [isUseElevation] for more details.
   ///
   /// [useElevation] set to true to use elevation in zmanim calculations
-  void setUseElevation(bool useElevation) => this._useElevation = useElevation;
+  void setUseElevation(bool useElevation) => _useElevation = useElevation;
 
   /// The zenith of 16.1° below geometric zenith (90°). This calculation is used for determining _alos_
   /// (dawn) and _tzais_ (nightfall) in some opinions. It is based on the calculation that the time between dawn
@@ -272,9 +272,9 @@ class ZmanimCalendar extends AstronomicalCalendar {
   ///         does not set, a null will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
   /// _see [getSofZmanShma]_
-  /// _see [ComplexZmanimCalendar#getShaahZmanis72Minutes]_
-  /// _see [ComplexZmanimCalendar#getAlos72]_
-  /// _see [ComplexZmanimCalendar#getSofZmanShmaMGA72Minutes]_
+  /// _see [ComplexZmanimCalendar.getShaahZmanis72Minutes]_
+  /// _see [getAlos72]_
+  /// _see [ComplexZmanimCalendar.getSofZmanShmaMGA72Minutes]_
   DateTime? getSofZmanShmaMGA() => getSofZmanShma(getAlos72(), getTzais72());
 
   /// This method returns the <em>tzais</em> (nightfall) based on the opinion of <em>Rabbeinu Tam</em> that
@@ -308,8 +308,8 @@ class ZmanimCalendar extends AstronomicalCalendar {
   /// _see [setCandleLightingOffset]_
   DateTime? getCandleLighting() {
     JewishCalendar today = JewishCalendar.fromDateTime(getCalendar());
-    JewishCalendar yesterday =
-        JewishCalendar.fromDateTime(getCalendar().add(Duration(days: -1)));
+    JewishCalendar yesterday = JewishCalendar.fromDateTime(
+        getCalendar().add(const Duration(days: -1)));
     int dayOfWeek = today.getDayOfWeek();
     if ((dayOfWeek == 7 && today.isErevYomTov()) ||
         (today.getYomTovIndex() == JewishCalendar.ROSH_HASHANA &&
@@ -319,9 +319,10 @@ class ZmanimCalendar extends AstronomicalCalendar {
           getSunsetOffsetByDegrees(ComplexZmanimCalendar.ZENITH_7_POINT_083),
           -13.5 * AstronomicalCalendar.MINUTE_MILLIS);
     }
-    if (dayOfWeek == 6 || today.isErevYomTov())
+    if (dayOfWeek == 6 || today.isErevYomTov()) {
       return AstronomicalCalendar.getTimeOffset(getSeaLevelSunset(),
           -getCandleLightingOffset() * AstronomicalCalendar.MINUTE_MILLIS);
+    }
     return null;
   }
 
@@ -511,7 +512,7 @@ class ZmanimCalendar extends AstronomicalCalendar {
   /// _see [getCandleLighting]_
   /// _see [getCandleLightingOffset]_
   void setCandleLightingOffset(double candleLightingOffset) =>
-      this._candleLightingOffset = candleLightingOffset;
+      _candleLightingOffset = candleLightingOffset;
 
   /// This is a utility method to determine if the current Date (date-time) passed in has a _melacha_ (work) prohibition.
   /// Since there are many opinions on the time of _tzais_, the _tzais_ for the current day has to be passed to this
@@ -548,29 +549,27 @@ class ZmanimCalendar extends AstronomicalCalendar {
     return false;
   }
 
-  /**
-   * A generic utility method for calculating any <em>shaah zmanis</em> (temporal hour) based <em>zman</em> with the
-   * day defined as the start and end of day (or night) and the number of <em>shaahos zmaniyos</em> passed to the
-   * method. This simplifies the code in other methods such as {@link #getPlagHamincha(Date, Date)} and cuts down on
-   * code replication. As an example, passing {@link #getSunrise() sunrise} and {@link #getSunset sunset} or {@link
-   * #getSeaLevelSunrise() sea level sunrise} and {@link #getSeaLevelSunset() sea level sunset} (depending on the
-   * {@link #isUseElevation()} elevation setting) and 10.75 hours to this method will return <em>plag mincha</em>
-   * according to the opinion of the [GRA](https://en.wikipedia.org/wiki/Vilna_Gaon).
-   *
-   * @param startOfDay
-   *            the start of day for calculating the <em>zman</em>. This can be sunrise or any <em>alos</em> passed
-   *            to this method.
-   * @param endOfDay
-   *            the end of day for calculating the <em>zman</em>. This can be sunrise or any <em>alos</em> passed to
-   *            this method.
-   * @param hours
-   *            the number of <em>shaahos zmaniyos</em> (temporal hours) to offset from the start of day
-   * @return the <code>Date</code> of the time of <em>zman</em> with the <em>shaahos zmaniyos</em> (temporal hours)
-   *         in the day offset from the start of day passed to this method. If the calculation can't be computed such
-   *         as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one
-   *         where it does not set, a null will be  returned. See detailed explanation on top of the {@link
-   *         AstronomicalCalendar} documentation.
-   */
+  /// A generic utility method for calculating any <em>shaah zmanis</em> (temporal hour) based <em>zman</em> with the
+  /// day defined as the start and end of day (or night) and the number of <em>shaahos zmaniyos</em> passed to the
+  /// method. This simplifies the code in other methods such as {@link #getPlagHamincha(Date, Date)} and cuts down on
+  /// code replication. As an example, passing {@link #getSunrise() sunrise} and {@link #getSunset sunset} or {@link
+  /// #getSeaLevelSunrise() sea level sunrise} and {@link #getSeaLevelSunset() sea level sunset} (depending on the
+  /// {@link #isUseElevation()} elevation setting) and 10.75 hours to this method will return <em>plag mincha</em>
+  /// according to the opinion of the [GRA](https://en.wikipedia.org/wiki/Vilna_Gaon).
+  ///
+  /// @param startOfDay
+  ///            the start of day for calculating the <em>zman</em>. This can be sunrise or any <em>alos</em> passed
+  ///            to this method.
+  /// @param endOfDay
+  ///            the end of day for calculating the <em>zman</em>. This can be sunrise or any <em>alos</em> passed to
+  ///            this method.
+  /// @param hours
+  ///            the number of <em>shaahos zmaniyos</em> (temporal hours) to offset from the start of day
+  /// @return the <code>Date</code> of the time of <em>zman</em> with the <em>shaahos zmaniyos</em> (temporal hours)
+  ///         in the day offset from the start of day passed to this method. If the calculation can't be computed such
+  ///         as in the Arctic Circle where there is at least one day a year where the sun does not rise, and one
+  ///         where it does not set, a null will be  returned. See detailed explanation on top of the {@link
+  ///         AstronomicalCalendar} documentation.
   DateTime? getShaahZmanisBasedZman(
       DateTime startOfDay, DateTime endOfDay, double hours) {
     double shaahZmanis = getTemporalHour(startOfDay, endOfDay);

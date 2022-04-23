@@ -110,7 +110,7 @@ class GeoLocation {
     if (elevation < 0) {
       throw ArgumentError("Elevation cannot be negative");
     }
-    this._elevation = elevation;
+    _elevation = elevation;
   }
 
   /// Method to set the latitude in degrees, minutes and seconds.
@@ -134,14 +134,14 @@ class GeoLocation {
       if (latitude > 90 || latitude < -90) {
         throw ArgumentError("Latitude must be between -90 and  90");
       }
-      this._latitude = latitude;
+      _latitude = latitude;
     } else if (degrees == null ||
         minutes == null ||
         seconds == null ||
-        direction == null)
+        direction == null) {
       throw ArgumentError(
           "Longitude must be between 0 and  180.  Use a direction of W instead of negative.");
-    else {
+    } else {
       double tempLat = degrees + ((minutes + (seconds / 60.0)) / 60.0);
       if (tempLat > 90 || tempLat < 0) {
         //FIXME An exception should be thrown if degrees, minutes or seconds are negative
@@ -153,7 +153,7 @@ class GeoLocation {
       } else if (direction != "N") {
         throw ArgumentError("Latitude direction must be N or S");
       }
-      this._latitude = tempLat;
+      _latitude = tempLat;
     }
   }
 
@@ -185,16 +185,16 @@ class GeoLocation {
       if (longitude > 180 || longitude < -180) {
         throw ArgumentError("Longitude must be between -180 and  180");
       }
-      this._longitude = longitude;
+      _longitude = longitude;
     } else if (degrees == null ||
         minutes == null ||
         seconds == null ||
-        direction == null)
+        direction == null) {
       throw ArgumentError(
           "Longitude must be between 0 and  180.  Use a direction of W instead of negative.");
-    else {
+    } else {
       double longTemp = degrees + ((minutes + (seconds / 60.0)) / 60.0);
-      if (longTemp > 180 || this._longitude < 0) {
+      if (longTemp > 180 || _longitude < 0) {
         //FIXME An exception should be thrown if degrees, minutes or seconds are negative
         throw ArgumentError(
             "Longitude must be between 0 and  180.  Use a direction of W instead of negative.");
@@ -204,7 +204,7 @@ class GeoLocation {
       } else if (direction != "E") {
         throw ArgumentError("Longitude direction must be E or W");
       }
-      this._longitude = longTemp;
+      _longitude = longTemp;
     }
   }
 
@@ -221,7 +221,7 @@ class GeoLocation {
   /// @param name
   ///            The setter method for the display name.
   void setLocationName(String name) {
-    this._locationName = name;
+    _locationName = name;
   }
 
   /// @return Returns the timeZone.
@@ -239,7 +239,7 @@ class GeoLocation {
   /// @param timeZone
   ///            The timeZone to set.
   void setDateTime(DateTime dateTime) {
-    this._dateTime = dateTime;
+    _dateTime = dateTime;
   }
 
   /// A method that will return the location's local mean time offset in milliseconds from local <a
@@ -379,8 +379,9 @@ class GeoLocation {
       sinAlpha = cosU1 * cosU2 * sinLambda / sinSigma;
       cosSqAlpha = 1 - sinAlpha * sinAlpha;
       cos2SigmaM = cosSigma - 2 * sinU1 * sinU2 / cosSqAlpha;
-      if (cos2SigmaM.isNaN)
-        cos2SigmaM = 0; // equatorial line: cosSqAlpha=0 (§6)
+      if (cos2SigmaM.isNaN) {
+        cos2SigmaM = 0;
+      } // equatorial line: cosSqAlpha=0 (§6)
       C = f / 16 * cosSqAlpha * (4 + f * (4 - 3 * cosSqAlpha));
       lambdaP = lambda;
       lambda = L +
@@ -512,11 +513,11 @@ class GeoLocation {
     if (this == object) return true;
     try {
       GeoLocation geo = object as GeoLocation;
-      return this._latitude == geo._latitude &&
-          this._longitude == geo._longitude &&
-          this._elevation == geo._elevation &&
-          (this._locationName == geo._locationName) &&
-          (this._dateTime == geo._dateTime);
+      return _latitude == geo._latitude &&
+          _longitude == geo._longitude &&
+          _elevation == geo._elevation &&
+          (_locationName == geo._locationName) &&
+          (_dateTime == geo._dateTime);
     } catch (e) {
       return false;
     }
@@ -562,10 +563,7 @@ class GeoLocation {
 
   /// Create clone of this GeoLocation
   GeoLocation clone() {
-    return GeoLocation.setLocation(
-        this.getLocationName(),
-        this.getLatitude(),
-        this.getLongitude(),
-        DateTime.parse(this.getDateTime().toIso8601String()));
+    return GeoLocation.setLocation(getLocationName(), getLatitude(),
+        getLongitude(), DateTime.parse(getDateTime().toIso8601String()));
   }
 }

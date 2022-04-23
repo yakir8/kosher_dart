@@ -16,7 +16,7 @@
 import 'dart:core';
 
 import 'package:kosher_dart/src/zmanim_calendar.dart';
-import 'package:kosher_dart/src/util/geo_Location.dart';
+import 'package:kosher_dart/src/util/geo_location.dart';
 import 'package:kosher_dart/src/astronomical_calendar.dart';
 import 'package:kosher_dart/src/hebrewcalendar/jewish_date.dart';
 import 'package:kosher_dart/src/util/astronomical_calculator.dart';
@@ -353,7 +353,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// and from the center of the sun. It would be 0.833&deg; less without this.
   ///
   /// @see #getBainHasmashosYereim2Point1Degrees()
-  static final double ZENITH_MINUS_2_POINT_1 =
+  static const double ZENITH_MINUS_2_POINT_1 =
       AstronomicalCalculator.GEOMETRIC_ZENITH - 2.1;
 
   ///The zenith of 2.8&deg; above {@link #GEOMETRIC_ZENITH geometric zenith} (90&deg;). This calculation is used for
@@ -362,7 +362,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///and from the center of the sun. It would be 0.833&deg; less without this.
   ///
   ///@see #getBainHasmashosYereim2Point8Degrees()
-  static final double ZENITH_MINUS_2_POINT_8 =
+  static const double ZENITH_MINUS_2_POINT_8 =
       AstronomicalCalculator.GEOMETRIC_ZENITH - 2.8;
 
   /// The zenith of 3.05&deg; above {@link #GEOMETRIC_ZENITH geometric zenith} (90&deg;). This calculation is used for
@@ -371,7 +371,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// and from the center of the sun. It would be 0.833&deg; less without this.
   ///
   /// @see #getBainHasmashosYereim3Point05Degrees()
-  static final double ZENITH_MINUS_3_POINT_05 =
+  static const double ZENITH_MINUS_3_POINT_05 =
       AstronomicalCalculator.GEOMETRIC_ZENITH - 3.05;
 
   /// The offset in minutes (defaults to 40) after sunset used for _tzeit_ for Ateret Torah calculations.
@@ -683,18 +683,16 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     return getZmanisBasedOffset(-1.2);
   }
 
-  /**
-   * Utility method to return <em>alos</em> (dawn) or <em>tzais</em> (dusk) based on a fractional day offset.
-   * @param hours the number of <em>shaaos zmaniyos</em> (temporal hours) before sunrise or after sunset that defines dawn
-   *        or dusk. If a negative number is passed in, it will return the time of <em>alos</em> (dawn) (subrtacting the
-   *        time from sunrise) and if a positive number is passed in, it will return the time of <em>tzais</em> (dusk)
-   *        (adding the time to sunset). If 0 is passed in, a null will be returned (since we can't tell if it is sunrise
-   *        or sunset based).
-   * @return the <code>Date</code> representing the time. If the calculation can't be computed such as in the Arctic
-   *         Circle where there is at least one day a year where the sun does not rise, and one where it does not set,
-   *         a null will be returned. A null will also be returned if 0 is passed in, since we can't tell if it is sunrise
-   *         or sunset based. See detailed explanation on top of the {@link AstronomicalCalendar} documentation.
-   */
+  /// Utility method to return <em>alos</em> (dawn) or <em>tzais</em> (dusk) based on a fractional day offset.
+  /// @param hours the number of <em>shaaos zmaniyos</em> (temporal hours) before sunrise or after sunset that defines dawn
+  ///        or dusk. If a negative number is passed in, it will return the time of <em>alos</em> (dawn) (subrtacting the
+  ///        time from sunrise) and if a positive number is passed in, it will return the time of <em>tzais</em> (dusk)
+  ///        (adding the time to sunset). If 0 is passed in, a null will be returned (since we can't tell if it is sunrise
+  ///        or sunset based).
+  /// @return the <code>Date</code> representing the time. If the calculation can't be computed such as in the Arctic
+  ///         Circle where there is at least one day a year where the sun does not rise, and one where it does not set,
+  ///         a null will be returned. A null will also be returned if 0 is passed in, since we can't tell if it is sunrise
+  ///         or sunset based. See detailed explanation on top of the {@link AstronomicalCalendar} documentation.
   DateTime? getZmanisBasedOffset(double hours) {
     double shaahZmanis = getShaahZmanisGra();
     if (shaahZmanis == double.negativeInfinity || hours == 0) {
@@ -2134,7 +2132,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///            the number of minutes after sunset to use as an offset for the Ateret Torah _tzais_
   /// _see [getAteretTorahSunsetOffset]_
   void setAteretTorahSunsetOffset(double ateretTorahSunsetOffset) =>
-      this._ateretTorahSunsetOffset = ateretTorahSunsetOffset;
+      _ateretTorahSunsetOffset = ateretTorahSunsetOffset;
 
   /// This method returns the latest _zman krias shema_ (time to recite Shema in the morning) based on the
   /// calculation of Chacham Yosef Harari-Raful of Yeshivat Ateret Torah, that the day starts
@@ -2669,7 +2667,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   DateTime? getMidnightTonight() {
     DateTime midnight = DateTime(getCalendar().year, getCalendar().month,
         getCalendar().day, 0, 0, 0, 0, 0);
-    midnight.add(Duration(days: 1));
+    midnight.add(const Duration(days: 1));
     return midnight;
   }
 
@@ -2820,7 +2818,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   DateTime? getSolarMidnight() {
     ZmanimCalendar clonedCal = ZmanimCalendar.intGeolocation(geoLocation);
     clonedCal.setCalendar(DateTime.parse(getCalendar().toIso8601String()));
-    clonedCal.setCalendar(clonedCal.getCalendar().add(Duration(days: 1)));
+    clonedCal.setCalendar(clonedCal.getCalendar().add(const Duration(days: 1)));
     DateTime? sunset = getSeaLevelSunset();
     DateTime? sunrise = clonedCal.getSeaLevelSunrise();
     return AstronomicalCalendar.getTimeOffset(
@@ -3074,8 +3072,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         low enough below the horizon for this calculation, a null will be returned. See detailed explanation on
   ///         top of the [AstronomicalCalendar] documentation.
   /// _see [ZENITH_6_DEGREES]_
-  DateTime? getTzaisBaalHatanya() =>
-      this.getSunsetOffsetByDegrees(ZENITH_6_DEGREES);
+  DateTime? getTzaisBaalHatanya() => getSunsetOffsetByDegrees(ZENITH_6_DEGREES);
 
   /// Calculate zmanim based on <a href="https://en.wikipedia.org/wiki/Moshe_Feinstein">Rav Moshe Feinstein</a> as
   /// calculated in <a href="https://en.wikipedia.org/wiki/Mesivtha_Tifereth_Jerusalem">MTJ</a>, <a href=
@@ -3297,12 +3294,13 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
         getElevationAdjustedSunset(), 50 * AstronomicalCalendar.MINUTE_MILLIS);
   }
 
-  DateTime? getMidday() => getSolarMidnight()!.add(Duration(hours: -12));
+  DateTime? getMidday() => getSolarMidnight()!.add(const Duration(hours: -12));
 
   /// A method that return Shabbos entry date of this week
   DateTime getShabbosStartTime() {
-    ComplexZmanimCalendar complexZmanimCalendar = this.clone();
-    int delta = 7 - complexZmanimCalendar.getCalendar().weekday;
+    ComplexZmanimCalendar complexZmanimCalendar = clone();
+    int weekday = (complexZmanimCalendar.getCalendar().weekday + 7) % 7 + 1;
+    int delta = 6 - weekday % 7;
     complexZmanimCalendar.setCalendar(
         complexZmanimCalendar.getCalendar().add(Duration(days: delta)));
     DateTime? date = complexZmanimCalendar.getSunset();
@@ -3311,20 +3309,23 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
 
   /// A method that return time of Shabbos exit in this week
   DateTime getShabbosExitTime() {
-    ComplexZmanimCalendar complexZmanimCalendar = this.clone();
-    int delta = 6 - complexZmanimCalendar.getCalendar().weekday;
+    ComplexZmanimCalendar complexZmanimCalendar = clone();
+    int weekday = (complexZmanimCalendar.getCalendar().weekday + 7) % 7 + 1;
+    int delta = 7 - weekday % 7;
     complexZmanimCalendar.setCalendar(
         complexZmanimCalendar.getCalendar().add(Duration(days: delta)));
     DateTime? date = complexZmanimCalendar
         .getBainHasmashosRT13Point5MinutesBefore7Point083Degrees();
-    return date!.add(Duration(minutes: 22));
+    return date!.add(const Duration(minutes: 22));
   }
 
   /// A method that return entry time of the closer Yom Tov
   DateTime getYomTovStartTime() {
-    ComplexZmanimCalendar complexZmanimCalendar = this.clone();
+    ComplexZmanimCalendar complexZmanimCalendar = clone();
     JewishCalendar jewishCalendar = JewishCalendar.fromDateTime(getCalendar());
-    while (!jewishCalendar.isErevYomTov()) jewishCalendar.forward();
+    while (!jewishCalendar.isErevYomTov()) {
+      jewishCalendar.forward();
+    }
     complexZmanimCalendar.setCalendar(jewishCalendar.getGregorianCalendar());
     DateTime? date = complexZmanimCalendar.getSunset();
     return date!.add(Duration(minutes: _shiftTime()));
@@ -3332,13 +3333,15 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
 
   /// A method that return exit time of the closer Yom Tov
   DateTime getYomTovExitTime() {
-    ComplexZmanimCalendar complexZmanimCalendar = this.clone();
+    ComplexZmanimCalendar complexZmanimCalendar = clone();
     JewishCalendar jewishCalendar = JewishCalendar.fromDateTime(getCalendar());
-    while (!jewishCalendar.isYomTov()) jewishCalendar.forward();
+    while (!jewishCalendar.isYomTov()) {
+      jewishCalendar.forward();
+    }
     complexZmanimCalendar.setCalendar(jewishCalendar.getGregorianCalendar());
     DateTime? date = complexZmanimCalendar
         .getBainHasmashosRT13Point5MinutesBefore7Point083Degrees();
-    return date!.add(Duration(minutes: 22));
+    return date!.add(const Duration(minutes: 22));
   }
 
   DateTime? getTaanisStartTime({bool inIsrael = false, isAshkenaz = false}) {
@@ -3347,10 +3350,10 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     DateTime calendar = DateTime.parse(getCalendar().toIso8601String());
     jewishCalendar.setInIsrael(inIsrael);
     while (!jewishCalendar.isTaanis()) {
-      calendar = calendar.add(Duration(days: 1));
+      calendar = calendar.add(const Duration(days: 1));
       jewishCalendar.setDate(calendar);
     }
-    ComplexZmanimCalendar complexZmanimCalendar = this.clone();
+    ComplexZmanimCalendar complexZmanimCalendar = clone();
     complexZmanimCalendar.setCalendar(calendar);
     // for Tisha Beav
     if (jewishCalendar.getYomTovIndex() == JewishCalendar.TISHA_BEAV) {
@@ -3369,10 +3372,10 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     DateTime calendar = DateTime.parse(getCalendar().toIso8601String());
     jewishCalendar.setInIsrael(inIsrael);
     while (!jewishCalendar.isTaanis()) {
-      calendar = calendar.add(Duration(days: 1));
+      calendar = calendar.add(const Duration(days: 1));
       jewishCalendar.setDate(calendar);
     }
-    ComplexZmanimCalendar complexZmanimCalendar = this.clone();
+    ComplexZmanimCalendar complexZmanimCalendar = clone();
     complexZmanimCalendar.setCalendar(calendar);
     return complexZmanimCalendar
         .getBainHasmashosRT13Point5MinutesBefore7Point083Degrees()!
@@ -3381,12 +3384,13 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
 
   /// A method that return Tallis And Tefillin Zman
   DateTime? getTallisAndTefillin({bool inIsrael = false, isAshkenaz = false}) {
-    if (isAshkenaz)
-      return this.getMisheyakir10Point2Degrees();
-    else
-      return this.getAlosHashachar() == null
+    if (isAshkenaz) {
+      return getMisheyakir10Point2Degrees();
+    } else {
+      return getAlosHashachar() == null
           ? null
-          : this.getAlosHashachar()!.add(Duration(minutes: 6));
+          : getAlosHashachar()!.add(const Duration(minutes: 6));
+    }
   }
 
   /// The Sabbath enters a fixed number of minutes before the astronomical sunset.
@@ -3398,19 +3402,20 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   int _shiftTime() {
     int shiftTime = -25;
     shiftTimeByLocationName.forEach((key, value) {
-      if (this.getGeoLocation().getLocationName().toLowerCase().contains(key)) {
+      if (getGeoLocation().getLocationName().toLowerCase().contains(key)) {
         shiftTime = value;
       }
     });
-    if ((this.getGeoLocation().getLongitude() > 34.461262940608364 ||
-            this.getGeoLocation().getLatitude() < 35.2408) &&
-        (this.getGeoLocation().getLongitude() > 31.83538 ||
-            this.getGeoLocation().getLongitude() < 32.263563983577995))
+    if ((getGeoLocation().getLongitude() > 34.461262940608364 ||
+            getGeoLocation().getLatitude() < 35.2408) &&
+        (getGeoLocation().getLongitude() > 31.83538 ||
+            getGeoLocation().getLongitude() < 32.263563983577995)) {
       shiftTime = -21;
+    }
     return shiftTime;
   }
 
   ComplexZmanimCalendar clone() {
-    return ComplexZmanimCalendar.intGeoLocation(this.geoLocation.clone());
+    return ComplexZmanimCalendar.intGeoLocation(geoLocation.clone());
   }
 }
