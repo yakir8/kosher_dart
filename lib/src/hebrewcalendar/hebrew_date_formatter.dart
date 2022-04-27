@@ -272,7 +272,7 @@ class HebrewDateFormatter {
     Parsha.VZOS_HABERACHA: "וזאת הברכה",
     Parsha.VAYAKHEL_PEKUDEI: "ויקהל פקודי",
     Parsha.TAZRIA_METZORA: "תזריע מצרע",
-    Parsha.ACHREI_MOS_KEDOSHIM: "אחרימות קדושים",
+    Parsha.ACHREI_MOS_KEDOSHIM: "אחרי מות קדושים",
     Parsha.BEHAR_BECHUKOSAI: "בהר בחקתי",
     Parsha.CHUKAS_BALAK: "חוקת בלק",
     Parsha.MATOS_MASEI: "מטות מסעי",
