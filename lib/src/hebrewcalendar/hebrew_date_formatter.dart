@@ -112,7 +112,7 @@ class HebrewDateFormatter {
     "Adar I"
   ];
 
-  static const List<String> _hebrewMonths = [
+  List<String> hebrewMonths = [
     "ניסן",
     "אייר",
     "סיוון",
@@ -599,14 +599,14 @@ class HebrewDateFormatter {
     final int month = jewishDate.getJewishMonth();
     if (hebrewFormat) {
       if (jewishDate.isJewishLeapYear() && month == JewishDate.ADAR) {
-        return _hebrewMonths[13] +
+        return hebrewMonths[13] +
             (useGershGershayim
                 ? _GERESH
                 : ""); // return Adar I, not Adar in a leap year
       } else if (jewishDate.isJewishLeapYear() && month == JewishDate.ADAR_II) {
-        return _hebrewMonths[12] + (useGershGershayim ? _GERESH : "");
+        return hebrewMonths[12] + (useGershGershayim ? _GERESH : "");
       } else {
-        return _hebrewMonths[month - 1];
+        return hebrewMonths[month - 1];
       }
     } else {
       if (jewishDate.isJewishLeapYear() && month == JewishDate.ADAR) {
