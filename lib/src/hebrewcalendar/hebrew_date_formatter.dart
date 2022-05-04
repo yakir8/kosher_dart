@@ -204,7 +204,7 @@ class HebrewDateFormatter {
   };
 
   /// list of Hebrew parshiyos.
-  Map<Parsha, String> _hebrewParshaMap = {
+  Map<Parsha, String> hebrewParshaMap = {
     Parsha.NONE: "",
     Parsha.BERESHIS: "בראשית",
     Parsha.NOACH: "נח",
@@ -861,7 +861,7 @@ class HebrewDateFormatter {
   String formatParsha(JewishCalendar jewishCalendar) {
     Parsha parsha = jewishCalendar.getParshah();
     return (hebrewFormat
-        ? _hebrewParshaMap[parsha]
+        ? hebrewParshaMap[parsha]
         : transliteratedParshaMap[parsha])!;
   }
 
@@ -901,7 +901,7 @@ class HebrewDateFormatter {
   String formatSpecialParsha(JewishCalendar jewishCalendar) {
     Parsha specialParsha = jewishCalendar.getSpecialShabbos();
     return (hebrewFormat
-        ? _hebrewParshaMap[specialParsha]
+        ? hebrewParshaMap[specialParsha]
         : transliteratedParshaMap[specialParsha])!;
   }
 
