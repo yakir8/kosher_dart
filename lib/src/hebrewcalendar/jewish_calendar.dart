@@ -2257,6 +2257,10 @@ int hashCode() {
   ///
   /// @see Object#clone()
   @override
-  JewishCalendar clone() => JewishCalendar.initDate(
-      getJewishYear(), getJewishMonth(), getJewishDayOfMonth());
+  JewishCalendar clone() {
+    final newJewishCalendar = JewishCalendar.initDate(
+        getJewishYear(), getJewishMonth(), getJewishDayOfMonth());
+    newJewishCalendar.setInIsrael(this.getInIsrael());
+    return newJewishCalendar;
+  }
 }
