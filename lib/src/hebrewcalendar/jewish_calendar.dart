@@ -112,6 +112,7 @@ enum Parsha {
   PARA,
   HACHODESH
 }
+
 enum DayOfWeek {
   SUNDAY,
   MONDAY,
@@ -237,9 +238,7 @@ class JewishCalendar extends JewishDate {
   static const int SHUSHAN_PURIM_KATAN = 35;
 
   /// Is the calendar set to Israel, where some holidays have different rules.
-  /// @see #getInIsrael()
-  /// @see #setInIsrael(boolean)
-  bool _inIsrael = false;
+  bool inIsrael = false;
 
   ///Is the calendar set to use modern Israeli holidays such as Yom Haatzmaut.
   ///@see #isUseModernHolidays()
@@ -1244,22 +1243,7 @@ class JewishCalendar extends JewishDate {
             jewishYear: jewishYear,
             jewishMonth: jewishMonth,
             jewishDayOfMonth: jewishDayOfMonth) {
-    setInIsrael(inIsrael);
-  }
-
-  /// Sets whether to use Israel holiday scheme or not. Default is false.
-  ///
-  /// @param inIsrael
-  ///            set to true for calculations for Israel
-  void setInIsrael(bool inIsrael) {
-    _inIsrael = inIsrael;
-  }
-
-  /// Gets whether Israel holiday scheme is used or not. The default (if not set) is false.
-  ///
-  /// @return if the if the calendar is set to Israel
-  bool getInIsrael() {
-    return _inIsrael;
+    this.inIsrael = inIsrael;
   }
 
   /// <a href="https://en.wikipedia.org/wiki/Birkat_Hachama">Birkas Hachamah</a> is recited every 28 years based on
@@ -1329,21 +1313,21 @@ class JewishCalendar extends JewishDate {
         case DayOfWeek.MONDAY:
           if (isKislevShort()) {
             //BaCh
-            if (getInIsrael()) {
+            if (inIsrael) {
               return 14;
             }
             return 6;
           }
           if (isCheshvanLong()) {
             //BaSh
-            if (getInIsrael()) {
+            if (inIsrael) {
               return 15;
             }
             return 7;
           }
           break;
         case DayOfWeek.TUESDAY: //Gak
-          if (getInIsrael()) {
+          if (inIsrael) {
             return 15;
           }
           return 7;
@@ -1364,7 +1348,7 @@ class JewishCalendar extends JewishDate {
           }
           if (isCheshvanLong()) {
             //ZaSh
-            if (getInIsrael()) {
+            if (inIsrael) {
               return 16;
             }
             return 11;
@@ -1383,14 +1367,14 @@ class JewishCalendar extends JewishDate {
           }
           if (isCheshvanLong()) {
             //BaSh
-            if (getInIsrael()) {
+            if (inIsrael) {
               return 12;
             }
             return 1;
           }
           break;
         case DayOfWeek.TUESDAY: //GaK
-          if (getInIsrael()) {
+          if (inIsrael) {
             return 12;
           }
           return 1;
@@ -1401,7 +1385,7 @@ class JewishCalendar extends JewishDate {
           }
           if (!isKislevShort()) {
             //Hak
-            if (getInIsrael()) {
+            if (inIsrael) {
               return 13;
             }
             return 2;
@@ -1505,12 +1489,10 @@ class JewishCalendar extends JewishDate {
         if (day == 14) {
           return EREV_PESACH;
         }
-        if (day == 15 ||
-            day == 21 ||
-            (!_inIsrael && (day == 16 || day == 22))) {
+        if (day == 15 || day == 21 || (!inIsrael && (day == 16 || day == 22))) {
           return PESACH;
         }
-        if (day >= 17 && day <= 20 || (day == 16 && _inIsrael)) {
+        if (day >= 17 && day <= 20 || (day == 16 && inIsrael)) {
           return CHOL_HAMOED_PESACH;
         }
         if (isUseModernHolidays() &&
@@ -1551,7 +1533,7 @@ class JewishCalendar extends JewishDate {
         if (day == 5) {
           return EREV_SHAVUOS;
         }
-        if (day == 6 || (day == 7 && !_inIsrael)) {
+        if (day == 6 || (day == 7 && !inIsrael)) {
           return SHAVUOS;
         }
         break;
@@ -1595,10 +1577,10 @@ class JewishCalendar extends JewishDate {
         if (day == 14) {
           return EREV_SUCCOS;
         }
-        if (day == 15 || (day == 16 && !_inIsrael)) {
+        if (day == 15 || (day == 16 && !inIsrael)) {
           return SUCCOS;
         }
-        if (day >= 17 && day <= 20 || (day == 16 && _inIsrael)) {
+        if (day >= 17 && day <= 20 || (day == 16 && inIsrael)) {
           return CHOL_HAMOED_SUCCOS;
         }
         if (day == 21) {
@@ -1607,7 +1589,7 @@ class JewishCalendar extends JewishDate {
         if (day == 22) {
           return SHEMINI_ATZERES;
         }
-        if (day == 23 && !_inIsrael) {
+        if (day == 23 && !inIsrael) {
           return SIMCHAS_TORAH;
         }
         break;
@@ -1767,7 +1749,7 @@ class JewishCalendar extends JewishDate {
   bool isErevYomTovSheni() {
     return (getJewishMonth() == JewishDate.TISHREI &&
             (getJewishDayOfMonth() == 1)) ||
-        (!getInIsrael() &&
+        (!inIsrael &&
             ((getJewishMonth() == JewishDate.NISSAN &&
                     (getJewishDayOfMonth() == 15 ||
                         getJewishDayOfMonth() == 21)) ||
@@ -2090,7 +2072,7 @@ class JewishCalendar extends JewishDate {
   /// @see #isVeseinTalUmatarStartingTonight()
   /// @see #isVeseinTalUmatarRecited()
   bool isVeseinTalUmatarStartDate() {
-    if (_inIsrael) {
+    if (inIsrael) {
       // The 7th Cheshvan can't occur on Shabbos, so always return true for 7 Cheshvan
       if (getJewishMonth() == JewishDate.CHESHVAN &&
           getJewishDayOfMonth() == 7) {
@@ -2125,7 +2107,7 @@ class JewishCalendar extends JewishDate {
   /// @see #isVeseinTalUmatarStartDate()
   /// @see #isVeseinTalUmatarRecited()
   bool isVeseinTalUmatarStartingTonight() {
-    if (_inIsrael) {
+    if (inIsrael) {
       // The 7th Cheshvan can't occur on Shabbos, so always return true for 6 Cheshvan
       if (getJewishMonth() == JewishDate.CHESHVAN &&
           getJewishDayOfMonth() == 6) {
@@ -2160,7 +2142,7 @@ class JewishCalendar extends JewishDate {
     if (getJewishMonth() < JewishDate.CHESHVAN) {
       return false;
     }
-    if (_inIsrael) {
+    if (inIsrael) {
       return getJewishMonth() != JewishDate.CHESHVAN ||
           getJewishDayOfMonth() >= 7;
     } else {
@@ -2260,7 +2242,7 @@ int hashCode() {
   JewishCalendar clone() {
     final newJewishCalendar = JewishCalendar.initDate(
         getJewishYear(), getJewishMonth(), getJewishDayOfMonth());
-    newJewishCalendar.setInIsrael(this.getInIsrael());
+    newJewishCalendar.inIsrael = this.inIsrael;
     return newJewishCalendar;
   }
 }

@@ -3348,7 +3348,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     JewishCalendar jewishCalendar = JewishCalendar.fromDateTime(
         DateTime.parse(getCalendar().toIso8601String()));
     DateTime calendar = DateTime.parse(getCalendar().toIso8601String());
-    jewishCalendar.setInIsrael(inIsrael);
+    jewishCalendar.inIsrael = inIsrael;
     while (!jewishCalendar.isTaanis()) {
       calendar = calendar.add(const Duration(days: 1));
       jewishCalendar.setDate(calendar);
@@ -3370,7 +3370,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     JewishCalendar jewishCalendar = JewishCalendar.fromDateTime(
         DateTime.parse(getCalendar().toIso8601String()));
     DateTime calendar = DateTime.parse(getCalendar().toIso8601String());
-    jewishCalendar.setInIsrael(inIsrael);
+    jewishCalendar.inIsrael = inIsrael;
     while (!jewishCalendar.isTaanis()) {
       calendar = calendar.add(const Duration(days: 1));
       jewishCalendar.setDate(calendar);

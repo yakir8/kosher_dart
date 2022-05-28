@@ -11,7 +11,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   JewishDate jewishDate = JewishDate();
   JewishCalendar jewishCalendar = JewishCalendar();
   HebrewDateFormatter hebrewDateFormatter = HebrewDateFormatter();
@@ -27,13 +26,17 @@ class _MyAppState extends State<MyApp> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
-              child: Text(' תאריך לעוזי: ' + DateFormat("dd.MM.yyyy").format(jewishDate.getGregorianCalendar())),
+              child: Text(' תאריך לעוזי: ' +
+                  DateFormat("dd.MM.yyyy")
+                      .format(jewishDate.getGregorianCalendar())),
             ),
             Center(
-              child: Text('תאריך עברי: ' + hebrewDateFormatter.format(jewishDate)),
+              child:
+                  Text('תאריך עברי: ' + hebrewDateFormatter.format(jewishDate)),
             ),
             Center(
-              child: Text('פרשת השבוע: ' + hebrewDateFormatter.formatWeeklyParsha(jewishCalendar)),
+              child: Text('פרשת השבוע: ' +
+                  hebrewDateFormatter.formatWeeklyParsha(jewishCalendar)),
             ),
           ],
         ),

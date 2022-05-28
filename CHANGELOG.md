@@ -1,3 +1,7 @@
+## 2.0.11
+- Bug fixed on formatWeeklyParsha();
+- Remove  get & set for inIsrael variable.
+
 ## 2.0.10
 - Fix bug on getShabbosStartTime()
 - General syntax fix

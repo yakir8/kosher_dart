@@ -532,7 +532,7 @@ class ZmanimCalendar extends AstronomicalCalendar {
     JewishCalendar jewishCalendar = JewishCalendar();
     jewishCalendar.setGregorianDate(
         getCalendar().year, getCalendar().month, getCalendar().day);
-    jewishCalendar.setInIsrael(inIsrael);
+    jewishCalendar.inIsrael = inIsrael;
 
     if (jewishCalendar.hasCandleLighting() &&
         currentTime.compareTo(getElevationAdjustedSunset()!) >= 0) {

@@ -12,7 +12,7 @@ The library is released under the LGPL 2.1 license.
 Add this to your package's pubspec.yaml file:
 ``` pubspec.yaml
 dependencies:
-  kosher_dart: ^2.0.10
+  kosher_dart: ^2.0.11
 ```
 
 ## Usage
@@ -37,7 +37,7 @@ import 'package:kosher_dart/kosher_dart.dart';
   JewishCalendar jewishCalendar = JewishCalendar();
   HebrewDateFormatter hebrewDateFormatter = HebrewDateFormatter();
   
-  jewishCalendar.setInIsrael(true); // set to true if your location is in israel
+  jewishCalendar.inIsrael = true; // set to true if your location is in israel
   hebrewDateFormatter.hebrewFormat = true; // optional
   hebrewDateFormatter.useGershGershayim = true; // optional
   

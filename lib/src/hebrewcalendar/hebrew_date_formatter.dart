@@ -970,8 +970,10 @@ class HebrewDateFormatter {
     int delta = 7 - jewishCalendar.getDayOfWeek();
     DateTime date =
         DateTime.parse(jewishCalendar.getGregorianCalendar().toIso8601String());
-    return formatParsha(
-        JewishCalendar.fromDateTime(date.add(Duration(days: delta))));
+    JewishCalendar shabbosDay =
+        JewishCalendar.fromDateTime(date.add(Duration(days: delta)));
+    shabbosDay.inIsrael = jewishCalendar.inIsrael;
+    return formatParsha(shabbosDay);
   }
 
   /// Returns a String with the name of the current special parsha of Shekalim, Zachor, Parah or Hachodesh or an
