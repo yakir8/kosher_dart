@@ -116,7 +116,7 @@ class HebrewDateFormatter {
     "Adar I"
   ];
 
-  static const List<String> _hebrewMonths = [
+  List<String> hebrewMonths = [
     "ניסן",
     "אייר",
     "סיוון",
@@ -214,7 +214,7 @@ class HebrewDateFormatter {
   };
 
   /// list of Hebrew parshiyos.
-  final Map<Parsha, String> _hebrewParshaMap = {
+  Map<Parsha, String> hebrewParshaMap = {
     Parsha.NONE: "",
     Parsha.BERESHIS: "בראשית",
     Parsha.NOACH: "נח",
@@ -672,14 +672,14 @@ class HebrewDateFormatter {
     final int month = jewishDate.getJewishMonth();
     if (hebrewFormat) {
       if (jewishDate.isJewishLeapYear() && month == JewishDate.ADAR) {
-        return _hebrewMonths[13] +
+        return hebrewMonths[13] +
             (useGershGershayim
                 ? _GERESH
                 : ""); // return Adar I, not Adar in a leap year
       } else if (jewishDate.isJewishLeapYear() && month == JewishDate.ADAR_II) {
-        return _hebrewMonths[12] + (useGershGershayim ? _GERESH : "");
+        return hebrewMonths[12] + (useGershGershayim ? _GERESH : "");
       } else {
-        return _hebrewMonths[month - 1];
+        return hebrewMonths[month - 1];
       }
     } else {
       if (jewishDate.isJewishLeapYear() && month == JewishDate.ADAR) {
@@ -950,7 +950,7 @@ class HebrewDateFormatter {
   String formatParsha(JewishCalendar jewishCalendar) {
     Parsha parsha = jewishCalendar.getParshah();
     return (hebrewFormat
-        ? _hebrewParshaMap[parsha]
+        ? hebrewParshaMap[parsha]
         : transliteratedParshaMap[parsha])!;
   }
 
@@ -990,7 +990,7 @@ class HebrewDateFormatter {
   String formatSpecialParsha(JewishCalendar jewishCalendar) {
     Parsha specialParsha = jewishCalendar.getSpecialShabbos();
     return (hebrewFormat
-        ? _hebrewParshaMap[specialParsha]
+        ? hebrewParshaMap[specialParsha]
         : transliteratedParshaMap[specialParsha])!;
   }
 
