@@ -26,8 +26,16 @@ import 'package:kosher_dart/src/hebrewcalendar/jewish_calendar.dart';
 class YomiCalculator {
   static final DateTime _dafYomiStartDay =
       DateTime(1923, DateTime.september, 11);
+
+  /// The start date of the first Daf Yomi Bavli cycle in the Julian calendar. Used internally for claculations.
   static final int _dafYomiJulianStartDay = _getJulianDay(_dafYomiStartDay);
+
+  ///The date that the pagination for the Daf Yomi <em>Maseches Shekalim</em> changed to use the commonly used Vilna
+  ///Shas pagination from the no longer commonly available Zhitomir / Slavuta Shas used by Rabbi Meir Shapiro.
   static final DateTime _shekalimChangeDay = DateTime(1975, DateTime.june, 24);
+
+  ///  The Julian date that the cycle for Shekalim changed.
+  /// @see #getDafYomiBavli(JewishCalendar) for details.
   static final int shekalimJulianChangeDay = _getJulianDay(_shekalimChangeDay);
 
   /// Returns the <a href="http://en.wikipedia.org/wiki/Daf_yomi">Daf Yomi</a> <a

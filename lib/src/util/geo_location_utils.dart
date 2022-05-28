@@ -16,7 +16,7 @@
 
 import 'dart:math';
 import 'package:vector_math/vector_math.dart';
-import 'package:kosher_dart/src/util/geo_Location.dart';
+import 'package:kosher_dart/src/util/geo_location.dart';
 
 /// A class for various location calculations
 /// Most of the code in this class is ported from <a href="http://www.movable-type.co.uk/">Chris Veness'</a>
@@ -24,8 +24,16 @@ import 'package:kosher_dart/src/util/geo_Location.dart';
 ///
 /// @author &copy; Eliyahu Hershfeld 2009 - 2018
 class GeoLocationUtils {
+  /// Constant for a distance type calculation.
+  /// @see #getGeodesicDistance(GeoLocation, GeoLocation)
   static const int _DISTANCE = 0;
+
+  /// Constant for a initial bearing type calculation.
+  /// @see #getGeodesicInitialBearing(GeoLocation, GeoLocation)
   static const int _INITIAL_BEARING = 1;
+
+  /// Constant for a final bearing type calculation.
+  /// @see #getGeodesicFinalBearing(GeoLocation, GeoLocation)
   static const int _FINAL_BEARING = 2;
 
   /// Calculate the <a href="http://en.wikipedia.org/wiki/Great_circle">geodesic</a> initial bearing between this Object and
@@ -138,8 +146,9 @@ class GeoLocationUtils {
       sinAlpha = cosU1 * cosU2 * sinLambda / sinSigma;
       cosSqAlpha = 1 - sinAlpha * sinAlpha;
       cos2SigmaM = cosSigma - 2 * sinU1 * sinU2 / cosSqAlpha;
-      if (cos2SigmaM.isNaN)
-        cos2SigmaM = 0; // equatorial line: cosSqAlpha=0 (§6)
+      if (cos2SigmaM.isNaN) {
+        cos2SigmaM = 0;
+      } // equatorial line: cosSqAlpha=0 (§6)
       C = f / 16 * cosSqAlpha * (4 + f * (4 - 3 * cosSqAlpha));
       lambdaP = lambda;
       lambda = L +

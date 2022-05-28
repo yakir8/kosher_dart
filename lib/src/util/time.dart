@@ -21,10 +21,13 @@
 /// @author &copy; Eliyahu Hershfeld 2004 - 2011
 /// @version 0.9.0
 class Time {
+  ///  milliseconds in a second.
   static const int _SECOND_MILLIS = 1000;
 
+  /// milliseconds in a minute.
   static const int _MINUTE_MILLIS = _SECOND_MILLIS * 60;
 
+  /// milliseconds in an hour.
   static const int _HOUR_MILLIS = _MINUTE_MILLIS * 60;
 
   int hours = 0;
@@ -37,42 +40,53 @@ class Time {
 
   bool _isNegative = false;
 
-  Time(int hours, int minutes, int seconds, int milliseconds) {
-    this.hours = hours;
-    this.minutes = minutes;
-    this.seconds = seconds;
-    this.milliseconds = milliseconds;
+  /// Constructor with parameters for the hours, minutes, seconds and millisecods.
+  ///
+  /// @param hours the hours to set
+  /// @param minutes the minutes to set
+  /// @param seconds the seconds to set
+  /// @param milliseconds the milliseconds to set
+  Time(int _hours, int _minutes, int _seconds, int _milliseconds) {
+    hours = _hours;
+    minutes = _minutes;
+    seconds = _seconds;
+    milliseconds = _milliseconds;
   }
 
+  /// A constructor that sets the time by milliseconds. The milliseconds are converted to hours, minutes, seconds
+  /// and milliseconds. If the milliseconds are negative it will call {@link #setIsNegative(boolean)}.
+  /// @param millis the milliseconds to set.
   Time.millis(double millis) {
     double adjustedMillis = millis;
     if (adjustedMillis < 0) {
-      this._isNegative = true;
+      _isNegative = true;
       adjustedMillis = adjustedMillis.abs();
     }
-    this.hours = adjustedMillis ~/ _HOUR_MILLIS;
-    adjustedMillis = adjustedMillis - this.hours * _HOUR_MILLIS;
+    hours = adjustedMillis ~/ _HOUR_MILLIS;
+    adjustedMillis = adjustedMillis - hours * _HOUR_MILLIS;
 
-    this.minutes = adjustedMillis ~/ _MINUTE_MILLIS;
-    adjustedMillis = adjustedMillis - this.minutes * _MINUTE_MILLIS;
+    minutes = adjustedMillis ~/ _MINUTE_MILLIS;
+    adjustedMillis = adjustedMillis - minutes * _MINUTE_MILLIS;
 
-    this.seconds = adjustedMillis ~/ _SECOND_MILLIS;
-    adjustedMillis = adjustedMillis - this.seconds * _SECOND_MILLIS;
+    seconds = adjustedMillis ~/ _SECOND_MILLIS;
+    adjustedMillis = adjustedMillis - seconds * _SECOND_MILLIS;
 
-    this.milliseconds = adjustedMillis.toInt();
+    milliseconds = adjustedMillis.toInt();
   }
 
+  /// Set this to represent a negative time.
+  /// @param isNegative that the Time represents negative time
   bool isNegative() {
-    return this._isNegative;
+    return _isNegative;
   }
 
   void setIsNegative(bool isNegative) {
-    this._isNegative = isNegative;
+    _isNegative = isNegative;
   }
 
   /// @return Returns the hour.
   int getHours() {
-    return this.hours;
+    return hours;
   }
 
   /// @param hours
@@ -83,7 +97,7 @@ class Time {
 
   /// @return Returns the minutes.
   int getMinutes() {
-    return this.minutes;
+    return minutes;
   }
 
   /// @param minutes
@@ -94,7 +108,7 @@ class Time {
 
   /// @return Returns the seconds.
   int getSeconds() {
-    return this.seconds;
+    return seconds;
   }
 
   /// @param seconds
@@ -105,7 +119,7 @@ class Time {
 
   /// @return Returns the milliseconds.
   int getMilliseconds() {
-    return this.milliseconds;
+    return milliseconds;
   }
 
   /// @param milliseconds
@@ -114,14 +128,17 @@ class Time {
     this.milliseconds = milliseconds;
   }
 
+  ///Returns the time in milliseconds by converting hours, minutes and seconds into milliseconds.
+  ///@return the time in milliseconds
   double getTime() {
-    double hourMillis = (this.hours * _HOUR_MILLIS).toDouble();
-    double minutesMillis = (this.minutes * _MINUTE_MILLIS).toDouble();
-    double secondsMillis = (this.seconds * _SECOND_MILLIS).toDouble();
-    return (hourMillis + minutesMillis + secondsMillis + this.milliseconds)
+    double hourMillis = (hours * _HOUR_MILLIS).toDouble();
+    double minutesMillis = (minutes * _MINUTE_MILLIS).toDouble();
+    double secondsMillis = (seconds * _SECOND_MILLIS).toDouble();
+    return (hourMillis + minutesMillis + secondsMillis + milliseconds)
         .toDouble();
   }
 
+  @override
   String toString() {
     return "$hours:$minutes:$seconds:$milliseconds";
   }

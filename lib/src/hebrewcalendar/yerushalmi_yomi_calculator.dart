@@ -19,15 +19,23 @@ import 'dart:core';
 import 'package:kosher_dart/src/hebrewcalendar/daf.dart';
 import 'package:kosher_dart/src/hebrewcalendar/jewish_calendar.dart';
 
-/// This class calculates the <a href="https://en.wikipedia.org/wiki/Jerusalem_Talmud">Yerusalmi</a> <a href=
-/// "https://en.wikipedia.org/wiki/Daf_Yomi">Daf Yomi</a> page ({@link Daf}) for the a given date.
+/// This class calculates the [Talmud Yerusalmi](https://en.wikipedia.org/wiki/Jerusalem_Talmud) [Daf Yomi]
+/// (https://en.wikipedia.org/wiki/Daf_Yomi) page ({@link Daf}) for the a given date.
 ///
 /// @author &copy; elihaidv
 /// @author &copy; Eliyahu Hershfeld 2017 - 2018
 class YerushalmiYomiCalculator {
+  /// The start date of the first Daf Yomi Yerushalmi cycle of February 2, 1980 / 15 Shevat, 5740.
+
   static final DateTime dafYomiStartDay = DateTime(1980, 2, 2);
+
+  /// The number of milliseconds in a day.
   static const int DAY_MILIS = 1000 * 60 * 60 * 24;
+
+  /// he number of pages in the Talmud Yerushalmi.
   static const int WHOLE_SHAS_DAFS = 1554;
+
+  /// The number of pages per <em>masechta</em> (tractate).
   static const List<int> BLATT_PER_MASSECTA = [
     68,
     37,
@@ -70,10 +78,10 @@ class YerushalmiYomiCalculator {
     13
   ];
 
-  /// Returns the <a href="https://en.wikipedia.org/wiki/Daf_Yomi">Daf Yomi</a>
-  /// <a href="https://en.wikipedia.org/wiki/Jerusalem_Talmud">Yerusalmi</a> page ({@link Daf}) for a given date.
-  /// The first Daf Yomi cycle started on To Bishvat 5740 (February, 2, 1980) and calculations prior to this
-  /// date will result in an IllegalArgumentException thrown.
+  /// Returns the [Daf Yomi](https://en.wikipedia.org/wiki/Daf_Yomi)
+  /// [Yerusalmi](https://en.wikipedia.org/wiki/Jerusalem_Talmud) page ({@link Daf}) for a given date.
+  /// The first Daf Yomi cycle started on 15 Shevat (Tu Bishvat), 5740 (February, 2, 1980) and calculations
+  /// prior to this date will result in an IllegalArgumentException thrown.
   ///
   /// @param calendar
   ///            the calendar date for calculation
@@ -108,7 +116,7 @@ class YerushalmiYomiCalculator {
       prevCycle = DateTime.parse(nextCycle.toIso8601String());
 
       // Adds the number of whole shas dafs. and the number of days that not have daf.
-      nextCycle = nextCycle.add(Duration(days: WHOLE_SHAS_DAFS));
+      nextCycle = nextCycle.add(const Duration(days: WHOLE_SHAS_DAFS));
       nextCycle = nextCycle
           .add(Duration(days: _getNumOfSpecialDays(prevCycle, nextCycle)));
     }

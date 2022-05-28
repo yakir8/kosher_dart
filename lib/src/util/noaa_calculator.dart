@@ -17,7 +17,7 @@
 import 'dart:math';
 import 'package:vector_math/vector_math.dart';
 import 'package:kosher_dart/src/util/astronomical_calculator.dart';
-import 'package:kosher_dart/src/util/geo_Location.dart';
+import 'package:kosher_dart/src/util/geo_location.dart';
 
 /// Implementation of sunrise and sunset methods to calculate astronomical times based on the <a
 /// href="http://noaa.gov">NOAA</a> algorithm. This calculator uses the Java algorithm based on the implementation by <a
@@ -38,11 +38,13 @@ class NOAACalculator extends AstronomicalCalculator {
   static const double _JULIAN_DAYS_PER_CENTURY = 36525.0;
 
   /// @see net.sourceforge.zmanim.util.AstronomicalCalculator#getCalculatorName()
+  @override
   String getCalculatorName() {
     return "US National Oceanic and Atmospheric Administration Algorithm";
   }
 
   /// @see net.sourceforge.zmanim.util.AstronomicalCalculator#getUTCSunrise(Calendar, GeoLocation, double, boolean)
+  @override
   double getUTCSunrise(DateTime dateTime, GeoLocation geoLocation,
       double zenith, bool adjustForElevation) {
     double elevation =
@@ -64,6 +66,7 @@ class NOAACalculator extends AstronomicalCalculator {
   }
 
   /// @see net.sourceforge.zmanim.util.AstronomicalCalculator#getUTCSunset(Calendar, GeoLocation, double, boolean)
+  @override
   double getUTCSunset(DateTime dateTime, GeoLocation geoLocation, double zenith,
       bool adjustForElevation) {
     double elevation =

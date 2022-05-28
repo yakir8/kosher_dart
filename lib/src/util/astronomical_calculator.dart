@@ -18,7 +18,7 @@ import 'dart:core';
 import 'dart:math';
 import 'package:kosher_dart/src/util/noaa_calculator.dart';
 import 'package:vector_math/vector_math.dart';
-import 'package:kosher_dart/src/util/geo_Location.dart';
+import 'package:kosher_dart/src/util/geo_location.dart';
 
 /// An abstract class that all sun time calculating classes extend. This allows the algorithm used to be changed at
 /// runtime, easily allowing comparison the results of using different algorithms.
@@ -59,7 +59,7 @@ abstract class AstronomicalCalculator {
   /// @param earthRadius
   ///            the earthRadius to set in KM
   void setEarthRadius(double earthRadius) {
-    this._earthRadius = earthRadius;
+    _earthRadius = earthRadius;
   }
 
   /// The zenith of astronomical sunrise and sunset. The sun is 90&deg; from the vertical 0&deg;
@@ -165,13 +165,19 @@ abstract class AstronomicalCalculator {
   /// that the center of the Sun makes to a line perpendicular to the Earth's surface. If the Sun were a point and the
   /// Earth were without an atmosphere, true sunset and sunrise would correspond to a 90&deg; zenith. Because the Sun
   /// is not a point, and because the atmosphere refracts light, this 90&deg; zenith does not, in fact, correspond to
-  /// true sunset or sunrise, instead the centre of the Sun's disk must lie just below the horizon for the upper edge
+  /// true sunset or sunrise, instead the center of the Sun's disk must lie just below the horizon for the upper edge
   /// to be obscured. This means that a zenith of just above 90&deg; must be used. The Sun subtends an angle of 16
   /// minutes of arc (this can be changed via the {@link #setSolarRadius(double)} method , and atmospheric refraction
   /// accounts for 34 minutes or so (this can be changed via the {@link #setRefraction(double)} method), giving a total
   /// of 50 arcminutes. The total value for ZENITH is 90+(5/6) or 90.8333333&deg; for true sunrise/sunset. Since a
   /// person at an elevation can see blow the horizon of a person at sea level, this will also adjust the zenith to
-  /// account for elevation if available.
+  /// account for elevation if available. Note that this will only adjust the value if the zenith is exactly 90 degrees.
+  /// For values below and above this no correction is done. As an example, astronomical twilight is when the sun is
+  /// 18&deg; below the horizon or {@link com.kosherjava.zmanim.AstronomicalCalendar#ASTRONOMICAL_ZENITH 108&deg;
+  /// below the zenith}. This is traditionally calculated with none of the above mentioned adjustments. The same goes
+  /// for various <em>tzais</em> and <em>alos</em> times such as the
+  /// {@link com.kosherjava.zmanim.ZmanimCalendar#ZENITH_16_POINT_1 16.1&deg;} dip used in
+  /// {@link com.kosherjava.zmanim.ComplexZmanimCalendar#getAlos16Point1Degrees()}.
   ///
   /// @param zenith
   ///            the azimuth below the vertical zenith of 90&deg;. For sunset typically the {@link #adjustZenith
@@ -205,7 +211,7 @@ abstract class AstronomicalCalculator {
   ///
   /// @return The refraction in arc minutes.
   double getRefraction() {
-    return this._refraction;
+    return _refraction;
   }
 
   /// A method to allow overriding the default refraction of the calculator.
@@ -216,7 +222,7 @@ abstract class AstronomicalCalculator {
   ///            The refraction in arc minutes.
   /// @see #getRefraction()
   void setRefraction(double refraction) {
-    this._refraction = refraction;
+    _refraction = refraction;
   }
 
   /// Method to get the sun's radius. The default value is 16 arc minutes. The sun's radius as it appears from earth is
@@ -235,7 +241,7 @@ abstract class AstronomicalCalculator {
   ///
   /// @return The sun's radius in arc minutes.
   double getSolarRadius() {
-    return this._solarRadius;
+    return _solarRadius;
   }
 
   /// Method to set the sun's radius.
@@ -244,7 +250,7 @@ abstract class AstronomicalCalculator {
   ///            The sun's radius in arc minutes.
   /// @see #getSolarRadius()
   void setSolarRadius(double solarRadius) {
-    this._solarRadius = solarRadius;
+    _solarRadius = solarRadius;
   }
 /*
   /// @see java.lang.Object#clone()
