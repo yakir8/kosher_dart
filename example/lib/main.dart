@@ -33,10 +33,12 @@ class _MyAppState extends State<MyApp> {
                   DateFormat("dd.MM.yyyy")
                       .format(jewishDate.getGregorianCalendar())),
               Text('תאריך עברי: ' + hebrewDateFormatter.format(jewishDate)),
-              Text('Translated Hebrew Date: ' +
-                  translatedDateFormatter.format(jewishDate)),
               Text('פרשת השבוע: ' +
                   hebrewDateFormatter.formatWeeklyParsha(jewishCalendar)),
+              Text('Translated Hebrew Date: ' +
+                  translatedDateFormatter.format(jewishDate)),
+              Text('Parasha of the week: ' +
+                  translatedDateFormatter.formatWeeklyParsha(jewishCalendar)),
             ],
           ),
         ),
