@@ -14,31 +14,31 @@ class _MyAppState extends State<MyApp> {
   JewishDate jewishDate = JewishDate();
   JewishCalendar jewishCalendar = JewishCalendar();
   HebrewDateFormatter hebrewDateFormatter = HebrewDateFormatter();
+  HebrewDateFormatter translatedDateFormatter = HebrewDateFormatter()
+    ..hebrewFormat = false;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Kosher Dart'),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Text(' תאריך לעוזי: ' +
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(' תאריך לעוזי: ' +
                   DateFormat("dd.MM.yyyy")
                       .format(jewishDate.getGregorianCalendar())),
-            ),
-            Center(
-              child:
-                  Text('תאריך עברי: ' + hebrewDateFormatter.format(jewishDate)),
-            ),
-            Center(
-              child: Text('פרשת השבוע: ' +
+              Text('תאריך עברי: ' + hebrewDateFormatter.format(jewishDate)),
+              Text('Translated Hebrew Date: ' +
+                  translatedDateFormatter.format(jewishDate)),
+              Text('פרשת השבוע: ' +
                   hebrewDateFormatter.formatWeeklyParsha(jewishCalendar)),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
