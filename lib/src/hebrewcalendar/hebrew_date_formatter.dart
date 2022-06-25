@@ -610,47 +610,50 @@ class HebrewDateFormatter {
       stringBuffer.write(element.group(0));
     }
     formatDate = stringBuffer.toString();
-    if (formatDate.contains("dd")) {
+    // fix for "Sivan", "Adar"
+    final String pasedFormatDate = stringBuffer.toString();
+    if (pasedFormatDate.contains("dd")) {
       formatDate = formatDate.replaceAll(
           "dd",
           hebrewFormat
               ? formatHebrewNumber(jewishDate.getJewishDayOfMonth())
               : '${jewishDate.getJewishDayOfMonth()}');
     }
-    if (formatDate.contains("MM")) {
+    if (pasedFormatDate.contains("MM")) {
       formatDate = formatDate.replaceAll("MM", formatMonth(jewishDate));
     }
-    if (formatDate.contains("yy")) {
+    if (pasedFormatDate.contains("yy")) {
       formatDate = formatDate.replaceAll(
           "yy",
           hebrewFormat
               ? formatHebrewNumber(jewishDate.getJewishYear())
               : '${jewishDate.getJewishYear()}');
     }
-    if (formatDate.contains("hh")) {
+    if (pasedFormatDate.contains("hh")) {
       formatDate = formatDate.replaceAll(
           "hh", DateFormat("hh").format(jewishDate.getGregorianCalendar()));
     }
-    if (formatDate.contains("HH")) {
+    if (pasedFormatDate.contains("HH")) {
       formatDate = formatDate.replaceAll(
           "HH", DateFormat("HH").format(jewishDate.getGregorianCalendar()));
     }
-    if (formatDate.contains("mm")) {
+    if (pasedFormatDate.contains("mm")) {
       formatDate = formatDate.replaceAll(
           "mm", DateFormat("mm").format(jewishDate.getGregorianCalendar()));
     }
-    if (formatDate.contains("ss")) {
+    if (pasedFormatDate.contains("ss")) {
       formatDate = formatDate.replaceAll(
           "ss", DateFormat("ss").format(jewishDate.getGregorianCalendar()));
     }
-    if (formatDate.contains("a")) {
+    if (pasedFormatDate.contains("a")) {
       formatDate = formatDate.replaceAll(
           "a", DateFormat("a").format(jewishDate.getGregorianCalendar()));
     }
-    if (formatDate.contains("E")) {
-      formatDate = formatDate.replaceAll("E", formatDayOfWeek(jewishDate));
+    // fix for "Elul"
+    if (pasedFormatDate.contains(" E ")) {
+      formatDate = formatDate.replaceAll(" E ", ' ${formatDayOfWeek(jewishDate)} ');
     }
-    if (formatDate.contains("D")) {
+    if (pasedFormatDate.contains("D")) {
       formatDate = formatDate.replaceAll(
           "D", jewishDate.getDaysInJewishYear().toString());
     }
