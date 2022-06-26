@@ -1,3 +1,6 @@
+## 2.0.12
+- Fix bug on HebrewDateFormatter.format()
+
 ## 2.0.11
 - Bug fixed on formatWeeklyParsha();
 - Remove  get & set for inIsrael variable.
