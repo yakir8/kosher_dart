@@ -237,6 +237,9 @@ class JewishCalendar extends JewishDate {
   /// The holiday of Purim Katan on the 15th day of Adar I on a leap year when Purim is on Adar II, a minor holiday.
   static const int SHUSHAN_PURIM_KATAN = 35;
 
+  /** The day following the last day of Pesach, Shavuos and Sukkos.*/
+	static const int ISRU_CHAG = 35;
+
   /// Is the calendar set to Israel, where some holidays have different rules.
   bool inIsrael = false;
 
@@ -2211,6 +2214,18 @@ class JewishCalendar extends JewishDate {
         isMashivHaruachStartDate() ||
         isMashivHaruachEndDate();
   }
+
+  /**
+	 * Returns true if the current day is <em>Isru Chag</em>. The method returns true for the day following <em>Pesach</em>
+	 * <em>Shavuos</em> and <em>Succos</em>. It utilizes {@see #getInIsrael()} to return the proper date.
+	 * 
+	 * @return true if the current day is <em>Isru Chag</em>. The method returns true for the day following <em>Pesach</em>
+	 * <em>Shavuos</em> and <em>Succos</em>. It utilizes {@see #getInIsrael()} to return the proper date.
+	 */
+	bool isIsruChag() {
+		int holidayIndex = getYomTovIndex();
+		return holidayIndex == ISRU_CHAG;
+	}
 
 /*
 /// @see Object#equals(Object)
