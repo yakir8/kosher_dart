@@ -9,3 +9,4 @@ export 'src/hebrewcalendar/jewish_calendar.dart';
 export 'src/hebrewcalendar/yomi_calculator.dart';
 export 'src/hebrewcalendar/hebrew_date_formatter.dart';
 export 'src/hebrewcalendar/yerushalmi_yomi_calculator.dart';
+export 'src/hebrewcalendar/tefila_rules.dart';
