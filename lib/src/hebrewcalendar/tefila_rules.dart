@@ -234,7 +234,7 @@ class TefilaRules {
 		final day = jewishCalendar.getJewishDayOfMonth();
 		final month = jewishCalendar.getJewishMonth();
 
-		final ret = (jewishCalendar.getDayOfWeek() == JewishDate.saturday
+		final res = (jewishCalendar.getDayOfWeek() == JewishDate.saturday
       || (!tachanunRecitedSundays && jewishCalendar.getDayOfWeek() == JewishDate.sunday)
       || (!tachanunRecitedFridays && jewishCalendar.getDayOfWeek() == JewishDate.friday)
       || month == JewishDate.NISSAN
@@ -259,7 +259,7 @@ class TefilaRules {
           && (holidayIndex == JewishCalendar.YOM_HAATZMAUT || holidayIndex == JewishCalendar.YOM_YERUSHALAYIM))
       || (!tachanunRecitedWeekOfHod && month == JewishDate.IYAR && day > 13 && day < 21));
 
-		return ret;
+		return !res;
 	}
 
   /**
@@ -274,7 +274,7 @@ class TefilaRules {
 
 		tomorrow.forward(Calendar.DATE, 1);
 		
-		final ret = (!tachanunRecitedMinchaAllYear
+		final res = (!tachanunRecitedMinchaAllYear
       || jewishCalendar.getDayOfWeek() == JewishDate.friday
       || ! isTachanunRecitedShacharis(jewishCalendar) 
       || (! isTachanunRecitedShacharis(tomorrow) && 
@@ -283,7 +283,7 @@ class TefilaRules {
           !(tomorrow.getYomTovIndex() == JewishCalendar.PESACH_SHENI))
       || ! tachanunRecitedMinchaErevLagBaomer && tomorrow.getYomTovIndex() == JewishCalendar.LAG_BAOMER);
 
-		return ret;
+		return !res;
 	}
 	
   /**
