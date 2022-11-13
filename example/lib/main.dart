@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kosher_dart/kosher_dart.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MyApp(),
+    ));
 
 class MyApp extends StatefulWidget {
   @override
@@ -19,13 +22,29 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Kosher Dart'),
-        ),
-        body: Center(
+    print(jewishCalendar.toString());
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Kosher Dart'),
+      ),
+      body: GestureDetector(
+        onTap: () async {
+          DateTime pickedDate = await showDatePicker(
+            context: context,
+            initialDate: jewishCalendar.getGregorianCalendar(),
+            firstDate: DateTime(jewishCalendar.getGregorianYear() - 100),
+            lastDate: DateTime(jewishCalendar.getGregorianYear() + 100),
+          );
+
+          if (pickedDate != null) {
+            setState(() {
+              jewishCalendar.setDate(pickedDate);
+              jewishDate.setDate(pickedDate);
+            });
+          }
+        },
+        child: Container(
+          width: double.infinity,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -37,6 +56,8 @@ class _MyAppState extends State<MyApp> {
                   hebrewDateFormatter.formatWeeklyParsha(jewishCalendar)),
               Text('Translated Hebrew Date: ' +
                   translatedDateFormatter.format(jewishDate)),
+              Text('Cloned Translated Hebrew Date: ' +
+                  translatedDateFormatter.format(jewishDate.clone())),
               Text('Parasha of the week: ' +
                   translatedDateFormatter.formatWeeklyParsha(jewishCalendar)),
             ],
