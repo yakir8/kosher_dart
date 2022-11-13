@@ -22,7 +22,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    print(jewishCalendar.toString());
     return Scaffold(
       appBar: AppBar(
         title: const Text('Kosher Dart'),
