@@ -1403,7 +1403,7 @@ class JewishDate implements Comparable<JewishDate> {
   JewishDate clone() {
     JewishDate clone = JewishDate();
     clone.setGregorianDate(
-        _gregorianYear, _gregorianMonth, _gregorianDayOfMonth);
+        _gregorianYear, _gregorianMonth - 1, _gregorianDayOfMonth);
     return clone;
   }
 
