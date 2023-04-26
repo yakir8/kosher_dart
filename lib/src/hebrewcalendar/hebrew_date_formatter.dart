@@ -651,7 +651,8 @@ class HebrewDateFormatter {
     }
     // fix for "Elul"
     if (pasedFormatDate.contains(" E ")) {
-      formatDate = formatDate.replaceAll(" E ", ' ${formatDayOfWeek(jewishDate)} ');
+      formatDate =
+          formatDate.replaceAll(" E ", ' ${formatDayOfWeek(jewishDate)} ');
     }
     if (pasedFormatDate.contains("D")) {
       formatDate = formatDate.replaceAll(

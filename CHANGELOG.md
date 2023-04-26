@@ -1,3 +1,7 @@
+## 2.0.13
+- Fix JewishDate.clone()
+- Added tefila rules
+- 
 ## 2.0.12
 - Fix bug on HebrewDateFormatter.format()
 
