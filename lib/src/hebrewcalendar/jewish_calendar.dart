@@ -238,7 +238,7 @@ class JewishCalendar extends JewishDate {
   static const int SHUSHAN_PURIM_KATAN = 35;
 
   /** The day following the last day of Pesach, Shavuos and Sukkos.*/
-	static const int ISRU_CHAG = 35;
+  static const int ISRU_CHAG = 35;
 
   /// Is the calendar set to Israel, where some holidays have different rules.
   bool inIsrael = false;
@@ -2216,16 +2216,16 @@ class JewishCalendar extends JewishDate {
   }
 
   /**
-	 * Returns true if the current day is <em>Isru Chag</em>. The method returns true for the day following <em>Pesach</em>
-	 * <em>Shavuos</em> and <em>Succos</em>. It utilizes {@see #getInIsrael()} to return the proper date.
-	 * 
-	 * @return true if the current day is <em>Isru Chag</em>. The method returns true for the day following <em>Pesach</em>
-	 * <em>Shavuos</em> and <em>Succos</em>. It utilizes {@see #getInIsrael()} to return the proper date.
-	 */
-	bool isIsruChag() {
-		int holidayIndex = getYomTovIndex();
-		return holidayIndex == ISRU_CHAG;
-	}
+   * Returns true if the current day is <em>Isru Chag</em>. The method returns true for the day following <em>Pesach</em>
+   * <em>Shavuos</em> and <em>Succos</em>. It utilizes {@see #getInIsrael()} to return the proper date.
+   *
+   * @return true if the current day is <em>Isru Chag</em>. The method returns true for the day following <em>Pesach</em>
+   * <em>Shavuos</em> and <em>Succos</em>. It utilizes {@see #getInIsrael()} to return the proper date.
+   */
+  bool isIsruChag() {
+    int holidayIndex = getYomTovIndex();
+    return holidayIndex == ISRU_CHAG;
+  }
 
 /*
 /// @see Object#equals(Object)
