@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
       ),
       body: GestureDetector(
         onTap: () async {
-          DateTime pickedDate = await showDatePicker(
+          DateTime? pickedDate = await showDatePicker(
             context: context,
             initialDate: jewishCalendar.getGregorianCalendar(),
             firstDate: DateTime(jewishCalendar.getGregorianYear() - 100),
