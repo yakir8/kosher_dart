@@ -557,20 +557,20 @@ class AstronomicalCalendar {
   String toJSON() {
     return ZmanimFormatter.toJSON(this);
   }
-
+*/
   /// @see java.lang.Object#equals(Object)
-  bool equals(Object object) {
+  bool operator ==(Object object) {
     if (this == object) {
       return true;
     }
-    if (!(object instanceof AstronomicalCalendar)) {
+    if (object is! AstronomicalCalendar) {
       return false;
     }
-    AstronomicalCalendar aCal = (AstronomicalCalendar) object;
-    return getCalendar().equals(aCal.getCalendar()) && getGeoLocation().equals(aCal.getGeoLocation())
-        && getAstronomicalCalculator().equals(aCal.getAstronomicalCalculator());
+    AstronomicalCalendar aCal = object;
+    return getCalendar().isAtSameMomentAs(aCal.getCalendar()) &&
+        getGeoLocation() == aCal.getGeoLocation() &&
+        getAstronomicalCalculator() == aCal.getAstronomicalCalculator();
   }
-*/
 
   /// A method that returns the currently set {@link GeoLocation} which contains location information used for the
   /// astronomical calculations.

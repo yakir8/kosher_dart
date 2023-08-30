@@ -509,7 +509,7 @@ class GeoLocation {
 */
 
   /// @see java.lang.Object#equals(Object)
-  bool equals(Object object) {
+  bool operator ==(Object object) {
     if (this == object) return true;
     try {
       GeoLocation geo = object as GeoLocation;
@@ -523,28 +523,22 @@ class GeoLocation {
     }
   }
 
-/*
-  /*
-   * @see java.lang.Object#hashCode()
-   */
-  int hashCode() {
-
+  ///@see Object#hashCode()
+  @override
+  int get hashCode {
     int result = 17;
-    long latLong = Double.doubleToLongBits(this._latitude);
-    long lonLong = Double.doubleToLongBits(this._longitude);
-    long elevLong = Double.doubleToLongBits(this._elevation);
-    int latInt = (int) (latLong ^ (latLong >>> 32));
-    int lonInt = (int) (lonLong ^ (lonLong >>> 32));
-    int elevInt = (int) (elevLong ^ (elevLong >>> 32));
-    result = 37 * result + getClass().hashCode();
+    int latInt = _latitude.toInt() ^ (_latitude * 10000).round();
+    int lonInt = _longitude.toInt() ^ (_longitude * 10000).round();
+    int elevInt = _elevation?.toInt() ?? 0 ^ (_elevation ?? 0 * 10000).round();
+    result = 37 * result + runtimeType.hashCode;
     result += 37 * result + latInt;
     result += 37 * result + lonInt;
     result += 37 * result + elevInt;
-    result += 37 * result + (this._locationName == null ? 0 : this._locationName.hashCode());
-    result += 37 * result + (this.timeZone == null ? 0 : this.timeZone.hashCode());
+    result += 37 * result + this._locationName.hashCode;
+    result += 37 * result + this._dateTime.hashCode;
     return result;
   }
-
+/*
   /// @see java.lang.Object#toString()
   String toString() {
     StringBuffer sb = new StringBuffer();

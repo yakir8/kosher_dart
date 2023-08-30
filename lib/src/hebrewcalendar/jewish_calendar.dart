@@ -2227,28 +2227,29 @@ class JewishCalendar extends JewishDate {
     return holidayIndex == ISRU_CHAG;
   }
 
-/*
-/// @see Object#equals(Object)
-bool equals(Object object) {
-  if (this == object) {
-    return true;
+  /// @see Object#equals(Object)
+  bool operator ==(Object object) {
+    if (this == object) {
+      return true;
+    }
+    if (object is! JewishCalendar) {
+      return false;
+    }
+    JewishCalendar jewishCalendar = object;
+    return getAbsDate() == jewishCalendar.getAbsDate() &&
+        inIsrael == jewishCalendar.inIsrael;
   }
-  if (!(object instanceof JewishCalendar)) {
-    return false;
+
+  /// @see Object#hashCode()
+  @override
+  int get hashCode {
+    int result = 17;
+    result = 37 * result +
+        runtimeType
+            .hashCode; // needed or this and subclasses will return identical hash
+    result += 37 * result + getAbsDate() + (inIsrael ? 1 : 3);
+    return result;
   }
-  JewishCalendar jewishCalendar = (JewishCalendar) object;
-  return getAbsDate() == jewishCalendar.getAbsDate() && getInIsrael() == jewishCalendar.getInIsrael();
-}
-
-/// @see Object#hashCode()
-int hashCode() {
-  int result = 17;
-  result = 37 * result + getClass().hashCode(); // needed or this and subclasses will return identical hash
-  result += 37 * result + getAbsDate() + (getInIsrael() ? 1 : 3);
-  return result;
-}
-
- */
 
   /// A method that creates a <a href="http://en.wikipedia.org/wiki/Object_copy#Deep_copy">deep copy</a> of the object.
   ///

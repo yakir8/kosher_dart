@@ -1250,7 +1250,7 @@ class JewishDate implements Comparable<JewishDate> {
   }
 
   /// @see Object#equals(Object)#
-  bool equals(Object object) {
+  bool operator ==(Object object) {
     if (this == object) {
       return true;
     }
@@ -1407,13 +1407,14 @@ class JewishDate implements Comparable<JewishDate> {
     return clone;
   }
 
-/*
   /// @see Object#hashCode()
-  int hashCode() {
+  @override
+  int get hashCode {
     int result = 17;
-    result = 37 * result + getClass().hashCode(); // needed or this and subclasses will return identical hash
+    result = 37 * result +
+        runtimeType
+            .hashCode; // needed or this and subclasses will return identical hash
     result += 37 * result + _gregorianAbsDate;
     return result;
   }
- */
 }

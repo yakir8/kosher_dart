@@ -1,3 +1,9 @@
+## 2.0.14
+- Replace method 'equals' to operator == on classes AstronomicalCalendar, GeoLocation, JewishCalendar, JewishDate
+- Add hashCode() to classes GeoLocation, JewishCalendar, JewishDate
+- Added Supporting on Dart 3
+- Update 'intl' to v0.18.1
+
 ## 2.0.13
 - Fix JewishDate.clone()
 - Added tefila rules
