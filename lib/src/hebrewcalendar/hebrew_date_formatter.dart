@@ -466,8 +466,8 @@ class HebrewDateFormatter {
     if (index == JewishCalendar.CHANUKAH) {
       int dayOfChanukah = jewishCalendar.getDayOfChanukah();
       return hebrewFormat
-          ? (formatHebrewNumber(dayOfChanukah) + " " + _hebrewHolidays[index])
-          : (transliteratedHolidays[index] + " $dayOfChanukah");
+          ? ("${formatHebrewNumber(dayOfChanukah)} ${_hebrewHolidays[index]}")
+          : ("${transliteratedHolidays[index]} $dayOfChanukah");
     }
     return index == -1
         ? ""
@@ -507,7 +507,7 @@ class HebrewDateFormatter {
             ? _hebrewShortHolidays[JewishCalendar.ROSH_CHODESH]
             : _hebrewHolidays[JewishCalendar.ROSH_CHODESH])
         : transliteratedHolidays[JewishCalendar.ROSH_CHODESH];
-    formattedRoshChodesh += " " + formatMonth(jewishCalendar);
+    formattedRoshChodesh += " ${formatMonth(jewishCalendar)}";
     return formattedRoshChodesh;
   }
 
@@ -540,7 +540,7 @@ class HebrewDateFormatter {
             ? _hebrewShortHolidays[JewishCalendar.EREV_ROSH_CHODESH]
             : _hebrewHolidays[JewishCalendar.EREV_ROSH_CHODESH])
         : transliteratedHolidays[JewishCalendar.EREV_ROSH_CHODESH];
-    formattedErevRoshChodesh += " " + formatMonth(jewishCalendar);
+    formattedErevRoshChodesh += " ${formatMonth(jewishCalendar)}";
     return formattedErevRoshChodesh;
   }
 
@@ -715,7 +715,7 @@ class HebrewDateFormatter {
     if (hebrewFormat) {
       return longOmerFormat
           ? _longOmerDay[omer]
-          : formatHebrewNumber(omer) + " " + hebrewOmerPrefix + "עומר";
+          : "${formatHebrewNumber(omer)} $hebrewOmerPrefixעומר";
     } else {
       if (omer == 33) {
         // if lag b'omer
@@ -795,9 +795,9 @@ class HebrewDateFormatter {
   ///
   String formatDafYomiBavli(Daf daf) {
     if (hebrewFormat) {
-      return daf.getMasechta() + " " + formatHebrewNumber(daf.getDaf());
+      return "${daf.getMasechta()} ${formatHebrewNumber(daf.getDaf())}";
     } else {
-      return daf.getMasechtaTransliterated() + " " + daf.getDaf().toString();
+      return "${daf.getMasechtaTransliterated()} ${daf.getDaf()}";
     }
   }
 
@@ -812,7 +812,7 @@ class HebrewDateFormatter {
   String formatDafYomiYerushalmi(Daf daf) {
     if (hebrewFormat) {
       String dafName =
-          daf.getDaf() == 0 ? "" : " " + formatHebrewNumber(daf.getDaf());
+          daf.getDaf() == 0 ? "" : " ${formatHebrewNumber(daf.getDaf())}";
       return daf.getYerushalmiMasechta() + dafName;
     } else {
       String dafName = daf.getDaf() == 0 ? "" : " ${daf.getDaf()}";

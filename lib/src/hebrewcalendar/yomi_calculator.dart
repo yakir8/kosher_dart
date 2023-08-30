@@ -116,9 +116,8 @@ class YomiCalculator {
     int dafNo = 0;
     if (dateTime.isBefore(_dafYomiStartDay)) {
       // TODO: should we return a null or throw an IllegalArgumentException?
-      throw ArgumentError(dateTime.toString() +
-          " is prior to organized Daf Yomi Bavli cycles that started on " +
-          _dafYomiStartDay.toString());
+      throw ArgumentError(
+          "$dateTime is prior to organized Daf Yomi Bavli cycles that started on $_dafYomiStartDay");
     }
     if (dateTime.isAtSameMomentAs(_shekalimChangeDay) ||
         dateTime.isAfter(_shekalimChangeDay)) {

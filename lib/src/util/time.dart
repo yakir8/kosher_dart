@@ -46,12 +46,7 @@ class Time {
   /// @param minutes the minutes to set
   /// @param seconds the seconds to set
   /// @param milliseconds the milliseconds to set
-  Time(int _hours, int _minutes, int _seconds, int _milliseconds) {
-    hours = _hours;
-    minutes = _minutes;
-    seconds = _seconds;
-    milliseconds = _milliseconds;
-  }
+  Time(this.hours, this.minutes, this.seconds, this.milliseconds);
 
   /// A constructor that sets the time by milliseconds. The milliseconds are converted to hours, minutes, seconds
   /// and milliseconds. If the milliseconds are negative it will call {@link #setIsNegative(boolean)}.

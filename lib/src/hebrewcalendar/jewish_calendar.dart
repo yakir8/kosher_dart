@@ -237,7 +237,7 @@ class JewishCalendar extends JewishDate {
   /// The holiday of Purim Katan on the 15th day of Adar I on a leap year when Purim is on Adar II, a minor holiday.
   static const int SHUSHAN_PURIM_KATAN = 35;
 
-  /** The day following the last day of Pesach, Shavuos and Sukkos.*/
+  /// The day following the last day of Pesach, Shavuos and Sukkos.
   static const int ISRU_CHAG = 35;
 
   /// Is the calendar set to Israel, where some holidays have different rules.
@@ -1241,13 +1241,7 @@ class JewishCalendar extends JewishDate {
   /// @param inIsrael
   ///            whether in Israel. This affects Yom Tov calculations
   JewishCalendar.initDate(int jewishYear, int jewishMonth, int jewishDayOfMonth,
-      {bool inIsrael = false})
-      : super.initDate(
-            jewishYear: jewishYear,
-            jewishMonth: jewishMonth,
-            jewishDayOfMonth: jewishDayOfMonth) {
-    this.inIsrael = inIsrael;
-  }
+      {this.inIsrael = false});
 
   /// <a href="https://en.wikipedia.org/wiki/Birkat_Hachama">Birkas Hachamah</a> is recited every 28 years based on
   /// Tekufas Shmulel (Julian years) that a year is 365.25 days. The <a href="https://en.wikipedia.org/wiki/Maimonides">Rambam</a>
@@ -2215,19 +2209,18 @@ class JewishCalendar extends JewishDate {
         isMashivHaruachEndDate();
   }
 
-  /**
-   * Returns true if the current day is <em>Isru Chag</em>. The method returns true for the day following <em>Pesach</em>
-   * <em>Shavuos</em> and <em>Succos</em>. It utilizes {@see #getInIsrael()} to return the proper date.
-   *
-   * @return true if the current day is <em>Isru Chag</em>. The method returns true for the day following <em>Pesach</em>
-   * <em>Shavuos</em> and <em>Succos</em>. It utilizes {@see #getInIsrael()} to return the proper date.
-   */
+  /// Returns true if the current day is <em>Isru Chag</em>. The method returns true for the day following <em>Pesach</em>
+  /// <em>Shavuos</em> and <em>Succos</em>. It utilizes {@see #getInIsrael()} to return the proper date.
+  ///
+  /// @return true if the current day is <em>Isru Chag</em>. The method returns true for the day following <em>Pesach</em>
+  /// <em>Shavuos</em> and <em>Succos</em>. It utilizes {@see #getInIsrael()} to return the proper date.
   bool isIsruChag() {
     int holidayIndex = getYomTovIndex();
     return holidayIndex == ISRU_CHAG;
   }
 
   /// @see Object#equals(Object)
+  @override
   bool operator ==(Object object) {
     if (this == object) {
       return true;
@@ -2258,7 +2251,7 @@ class JewishCalendar extends JewishDate {
   JewishCalendar clone() {
     final newJewishCalendar = JewishCalendar.initDate(
         getJewishYear(), getJewishMonth(), getJewishDayOfMonth());
-    newJewishCalendar.inIsrael = this.inIsrael;
+    newJewishCalendar.inIsrael = inIsrael;
     return newJewishCalendar;
   }
 }

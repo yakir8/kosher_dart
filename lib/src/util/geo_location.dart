@@ -509,6 +509,7 @@ class GeoLocation {
 */
 
   /// @see java.lang.Object#equals(Object)
+  @override
   bool operator ==(Object object) {
     if (this == object) return true;
     try {
@@ -534,8 +535,8 @@ class GeoLocation {
     result += 37 * result + latInt;
     result += 37 * result + lonInt;
     result += 37 * result + elevInt;
-    result += 37 * result + this._locationName.hashCode;
-    result += 37 * result + this._dateTime.hashCode;
+    result += 37 * result + _locationName.hashCode;
+    result += 37 * result + _dateTime.hashCode;
     return result;
   }
 /*

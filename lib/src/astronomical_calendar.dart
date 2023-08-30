@@ -559,6 +559,7 @@ class AstronomicalCalendar {
   }
 */
   /// @see java.lang.Object#equals(Object)
+  @override
   bool operator ==(Object object) {
     if (this == object) {
       return true;
@@ -570,6 +571,11 @@ class AstronomicalCalendar {
     return getCalendar().isAtSameMomentAs(aCal.getCalendar()) &&
         getGeoLocation() == aCal.getGeoLocation() &&
         getAstronomicalCalculator() == aCal.getAstronomicalCalculator();
+  }
+
+  @override
+  int get hashCode {
+    return getCalendar().millisecondsSinceEpoch * geoLocation.hashCode;
   }
 
   /// A method that returns the currently set {@link GeoLocation} which contains location information used for the

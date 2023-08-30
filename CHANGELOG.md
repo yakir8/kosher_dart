@@ -1,3 +1,6 @@
+## 2.0.15
+- Fixed syntax mistakes
+
 ## 2.0.14
 - Replace method 'equals' to operator == on classes AstronomicalCalendar, GeoLocation, JewishCalendar, JewishDate
 - Add hashCode() to classes GeoLocation, JewishCalendar, JewishDate
