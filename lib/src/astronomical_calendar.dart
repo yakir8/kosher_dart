@@ -561,7 +561,7 @@ class AstronomicalCalendar {
   /// @see java.lang.Object#equals(Object)
   @override
   bool operator ==(Object object) {
-    if (this == object) {
+    if (identical(this, object)) {
       return true;
     }
     if (object is! AstronomicalCalendar) {

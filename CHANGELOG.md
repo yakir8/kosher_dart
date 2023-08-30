@@ -1,3 +1,6 @@
+## 2.0.16
+- Bug fix
+
 ## 2.0.15
 - Fixed syntax mistakes
 

@@ -511,7 +511,9 @@ class GeoLocation {
   /// @see java.lang.Object#equals(Object)
   @override
   bool operator ==(Object object) {
-    if (this == object) return true;
+    if (identical(this, object)) {
+      return true;
+    }
     try {
       GeoLocation geo = object as GeoLocation;
       return _latitude == geo._latitude &&

@@ -12,7 +12,7 @@ The library is released under the LGPL 2.1 license.
 Add this to your package's pubspec.yaml file:
 ``` pubspec.yaml
 dependencies:
-  kosher_dart: ^2.0.15
+  kosher_dart: ^2.0.16
 ```
 
 ## Usage
