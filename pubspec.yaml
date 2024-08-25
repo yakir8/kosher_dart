@@ -4,14 +4,14 @@ description: This Plugin for a specialized calendar that can calculate different
 
 version: 2.0.16
 
-homepage:  https://github.com/yakir8/kosher_dart
+homepage: https://github.com/yakir8/kosher_dart
 #author: Yakir Benin
 
 environment:
   sdk: ">=3.0.0 <3.5.0"
 
 dependencies:
-  intl: ^0.18.1
+  intl: ^0.19.0
   pedantic: ^1.11.0
   vector_math: ^2.1.4
 
