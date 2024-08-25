@@ -1,3 +1,8 @@
+## 2.0.17
+- Update 'intl' to v0.19
+- Update Dart SDK
+- Fix bug on ZmanimCalendar.getCandleLighting() for erev yom tov sheni out side israel
+
 ## 2.0.16
 - Bug fix
 

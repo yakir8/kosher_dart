@@ -308,12 +308,9 @@ class ZmanimCalendar extends AstronomicalCalendar {
   /// _see [setCandleLightingOffset]_
   DateTime? getCandleLighting() {
     JewishCalendar today = JewishCalendar.fromDateTime(getCalendar());
-    JewishCalendar yesterday = JewishCalendar.fromDateTime(
-        getCalendar().add(const Duration(days: -1)));
     int dayOfWeek = today.getDayOfWeek();
     if ((dayOfWeek == 7 && today.isErevYomTov()) ||
-        (today.getYomTovIndex() == JewishCalendar.ROSH_HASHANA &&
-            yesterday.isErevYomTov()) ||
+        today.isErevYomTovSheni() ||
         (today.isChanukah() && dayOfWeek != 6)) {
       return AstronomicalCalendar.getTimeOffset(
           getSunsetOffsetByDegrees(ComplexZmanimCalendar.ZENITH_7_POINT_083),

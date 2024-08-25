@@ -15,6 +15,7 @@ void main() {
     complexZmanimCalendar.setCalendar(DateTime(2021, 12, 25));
     expect(_getCandleLighting(complexZmanimCalendar), null);
   });
+
   test('testYomTov', () async {
     // Rosh Hashana
     complexZmanimCalendar.setCalendar(DateTime(2021, 9, 6));
@@ -25,7 +26,13 @@ void main() {
     // Second Yom Tov after Shabbat
     complexZmanimCalendar.setCalendar(DateTime(2020, 9, 19));
     expect(_getCandleLighting(complexZmanimCalendar), "18:55");
+
+    // Second Yom Tov in US
+    complexZmanimCalendar.setGeoLocation(GeoLocation.setLocation(
+        "NY", 40.7127, -74.0059, DateTime.utc(2023, 4, 6)));
+    expect(_getCandleLighting(complexZmanimCalendar), "02:46");
   });
+
   test('testChanukah', () async {
     complexZmanimCalendar.setCalendar(DateTime(2021, 11, 30));
     expect(_getCandleLighting(complexZmanimCalendar), "16:53");
