@@ -1241,7 +1241,8 @@ class JewishCalendar extends JewishDate {
   /// @param inIsrael
   ///            whether in Israel. This affects Yom Tov calculations
   JewishCalendar.initDate(int jewishYear, int jewishMonth, int jewishDayOfMonth,
-      {this.inIsrael = false});
+      {this.inIsrael = false}) 
+  : super.initDate(jewishYear: jewishYear, jewishMonth: jewishMonth, jewishDayOfMonth: jewishDayOfMonth);
 
   /// <a href="https://en.wikipedia.org/wiki/Birkat_Hachama">Birkas Hachamah</a> is recited every 28 years based on
   /// Tekufas Shmulel (Julian years) that a year is 365.25 days. The <a href="https://en.wikipedia.org/wiki/Maimonides">Rambam</a>

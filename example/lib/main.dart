@@ -47,18 +47,17 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(' תאריך לעוזי: ' +
-                  DateFormat("dd.MM.yyyy")
-                      .format(jewishDate.getGregorianCalendar())),
-              Text('תאריך עברי: ' + hebrewDateFormatter.format(jewishDate)),
-              Text('פרשת השבוע: ' +
-                  hebrewDateFormatter.formatWeeklyParsha(jewishCalendar)),
-              Text('Translated Hebrew Date: ' +
-                  translatedDateFormatter.format(jewishDate)),
-              Text('Cloned Translated Hebrew Date: ' +
-                  translatedDateFormatter.format(jewishDate.clone())),
-              Text('Parasha of the week: ' +
-                  translatedDateFormatter.formatWeeklyParsha(jewishCalendar)),
+              Text(' תאריך לעוזי: ${DateFormat("dd.MM.yyyy")
+                      .format(jewishDate.getGregorianCalendar())}'),
+              Text('תאריך עברי: ${hebrewDateFormatter.format(jewishDate)}'),
+              Text('פרשת השבוע: ${hebrewDateFormatter.formatWeeklyParsha(jewishCalendar)}'),
+              Text('דף יומי: ${hebrewDateFormatter.formatDafYomiBavli(
+                      jewishCalendar.getDafYomiBavli())}'),
+              Text('Daf Yomi: ${hebrewDateFormatter.formatDafYomiBavli(
+                      jewishCalendar.getDafYomiBavli())}'),
+              Text('Translated Hebrew Date: ${translatedDateFormatter.format(jewishDate)}'),
+              Text('Cloned Translated Hebrew Date: ${translatedDateFormatter.format(jewishDate.clone())}'),
+              Text('Parasha of the week: ${translatedDateFormatter.formatWeeklyParsha(jewishCalendar)}'),
             ],
           ),
         ),
