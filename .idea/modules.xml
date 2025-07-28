@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/android/android.iml" filepath="$PROJECT_DIR$/android/android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/example/android/app/src/debug/debug.iml" filepath="$PROJECT_DIR$/example/android/app/src/debug/debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/example/example.iml" filepath="$PROJECT_DIR$/example/example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kosher_dart.iml" filepath="$PROJECT_DIR$/kosher_dart.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/kosher_dart_android.iml" filepath="$PROJECT_DIR$/android/kosher_dart_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/example/android/app/src/profile/profile.iml" filepath="$PROJECT_DIR$/example/android/app/src/profile/profile.iml" />
+    </modules>
+  </component>
+</project>

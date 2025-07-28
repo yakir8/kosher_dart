@@ -1,3 +1,8 @@
+## 2.0.18
+- Updated intl dependency constraint from ^0.19.0 to ^0.20.1
+- Updated the Dart SDK constraint to >=3.0.0 <4.0.0 to ensure compatibility with newer SDK
+- Implemented missing JewishCalendar.initDate constructor body
+
 ## 2.0.17
 - Update 'intl' to v0.19
 - Update Dart SDK
