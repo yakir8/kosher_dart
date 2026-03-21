@@ -130,13 +130,8 @@ class NOAACalculator extends AstronomicalCalculator {
   static double _getSunGeometricMeanLongitude(double julianCenturies) {
     double longitude = 280.46646 +
         julianCenturies * (36000.76983 + 0.0003032 * julianCenturies);
-    while (longitude > 360.0) {
-      longitude -= 360.0;
-    }
-    while (longitude < 0.0) {
-      longitude += 360.0;
-    }
-
+    longitude = longitude % 360.0;
+    if (longitude < 0.0) longitude += 360.0;
     return longitude; // in degrees
   }
 

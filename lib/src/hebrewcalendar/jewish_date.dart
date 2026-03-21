@@ -16,7 +16,6 @@
  */
 
 import 'dart:core';
-import 'package:intl/intl.dart';
 import 'package:kosher_dart/src/hebrewcalendar/hebrew_date_formatter.dart';
 
 enum Calendar { DATE, MONTH, YEAR }
@@ -775,9 +774,12 @@ class JewishDate implements Comparable<JewishDate> {
   /// See also [isCheshvanLong].
   /// See also [isKislevShort].
   int getCheshvanKislevKviah() {
-    if (isCheshvanLong() && !isKislevShort()) {
+    int daysInYear = _getDaysInJewishYear(getJewishYear());
+    bool cheshvanLong = daysInYear % 10 == 5;
+    bool kislevShort = daysInYear % 10 == 3;
+    if (cheshvanLong && !kislevShort) {
       return SHELAIMIM;
-    } else if (!isCheshvanLong() && isKislevShort()) {
+    } else if (!cheshvanLong && kislevShort) {
       return CHASERIM;
     } else {
       return KESIDRAN;
@@ -940,7 +942,7 @@ class JewishDate implements Comparable<JewishDate> {
   /// Throws [ArgumentError]
   ///             if the date is in the BC era
   void setDate(DateTime dateTime) {
-    if (DateFormat('G').format(dateTime) == 'BC') {
+    if (dateTime.year < 1) {
       throw ArgumentError(
           "Calendars with arrow_expand BC era are not supported. The year ${dateTime.year}  BC is invalid.");
     }

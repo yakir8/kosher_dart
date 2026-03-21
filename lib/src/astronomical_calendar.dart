@@ -254,8 +254,7 @@ class AstronomicalCalendar {
     if (time == null || offset == double.minPositive) {
       return null;
     }
-    return DateTime.parse(
-        time.add(Duration(milliseconds: offset.toInt())).toIso8601String());
+    return time.add(Duration(milliseconds: offset.toInt()));
   }
 
   /// A utility method that returns the time of an offset by degrees below or above the horizon of
@@ -469,24 +468,41 @@ class AstronomicalCalendar {
   /// Returns the degrees below the horizon before sunrise that match the offset in minutes passed it as a parameter.
   /// See also [getSunsetSolarDipFromOffset].
   double getSunriseSolarDipFromOffset(double minutes) {
-    DateTime? offsetByDegrees = getSeaLevelSunrise();
+    DateTime? seaLevelSunrise = getSeaLevelSunrise();
     DateTime? offsetByTime =
-        getTimeOffset(getSeaLevelSunrise(), -(minutes * MINUTE_MILLIS));
+        getTimeOffset(seaLevelSunrise, -(minutes * MINUTE_MILLIS));
+    if (seaLevelSunrise == null || offsetByTime == null) return 0.0;
 
-    double degrees = 0;
-    double incrementor = 0.0001;
-    while (offsetByDegrees == null ||
-        ((minutes < 0.0 && offsetByDegrees.isBefore(offsetByTime!)) ||
-            (minutes > 0.0 && offsetByDegrees.isAfter(offsetByTime!)))) {
-      if (minutes > 0.0) {
-        degrees += incrementor;
+    double low = minutes > 0.0 ? 0.0 : -90.0;
+    double high = minutes > 0.0 ? 90.0 : 0.0;
+
+    while ((high - low) > 0.0001) {
+      double mid = (low + high) / 2.0;
+      DateTime? offsetByDegrees =
+          getSunriseOffsetByDegrees(GEOMETRIC_ZENITH + mid);
+      bool conditionContinues;
+      if (offsetByDegrees == null) {
+        conditionContinues = false;
+      } else if (minutes > 0.0) {
+        conditionContinues = offsetByDegrees.isAfter(offsetByTime);
       } else {
-        degrees -= incrementor;
+        conditionContinues = offsetByDegrees.isBefore(offsetByTime);
       }
-      offsetByDegrees = getSunriseOffsetByDegrees(GEOMETRIC_ZENITH + degrees);
-      //System.out.println("offsetByDegrees: " + offsetByDegrees);
+      if (minutes > 0.0) {
+        if (conditionContinues) {
+          low = mid;
+        } else {
+          high = mid;
+        }
+      } else {
+        if (conditionContinues) {
+          high = mid;
+        } else {
+          low = mid;
+        }
+      }
     }
-    return degrees;
+    return minutes > 0.0 ? high : low;
   }
 
   /// Returns the dip below the horizon after sunset that matches the offset minutes on passed in as a parameter. For
@@ -499,22 +515,41 @@ class AstronomicalCalendar {
   /// Returns the degrees below the horizon after sunset that match the offset in minutes passed it as a parameter.
   /// See also [getSunriseSolarDipFromOffset].
   double getSunsetSolarDipFromOffset(double minutes) {
-    DateTime? offsetByDegrees = getSeaLevelSunset();
+    DateTime? seaLevelSunset = getSeaLevelSunset();
     DateTime? offsetByTime =
-        getTimeOffset(getSeaLevelSunset(), minutes * MINUTE_MILLIS);
-    double degrees = 0;
-    double incrementor = 0.001;
-    while (offsetByDegrees == null ||
-        ((minutes > 0.0 && offsetByDegrees.isBefore(offsetByTime!)) ||
-            (minutes < 0.0 && offsetByDegrees.isAfter(offsetByTime!)))) {
-      if (minutes > 0.0) {
-        degrees += incrementor;
+        getTimeOffset(seaLevelSunset, minutes * MINUTE_MILLIS);
+    if (seaLevelSunset == null || offsetByTime == null) return 0.0;
+
+    double low = minutes > 0.0 ? 0.0 : -90.0;
+    double high = minutes > 0.0 ? 90.0 : 0.0;
+
+    while ((high - low) > 0.0001) {
+      double mid = (low + high) / 2.0;
+      DateTime? offsetByDegrees =
+          getSunsetOffsetByDegrees(GEOMETRIC_ZENITH + mid);
+      bool conditionContinues;
+      if (offsetByDegrees == null) {
+        conditionContinues = false;
+      } else if (minutes > 0.0) {
+        conditionContinues = offsetByDegrees.isBefore(offsetByTime);
       } else {
-        degrees -= incrementor;
+        conditionContinues = offsetByDegrees.isAfter(offsetByTime);
       }
-      offsetByDegrees = getSunsetOffsetByDegrees(GEOMETRIC_ZENITH + degrees);
+      if (minutes > 0.0) {
+        if (conditionContinues) {
+          low = mid;
+        } else {
+          high = mid;
+        }
+      } else {
+        if (conditionContinues) {
+          high = mid;
+        } else {
+          low = mid;
+        }
+      }
     }
-    return degrees;
+    return minutes > 0.0 ? high : low;
   }
 
   /// Adjusts the `Calendar` to deal with edge cases where the location crosses the antimeridian.
@@ -526,9 +561,7 @@ class AstronomicalCalendar {
     if (offset == 0) {
       return getCalendar();
     }
-    DateTime adjustedCalendar = DateTime.parse(getCalendar().toIso8601String());
-    adjustedCalendar.add(Duration(days: offset));
-    return adjustedCalendar;
+    return getCalendar().add(Duration(days: offset));
   }
 
 /*

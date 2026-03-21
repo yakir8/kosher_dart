@@ -211,7 +211,7 @@ class SunTimesCalculator extends AstronomicalCalculator {
   static double _getTimeUTC(DateTime dateTime, GeoLocation geoLocation,
       double zenith, bool isSunrise) {
     int dayOfYear =
-        DateTime.now().difference(DateTime(DateTime.now().year, 1, 1)).inDays;
+        dateTime.difference(DateTime(dateTime.year, 1, 1)).inDays;
     double sunMeanAnomaly =
         _getMeanAnomaly(dayOfYear, geoLocation.getLongitude(), isSunrise);
     double sunTrueLong = _getSunTrueLongitude(sunMeanAnomaly);
