@@ -1,4 +1,3 @@
-library kosher_dart;
 
 export 'src/zmanim_calendar.dart';
 export 'src/util/geo_location.dart';
