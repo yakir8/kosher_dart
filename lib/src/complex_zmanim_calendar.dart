@@ -964,13 +964,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
 
   /// This method returns _misheyakir_ based on the position of the sun when it is [ZENITH_9_POINT_5]
   /// 9.5° below [GEOMETRIC_ZENITH] geometric zenith (90°). This calculation is based on Rabbi Dovid Kronglass's
-  /// Calculation of 45 minutes in Baltimore as mentioned in <a href= [Divrei Chachamim No. 24](http://www.hebrewbooks.org/pdfpager.aspx?req=20287&pgnum=29) brought down by the [Birur Halacha, Tinyana, Ch. 18](http://www.hebrewbooks.org/pdfpager.aspx?req=50535&pgnum=87). This calculates to 9.5°. Also see [Rabbi Yaakov Yitzchok Neiman](https://en.wikipedia.org/wiki/Jacob_Isaac_Neiman) in Kovetz Eitz Chaim Vol. 9, p. 202 that the Vyaan Yosef did not want to rely on times earlier than 45 minutes in New York. This _zman_ is also used in the calendars published by Rabbi Hershel Edelstein. As mentioned in the _Yisroel Vehazmanim_,  Rabbi Edelstein who was given the 45 minute zman by Rabbi Bick. The calendars published by the _[Edot Hamizrach](https://en.wikipedia.org/wiki/Mizrahi_Jews)_ communities also use this zman. This also follows the opinion of [Rabbi Shmuel Kamenetsky](https://en.wikipedia.org/wiki/Shmuel_Kamenetsky) who provided the time of 36 and 45 minutes, but did not provide a degree based time. Since this zman depends on the level of light, Rabbi Yaakov Shakow presented these degree based times to Rabbi Shmuel Kamenetsky who agreed to them. /// return the `DateTime` of _misheyakir_. If the calculation can't be computed such as
-  ///         northern and southern locations even south of the Arctic Circle and north of the Antarctic Circle where
-  ///         the sun may not reach low enough below the horizon for this calculation, a null will be returned. See
-  ///         detailed explanation on top of the [AstronomicalCalendar] documentation.
-  ///
-  /// _see [ZENITH_9_POINT_5]_
-  /// _see [getMisheyakir7Point65Degrees]_
+  /// Calculation of 45 minutes in Baltimore as mentioned in <a href= [Divrei Chachamim No. 24](http://www.hebrewbooks.org/pdfpager.aspx?req=20287&pgnum=29) brought down by the [Birur Halacha, Tinyana, Ch. 18](http://www.hebrewbooks.org/pdfpager.aspx?req=50535&pgnum=87). This calculates to 9.5°. Also see [Rabbi Yaakov Yitzchok Neiman](https://en.wikipedia.org/wiki/Jacob_Isaac_Neiman) in Kovetz Eitz Chaim Vol. 9, p. 202 that the Vyaan Yosef did not want to rely on times earlier than 45 minutes in New York. This _zman_ is also used in the calendars published by Rabbi Hershel Edelstein. As mentioned in the _Yisroel Vehazmanim_,  Rabbi Edelstein who was given the 45 minute zman by Rabbi Bick. The calendars published by the _[Edot Hamizrach](https://en.wikipedia.org/wiki/Mizrahi_Jews)_ communities also use this zman. This also follows the opinion of [Rabbi Shmuel Kamenetsky](https://en.wikipedia.org/wiki/Shmuel_Kamenetsky) who provided the time of 36 and 45 minutes, but did not provide a degree based time. Since this zman depends on the level of light, Rabbi Yaakov Shakow presented these degree based times to Rabbi Shmuel Kamenetsky who agreed to them. /// return the `DateTime` of _misheyakir_. If the calculation can't be computed such as northern and southern locations even south of the Arctic Circle and north of the Antarctic Circle where the sun may not reach low enough below the horizon for this calculation, a null will be returned. See detailed explanation on top of the [AstronomicalCalendar] documentation. /// _see [ZENITH_9_POINT_5]_ _see [getMisheyakir7Point65Degrees]_
   DateTime? getMisheyakir9Point5Degrees() =>
       getSunriseOffsetByDegrees(ZENITH_9_POINT_5);
 
@@ -2430,24 +2424,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   DateTime? getSofZmanTfilaFixedLocal() => AstronomicalCalendar.getTimeOffset(
       getFixedLocalChatzos(), -120 * AstronomicalCalendar.MINUTE_MILLIS);
 
-  /// Returns the latest time of Kidush Levana according to the <a [Maharil's](http://en.wikipedia.org/wiki/Yaakov_ben_Moshe_Levi_Moelin) opinion that it is calculated as halfway between _molad_ and _molad_. This adds half the 29 days, 12 hours and 793 chalakim time between
-  /// _molad_ and _molad_ (14 days, 18 hours, 22 minutes and 666 milliseconds) to the month's _molad_.
-  /// The _sof zman Kiddush Levana_ will be returned even if it occurs during the day. To limit the time to between
-  /// _tzais_ and _alos_, see [getSofZmanKidushLevanaBetweenMoldos].
-  ///
-  /// [alos]
-  ///            the beginning of the Jewish day. If Kidush Levana occurs during the day (starting at alos and ending
-  ///            at tzais), the time returned will be alos. If either the alos or tzais parameters are null, no daytime
-  ///            adjustment will be made.
-  /// [tzais]
-  ///            the end of the Jewish day. If Kidush Levana occurs during the day (starting at alos and ending at
-  ///            tzais), the time returned will be alos. If either the alos or tzais parameters are null, no daytime
-  ///            adjustment will be made.
-  /// return the Date representing the moment halfway between molad and molad. If the time occurs between
-  ///         _alos_ and _tzais_, _alos_ will be returned
-  /// _see [getSofZmanKidushLevanaBetweenMoldos]_
-  /// _see [getSofZmanKidushLevana15Days(Date, Date)_
-  /// _see [JewishCalendar.getSofZmanKidushLevanaBetweenMoldos]_
+  /// Returns the latest time of Kidush Levana according to the <a [Maharil's](http://en.wikipedia.org/wiki/Yaakov_ben_Moshe_Levi_Moelin) opinion that it is calculated as halfway between _molad_ and _molad_. This adds half the 29 days, 12 hours and 793 chalakim time between _molad_ and _molad_ (14 days, 18 hours, 22 minutes and 666 milliseconds) to the month's _molad_. The _sof zman Kiddush Levana_ will be returned even if it occurs during the day. To limit the time to between _tzais_ and _alos_, see [getSofZmanKidushLevanaBetweenMoldos]. /// [alos] the beginning of the Jewish day. If Kidush Levana occurs during the day (starting at alos and ending at tzais), the time returned will be alos. If either the alos or tzais parameters are null, no daytime adjustment will be made. [tzais] the end of the Jewish day. If Kidush Levana occurs during the day (starting at alos and ending at tzais), the time returned will be alos. If either the alos or tzais parameters are null, no daytime adjustment will be made. return the Date representing the moment halfway between molad and molad. If the time occurs between _alos_ and _tzais_, _alos_ will be returned _see [getSofZmanKidushLevanaBetweenMoldos]_ _see [getSofZmanKidushLevana15Days(Date, Date)_ _see [JewishCalendar.getSofZmanKidushLevanaBetweenMoldos]_
   DateTime? getSofZmanKidushLevanaBetweenMoldos(
       [DateTime? alos, DateTime? tzais]) {
     JewishCalendar jewishCalendar = JewishCalendar();
@@ -2508,26 +2485,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
 
   /// Returns the latest time of _Kiddush Levana_ calculated as 15 days after the _molad_. This is the
   /// opinion brought down in the Shulchan Aruch (Orach Chaim 426). It should be noted that some opinions hold that the
-  /// [Rema](http://en.wikipedia.org/wiki/Moses_Isserles) who brings down the opinion of the <a [Maharil's](http://en.wikipedia.org/wiki/Yaakov_ben_Moshe_Levi_Moelin) of calculating [getSofZmanKidushLevanaBetweenMoldos] is of
-  /// the opinion that the Mechaber agrees to his opinion. Also see the Aruch Hashulchan. For additional details on the subject,
-  /// see Rabbi Dovid Heber's very detailed write-up in _Siman Daled_ (chapter 4) of [Shaarei Zmanim](http://www.hebrewbooks.org/53000). If the time of _sof zman Kiddush Levana_ occurs during
-  /// the day (between the _alos_ and _tzais_ passed in as parameters), it returns the _alos_ passed in. If a
-  /// null _alos_ or _tzais_ are passed to this method, the non-daytime adjusted time will be returned.
-  ///
-  /// [alos]
-  ///            the beginning of the Jewish day. If Kidush Levana occurs during the day (starting at alos and ending
-  ///            at tzais), the time returned will be alos. If either the alos or tzais parameters are null, no daytime
-  ///            adjustment will be made.
-  /// [tzais]
-  ///            the end of the Jewish day. If Kidush Levana occurs during the day (starting at alos and ending at
-  ///            tzais), the time returned will be alos. If either the alos or tzais parameters are null, no daytime
-  ///            adjustment will be made.
-  ///
-  /// return the Date representing the moment 15 days after the molad. If the time occurs between _alos_ and
-  ///         _tzais_, _alos_ will be returned
-  ///
-  /// _see [getSofZmanKidushLevanaBetweenMoldos]_
-  /// _see [JewishCalendar.getSofZmanKidushLevana15Days]_
+  /// [Rema](http://en.wikipedia.org/wiki/Moses_Isserles) who brings down the opinion of the <a [Maharil's](http://en.wikipedia.org/wiki/Yaakov_ben_Moshe_Levi_Moelin) of calculating [getSofZmanKidushLevanaBetweenMoldos] is of the opinion that the Mechaber agrees to his opinion. Also see the Aruch Hashulchan. For additional details on the subject, see Rabbi Dovid Heber's very detailed write-up in _Siman Daled_ (chapter 4) of [Shaarei Zmanim](http://www.hebrewbooks.org/53000). If the time of _sof zman Kiddush Levana_ occurs during the day (between the _alos_ and _tzais_ passed in as parameters), it returns the _alos_ passed in. If a null _alos_ or _tzais_ are passed to this method, the non-daytime adjusted time will be returned. /// [alos] the beginning of the Jewish day. If Kidush Levana occurs during the day (starting at alos and ending at tzais), the time returned will be alos. If either the alos or tzais parameters are null, no daytime adjustment will be made. [tzais] the end of the Jewish day. If Kidush Levana occurs during the day (starting at alos and ending at tzais), the time returned will be alos. If either the alos or tzais parameters are null, no daytime adjustment will be made. /// return the Date representing the moment 15 days after the molad. If the time occurs between _alos_ and _tzais_, _alos_ will be returned /// _see [getSofZmanKidushLevanaBetweenMoldos]_ _see [JewishCalendar.getSofZmanKidushLevana15Days]_
   DateTime? getSofZmanKidushLevana15Days([DateTime? alos, DateTime? tzais]) {
     JewishCalendar jewishCalendar = JewishCalendar();
     jewishCalendar.setGregorianDate(
