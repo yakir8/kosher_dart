@@ -19,31 +19,24 @@ import 'package:vector_math/vector_math.dart';
 import 'package:kosher_dart/src/util/astronomical_calculator.dart';
 import 'package:kosher_dart/src/util/geo_location.dart';
 
-/// Implementation of sunrise and sunset methods to calculate astronomical times based on the <a
-/// href="http://noaa.gov">NOAA</a> algorithm. This calculator uses the Java algorithm based on the implementation by <a
-/// href="http://noaa.gov">NOAA - National Oceanic and Atmospheric Administration</a>'s <a href =
-/// "http://www.srrb.noaa.gov/highlights/sunrise/sunrise.html">Surface Radiation Research Branch</a>. NOAA's <a
-/// href="http://www.srrb.noaa.gov/highlights/sunrise/solareqns.PDF">implementation</a> is based on equations from <a
-/// href="http://www.willbell.com/math/mc1.htm">Astronomical Algorithms</a> by <a
-/// href="http://en.wikipedia.org/wiki/Jean_Meeus">Jean Meeus</a>. Added to the algorithm is an adjustment of the zenith
-/// to account for elevation. The algorithm can be found in the <a
-/// href="http://en.wikipedia.org/wiki/Sunrise_equation">Wikipedia Sunrise Equation</a> article.
+/// Implementation of sunrise and sunset methods to calculate astronomical times based on the [NOAA](http://noaa.gov) algorithm. This calculator uses the Java algorithm based on the implementation by [NOAA - National Oceanic and Atmospheric Administration](http://noaa.gov)'s [Surface Radiation Research Branch](http://www.srrb.noaa.gov/highlights/sunrise/sunrise.html). NOAA's [implementation](http://www.srrb.noaa.gov/highlights/sunrise/solareqns.PDF) is based on equations from [Astronomical Algorithms](http://www.willbell.com/math/mc1.htm) by [Jean Meeus](http://en.wikipedia.org/wiki/Jean_Meeus). Added to the algorithm is an adjustment of the zenith
+/// to account for elevation. The algorithm can be found in the [Wikipedia Sunrise Equation](http://en.wikipedia.org/wiki/Sunrise_equation) article.
 ///
-/// @author &copy; Eliyahu Hershfeld 2011 - 2018
+/// © Eliyahu Hershfeld 2011 - 2018
 class NOAACalculator extends AstronomicalCalculator {
-  /// The <a href="http://en.wikipedia.org/wiki/Julian_day">Julian day</a> of January 1, 2000
+  /// The [Julian day](http://en.wikipedia.org/wiki/Julian_day) of January 1, 2000
   static const double _JULIAN_DAY_JAN_1_2000 = 2451545.0;
 
   /// Julian days per century
   static const double _JULIAN_DAYS_PER_CENTURY = 36525.0;
 
-  /// @see net.sourceforge.zmanim.util.AstronomicalCalculator#getCalculatorName()
+  /// See also [AstronomicalCalculator.getCalculatorName].
   @override
   String getCalculatorName() {
     return "US National Oceanic and Atmospheric Administration Algorithm";
   }
 
-  /// @see net.sourceforge.zmanim.util.AstronomicalCalculator#getUTCSunrise(Calendar, GeoLocation, double, boolean)
+  /// See also [AstronomicalCalculator.getUTCSunrise].
   @override
   double getUTCSunrise(DateTime dateTime, GeoLocation geoLocation,
       double zenith, bool adjustForElevation) {
@@ -65,7 +58,7 @@ class NOAACalculator extends AstronomicalCalculator {
     return sunrise;
   }
 
-  /// @see net.sourceforge.zmanim.util.AstronomicalCalculator#getUTCSunset(Calendar, GeoLocation, double, boolean)
+  /// See also [AstronomicalCalculator.getUTCSunset].
   @override
   double getUTCSunset(DateTime dateTime, GeoLocation geoLocation, double zenith,
       bool adjustForElevation) {
@@ -87,12 +80,12 @@ class NOAACalculator extends AstronomicalCalculator {
     return sunset;
   }
 
-  /// Return the <a href="http://en.wikipedia.org/wiki/Julian_day">Julian day</a> from a Java Calendar
+  /// Return the [Julian day](http://en.wikipedia.org/wiki/Julian_day) from a Java Calendar
   ///
-  /// @param calendar
-  ///            The Java Calendar
-  /// @return the Julian day corresponding to the date Note: Number is returned for start of day. Fractional days
-  ///         should be added later.
+  /// - [calendar]: 
+  ///   The Java Calendar
+  /// Returns the Julian day corresponding to the date Note: Number is returned for start of day. Fractional days
+  /// should be added later.
   static double _getJulianDay(DateTime dateTime) {
     int year = dateTime.year;
     int month = dateTime.month;
@@ -111,29 +104,29 @@ class NOAACalculator extends AstronomicalCalculator {
         1524.5;
   }
 
-  /// Convert <a href="http://en.wikipedia.org/wiki/Julian_day">Julian day</a> to centuries since J2000.0.
+  /// Convert [Julian day](http://en.wikipedia.org/wiki/Julian_day) to centuries since J2000.0.
   ///
-  /// @param julianDay
-  ///            the Julian Day to convert
-  /// @return the centuries since 2000 Julian corresponding to the Julian Day
+  /// - [julianDay]: 
+  ///   the Julian Day to convert
+  /// Returns the centuries since 2000 Julian corresponding to the Julian Day
   static double _getJulianCenturiesFromJulianDay(double julianDay) {
     return (julianDay - _JULIAN_DAY_JAN_1_2000) / _JULIAN_DAYS_PER_CENTURY;
   }
 
-  /// Convert centuries since J2000.0 to <a href="http://en.wikipedia.org/wiki/Julian_day">Julian day</a>.
+  /// Convert centuries since J2000.0 to [Julian day](http://en.wikipedia.org/wiki/Julian_day).
   ///
-  /// @param julianCenturies
-  ///            the number of Julian centuries since J2000.0
-  /// @return the Julian Day corresponding to the Julian centuries passed in
+  /// - [julianCenturies]: 
+  ///   the number of Julian centuries since J2000.0
+  /// Returns the Julian Day corresponding to the Julian centuries passed in
   static double _getJulianDayFromJulianCenturies(double julianCenturies) {
     return julianCenturies * _JULIAN_DAYS_PER_CENTURY + _JULIAN_DAY_JAN_1_2000;
   }
 
-  /// Returns the Geometric <a href="http://en.wikipedia.org/wiki/Mean_longitude">Mean Longitude</a> of the Sun.
+  /// Returns the Geometric [Mean Longitude](http://en.wikipedia.org/wiki/Mean_longitude) of the Sun.
   ///
-  /// @param julianCenturies
-  ///            the number of Julian centuries since J2000.0
-  /// @return the Geometric Mean Longitude of the Sun in degrees
+  /// - [julianCenturies]: 
+  ///   the number of Julian centuries since J2000.0
+  /// Returns the Geometric Mean Longitude of the Sun in degrees
   static double _getSunGeometricMeanLongitude(double julianCenturies) {
     double longitude = 280.46646 +
         julianCenturies * (36000.76983 + 0.0003032 * julianCenturies);
@@ -147,33 +140,33 @@ class NOAACalculator extends AstronomicalCalculator {
     return longitude; // in degrees
   }
 
-  /// Returns the Geometric <a href="http://en.wikipedia.org/wiki/Mean_anomaly">Mean Anomaly</a> of the Sun.
+  /// Returns the Geometric [Mean Anomaly](http://en.wikipedia.org/wiki/Mean_anomaly) of the Sun.
   ///
-  /// @param julianCenturies
-  ///            the number of Julian centuries since J2000.0
-  /// @return the Geometric Mean Anomaly of the Sun in degrees
+  /// - [julianCenturies]: 
+  ///   the number of Julian centuries since J2000.0
+  /// Returns the Geometric Mean Anomaly of the Sun in degrees
   static double _getSunGeometricMeanAnomaly(double julianCenturies) {
     return 357.52911 +
         julianCenturies *
             (35999.05029 - 0.0001537 * julianCenturies); // in degrees
   }
 
-  /// Return the <a href="http://en.wikipedia.org/wiki/Eccentricity_%28orbit%29">eccentricity of earth's orbit</a>.
+  /// Return the [eccentricity of earth's orbit](http://en.wikipedia.org/wiki/Eccentricity_%28orbit%29).
   ///
-  /// @param julianCenturies
-  ///            the number of Julian centuries since J2000.0
-  /// @return the unitless eccentricity
+  /// - [julianCenturies]: 
+  ///   the number of Julian centuries since J2000.0
+  /// Returns the unitless eccentricity
   static double _getEarthOrbitEccentricity(double julianCenturies) {
     return 0.016708634 -
         julianCenturies *
             (0.000042037 + 0.0000001267 * julianCenturies); // unitless
   }
 
-  /// Returns the <a href="http://en.wikipedia.org/wiki/Equation_of_the_center">equation of center</a> for the sun.
+  /// Returns the [equation of center](http://en.wikipedia.org/wiki/Equation_of_the_center) for the sun.
   ///
-  /// @param julianCenturies
-  ///            the number of Julian centuries since J2000.0
-  /// @return the equation of center for the sun in degrees
+  /// - [julianCenturies]: 
+  ///   the number of Julian centuries since J2000.0
+  /// Returns the equation of center for the sun in degrees
   static double _getSunEquationOfCenter(double julianCenturies) {
     double m = _getSunGeometricMeanAnomaly(julianCenturies);
 
@@ -191,9 +184,9 @@ class NOAACalculator extends AstronomicalCalculator {
 
   /// Return the true longitude of the sun
   ///
-  /// @param julianCenturies
-  ///            the number of Julian centuries since J2000.0
-  /// @return the sun's true longitude in degrees
+  /// - [julianCenturies]: 
+  ///   the number of Julian centuries since J2000.0
+  /// Returns the sun's true longitude in degrees
   static double _getSunTrueLongitude(double julianCenturies) {
     double sunLongitude = _getSunGeometricMeanLongitude(julianCenturies);
     double center = _getSunEquationOfCenter(julianCenturies);
@@ -201,13 +194,12 @@ class NOAACalculator extends AstronomicalCalculator {
     return sunLongitude + center; // in degrees
   }
 
-  // /**
-  // * Returns the <a href="http://en.wikipedia.org/wiki/True_anomaly">true anamoly</a> of the sun.
-  // *
-  // * @param julianCenturies
-  // * the number of Julian centuries since J2000.0
-  // * @return the sun's true anamoly in degrees
-  // */
+  //   ///   // * Returns the <a href="http://en.wikipedia.org/wiki/True_anomaly">true anamoly</a> of the sun.
+  ///   // *
+  ///   // * @param julianCenturies
+  ///   // * the number of Julian centuries since J2000.0
+  ///   // * @return the sun's true anamoly in degrees
+  ///   //
   // private static double getSunTrueAnomaly(double julianCenturies) {
   // double meanAnomaly = getSunGeometricMeanAnomaly(julianCenturies);
   // double equationOfCenter = getSunEquationOfCenter(julianCenturies);
@@ -217,9 +209,9 @@ class NOAACalculator extends AstronomicalCalculator {
 
   /// Return the apparent longitude of the sun
   ///
-  /// @param julianCenturies
-  ///            the number of Julian centuries since J2000.0
-  /// @return sun's apparent longitude in degrees
+  /// - [julianCenturies]: 
+  ///   the number of Julian centuries since J2000.0
+  /// Returns sun's apparent longitude in degrees
   static double _getSunApparentLongitude(double julianCenturies) {
     double sunTrueLongitude = _getSunTrueLongitude(julianCenturies);
 
@@ -228,11 +220,11 @@ class NOAACalculator extends AstronomicalCalculator {
     return lambda; // in degrees
   }
 
-  /// Returns the mean <a href="http://en.wikipedia.org/wiki/Axial_tilt">obliquity of the ecliptic</a> (Axial tilt).
+  /// Returns the mean [obliquity of the ecliptic](http://en.wikipedia.org/wiki/Axial_tilt) (Axial tilt).
   ///
-  /// @param julianCenturies
-  ///            the number of Julian centuries since J2000.0
-  /// @return the mean obliquity in degrees
+  /// - [julianCenturies]: 
+  ///   the number of Julian centuries since J2000.0
+  /// Returns the mean obliquity in degrees
   static double _getMeanObliquityOfEcliptic(double julianCenturies) {
     double seconds = 21.448 -
         julianCenturies *
@@ -241,12 +233,12 @@ class NOAACalculator extends AstronomicalCalculator {
     return 23.0 + (26.0 + (seconds / 60.0)) / 60.0; // in degrees
   }
 
-  /// Returns the corrected <a href="http://en.wikipedia.org/wiki/Axial_tilt">obliquity of the ecliptic</a> (Axial
+  /// Returns the corrected [obliquity of the ecliptic](http://en.wikipedia.org/wiki/Axial_tilt) (Axial
   /// tilt).
   ///
-  /// @param julianCenturies
-  ///            the number of Julian centuries since J2000.0
-  /// @return the corrected obliquity in degrees
+  /// - [julianCenturies]: 
+  ///   the number of Julian centuries since J2000.0
+  /// Returns the corrected obliquity in degrees
   static double _getObliquityCorrection(double julianCenturies) {
     double obliquityOfEcliptic = _getMeanObliquityOfEcliptic(julianCenturies);
 
@@ -254,10 +246,10 @@ class NOAACalculator extends AstronomicalCalculator {
     return obliquityOfEcliptic + 0.00256 * cos(radians(omega)); // in degrees
   }
 
-  /// Return the <a href="http://en.wikipedia.org/wiki/Declination">declination</a> of the sun.
+  /// Return the [declination](http://en.wikipedia.org/wiki/Declination) of the sun.
   ///
-  /// @param julianCenturies
-  ///            the number of Julian centuries since J2000.0
+  /// - [julianCenturies]: 
+  ///   the number of Julian centuries since J2000.0
   /// @return
   ///            the sun's declination in degrees
   static double _getSunDeclination(double julianCenturies) {
@@ -269,12 +261,12 @@ class NOAACalculator extends AstronomicalCalculator {
     return theta; // in degrees
   }
 
-  /// Return the <a href="http://en.wikipedia.org/wiki/Equation_of_time">Equation of Time</a> - the difference between
+  /// Return the [Equation of Time](http://en.wikipedia.org/wiki/Equation_of_time) - the difference between
   /// true solar time and mean solar time
   ///
-  /// @param julianCenturies
-  ///            the number of Julian centuries since J2000.0
-  /// @return equation of time in minutes of time
+  /// - [julianCenturies]: 
+  ///   the number of Julian centuries since J2000.0
+  /// Returns equation of time in minutes of time
   static double _getEquationOfTime(double julianCenturies) {
     double epsilon = _getObliquityCorrection(julianCenturies);
     double geomMeanLongSun = _getSunGeometricMeanLongitude(julianCenturies);
@@ -298,16 +290,16 @@ class NOAACalculator extends AstronomicalCalculator {
     return degrees(equationOfTime) * 4.0; // in minutes of time
   }
 
-  /// Return the <a href="http://en.wikipedia.org/wiki/Hour_angle">hour angle</a> of the sun at sunrise for the
+  /// Return the [hour angle](http://en.wikipedia.org/wiki/Hour_angle) of the sun at sunrise for the
   /// latitude.
   ///
-  /// @param lat
-  ///            , the latitude of observer in degrees
-  /// @param solarDec
-  ///            the declination angle of sun in degrees
-  /// @param zenith
-  ///            the zenith
-  /// @return hour angle of sunrise in radians
+  /// - [lat]: 
+  ///   , the latitude of observer in degrees
+  /// - [solarDec]: 
+  ///   the declination angle of sun in degrees
+  /// - [zenith]: 
+  ///   the zenith
+  /// Returns hour angle of sunrise in radians
   static double _getSunHourAngleAtSunrise(
       double lat, double solarDec, double zenith) {
     double latRad = radians(lat);
@@ -318,17 +310,17 @@ class NOAACalculator extends AstronomicalCalculator {
     return acos(x); // in radians
   }
 
-  /// Returns the <a href="http://en.wikipedia.org/wiki/Hour_angle">hour angle</a> of the sun at sunset for the
-  /// latitude. TODO: use - {@link #getSunHourAngleAtSunrise(double, double, double)} implementation to avoid
+  /// Returns the [hour angle](http://en.wikipedia.org/wiki/Hour_angle) of the sun at sunset for the
+  /// latitude. TODO: use - [getSunHourAngleAtSunrise] implementation to avoid
   /// duplication of code.
   ///
-  /// @param lat
-  ///            the latitude of observer in degrees
-  /// @param solarDec
-  ///            the declination angle of sun in degrees
-  /// @param zenith
-  ///            the zenith
-  /// @return the hour angle of sunset in radians
+  /// - [lat]: 
+  ///   the latitude of observer in degrees
+  /// - [solarDec]: 
+  ///   the declination angle of sun in degrees
+  /// - [zenith]: 
+  ///   the zenith
+  /// Returns the hour angle of sunset in radians
   static double _getSunHourAngleAtSunset(
       double lat, double solarDec, double zenith) {
     double latRad = radians(lat);
@@ -339,17 +331,17 @@ class NOAACalculator extends AstronomicalCalculator {
     return -hourAngle; // in radians
   }
 
-  /// Return the <a href="http://en.wikipedia.org/wiki/Celestial_coordinate_system">Solar Elevation</a> for the
+  /// Return the [Solar Elevation](http://en.wikipedia.org/wiki/Celestial_coordinate_system) for the
   /// horizontal coordinate system at the given location at the given time. Can be negative if the sun is below the
   /// horizon. Not corrected for altitude.
   ///
-  /// @param cal
-  ///            time of calculation
-  /// @param lat
-  ///            latitude of location for calculation
-  /// @param lon
-  ///            longitude of location for calculation
-  /// @return solar elevation in degrees - horizon is 0 degrees, civil twilight is -6 degrees
+  /// - [cal]: 
+  ///   time of calculation
+  /// - [lat]: 
+  ///   latitude of location for calculation
+  /// - [lon]: 
+  ///   longitude of location for calculation
+  /// Returns solar elevation in degrees - horizon is 0 degrees, civil twilight is -6 degrees
 
   static double getSolarElevation(DateTime dateTime, double lat, double lon) {
     double julianDay = _getJulianDay(dateTime);
@@ -369,17 +361,17 @@ class NOAACalculator extends AstronomicalCalculator {
         (cos(latRad) * cos(decRad) * cos(hourAngleRad))));
   }
 
-  /// Return the <a href="http://en.wikipedia.org/wiki/Celestial_coordinate_system">Solar Azimuth</a> for the
+  /// Return the [Solar Azimuth](http://en.wikipedia.org/wiki/Celestial_coordinate_system) for the
   /// horizontal coordinate system at the given location at the given time. Not corrected for altitude. True south is 0
   /// degrees.
   ///
-  /// @param cal
-  ///            time of calculation
-  /// @param lat
-  ///            latitude of location for calculation
-  /// @param lon
-  ///            longitude of location for calculation
-  /// @return FIXME
+  /// - [cal]: 
+  ///   time of calculation
+  /// - [lat]: 
+  ///   latitude of location for calculation
+  /// - [lon]: 
+  ///   longitude of location for calculation
+  /// Returns FIXME
 
   static double getSolarAzimuth(DateTime dateTime, double lat, double lon) {
     double julianDay = _getJulianDay(dateTime);
@@ -402,18 +394,18 @@ class NOAACalculator extends AstronomicalCalculator {
         180;
   }
 
-  /// Return the <a href="http://en.wikipedia.org/wiki/Universal_Coordinated_Time">Universal Coordinated Time</a> (UTC)
+  /// Return the [Universal Coordinated Time](http://en.wikipedia.org/wiki/Universal_Coordinated_Time) (UTC)
   /// of sunrise for the given day at the given location on earth
   ///
-  /// @param julianDay
-  ///            the Julian day
-  /// @param latitude
-  ///            the latitude of observer in degrees
-  /// @param longitude
-  ///            the longitude of observer in degrees
-  /// @param zenith
-  ///            the zenith
-  /// @return the time in minutes from zero UTC
+  /// - [julianDay]: 
+  ///   the Julian day
+  /// - [latitude]: 
+  ///   the latitude of observer in degrees
+  /// - [longitude]: 
+  ///   the longitude of observer in degrees
+  /// - [zenith]: 
+  ///   the zenith
+  /// Returns the time in minutes from zero UTC
   static double _getSunriseUTC(
       double julianDay, double latitude, double longitude, double zenith) {
     double julianCenturies = _getJulianCenturiesFromJulianDay(julianDay);
@@ -448,15 +440,15 @@ class NOAACalculator extends AstronomicalCalculator {
     return timeUTC;
   }
 
-  /// Return the <a href="http://en.wikipedia.org/wiki/Universal_Coordinated_Time">Universal Coordinated Time</a> (UTC)
-  /// of <a href="http://en.wikipedia.org/wiki/Noon#Solar_noon">solar noon</a> for the given day at the given location
+  /// Return the [Universal Coordinated Time](http://en.wikipedia.org/wiki/Universal_Coordinated_Time) (UTC)
+  /// of [solar noon](http://en.wikipedia.org/wiki/Noon#Solar_noon) for the given day at the given location
   /// on earth.
   ///
-  /// @param julianCenturies
-  ///            the number of Julian centuries since J2000.0
-  /// @param longitude
-  ///            the longitude of observer in degrees
-  /// @return the time in minutes from zero UTC
+  /// - [julianCenturies]: 
+  ///   the number of Julian centuries since J2000.0
+  /// - [longitude]: 
+  ///   the longitude of observer in degrees
+  /// Returns the time in minutes from zero UTC
   static double _getSolarNoonUTC(double julianCenturies, double longitude) {
     // First pass uses approximate solar noon to calculate eqtime
     double tnoon = _getJulianCenturiesFromJulianDay(
@@ -473,18 +465,18 @@ class NOAACalculator extends AstronomicalCalculator {
     return 720 + (longitude * 4) - eqTime; // min
   }
 
-  /// Return the <a href="http://en.wikipedia.org/wiki/Universal_Coordinated_Time">Universal Coordinated Time</a> (UTC)
+  /// Return the [Universal Coordinated Time](http://en.wikipedia.org/wiki/Universal_Coordinated_Time) (UTC)
   /// of sunset for the given day at the given location on earth
   ///
-  /// @param julianDay
-  ///            the Julian day
-  /// @param latitude
-  ///            the latitude of observer in degrees
-  /// @param longitude
-  ///            longitude of observer in degrees
-  /// @param zenith
-  ///            zenith
-  /// @return the time in minutes from zero Universal Coordinated Time (UTC)
+  /// - [julianDay]: 
+  ///   the Julian day
+  /// - [latitude]: 
+  ///   the latitude of observer in degrees
+  /// - [longitude]: 
+  ///   longitude of observer in degrees
+  /// - [zenith]: 
+  ///   zenith
+  /// Returns the time in minutes from zero Universal Coordinated Time (UTC)
   static double _getSunsetUTC(
       double julianDay, double latitude, double longitude, double zenith) {
     double julianCenturies = _getJulianCenturiesFromJulianDay(julianDay);

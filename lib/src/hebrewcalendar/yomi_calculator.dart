@@ -19,10 +19,10 @@ import 'package:kosher_dart/src/hebrewcalendar/daf.dart';
 import 'package:kosher_dart/src/hebrewcalendar/jewish_calendar.dart';
 
 /// This class calculates the Daf Yomi Bavli page (daf) for a given date. To calculate Daf Yomi Yerushalmi
-/// use the {@link YerushalmiYomiCalculator}. The library may cover Mishna Yomi etc. at some point in the future.
+/// use the [YerushalmiYomiCalculator]. The library may cover Mishna Yomi etc. at some point in the future.
 ///
-/// @author &copy; Bob Newell (original C code)
-/// @author &copy; Eliyahu Hershfeld 2011 - 2020
+/// © Bob Newell (original C code)
+/// © Eliyahu Hershfeld 2011 - 2020
 class YomiCalculator {
   static final DateTime _dafYomiStartDay =
       DateTime(1923, DateTime.september, 11);
@@ -30,35 +30,32 @@ class YomiCalculator {
   /// The start date of the first Daf Yomi Bavli cycle in the Julian calendar. Used internally for claculations.
   static final int _dafYomiJulianStartDay = _getJulianDay(_dafYomiStartDay);
 
-  ///The date that the pagination for the Daf Yomi <em>Maseches Shekalim</em> changed to use the commonly used Vilna
+  ///The date that the pagination for the Daf Yomi _Maseches Shekalim_ changed to use the commonly used Vilna
   ///Shas pagination from the no longer commonly available Zhitomir / Slavuta Shas used by Rabbi Meir Shapiro.
   static final DateTime _shekalimChangeDay = DateTime(1975, DateTime.june, 24);
 
   ///  The Julian date that the cycle for Shekalim changed.
-  /// @see #getDafYomiBavli(JewishCalendar) for details.
+  /// See also [getDafYomiBavli for details.].
   static final int shekalimJulianChangeDay = _getJulianDay(_shekalimChangeDay);
 
-  /// Returns the <a href="http://en.wikipedia.org/wiki/Daf_yomi">Daf Yomi</a> <a
-  /// href="http://en.wikipedia.org/wiki/Talmud">Bavli</a> {@link Daf} for a given date. The first Daf Yomi cycle
+  /// Returns the [Daf Yomi](http://en.wikipedia.org/wiki/Daf_yomi) [Bavli](http://en.wikipedia.org/wiki/Talmud) [Daf] for a given date. The first Daf Yomi cycle
   /// started on Rosh Hashana 5684 (September 11, 1923) and calculations prior to this date will result in an
   /// IllegalArgumentException thrown. For historical calculations (supported by this method), it is important to note
   /// that a change in length of the cycle was instituted starting in the eighth Daf Yomi cycle beginning on June 24,
   /// 1975. The Daf Yomi Bavli cycle has a single masechta of the Talmud Yerushalmi - Shekalim as part of the cycle.
-  /// Unlike the Bavli where the number of daf per masechta was standardized since the original <a
-  /// href="http://en.wikipedia.org/wiki/Daniel_Bomberg">Bomberg Edition</a> published from 1520 - 1523, there is no
+  /// Unlike the Bavli where the number of daf per masechta was standardized since the original [Bomberg Edition](http://en.wikipedia.org/wiki/Daniel_Bomberg) published from 1520 - 1523, there is no
   /// uniform page length in the Yerushalmi. The early cycles had the Yerushalmi Shekalim length of 13 days following the
-  /// <a href=
-  /// "https://he.wikipedia.org/wiki/%D7%93%D7%A4%D7%95%D7%A1_%D7%A1%D7%9C%D7%90%D7%95%D7%95%D7%99%D7%98%D7%90">Slavuta/Zhytomyr</a>
-  /// Shas used by <a href="http://en.wikipedia.org/wiki/Meir_Shapiro">Rabbi Meir Shapiro</a>. With the start of the eighth Daf Yomi
+  /// [Slavuta/Zhytomyr](https://he.wikipedia.org/wiki/%D7%93%D7%A4%D7%95%D7%A1_%D7%A1%D7%9C%D7%90%D7%95%D7%95%D7%99%D7%98%D7%90)
+  /// Shas used by [Rabbi Meir Shapiro](http://en.wikipedia.org/wiki/Meir_Shapiro). With the start of the eighth Daf Yomi
   /// cycle beginning on June 24, 1975 the length of the Yerushalmi Shekalim was changed from 13 to 22 daf to follow
-  /// the <a href="https://en.wikipedia.org/wiki/Vilna_Edition_Shas">Vilna Shas</a> that is in common use today.
+  /// the [Vilna Shas](https://en.wikipedia.org/wiki/Vilna_Edition_Shas) that is in common use today.
   ///
-  /// @param jewishCalendar
-  ///            The JewishCalendar date for calculation. TODO: this can be changed to use a regular GregorianCalendar since
-  ///            there is nothing specific to the JewishCalendar in this class.
-  /// @return the {@link Daf}.
+  /// - [jewishCalendar]: 
+  ///   The JewishCalendar date for calculation. TODO: this can be changed to use a regular GregorianCalendar since
+  ///   there is nothing specific to the JewishCalendar in this class.
+  /// Returns the [Daf].
   ///
-  /// @throws IllegalArgumentException
+  /// Throws [ArgumentError] 
   ///             if the date is prior to the September 11, 1923 start date of the first Daf Yomi cycle
   static Daf getDafYomiBavli(JewishCalendar jewishCalendar) {
     /*
@@ -161,11 +158,11 @@ class YomiCalculator {
     return dafYomi;
   }
 
-  /// Return the <a href="http://en.wikipedia.org/wiki/Julian_day">Julian day</a> from a Java Calendar.
+  /// Return the [Julian day](http://en.wikipedia.org/wiki/Julian_day) from a Java Calendar.
   ///
-  /// @param calendar
-  ///            The Java Calendar of the date to be calculated
-  /// @return the Julian day number corresponding to the date
+  /// - [calendar]: 
+  ///   The Java Calendar of the date to be calculated
+  /// Returns the Julian day number corresponding to the date
   static int _getJulianDay(DateTime dateTime) {
     int year = dateTime.year;
     int month = dateTime.month;

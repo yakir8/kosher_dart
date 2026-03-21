@@ -19,90 +19,82 @@ import 'package:vector_math/vector_math.dart';
 import 'package:kosher_dart/src/util/geo_location.dart';
 
 /// A class for various location calculations
-/// Most of the code in this class is ported from <a href="http://www.movable-type.co.uk/">Chris Veness'</a>
-/// <a href="http://www.fsf.org/licensing/licenses/lgpl.html">LGPL</a> Javascript Implementation
+/// Most of the code in this class is ported from [Chris Veness'](http://www.movable-type.co.uk/)
+/// [LGPL](http://www.fsf.org/licensing/licenses/lgpl.html) Javascript Implementation
 ///
-/// @author &copy; Eliyahu Hershfeld 2009 - 2018
+/// © Eliyahu Hershfeld 2009 - 2018
 class GeoLocationUtils {
   /// Constant for a distance type calculation.
-  /// @see #getGeodesicDistance(GeoLocation, GeoLocation)
+  /// See also [getGeodesicDistance].
   static const int _DISTANCE = 0;
 
   /// Constant for a initial bearing type calculation.
-  /// @see #getGeodesicInitialBearing(GeoLocation, GeoLocation)
+  /// See also [getGeodesicInitialBearing].
   static const int _INITIAL_BEARING = 1;
 
   /// Constant for a final bearing type calculation.
-  /// @see #getGeodesicFinalBearing(GeoLocation, GeoLocation)
+  /// See also [getGeodesicFinalBearing].
   static const int _FINAL_BEARING = 2;
 
-  /// Calculate the <a href="http://en.wikipedia.org/wiki/Great_circle">geodesic</a> initial bearing between this Object and
-  /// a second Object passed to this method using <a href="http://en.wikipedia.org/wiki/Thaddeus_Vincenty">Thaddeus
-  /// Vincenty's</a> inverse formula See T Vincenty, "<a href="http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf">Direct and
-  /// Inverse Solutions of Geodesics on the Ellipsoid with application of nested equations</a>", Survey Review, vol XXII
+  /// Calculate the [geodesic](http://en.wikipedia.org/wiki/Great_circle) initial bearing between this Object and
+  /// a second Object passed to this method using [Thaddeus Vincenty's](http://en.wikipedia.org/wiki/Thaddeus_Vincenty) inverse formula See T Vincenty, "[Direct and Inverse Solutions of Geodesics on the Ellipsoid with application of nested equations](http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf)", Survey Review, vol XXII
   /// no 176, 1975.
   ///
-  /// @param location
-  ///            the initial location
-  /// @param destination
-  ///            the destination location
-  /// @return the geodesic bearing
+  /// - [location]: 
+  ///   the initial location
+  /// - [destination]: 
+  ///   the destination location
+  /// Returns the geodesic bearing
   static double getGeodesicInitialBearing(
       GeoLocation location, GeoLocation destination) {
     return _vincentyFormula(location, destination, _INITIAL_BEARING);
   }
 
-  /// Calculate the <a href="http://en.wikipedia.org/wiki/Great_circle">geodesic</a> final bearing between this Object
-  /// and a second Object passed to this method using <a href="http://en.wikipedia.org/wiki/Thaddeus_Vincenty">Thaddeus Vincenty's</a>
-  /// inverse formula See T Vincenty, "<a href="http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf">Direct and Inverse Solutions of Geodesics
-  /// on the Ellipsoid with application of nested equations</a>", Survey Review, vol XXII no 176, 1975.
+  /// Calculate the [geodesic](http://en.wikipedia.org/wiki/Great_circle) final bearing between this Object
+  /// and a second Object passed to this method using [Thaddeus Vincenty's](http://en.wikipedia.org/wiki/Thaddeus_Vincenty)
+  /// inverse formula See T Vincenty, "[Direct and Inverse Solutions of Geodesics on the Ellipsoid with application of nested equations](http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf)", Survey Review, vol XXII no 176, 1975.
   ///
-  /// @param location
-  ///            the initial location
-  /// @param destination
-  ///            the destination location
-  /// @return the geodesic bearing
+  /// - [location]: 
+  ///   the initial location
+  /// - [destination]: 
+  ///   the destination location
+  /// Returns the geodesic bearing
   static double getGeodesicFinalBearing(
       GeoLocation location, GeoLocation destination) {
     return _vincentyFormula(location, destination, _FINAL_BEARING);
   }
 
-  /// Calculate <a href="http://en.wikipedia.org/wiki/Great-circle_distance">geodesic distance</a> in Meters
-  /// between this Object and a second Object passed to this method using <a
-  /// href="http://en.wikipedia.org/wiki/Thaddeus_Vincenty">Thaddeus Vincenty's</a> inverse formula See T Vincenty,
-  /// "<a href="http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf">Direct and Inverse Solutions of Geodesics on the
-  /// Ellipsoid with application of nested equations</a>", Survey Review, vol XXII no 176, 1975. This uses the
+  /// Calculate [geodesic distance](http://en.wikipedia.org/wiki/Great-circle_distance) in Meters
+  /// between this Object and a second Object passed to this method using [Thaddeus Vincenty's](http://en.wikipedia.org/wiki/Thaddeus_Vincenty) inverse formula See T Vincenty,
+  /// "[Direct and Inverse Solutions of Geodesics on the Ellipsoid with application of nested equations](http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf)", Survey Review, vol XXII no 176, 1975. This uses the
   /// WGS-84 geodetic model.
   ///
-  /// @param location
-  ///            the initial location
-  /// @param destination
-  ///            the destination location
-  /// @return the geodesic distance in Meters
+  /// - [location]: 
+  ///   the initial location
+  /// - [destination]: 
+  ///   the destination location
+  /// Returns the geodesic distance in Meters
   static double getGeodesicDistance(
       GeoLocation location, GeoLocation destination) {
     return _vincentyFormula(location, destination, _DISTANCE);
   }
 
-  /// Calculates the initial <a href="http://en.wikipedia.org/wiki/Great_circle">geodesic</a> bearing, final bearing or
-  /// <a href="http://en.wikipedia.org/wiki/Great-circle_distance">geodesic distance</a> using <a href=
-  /// "http://en.wikipedia.org/wiki/Thaddeus_Vincenty">Thaddeus Vincenty's</a> inverse formula See T Vincenty, "<a
-  /// href="http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf">Direct and Inverse Solutions of Geodesics on the Ellipsoid
-  /// with application of nested equations</a>", Survey Review, vol XXII no 176, 1975.
+  /// Calculates the initial [geodesic](http://en.wikipedia.org/wiki/Great_circle) bearing, final bearing or
+  /// [geodesic distance](http://en.wikipedia.org/wiki/Great-circle_distance) using [Thaddeus Vincenty's](http://en.wikipedia.org/wiki/Thaddeus_Vincenty) inverse formula See T Vincenty, "[Direct and Inverse Solutions of Geodesics on the Ellipsoid with application of nested equations](http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf)", Survey Review, vol XXII no 176, 1975.
   ///
-  /// @param location
-  ///            the initial location
-  /// @param destination
-  ///            the destination location
-  /// @param formula
-  ///            This formula calculates initial bearing ({@link #INITIAL_BEARING}),
-  ///            final bearing ({@link #FINAL_BEARING}) and distance ({@link #DISTANCE}).
+  /// - [location]: 
+  ///   the initial location
+  /// - [destination]: 
+  ///   the destination location
+  /// - [formula]: 
+  ///   This formula calculates initial bearing ([INITIAL_BEARING]),
+  ///   final bearing ([FINAL_BEARING]) and distance ([DISTANCE]).
   /// @return
   ///            the geodesic distance, initial or final bearing (based on the formula passed in) between the location
   ///            and destination in Meters
-  /// @see #getGeodesicDistance(GeoLocation, GeoLocation)
-  /// @see #getGeodesicInitialBearing(GeoLocation, GeoLocation)
-  /// @see #getGeodesicFinalBearing(GeoLocation, GeoLocation)
+  /// See also [getGeodesicDistance].
+  /// See also [getGeodesicInitialBearing].
+  /// See also [getGeodesicFinalBearing].
   static double _vincentyFormula(
       GeoLocation location, GeoLocation destination, int formula) {
     double a =
@@ -198,14 +190,14 @@ class GeoLocationUtils {
     }
   }
 
-  /// Returns the <a href="http://en.wikipedia.org/wiki/Rhumb_line">rhumb line</a>
+  /// Returns the [rhumb line](http://en.wikipedia.org/wiki/Rhumb_line)
   /// bearing from the current location to the GeoLocation passed in.
   ///
-  /// @param location
-  ///            the initial location
-  /// @param destination
-  ///            the destination location
-  /// @return the bearing in degrees
+  /// - [location]: 
+  ///   the initial location
+  /// - [destination]: 
+  ///   the destination location
+  /// Returns the bearing in degrees
   static double getRhumbLineBearing(
       GeoLocation location, GeoLocation destination) {
     double dLon = radians(destination.getLongitude() - location.getLongitude());
@@ -215,14 +207,14 @@ class GeoLocationUtils {
     return degrees(atan2(dLon, dPhi));
   }
 
-  /// Returns the <a href="http://en.wikipedia.org/wiki/Rhumb_line">rhumb line</a> distance between two GeoLocations
-  /// passed in. Ported from <a href="http://www.movable-type.co.uk/">Chris Veness'</a> Javascript Implementation.
+  /// Returns the [rhumb line](http://en.wikipedia.org/wiki/Rhumb_line) distance between two GeoLocations
+  /// passed in. Ported from [Chris Veness'](http://www.movable-type.co.uk/) Javascript Implementation.
   ///
-  /// @param location
-  ///            the initial location
-  /// @param destination
-  ///            the destination location
-  /// @return the distance in Meters
+  /// - [location]: 
+  ///   the initial location
+  /// - [destination]: 
+  ///   the destination location
+  /// Returns the distance in Meters
   static double getRhumbLineDistance(
       GeoLocation location, GeoLocation destination) {
     double earthRadius = 6378137; // Earth's radius in meters (WGS-84)

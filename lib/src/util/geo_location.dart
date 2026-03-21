@@ -19,49 +19,47 @@ import 'package:vector_math/vector_math.dart';
 
 /// A class that contains location information such as latitude and longitude required for astronomical calculations. The
 /// elevation field may not be used by some calculation engines and would be ignored if set. Check the documentation for
-/// specific implementations of the {@link AstronomicalCalculator} to see if elevation is calculated as part of the
+/// specific implementations of the [AstronomicalCalculator] to see if elevation is calculated as part of the
 /// algorithm.
 ///
-/// @author &copy; Eliyahu Hershfeld 2004 - 2018
-/// @version 1.1
+/// © Eliyahu Hershfeld 2004 - 2018
 class GeoLocation {
-  /// @see #getLatitude()
-  /// @see #setLatitude(double)
-  /// @see #setLatitude(int, int, double, String)
+  /// See also [getLatitude].
+  /// See also [setLatitude].
+  /// See also [setLatitude].
   late double _latitude;
 
-  /// @see #getLongitude()
-  /// @see #setLongitude(double)
-  /// @see #setLongitude(int, int, double, String)
+  /// See also [getLongitude].
+  /// See also [setLongitude].
+  /// See also [setLongitude].
   late double _longitude;
   late String _locationName;
   late DateTime _dateTime;
 
-  /// @see #getElevation()
-  /// @see #setElevation(double)
+  /// See also [getElevation].
+  /// See also [setElevation].
   double? _elevation;
 
   /// Constant for a distance type calculation.
-  /// @see #getGeodesicDistance(GeoLocation)
+  /// See also [getGeodesicDistance].
   static const int _DISTANCE = 0;
 
   /// Constant for a initial bearing type calculation.
-  /// @see #getGeodesicInitialBearing(GeoLocation)
+  /// See also [getGeodesicInitialBearing].
   static const int _INITIAL_BEARING = 1;
 
   /// Constant for a final bearing type calculation.
-  /// @see #getGeodesicFinalBearing(GeoLocation)
+  /// See also [getGeodesicFinalBearing].
   static const int _FINAL_BEARING = 2;
 
-  /// constant for milliseconds in a minute (60,000) */
+  /// constant for milliseconds in a minute (60,000)
   static const double _MINUTE_MILLIS = 60 * 1000.0;
 
-  /// constant for milliseconds in an hour (3,600,000) */
+  /// constant for milliseconds in an hour (3,600,000)
   static const double _HOUR_MILLIS = _MINUTE_MILLIS * 60;
 
   /// Default GeoLocation constructor will set location to the Prime Meridian at Greenwich, England and a TimeZone of
-  /// GMT. The longitude will be set to 0 and the latitude will be 51.4772 to match the location of the <a
-  /// href="http://www.rog.nmm.ac.uk">Royal Observatory, Greenwich </a>. No daylight savings time will be used.
+  /// GMT. The longitude will be set to 0 and the latitude will be 51.4772 to match the location of the [Royal Observatory, Greenwich ](http://www.rog.nmm.ac.uk). No daylight savings time will be used.
   GeoLocation() {
     setLocationName("Greenwich, England");
     setLongitude(longitude: 0); // added for clarity
@@ -71,20 +69,19 @@ class GeoLocation {
 
   /// GeoLocation constructor with parameters for all required fields.
   ///
-  /// @param locationName
-  ///            The location name for display use such as "Lakewood, NJ"
-  /// @param latitude
-  ///            the latitude in a double format such as 40.095965 for Lakewood, NJ.
-  ///            <b>Note: </b> For latitudes south of the equator, a negative value should be used.
-  /// @param longitude
-  ///            double the longitude in a double format such as -74.222130 for Lakewood, NJ.
-  ///            <b>Note: </b> For longitudes east of the <a href="http://en.wikipedia.org/wiki/Prime_Meridian">Prime
-  ///            Meridian </a> (Greenwich), a negative value should be used.
-  /// @param elevation
-  ///            the elevation above sea level in Meters. Elevation is not used in most algorithms used for calculating
-  ///            sunrise and set.
-  /// @param timeZone
-  ///            the <code>TimeZone</code> for the location.
+  /// - [locationName]: 
+  ///   The location name for display use such as "Lakewood, NJ"
+  /// - [latitude]: 
+  ///   the latitude in a double format such as 40.095965 for Lakewood, NJ.
+  ///   **Note: ** For latitudes south of the equator, a negative value should be used.
+  /// - [longitude]: 
+  ///   double the longitude in a double format such as -74.222130 for Lakewood, NJ.
+  ///   **Note: ** For longitudes east of the [Prime Meridian ](http://en.wikipedia.org/wiki/Prime_Meridian) (Greenwich), a negative value should be used.
+  /// - [elevation]: 
+  ///   the elevation above sea level in Meters. Elevation is not used in most algorithms used for calculating
+  ///   sunrise and set.
+  /// - [timeZone]: 
+  ///   the `TimeZone` for the location.
   GeoLocation.setLocation(
       String locationName, double latitude, double longitude, DateTime dateTime,
       [double elevation = 0]) {
@@ -97,15 +94,15 @@ class GeoLocation {
 
   /// Method to get the elevation in Meters.
   ///
-  /// @return Returns the elevation in Meters.
+  /// Returns the elevation in Meters.
   double? getElevation() {
     return _elevation;
   }
 
-  /// Method to set the elevation in Meters <b>above </b> sea level.
+  /// Method to set the elevation in Meters **above ** sea level.
   ///
-  /// @param elevation
-  ///            The elevation to set in Meters. An IllegalArgumentException will be thrown if the value is a negative.
+  /// - [elevation]: 
+  ///   The elevation to set in Meters. An IllegalArgumentException will be thrown if the value is a negative.
   void setElevation(double elevation) {
     if (elevation < 0) {
       throw ArgumentError("Elevation cannot be negative");
@@ -115,15 +112,15 @@ class GeoLocation {
 
   /// Method to set the latitude in degrees, minutes and seconds.
   ///
-  /// @param degrees
-  ///            The degrees of latitude to set between 0&deg; and 90&deg;. For example 40 would be used for Lakewood, NJ.
-  ///            An IllegalArgumentException will be thrown if the value exceeds the limit.
-  /// @param minutes
-  ///            <a href="http://en.wikipedia.org/wiki/Minute_of_arc#Cartography">minutes of arc</a>
-  /// @param seconds
-  ///            <a href="http://en.wikipedia.org/wiki/Minute_of_arc#Cartography">seconds of arc</a>
-  /// @param direction
-  ///            N for north and S for south. An IllegalArgumentException will be thrown if the value is not S or N.
+  /// - [degrees]: 
+  ///   The degrees of latitude to set between 0° and 90°. For example 40 would be used for Lakewood, NJ.
+  ///   An IllegalArgumentException will be thrown if the value exceeds the limit.
+  /// - [minutes]: 
+  ///   [minutes of arc](http://en.wikipedia.org/wiki/Minute_of_arc#Cartography)
+  /// - [seconds]: 
+  ///   [seconds of arc](http://en.wikipedia.org/wiki/Minute_of_arc#Cartography)
+  /// - [direction]: 
+  ///   N for north and S for south. An IllegalArgumentException will be thrown if the value is not S or N.
   void setLatitude(
       {int? degrees,
       int? minutes,
@@ -157,24 +154,24 @@ class GeoLocation {
     }
   }
 
-  /// @return Returns the latitude.
+  /// Returns the latitude.
   double getLatitude() {
     return _latitude;
   }
 
   /// Method to set the longitude in degrees, minutes and seconds.
   ///
-  /// @param degrees
-  ///            The degrees of longitude to set between 0&deg; and 180&deg;. As an example 74 would be set for Lakewood, NJ.
-  ///            An IllegalArgumentException will be thrown if the value exceeds the limits.
-  /// @param minutes
-  ///            <a href="http://en.wikipedia.org/wiki/Minute_of_arc#Cartography">minutes of arc</a>
-  /// @param seconds
-  ///            <a href="http://en.wikipedia.org/wiki/Minute_of_arc#Cartography">seconds of arc</a>
-  /// @param direction
-  ///            E for east of the <a href="http://en.wikipedia.org/wiki/Prime_Meridian">Prime Meridian </a> or W for west of it.
-  ///            An IllegalArgumentException will be thrown if
-  ///            the value is not E or W.
+  /// - [degrees]: 
+  ///   The degrees of longitude to set between 0° and 180°. As an example 74 would be set for Lakewood, NJ.
+  ///   An IllegalArgumentException will be thrown if the value exceeds the limits.
+  /// - [minutes]: 
+  ///   [minutes of arc](http://en.wikipedia.org/wiki/Minute_of_arc#Cartography)
+  /// - [seconds]: 
+  ///   [seconds of arc](http://en.wikipedia.org/wiki/Minute_of_arc#Cartography)
+  /// - [direction]: 
+  ///   E for east of the [Prime Meridian ](http://en.wikipedia.org/wiki/Prime_Meridian) or W for west of it.
+  ///   An IllegalArgumentException will be thrown if
+  ///   the value is not E or W.
   void setLongitude(
       {int? degrees,
       int? minutes,
@@ -208,62 +205,58 @@ class GeoLocation {
     }
   }
 
-  /// @return Returns the longitude.
+  /// Returns the longitude.
   double getLongitude() {
     return _longitude;
   }
 
-  /// @return Returns the location name.
+  /// Returns the location name.
   String getLocationName() {
     return _locationName;
   }
 
-  /// @param name
-  ///            The setter method for the display name.
+  /// - [name]: 
+  ///   The setter method for the display name.
   void setLocationName(String name) {
     _locationName = name;
   }
 
-  /// @return Returns the timeZone.
+  /// Returns the timeZone.
   DateTime getDateTime() {
     return _dateTime;
   }
 
   /// Method to set the TimeZone. If this is ever set after the GeoLocation is set in the
-  /// {@link net.sourceforge.zmanim.AstronomicalCalendar}, it is critical that
-  /// {@link net.sourceforge.zmanim.AstronomicalCalendar#getCalendar()}.
-  /// {@link java.util.Calendar#setTimeZone(TimeZone) setTimeZone(TimeZone)} be called in order for the
+  /// [AstronomicalCalendar], it is critical that
+  /// [AstronomicalCalendar.getCalendar].
+  /// [Calendar.setTimeZone] be called in order for the
   /// AstronomicalCalendar to output times in the expected offset. This situation will arise if the
-  /// AstronomicalCalendar is ever {@link net.sourceforge.zmanim.AstronomicalCalendar#clone() cloned}.
+  /// AstronomicalCalendar is ever [AstronomicalCalendar.clone].
   ///
-  /// @param timeZone
-  ///            The timeZone to set.
+  /// - [timeZone]: 
+  ///   The timeZone to set.
   void setDateTime(DateTime dateTime) {
     _dateTime = dateTime;
   }
 
-  /// A method that will return the location's local mean time offset in milliseconds from local <a
-  /// href="http://en.wikipedia.org/wiki/Standard_time">standard time</a>. The globe is split into 360&deg;, with
-  /// 15&deg; per hour of the day. For a local that is at a longitude that is evenly divisible by 15 (longitude % 15 ==
-  /// 0), at solar {@link net.sourceforge.zmanim.AstronomicalCalendar#getSunTransit() noon} (with adjustment for the <a
-  /// href="http://en.wikipedia.org/wiki/Equation_of_time">equation of time</a>) the sun should be directly overhead,
-  /// so a user who is 1&deg; west of this will have noon at 4 minutes after standard time noon, and conversely, a user
-  /// who is 1&deg; east of the 15&deg; longitude will have noon at 11:56 AM. Lakewood, N.J., whose longitude is
-  /// -74.2094, is 0.7906 away from the closest multiple of 15 at -75&deg;. This is multiplied by 4 to yield 3 minutes
-  /// and 10 seconds earlier than standard time. The offset returned does not account for the <a
-  /// href="http://en.wikipedia.org/wiki/Daylight_saving_time">Daylight saving time</a> offset since this class is
+  /// A method that will return the location's local mean time offset in milliseconds from local [standard time](http://en.wikipedia.org/wiki/Standard_time). The globe is split into 360°, with
+  /// 15° per hour of the day. For a local that is at a longitude that is evenly divisible by 15 (longitude % 15 ==
+  /// 0), at solar [AstronomicalCalendar.getSunTransit] (with adjustment for the [equation of time](http://en.wikipedia.org/wiki/Equation_of_time)) the sun should be directly overhead,
+  /// so a user who is 1° west of this will have noon at 4 minutes after standard time noon, and conversely, a user
+  /// who is 1° east of the 15° longitude will have noon at 11:56 AM. Lakewood, N.J., whose longitude is
+  /// -74.2094, is 0.7906 away from the closest multiple of 15 at -75°. This is multiplied by 4 to yield 3 minutes
+  /// and 10 seconds earlier than standard time. The offset returned does not account for the [Daylight saving time](http://en.wikipedia.org/wiki/Daylight_saving_time) offset since this class is
   /// unaware of dates.
   ///
-  /// @return the offset in milliseconds not accounting for Daylight saving time. A positive value will be returned
-  ///         East of the 15&deg; timezone line, and a negative value West of it.
-  /// @since 1.1
+  /// Returns the offset in milliseconds not accounting for Daylight saving time. A positive value will be returned
+  /// East of the 15° timezone line, and a negative value West of it.
   double getLocalMeanTimeOffset() {
     return (getLongitude() * 4 * _MINUTE_MILLIS -
             getDateTime().timeZoneOffset.inMilliseconds)
         .toDouble();
   }
 
-  /// Adjust the date for <a href="https://en.wikipedia.org/wiki/180th_meridian">antimeridian</a> crossover. This is
+  /// Adjust the date for [antimeridian](https://en.wikipedia.org/wiki/180th_meridian) crossover. This is
   /// needed to deal with edge cases such as Samoa that use a different calendar date than expected based on their
   /// geographic location.
   ///
@@ -274,10 +267,10 @@ class GeoLocation {
   ///
   /// For example, Apia, Samoa with a longitude of -171.75 uses a local offset of +14:00.  When calculating sunrise for
   /// 2018-02-03, the calculator should operate using 2018-02-02 since the expected zone is -11.  After determining the
-  /// UTC time, the local DST offset of <a href="https://en.wikipedia.org/wiki/UTC%2B14:00">UTC+14:00</a> should be applied
+  /// UTC time, the local DST offset of [UTC+14:00](https://en.wikipedia.org/wiki/UTC%2B14:00) should be applied
   /// to bring the date back to 2018-02-03.
   ///
-  /// @return the number of days to adjust the date This will typically be 0 unless the date crosses the antimeridian
+  /// Returns the number of days to adjust the date This will typically be 0 unless the date crosses the antimeridian
   int getAntimeridianAdjustment() {
     double localHoursOffset = getLocalMeanTimeOffset() / _HOUR_MILLIS;
 
@@ -293,58 +286,47 @@ class GeoLocation {
     return 0; //99.999% of the world will have no adjustment
   }
 
-  /// Calculate the initial <a href="http://en.wikipedia.org/wiki/Great_circle">geodesic</a> bearing between this
-  /// Object and a second Object passed to this method using <a
-  /// href="http://en.wikipedia.org/wiki/Thaddeus_Vincenty">Thaddeus Vincenty's</a> inverse formula See T Vincenty, "<a
-  /// href="http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf">Direct and Inverse Solutions of Geodesics on the Ellipsoid
-  /// with application of nested equations</a>", Survey Review, vol XXII no 176, 1975
+  /// Calculate the initial [geodesic](http://en.wikipedia.org/wiki/Great_circle) bearing between this
+  /// Object and a second Object passed to this method using [Thaddeus Vincenty's](http://en.wikipedia.org/wiki/Thaddeus_Vincenty) inverse formula See T Vincenty, "[Direct and Inverse Solutions of Geodesics on the Ellipsoid with application of nested equations](http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf)", Survey Review, vol XXII no 176, 1975
   ///
-  /// @param location
-  ///            the destination location
-  /// @return the initial bearing
+  /// - [location]: 
+  ///   the destination location
+  /// Returns the initial bearing
   double getGeodesicInitialBearing(GeoLocation location) {
     return vincentyFormula(location, _INITIAL_BEARING);
   }
 
-  /// Calculate the final <a href="http://en.wikipedia.org/wiki/Great_circle">geodesic</a> bearing between this Object
-  /// and a second Object passed to this method using <a href="http://en.wikipedia.org/wiki/Thaddeus_Vincenty">Thaddeus
-  /// Vincenty's</a> inverse formula See T Vincenty, "<a href="http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf">Direct and
-  /// Inverse Solutions of Geodesics on the Ellipsoid with application of nested equations</a>", Survey Review, vol
+  /// Calculate the final [geodesic](http://en.wikipedia.org/wiki/Great_circle) bearing between this Object
+  /// and a second Object passed to this method using [Thaddeus Vincenty's](http://en.wikipedia.org/wiki/Thaddeus_Vincenty) inverse formula See T Vincenty, "[Direct and Inverse Solutions of Geodesics on the Ellipsoid with application of nested equations](http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf)", Survey Review, vol
   /// XXII no 176, 1975
   ///
-  /// @param location
-  ///            the destination location
-  /// @return the final bearing
+  /// - [location]: 
+  ///   the destination location
+  /// Returns the final bearing
   double getGeodesicFinalBearing(GeoLocation location) {
     return vincentyFormula(location, _FINAL_BEARING);
   }
 
-  /// Calculate <a href="http://en.wikipedia.org/wiki/Great-circle_distance">geodesic distance</a> in Meters between
-  /// this Object and a second Object passed to this method using <a
-  /// href="http://en.wikipedia.org/wiki/Thaddeus_Vincenty">Thaddeus Vincenty's</a> inverse formula See T Vincenty, "<a
-  /// href="http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf">Direct and Inverse Solutions of Geodesics on the Ellipsoid
-  /// with application of nested equations</a>", Survey Review, vol XXII no 176, 1975
+  /// Calculate [geodesic distance](http://en.wikipedia.org/wiki/Great-circle_distance) in Meters between
+  /// this Object and a second Object passed to this method using [Thaddeus Vincenty's](http://en.wikipedia.org/wiki/Thaddeus_Vincenty) inverse formula See T Vincenty, "[Direct and Inverse Solutions of Geodesics on the Ellipsoid with application of nested equations](http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf)", Survey Review, vol XXII no 176, 1975
   ///
-  /// @see #vincentyFormula(GeoLocation, int)
-  /// @param location
-  ///            the destination location
-  /// @return the geodesic distance in Meters
+  /// See also [vincentyFormula].
+  /// - [location]: 
+  ///   the destination location
+  /// Returns the geodesic distance in Meters
   double getGeodesicDistance(GeoLocation location) {
     return vincentyFormula(location, _DISTANCE);
   }
 
-  /// Calculate <a href="http://en.wikipedia.org/wiki/Great-circle_distance">geodesic distance</a> in Meters between
-  /// this Object and a second Object passed to this method using <a
-  /// href="http://en.wikipedia.org/wiki/Thaddeus_Vincenty">Thaddeus Vincenty's</a> inverse formula See T Vincenty, "<a
-  /// href="http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf">Direct and Inverse Solutions of Geodesics on the Ellipsoid
-  /// with application of nested equations</a>", Survey Review, vol XXII no 176, 1975
+  /// Calculate [geodesic distance](http://en.wikipedia.org/wiki/Great-circle_distance) in Meters between
+  /// this Object and a second Object passed to this method using [Thaddeus Vincenty's](http://en.wikipedia.org/wiki/Thaddeus_Vincenty) inverse formula See T Vincenty, "[Direct and Inverse Solutions of Geodesics on the Ellipsoid with application of nested equations](http://www.ngs.noaa.gov/PUBS_LIB/inverse.pdf)", Survey Review, vol XXII no 176, 1975
   ///
-  /// @param location
-  ///            the destination location
-  /// @param formula
-  ///            This formula calculates initial bearing ({@link #INITIAL_BEARING}), final bearing (
-  ///            {@link #FINAL_BEARING}) and distance ({@link #DISTANCE}).
-  /// @return geodesic distance in Meters
+  /// - [location]: 
+  ///   the destination location
+  /// - [formula]: 
+  ///   This formula calculates initial bearing ([INITIAL_BEARING]), final bearing (
+  ///   [FINAL_BEARING]) and distance ([DISTANCE]).
+  /// Returns geodesic distance in Meters
   double vincentyFormula(GeoLocation location, int formula) {
     double a = 6378137;
     double b = 6356752.3142;
@@ -431,12 +413,12 @@ class GeoLocation {
     }
   }
 
-  /// Returns the <a href="http://en.wikipedia.org/wiki/Rhumb_line">rhumb line</a> bearing from the current location to
+  /// Returns the [rhumb line](http://en.wikipedia.org/wiki/Rhumb_line) bearing from the current location to
   /// the GeoLocation passed in.
   ///
-  /// @param location
-  ///            destination location
-  /// @return the bearing in degrees
+  /// - [location]: 
+  ///   destination location
+  /// Returns the bearing in degrees
   double getRhumbLineBearing(GeoLocation location) {
     double dLon = radians(location.getLongitude() - getLongitude());
     double dPhi = log(tan(radians(location.getLatitude()) / 2 + pi / 4) /
@@ -445,12 +427,12 @@ class GeoLocation {
     return degrees(atan2(dLon, dPhi));
   }
 
-  /// Returns the <a href="http://en.wikipedia.org/wiki/Rhumb_line">rhumb line</a> distance from the current location
+  /// Returns the [rhumb line](http://en.wikipedia.org/wiki/Rhumb_line) distance from the current location
   /// to the GeoLocation passed in.
   ///
-  /// @param location
-  ///            the destination location
-  /// @return the distance in Meters
+  /// - [location]: 
+  ///   the destination location
+  /// Returns the distance in Meters
   double getRhumbLineDistance(GeoLocation location) {
     double earthRadius = 6378137; // Earth's radius in meters (WGS-84)
     double dLat = radians(location.getLatitude()) - radians(getLatitude());
@@ -472,24 +454,25 @@ class GeoLocation {
   }
 
 /*
-  /// A method that returns an XML formatted <code>String</code> representing the serialized <code>Object</code>. Very
+  /// A method that returns an XML formatted `String` representing the serialized `Object`. Very
   /// similar to the toString method but the return value is in an xml format. The format currently used (subject to
   /// change) is:
   ///
-  /// <pre>
-  ///   &lt;GeoLocation&gt;
-  ///   	 &lt;LocationName&gt;Lakewood, NJ&lt;/LocationName&gt;
-  ///   	 &lt;Latitude&gt;40.0828&amp;deg&lt;/Latitude&gt;
-  ///   	 &lt;Longitude&gt;-74.2094&amp;deg&lt;/Longitude&gt;
-  ///   	 &lt;Elevation&gt;0 Meters&lt;/Elevation&gt;
-  ///   	 &lt;TimezoneName&gt;America/New_York&lt;/TimezoneName&gt;
-  ///   	 &lt;TimeZoneDisplayName&gt;Eastern Standard Time&lt;/TimeZoneDisplayName&gt;
-  ///   	 &lt;TimezoneGMTOffset&gt;-5&lt;/TimezoneGMTOffset&gt;
-  ///   	 &lt;TimezoneDSTOffset&gt;1&lt;/TimezoneDSTOffset&gt;
-  ///   &lt;/GeoLocation&gt;
-  /// </pre>
   ///
-  /// @return The XML formatted <code>String</code>.
+  /// ```dart
+  ///    <GeoLocation>
+  ///    	 <LocationName>Lakewood, NJ</LocationName>
+  ///    	 <Latitude>40.0828&deg</Latitude>
+  ///    	 <Longitude>-74.2094&deg</Longitude>
+  ///    	 <Elevation>0 Meters</Elevation>
+  ///    	 <TimezoneName>America/New_York</TimezoneName>
+  ///    	 <TimeZoneDisplayName>Eastern Standard Time</TimeZoneDisplayName>
+  ///    	 <TimezoneGMTOffset>-5</TimezoneGMTOffset>
+  ///    	 <TimezoneDSTOffset>1</TimezoneDSTOffset>
+  ///    </GeoLocation>
+  /// ```
+  ///
+  /// Returns The XML formatted `String`.
   String toXML() {
     StringBuffer sb = new StringBuffer();
     sb.append("<GeoLocation>\n");
@@ -508,7 +491,7 @@ class GeoLocation {
   }
 */
 
-  /// @see java.lang.Object#equals(Object)
+  /// See also [Object.equals].
   @override
   bool operator ==(Object object) {
     if (identical(this, object)) {
@@ -526,7 +509,7 @@ class GeoLocation {
     }
   }
 
-  ///@see Object#hashCode()
+  ///See also [Object.hashCode].
   @override
   int get hashCode {
     int result = 17;
@@ -542,7 +525,7 @@ class GeoLocation {
     return result;
   }
 /*
-  /// @see java.lang.Object#toString()
+  /// See also [Object.toString].
   String toString() {
     StringBuffer sb = new StringBuffer();
     sb.append("\nLocation Name:\t\t\t").append(getLocationName());

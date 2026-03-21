@@ -19,23 +19,19 @@ import 'package:kosher_dart/src/util/astronomical_calculator.dart';
 import 'package:kosher_dart/src/util/geo_location.dart';
 
 /// Implementation of sunrise and sunset methods to calculate astronomical times. This calculator uses the Java algorithm
-/// written by <a href="http://web.archive.org/web/20090531215353/http://www.kevinboone.com/suntimes.html">Kevin
-/// Boone</a> that is based on the <a href = "http://aa.usno.navy.mil/">US Naval Observatory's</a><a
-/// href="http://aa.usno.navy.mil/publications/docs/asa.php">Almanac</a> for Computer algorithm ( <a
-/// href="http://www.amazon.com/exec/obidos/tg/detail/-/0160515106/">Amazon</a>, <a
-/// href="http://search.barnesandnoble.com/booksearch/isbnInquiry.asp?isbn=0160515106">Barnes &amp; Noble</a>) and is
+/// written by [Kevin Boone](http://web.archive.org/web/20090531215353/http://www.kevinboone.com/suntimes.html) that is based on the [US Naval Observatory's](http://aa.usno.navy.mil/)[Almanac](http://aa.usno.navy.mil/publications/docs/asa.php) for Computer algorithm ( [Amazon](http://www.amazon.com/exec/obidos/tg/detail/-/0160515106/), [Barnes & Noble](http://search.barnesandnoble.com/booksearch/isbnInquiry.asp?isbn=0160515106)) and is
 /// used with his permission. Added to Kevin's code is adjustment of the zenith to account for elevation.
 ///
-/// @author &copy; Eliyahu Hershfeld 2004 - 2018
-/// @author &copy; Kevin Boone 2000
+/// © Eliyahu Hershfeld 2004 - 2018
+/// © Kevin Boone 2000
 class SunTimesCalculator extends AstronomicalCalculator {
-  /// @see net.sourceforge.zmanim.util.AstronomicalCalculator#getCalculatorName()
+  /// See also [AstronomicalCalculator.getCalculatorName].
   @override
   String getCalculatorName() {
     return "US Naval Almanac Algorithm";
   }
 
-  /// @see net.sourceforge.zmanim.util.AstronomicalCalculator#getUTCSunrise(Calendar, GeoLocation, double, boolean)
+  /// See also [AstronomicalCalculator.getUTCSunrise].
   @override
   double getUTCSunrise(DateTime dateTime, GeoLocation geoLocation,
       double zenith, bool adjustForElevation) {
@@ -47,7 +43,7 @@ class SunTimesCalculator extends AstronomicalCalculator {
     return doubleTime;
   }
 
-  /// @see net.sourceforge.zmanim.util.AstronomicalCalculator#getUTCSunset(Calendar, GeoLocation, double, boolean)
+  /// See also [AstronomicalCalculator.getUTCSunset].
   @override
   double getUTCSunset(DateTime calendar, GeoLocation geoLocation, double zenith,
       bool adjustForElevation) {
@@ -62,42 +58,42 @@ class SunTimesCalculator extends AstronomicalCalculator {
   /// The number of degrees of longitude that corresponds to one hour time difference.
   static const double DEG_PER_HOUR = 360.0 / 24.0;
 
-  /// @param deg the degrees
-  /// @return sin of the angle in degrees
+  /// - [deg]: the degrees
+  /// Returns sin of the angle in degrees
   static double _sinDeg(double deg) {
     return sin(deg * 2.0 * pi / 360.0);
   }
 
-  /// @param x angle
-  /// @return acos of the angle in degrees
+  /// - [x]: angle
+  /// Returns acos of the angle in degrees
   static double _acosDeg(double x) {
     return acos(x) * 360.0 / (2 * pi);
   }
 
-  /// @param x angle
-  /// @return asin of the angle in degrees
+  /// - [x]: angle
+  /// Returns asin of the angle in degrees
   static double _asinDeg(double x) {
     return asin(x) * 360.0 / (2 * pi);
   }
 
-  /// @param deg degrees
-  /// @return tan of the angle in degrees
+  /// - [deg]: degrees
+  /// Returns tan of the angle in degrees
   static double _tanDeg(double deg) {
     return tan(deg * 2.0 * pi / 360.0);
   }
 
   /// Calculate cosine of the angle in degrees
   ///
-  /// @param deg degrees
-  /// @return cosine of the angle in degrees
+  /// - [deg]: degrees
+  /// Returns cosine of the angle in degrees
   static double _cosDeg(double deg) {
     return cos(deg * 2.0 * pi / 360.0);
   }
 
   /// Get time difference between location's longitude and the Meridian, in hours.
   ///
-  /// @param longitude the longitude
-  /// @return time difference between the location's longitude and the Meridian, in hours. West of Meridian has a negative time difference
+  /// - [longitude]: the longitude
+  /// Returns time difference between the location's longitude and the Meridian, in hours. West of Meridian has a negative time difference
   static double _getHoursFromMeridian(double longitude) {
     return longitude / DEG_PER_HOUR;
   }
@@ -105,11 +101,11 @@ class SunTimesCalculator extends AstronomicalCalculator {
   /// Calculate the approximate time of sunset or sunrise in days since midnight Jan 1st, assuming 6am and 6pm events. We
   /// need this figure to derive the Sun's mean anomaly.
   ///
-  /// @param dayOfYear the day of year
-  /// @param hoursFromMeridian hours from the meridian
-  /// @param isSunrise true for sunrise and false for sunset
+  /// - [dayOfYear]: the day of year
+  /// - [hoursFromMeridian]: hours from the meridian
+  /// - [isSunrise]: true for sunrise and false for sunset
   ///
-  /// @return the approximate time of sunset or sunrise in days since midnight Jan 1st, assuming 6am and 6pm events. We
+  /// Returns the approximate time of sunset or sunrise in days since midnight Jan 1st, assuming 6am and 6pm events. We
   /// need this figure to derive the Sun's mean anomaly.
   static double _getApproxTimeDays(
       int dayOfYear, double hoursFromMeridian, bool isSunrise) {
@@ -123,10 +119,10 @@ class SunTimesCalculator extends AstronomicalCalculator {
 
   /// Calculate the Sun's mean anomaly in degrees, at sunrise or sunset, given the longitude in degrees
   ///
-  /// @param dayOfYear the day of the year
-  /// @param longitude longitude
-  /// @param isSunrise true for sunrise and false for sunset
-  /// @return the Sun's mean anomaly in degrees
+  /// - [dayOfYear]: the day of the year
+  /// - [longitude]: longitude
+  /// - [isSunrise]: true for sunrise and false for sunset
+  /// Returns the Sun's mean anomaly in degrees
   static double _getMeanAnomaly(
       int dayOfYear, double longitude, bool isSunrise) {
     return (0.9856 *
@@ -135,8 +131,8 @@ class SunTimesCalculator extends AstronomicalCalculator {
         3.289;
   }
 
-  /// @param sunMeanAnomaly the Sun's mean anomaly in degrees
-  /// @return the Sun's true longitude in degrees. The result is an angle &gt;= 0 and &lt;= 360.
+  /// - [sunMeanAnomaly]: the Sun's mean anomaly in degrees
+  /// Returns the Sun's true longitude in degrees. The result is an angle >= 0 and <= 360.
   static double _getSunTrueLongitude(double sunMeanAnomaly) {
     double l = sunMeanAnomaly +
         (1.916 * _sinDeg(sunMeanAnomaly)) +
@@ -154,8 +150,8 @@ class SunTimesCalculator extends AstronomicalCalculator {
   }
 
   /// Calculates the Sun's right ascension in hours.
-  /// @param sunTrueLongitude the Sun's true longitude in degrees &gt; 0 and &lt; 360.
-  /// @return the Sun's right ascension in hours in angles &gt; 0 and &lt; 360.
+  /// - [sunTrueLongitude]: the Sun's true longitude in degrees > 0 and < 360.
+  /// Returns the Sun's right ascension in hours in angles > 0 and < 360.
   static double _getSunRightAscensionHours(double sunTrueLongitude) {
     double a = 0.91764 * _tanDeg(sunTrueLongitude);
     double ra = 360.0 / (2.0 * pi) * atan(a);
@@ -169,10 +165,10 @@ class SunTimesCalculator extends AstronomicalCalculator {
 
   /// Calculate the cosine of the Sun's local hour angle
   ///
-  /// @param sunTrueLongitude the sun's true longitude
-  /// @param latitude the latitude
-  /// @param zenith the zenith
-  /// @return the cosine of the Sun's local hour angle
+  /// - [sunTrueLongitude]: the sun's true longitude
+  /// - [latitude]: the latitude
+  /// - [zenith]: the zenith
+  /// Returns the cosine of the Sun's local hour angle
   static double _getCosLocalHourAngle(
       double sunTrueLongitude, double latitude, double zenith) {
     double sinDec = 0.39782 * _sinDeg(sunTrueLongitude);
@@ -185,11 +181,11 @@ class SunTimesCalculator extends AstronomicalCalculator {
   /// there were no time zone. That is, the time difference between the location and the Meridian depended entirely on
   /// the longitude. We can't do anything with this time directly; we must convert it to UTC and then to a local time.
   ///
-  /// @param localHour the local hour
-  /// @param sunRightAscensionHours the sun's right ascention in hours
-  /// @param approxTimeDays approximate time days
+  /// - [localHour]: the local hour
+  /// - [sunRightAscensionHours]: the sun's right ascention in hours
+  /// - [approxTimeDays]: approximate time days
   ///
-  /// @return the fractional number of hours since midnight as a double
+  /// Returns the fractional number of hours since midnight as a double
   static double _getLocalMeanTime(
       double localHour, double sunRightAscensionHours, double approxTimeDays) {
     return localHour +
@@ -201,17 +197,17 @@ class SunTimesCalculator extends AstronomicalCalculator {
   /// Get sunrise or sunset time in UTC, according to flag. This time is returned as
   /// a double and is not adjusted for time-zone.
   ///
-  /// @param calendar
-  ///            the Calendar object to extract the day of year for calculation
-  /// @param geoLocation
-  ///            the GeoLocation object that contains the latitude and longitude
-  /// @param zenith
-  ///            Sun's zenith, in degrees
-  /// @param isSunrise
-  ///            True for sunrise and false for sunset.
-  /// @return the time as a double. If an error was encountered in the calculation
-  ///         (expected behavior for some locations such as near the poles,
-  ///         {@link Double#NaN} will be returned.
+  /// - [calendar]: 
+  ///   the Calendar object to extract the day of year for calculation
+  /// - [geoLocation]: 
+  ///   the GeoLocation object that contains the latitude and longitude
+  /// - [zenith]: 
+  ///   Sun's zenith, in degrees
+  /// - [isSunrise]: 
+  ///   True for sunrise and false for sunset.
+  /// Returns the time as a double. If an error was encountered in the calculation
+  /// (expected behavior for some locations such as near the poles,
+  /// double.nan will be returned.
   static double _getTimeUTC(DateTime dateTime, GeoLocation geoLocation,
       double zenith, bool isSunrise) {
     int dayOfYear =

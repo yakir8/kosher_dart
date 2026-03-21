@@ -20,10 +20,10 @@ import 'package:kosher_dart/src/hebrewcalendar/daf.dart';
 import 'package:kosher_dart/src/hebrewcalendar/jewish_calendar.dart';
 
 /// This class calculates the [Talmud Yerusalmi](https://en.wikipedia.org/wiki/Jerusalem_Talmud) [Daf Yomi]
-/// (https://en.wikipedia.org/wiki/Daf_Yomi) page ({@link Daf}) for the a given date.
+/// (https://en.wikipedia.org/wiki/Daf_Yomi) page ([Daf]) for the a given date.
 ///
-/// @author &copy; elihaidv
-/// @author &copy; Eliyahu Hershfeld 2017 - 2018
+/// © elihaidv
+/// © Eliyahu Hershfeld 2017 - 2018
 class YerushalmiYomiCalculator {
   /// The start date of the first Daf Yomi Yerushalmi cycle of February 2, 1980 / 15 Shevat, 5740.
 
@@ -35,7 +35,7 @@ class YerushalmiYomiCalculator {
   /// he number of pages in the Talmud Yerushalmi.
   static const int WHOLE_SHAS_DAFS = 1554;
 
-  /// The number of pages per <em>masechta</em> (tractate).
+  /// The number of pages per _masechta_ (tractate).
   static const List<int> BLATT_PER_MASSECTA = [
     68,
     37,
@@ -79,15 +79,15 @@ class YerushalmiYomiCalculator {
   ];
 
   /// Returns the [Daf Yomi](https://en.wikipedia.org/wiki/Daf_Yomi)
-  /// [Yerusalmi](https://en.wikipedia.org/wiki/Jerusalem_Talmud) page ({@link Daf}) for a given date.
+  /// [Yerusalmi](https://en.wikipedia.org/wiki/Jerusalem_Talmud) page ([Daf]) for a given date.
   /// The first Daf Yomi cycle started on 15 Shevat (Tu Bishvat), 5740 (February, 2, 1980) and calculations
   /// prior to this date will result in an IllegalArgumentException thrown.
   ///
-  /// @param calendar
-  ///            the calendar date for calculation
-  /// @return the {@link Daf}.
+  /// - [calendar]: 
+  ///   the calendar date for calculation
+  /// Returns the [Daf].
   ///
-  /// @throws IllegalArgumentException
+  /// Throws [ArgumentError] 
   ///             if the date is prior to the September 11, 1923 start date of the first Daf Yomi cycle
   static Daf getDafYomiYerushalmi(JewishCalendar calendar) {
     DateTime nextCycle = DateTime.now();
@@ -144,9 +144,9 @@ class YerushalmiYomiCalculator {
   /// Return the number of special days (Yom Kippur and Tisha Beav) That there is no Daf in this days.
   /// From the last given number of days until given date
   ///
-  /// @param start start date to calculate
-  /// @param end end date to calculate
-  /// @return the number of special days
+  /// - [start]: start date to calculate
+  /// - [end]: end date to calculate
+  /// Returns the number of special days
   static int _getNumOfSpecialDays(DateTime start, DateTime end) {
     // Find the start and end Jewish years
     int startYear = JewishCalendar.fromDateTime(start).getJewishYear();
@@ -177,18 +177,18 @@ class YerushalmiYomiCalculator {
 
   /// Return if the date is between two dates
   ///
-  /// @param start the start date
-  /// @param date the date being compared
-  /// @param end the end date
-  /// @return if the date is between the start and end dates
+  /// - [start]: the start date
+  /// - [date]: the date being compared
+  /// - [end]: the end date
+  /// Returns if the date is between the start and end dates
   static bool _isBetween(DateTime start, DateTime date, DateTime end) {
     return start.isBefore(date) && end.isAfter(date);
   }
 
   /// Return the number of days between the dates passed in
-  /// @param start the start date
-  /// @param end the end date
-  /// @return the number of days between the start and end dates
+  /// - [start]: the start date
+  /// - [end]: the end date
+  /// Returns the number of days between the start and end dates
   static double _getDiffBetweenDays(DateTime start, DateTime end) {
     return end.difference(start).inMilliseconds / DAY_MILIS;
   }

@@ -14,12 +14,11 @@
  * or connect to: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
  */
 
-/// A class that represents a numeric time. Times that represent a time of day are stored as {@link java.util.Date}s in
+/// A class that represents a numeric time. Times that represent a time of day are stored as [DateTime]s in
 /// this API. The time class is used to represent numeric time such as the time in hours, minutes, seconds and
-/// milliseconds of a {@link net.sourceforge.zmanim.AstronomicalCalendar#getTemporalHour() temporal hour}.
+/// milliseconds of a [AstronomicalCalendar.getTemporalHour].
 ///
-/// @author &copy; Eliyahu Hershfeld 2004 - 2011
-/// @version 0.9.0
+/// © Eliyahu Hershfeld 2004 - 2011
 class Time {
   ///  milliseconds in a second.
   static const int _SECOND_MILLIS = 1000;
@@ -42,15 +41,15 @@ class Time {
 
   /// Constructor with parameters for the hours, minutes, seconds and millisecods.
   ///
-  /// @param hours the hours to set
-  /// @param minutes the minutes to set
-  /// @param seconds the seconds to set
-  /// @param milliseconds the milliseconds to set
+  /// - [hours]: the hours to set
+  /// - [minutes]: the minutes to set
+  /// - [seconds]: the seconds to set
+  /// - [milliseconds]: the milliseconds to set
   Time(this.hours, this.minutes, this.seconds, this.milliseconds);
 
   /// A constructor that sets the time by milliseconds. The milliseconds are converted to hours, minutes, seconds
-  /// and milliseconds. If the milliseconds are negative it will call {@link #setIsNegative(boolean)}.
-  /// @param millis the milliseconds to set.
+  /// and milliseconds. If the milliseconds are negative it will call [setIsNegative].
+  /// - [millis]: the milliseconds to set.
   Time.millis(double millis) {
     double adjustedMillis = millis;
     if (adjustedMillis < 0) {
@@ -70,7 +69,7 @@ class Time {
   }
 
   /// Set this to represent a negative time.
-  /// @param isNegative that the Time represents negative time
+  /// - [isNegative]: that the Time represents negative time
   bool isNegative() {
     return _isNegative;
   }
@@ -79,52 +78,52 @@ class Time {
     _isNegative = isNegative;
   }
 
-  /// @return Returns the hour.
+  /// Returns the hour.
   int getHours() {
     return hours;
   }
 
-  /// @param hours
-  ///            The hours to set.
+  /// - [hours]: 
+  ///   The hours to set.
   void setHours(int hours) {
     this.hours = hours;
   }
 
-  /// @return Returns the minutes.
+  /// Returns the minutes.
   int getMinutes() {
     return minutes;
   }
 
-  /// @param minutes
-  ///            The minutes to set.
+  /// - [minutes]: 
+  ///   The minutes to set.
   void setMinutes(int minutes) {
     this.minutes = minutes;
   }
 
-  /// @return Returns the seconds.
+  /// Returns the seconds.
   int getSeconds() {
     return seconds;
   }
 
-  /// @param seconds
-  ///            The seconds to set.
+  /// - [seconds]: 
+  ///   The seconds to set.
   void setSeconds(int seconds) {
     this.seconds = seconds;
   }
 
-  /// @return Returns the milliseconds.
+  /// Returns the milliseconds.
   int getMilliseconds() {
     return milliseconds;
   }
 
-  /// @param milliseconds
-  ///            The milliseconds to set.
+  /// - [milliseconds]: 
+  ///   The milliseconds to set.
   void setMilliseconds(int milliseconds) {
     this.milliseconds = milliseconds;
   }
 
   ///Returns the time in milliseconds by converting hours, minutes and seconds into milliseconds.
-  ///@return the time in milliseconds
+  ///Returns the time in milliseconds
   double getTime() {
     double hourMillis = (hours * _HOUR_MILLIS).toDouble();
     double minutesMillis = (minutes * _MINUTE_MILLIS).toDouble();

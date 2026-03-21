@@ -20,41 +20,42 @@
 
 import 'package:kosher_dart/kosher_dart.dart';
 
-/// Tefila Rules is a utility class that covers the various <em>halachos</em> and <em>minhagim</em> regarding
-/// changes to daily <em>tefila</em> / prayers,
+/// Tefila Rules is a utility class that covers the various _halachos_ and _minhagim_ regarding
+/// changes to daily _tefila_ / prayers,
 /// based on the Jewish calendar. This is mostly useful for use in
-/// developing <em>siddur</em> type applications,
-/// but it is also valuable for <em>shul</em> calendars that set
-/// <em>tefila</em> times based on if <a href="https://en.wikipedia.org/wiki/Tachanun"><em>tachanun</em></a> is
-/// recited that day. There are many settings in this class to cover the vast majority of <em>minhagim</em>,
+/// developing _siddur_ type applications,
+/// but it is also valuable for _shul_ calendars that set
+/// _tefila_ times based on if [_tachanun_](https://en.wikipedia.org/wiki/Tachanun) is
+/// recited that day. There are many settings in this class to cover the vast majority of _minhagim_,
 /// but
-/// there are likely some not covered here. The source for many of the <em>chasidishe minhagim</em> can be found
-/// in the <a href="https://www.nli.org.il/he/books/NNL_ALEPH001141272/NLI">Minhag Yisrael Torah</a> on Orach
+/// there are likely some not covered here. The source for many of the _chasidishe minhagim_ can be found
+/// in the [Minhag Yisrael Torah](https://www.nli.org.il/he/books/NNL_ALEPH001141272/NLI) on Orach
 /// Chaim 131.
-/// Dates used in specific communities such as specific <em>yahrzeits</em> or a holidays like Purim Mezhbizh
-/// (Medzhybizh) celebrated on 11 {@link JewishDate#TEVES <em>Teves</em>} or <a href=
-/// "https://en.wikipedia.org/wiki/Second_Purim#Purim_Saragossa_(18_Shevat)">Purim Saragossa</a> celebrated on
-/// the (17th or) 18th of {@link JewishDate#SHEVAT <em>Shevat</em>} are not (and likely will not be) supported by
+/// Dates used in specific communities such as specific _yahrzeits_ or a holidays like Purim Mezhbizh
+/// (Medzhybizh) celebrated on 11 [JewishDate.TEVES] or [Purim Saragossa](https://en.wikipedia.org/wiki/Second_Purim#Purim_Saragossa_(18_Shevat)) celebrated on
+/// the (17th or) 18th of [JewishDate.SHEVAT] are not (and likely will not be) supported by
 /// this class.
-/// <p>Sample code:
-/// <pre style="background: #FEF0C9; display: inline-block;">
-/// TefilaRules tr = new TefilaRules();
-/// JewishCalendar jewishCalendar = new JewishCalendar();
-/// HebrewDateFormatter hdf = new HebrewDateFormatter();
-/// jewishCalendar.setJewishDate(5783,
-/// JewishDate.TISHREI,
-/// 1); // Rosh Hashana
-/// System.out.println(hdf.format(jewishCalendar) + ": " + tr.isTachanunRecitedShacharis(jd));
-/// jewishCalendar.setJewishDate(5783,
-/// JewishDate.ADAR,
-/// 17);
+/// Sample code:
+///
+/// ```dart
+///  TefilaRules tr = new TefilaRules();
+///  JewishCalendar jewishCalendar = new JewishCalendar();
+///  HebrewDateFormatter hdf = new HebrewDateFormatter();
+///  jewishCalendar.setJewishDate(5783,
+///  JewishDate.TISHREI,
+///  1); // Rosh Hashana
+///  System.out.println(hdf.format(jewishCalendar) + ": " + tr.isTachanunRecitedShacharis(jd));
+///  jewishCalendar.setJewishDate(5783,
+///  JewishDate.ADAR,
+///  17);
+///  System.out.println(hdf.format(jewishCalendar) + ": " + tr.isTachanunRecitedShacharis(jewishCalendar));
+///  tr.setTachanunRecitedWeekOfPurim(false);
 /// System.out.println(hdf.format(jewishCalendar) + ": " + tr.isTachanunRecitedShacharis(jewishCalendar));
-/// tr.setTachanunRecitedWeekOfPurim(false);
-/// System.out.println(hdf.format(jewishCalendar) + ": " + tr.isTachanunRecitedShacharis(jewishCalendar));</pre>
+/// ```
 ///
 /// ### Authors
-/// - &copy; Y. Paritcher 2019 - 2021
-/// - &copy; Eliyahu Hershfeld 2019 - 2022
+/// - © Y. Paritcher 2019 - 2021
+/// - © Eliyahu Hershfeld 2019 - 2022
 ///
 ///
 /// TODO The following items may be added at a future date.
@@ -64,124 +65,112 @@ import 'package:kosher_dart/kosher_dart.dart';
 /// - *Selichos*
 /// - ...
 class TefilaRules {
-  /// Whether or not <em>tachanun</em> recited at the end Of {@link JewishDate#TISHREI <em>Tishrei</em>}.
+  /// Whether or not _tachanun_ recited at the end Of [JewishDate.TISHREI].
   ///
   /// The Magen Avraham 669:1 and the Pri Chadash 131:7 state that some places to not recite
-  /// <em>tachanun</em> during this period. The Sh"UT Chasam Sofer on Choshen Mishpat 77 writes
-  /// that this is the <em>minhag</em> in Ashkenaz. The Shaarei Teshuva 131:19 quotes the
+  /// _tachanun_ during this period. The Sh"UT Chasam Sofer on Choshen Mishpat 77 writes
+  /// that this is the _minhag_ in Ashkenaz. The Shaarei Teshuva 131:19 quotes the
   /// Sheyarie Kneses Hagdola who also states that it should not be recited. The Aderes wanted
-  /// to institute saying <em>tachanun</em> during this period, but was dissuaded from this by Rav
-  /// Shmuel Salant who did not want to change the <em>minhag</em> in Yerushalayim. The Aruch
-  /// Hashulchan is of the opinion that that this <em>minhag</em> is incorrect, and it should be
-  /// recited, and The Chazon Ish also recited <em>tachanun</em> during this period. See the Dirshu
+  /// to institute saying _tachanun_ during this period, but was dissuaded from this by Rav
+  /// Shmuel Salant who did not want to change the _minhag_ in Yerushalayim. The Aruch
+  /// Hashulchan is of the opinion that that this _minhag_ is incorrect, and it should be
+  /// recited, and The Chazon Ish also recited _tachanun_ during this period. See the Dirshu
   /// edition of the Mishna Berurah for details.
   final bool tachanunRecitedEndOfTishrei;
 
-  /// Is <em>tachanun</em> recited during the week after <em>Shavuos</em>. This is the opinion of the Pri Megadim
-  /// quoted by the Mishna Berurah. This is since <em>karbanos</em> of <em>Shavuos</em> have <em>tashlumim</em> for
+  /// Is _tachanun_ recited during the week after _Shavuos_. This is the opinion of the Pri Megadim
+  /// quoted by the Mishna Berurah. This is since _karbanos_ of _Shavuos_ have _tashlumim_ for
   /// 7 days, it is still considered like a Yom Tov. The Chazon Ish quoted in the Orchos Rabainu vol. 1 page 68
-  /// recited <em>tachanun</em> during this week.
+  /// recited _tachanun_ during this week.
   ///
-  /// @return If <em>tachanun</em> is set to be recited during the week after Shavuos.
-  /// @see #setTachanunRecitedWeekAfterShavuos(boolean)
+  /// Returns If _tachanun_ is set to be recited during the week after Shavuos.
+  /// See also [setTachanunRecitedWeekAfterShavuos].
   final bool tachanunRecitedWeekAfterShavuos;
 
-  /// Is <em>tachanun</em> is recited on the 13th of {@link JewishDate#SIVAN <em>Sivan</em>} (<a href=
-  /// "https://en.wikipedia.org/wiki/Yom_tov_sheni_shel_galuyot"><em>Yom Tov Sheni shel Galuyos</em></a> of the 7th
-  /// day) outside Israel. This is brought down by the Shaarie Teshuva 131:19 quoting the <a href=
-  /// "https://hebrewbooks.org/pdfpager.aspx?req=41295&st=&pgnum=39">Sheyarei Kneses Hagedola 131:12</a>that
-  /// <em>tachanun</em> should not be recited on this day. Rav Shlomo Zalman Orbach in Halichos Shlomo on
-  /// Shavuos 12:16:25 is of the opinion that even in <em>chutz laaretz</em> it should be recited since the <em>yemei
-  /// Tashlumin</em> are counted based on Israel since that is where the <em>karbanos</em> are brought. Both
-  /// {@link #isTachanunRecitedShacharis(JewishCalendar)} and {@link #isTachanunRecitedMincha(JewishCalendar)}
-  /// only return false if the location is not set to {@link JewishCalendar#getInIsrael() Israel} and both
-  /// {@link #tachanunRecitedWeekAfterShavuos} and {@link #setTachanunRecited13SivanOutOfIsrael} are set to false.
+  /// Is _tachanun_ is recited on the 13th of [JewishDate.SIVAN] ([_Yom Tov Sheni shel Galuyos_](https://en.wikipedia.org/wiki/Yom_tov_sheni_shel_galuyot) of the 7th
+  /// day) outside Israel. This is brought down by the Shaarie Teshuva 131:19 quoting the [Sheyarei Kneses Hagedola 131:12](https://hebrewbooks.org/pdfpager.aspx?req=41295&st=&pgnum=39)that
+  /// _tachanun_ should not be recited on this day. Rav Shlomo Zalman Orbach in Halichos Shlomo on
+  /// Shavuos 12:16:25 is of the opinion that even in _chutz laaretz_ it should be recited since the <em>yemei
+  /// Tashlumin</em> are counted based on Israel since that is where the _karbanos_ are brought. Both
+  /// [isTachanunRecitedShacharis] and [isTachanunRecitedMincha]
+  /// only return false if the location is not set to [JewishCalendar.getInIsrael] and both
+  /// [tachanunRecitedWeekAfterShavuos] and [setTachanunRecited13SivanOutOfIsrael] are set to false.
   ///
-  /// @return If <em>tachanun</em> is set to be recited on the 13th of {@link JewishDate#SIVAN <em>Sivan</em>} out of Israel.
-  /// @see #setTachanunRecited13SivanOutOfIsrael(isTachanunRecitedThirteenSivanOutOfIsrael)
-  /// @see #isTachanunRecitedWeekAfterShavuos()
+  /// Returns If _tachanun_ is set to be recited on the 13th of [JewishDate.SIVAN] out of Israel.
+  /// See also [setTachanunRecited13SivanOutOfIsrael].
+  /// See also [isTachanunRecitedWeekAfterShavuos].
   final bool tachanunRecited13SivanOutOfIsrael;
 
-  /// Is <em>tachanun</em> recited on {@link JewishCalendar#PESACH_SHENI <em>Pesach Sheni</em>}. The Pri Chadash 131:7 states
-  /// that <em>tachanun</em> should not be recited. The Aruch Hashulchan states that this is the minhag of the <em>sephardim</em>.
+  /// Is _tachanun_ recited on [JewishCalendar.PESACH_SHENI]. The Pri Chadash 131:7 states
+  /// that _tachanun_ should not be recited. The Aruch Hashulchan states that this is the minhag of the _sephardim_.
   /// the Shaarei Efraim 10:27 also mentions that it is not recited, as does the Siddur Yaavetz (Shaar Hayesod, Chodesh Iyar).
-  /// The Pri Megadim (Mishbetzes Hazahav 131:15) and the Chazon Ish (Erev Pesahc Shchal Beshabos, page 203 in <a href=
-  /// "https://he.wikipedia.org/wiki/%D7%A9%D7%A8%D7%99%D7%94_%D7%93%D7%91%D7%9C%D7%99%D7%A6%D7%A7%D7%99">Rav Sheraya
-  /// Devlitzky's</a> comments).
+  /// The Pri Megadim (Mishbetzes Hazahav 131:15) and the Chazon Ish (Erev Pesahc Shchal Beshabos, page 203 in [Rav Sheraya Devlitzky's](https://he.wikipedia.org/wiki/%D7%A9%D7%A8%D7%99%D7%94_%D7%93%D7%91%D7%9C%D7%99%D7%A6%D7%A7%D7%99) comments).
   ///
-  /// @return If <em>tachanun</em> is recited on {@link JewishCalendar#PESACH_SHENI <em>Pesach Sheni</em>}.
-  /// @see #setTachanunRecitedPesachSheni(boolean)
+  /// Returns If _tachanun_ is recited on [JewishCalendar.PESACH_SHENI].
+  /// See also [setTachanunRecitedPesachSheni].
   final bool tachanunRecitedPesachSheni;
 
-  /// Is <em>tachanun</em> recited on 15 {@link JewishDate#IYAR <em>Iyar</em>} (<em>sfaika deyoma</em> of {@link JewishCalendar#PESACH_SHENI
-  /// <em>Pesach Sheni</em>}) out of Israel. If {@link #isTachanunRecitedPesachSheni()} is <code>true</code> this will be
-  /// ignored even if <code>false</code>.
+  /// Is _tachanun_ recited on 15 [JewishDate.IYAR] (_sfaika deyoma_ of [JewishCalendar.PESACH_SHENI]) out of Israel. If [isTachanunRecitedPesachSheni] is `true` this will be
+  /// ignored even if `false`.
   ///
-  /// @return if <em>tachanun</em> is recited on 15 {@link JewishDate#IYAR <em>Iyar</em>}  (<em>sfaika deyoma</em> of {@link
-  ///          JewishCalendar#PESACH_SHENI <em>Pesach Sheni</em>} out of Israel. If {@link #isTachanunRecitedPesachSheni()}
-  ///          is <code>true</code> this will be ignored even if <code>false</code>.
-  /// @see #setTachanunRecited15IyarOutOfIsrael(boolean)
-  /// @see #setTachanunRecitedPesachSheni(boolean)
-  /// @see #isTachanunRecitedPesachSheni()
+  /// Returns if _tachanun_ is recited on 15 [JewishDate.IYAR]  (_sfaika deyoma_ of {@link
+  /// JewishCalendar#PESACH_SHENI _Pesach Sheni_} out of Israel. If [isTachanunRecitedPesachSheni]
+  /// is `true` this will be ignored even if `false`.
+  /// See also [setTachanunRecited15IyarOutOfIsrael].
+  /// See also [setTachanunRecitedPesachSheni].
+  /// See also [isTachanunRecitedPesachSheni].
   final bool tachanunRecited15IyarOutOfIsrael;
 
-  /// Is <em>tachanun</em> recited on <em>mincha</em> on <em>erev {@link JewishCalendar#LAG_BAOMER Lag Baomer}</em>.
-  /// @return if <em>tachanun</em> is recited in <em>mincha</em> on <em>erev</em>
-  ///          {@link JewishCalendar#LAG_BAOMER <em>Lag Baomer</em>}.
-  /// @see #setTachanunRecitedMinchaErevLagBaomer(boolean)
+  /// Is _tachanun_ recited on _mincha_ on _erev [JewishCalendar.LAG_BAOMER]_.
+  /// Returns if _tachanun_ is recited in _mincha_ on _erev_
+  /// [JewishCalendar.LAG_BAOMER].
+  /// See also [setTachanunRecitedMinchaErevLagBaomer].
   final bool tachanunRecitedMinchaErevLagBaomer;
 
-  /// Is <em>tachanun</em> recited during the <em>Shivas Yemei Hamiluim</em>, from the 23 of {@link
-  /// JewishDate#ADAR <em>Adar</em>} on a non-leap-year or {@link JewishDate#ADAR_II <em>Adar II</em>} on a
-  /// leap year to the end of the month. Some <em>chasidishe</em> communities do not say <em>tachanun</em>
-  /// during this week. See <a href="https://hebrewbooks.org/pdfpager.aspx?req=4692&st=&pgnum=70">Darkei
-  /// Chaim Veshalom 191</a>.
-  /// @return if <em>tachanun</em> is recited during the <em>Shivas Yemei Hamiluim</em>, from the 23 of {@link
-  ///          JewishDate#ADAR <em>Adar</em>} on a non-leap-year or {@link JewishDate#ADAR_II <em>Adar II</em>}
-  ///          on a leap year to the end of the month.
-  /// @see #setTachanunRecitedShivasYemeiHamiluim(boolean)
+  /// Is _tachanun_ recited during the _Shivas Yemei Hamiluim_, from the 23 of {@link
+  /// JewishDate#ADAR _Adar_} on a non-leap-year or [JewishDate.ADAR_II] on a
+  /// leap year to the end of the month. Some _chasidishe_ communities do not say _tachanun_
+  /// during this week. See [Darkei Chaim Veshalom 191](https://hebrewbooks.org/pdfpager.aspx?req=4692&st=&pgnum=70).
+  /// Returns if _tachanun_ is recited during the _Shivas Yemei Hamiluim_, from the 23 of {@link
+  /// JewishDate#ADAR _Adar_} on a non-leap-year or [JewishDate.ADAR_II]
+  /// on a leap year to the end of the month.
+  /// See also [setTachanunRecitedShivasYemeiHamiluim].
   final bool tachanunRecitedShivasYemeiHamiluim;
 
-  /// Is <em>tachanun</em> recited during the <em>sefira</em> week of <em>Hod</em> (14 - 20 {@link JewishDate#IYAR <em>Iyar</em>},
-  /// or the 29th - 35th of the {@link JewishCalendar#getDayOfOmer() <em>Omer</em>}). Some <em>chasidishe</em> communities
-  /// do not recite <em>tachanun</em> during this week. See Minhag Yisrael Torah 131:Iyar.
-  /// @return If <em>tachanun</em> is set to be recited during the <em>sefira</em> week of <em>Hod</em> (14 - 20 {@link
-  ///         JewishDate#IYAR <em>Iyar</em>}, or the 29th - 35th of the {@link JewishCalendar#getDayOfOmer() <em>Omer</em>}).
-  /// @see #setTachanunRecitedWeekOfHod(boolean)
+  /// Is _tachanun_ recited during the _sefira_ week of _Hod_ (14 - 20 [JewishDate.IYAR],
+  /// or the 29th - 35th of the [JewishCalendar.getDayOfOmer]). Some _chasidishe_ communities
+  /// do not recite _tachanun_ during this week. See Minhag Yisrael Torah 131:Iyar.
+  /// Returns If _tachanun_ is set to be recited during the _sefira_ week of _Hod_ (14 - 20 {@link
+  /// JewishDate#IYAR _Iyar_}, or the 29th - 35th of the [JewishCalendar.getDayOfOmer]).
+  /// See also [setTachanunRecitedWeekOfHod].
   final bool tachanunRecitedWeekOfHod;
 
-  /// Is <em>tachanun</em> recited during the week of Purim, from the 11th through the 17th of {@link
-  /// JewishDate#ADAR <em>Adar</em>} (on a non-leap year, or {@link JewishDate#ADAR_II <em>Adar II</em>} on a leap year). Some
-  /// <em>chasidishe</em> communities do not recite <em>tachanun</em> during this period. See the <a href=
-  /// "https://www.nli.org.il/he/books/NNL_ALEPH001141272/NLI">Minhag Yisrael Torah</a> 131 and <a href=
-  /// "https://hebrewbooks.org/pdfpager.aspx?req=4692&st=&pgnum=70">Darkei Chaim Veshalom 191</a>who discuss the
-  /// <em>minhag</em> not to recite <em>tachanun</em>. Also see the <a href=
-  /// "https://hebrewbooks.org/pdfpager.aspx?req=8944&st=&pgnum=160">Mishmeres Shalom (Hadras Shalom)</a> who discusses the
-  /// <em>minhag</em> of not reciting it on the 16th and 17th.
-  /// @return If <em>tachanun</em> is set to be recited during the week of Purim from the 11th through the 17th of {@link
-  ///         JewishDate#ADAR <em>Adar</em>} (on a non-leap year, or {@link JewishDate#ADAR_II <em>Adar II</em>} on a leap year).
-  /// @see #setTachanunRecitedWeekOfPurim(boolean)
+  /// Is _tachanun_ recited during the week of Purim, from the 11th through the 17th of {@link
+  /// JewishDate#ADAR _Adar_} (on a non-leap year, or [JewishDate.ADAR_II] on a leap year). Some
+  /// _chasidishe_ communities do not recite _tachanun_ during this period. See the [Minhag Yisrael Torah](https://www.nli.org.il/he/books/NNL_ALEPH001141272/NLI) 131 and [Darkei Chaim Veshalom 191](https://hebrewbooks.org/pdfpager.aspx?req=4692&st=&pgnum=70)who discuss the
+  /// _minhag_ not to recite _tachanun_. Also see the [Mishmeres Shalom (Hadras Shalom)](https://hebrewbooks.org/pdfpager.aspx?req=8944&st=&pgnum=160) who discusses the
+  /// _minhag_ of not reciting it on the 16th and 17th.
+  /// Returns If _tachanun_ is set to be recited during the week of Purim from the 11th through the 17th of {@link
+  /// JewishDate#ADAR _Adar_} (on a non-leap year, or [JewishDate.ADAR_II] on a leap year).
+  /// See also [setTachanunRecitedWeekOfPurim].
   final bool tachanunRecitedWeekOfPurim;
 
-  /// Is <em>tachanun</em> recited on Fridays. Some <em>chasidishe</em> communities do not recite
-  /// <em>tachanun</em> on Fridays. See <a href="https://hebrewbooks.org/pdfpager.aspx?req=41190&st=&pgnum=10">Likutei
-  /// Maharich Vol 2 Seder Hanhagos Erev Shabbos</a>. This is also the <em>minhag</em> in Satmar.
-  /// @return if <em>tachanun</em> is recited on Fridays.
-  /// @see #setTachanunRecitedFridays(boolean)
+  /// Is _tachanun_ recited on Fridays. Some _chasidishe_ communities do not recite
+  /// _tachanun_ on Fridays. See [Likutei Maharich Vol 2 Seder Hanhagos Erev Shabbos](https://hebrewbooks.org/pdfpager.aspx?req=41190&st=&pgnum=10). This is also the _minhag_ in Satmar.
+  /// Returns if _tachanun_ is recited on Fridays.
+  /// See also [setTachanunRecitedFridays].
   final bool tachanunRecitedFridays;
 
-  /// Is <em>tachanun</em> recited on Sundays. Some <em>chasidishe</em> communities do not recite
-  /// <em>tachanun</em> on Sundays. See <a href="https://hebrewbooks.org/pdfpager.aspx?req=41190&st=&pgnum=10">Likutei
-  /// Maharich Vol 2 Seder Hanhagos Erev Shabbos</a>.
-  /// @return if <em>tachanun</em> is recited on Sundays.
-  /// @see #setTachanunRecitedSundays(boolean)
+  /// Is _tachanun_ recited on Sundays. Some _chasidishe_ communities do not recite
+  /// _tachanun_ on Sundays. See [Likutei Maharich Vol 2 Seder Hanhagos Erev Shabbos](https://hebrewbooks.org/pdfpager.aspx?req=41190&st=&pgnum=10).
+  /// Returns if _tachanun_ is recited on Sundays.
+  /// See also [setTachanunRecitedSundays].
   final bool tachanunRecitedSundays;
 
-  /// Is <em>tachanun</em> recited in <em>Mincha</em> the entire year. Some <em>chasidishe</em> communities do not recite
-  /// <em>tachanun</em> by <em>Mincha</em> all year round. See<a href=
-  /// "https://hebrewbooks.org/pdfpager.aspx?req=4751&st=&pgnum=105">Nemukei Orach Chaim 131:3</a>.
-  /// @return if <em>tachanun</em> is recited in <em>Mincha</em> the entire year.
-  /// @see #setTachanunRecitedMinchaAllYear(boolean)
+  /// Is _tachanun_ recited in _Mincha_ the entire year. Some _chasidishe_ communities do not recite
+  /// _tachanun_ by _Mincha_ all year round. See[Nemukei Orach Chaim 131:3](https://hebrewbooks.org/pdfpager.aspx?req=4751&st=&pgnum=105).
+  /// Returns if _tachanun_ is recited in _Mincha_ the entire year.
+  /// See also [setTachanunRecitedMinchaAllYear].
   final bool tachanunRecitedMinchaAllYear;
 
   TefilaRules({
@@ -199,12 +188,12 @@ class TefilaRules {
     this.tachanunRecitedMinchaAllYear = true,
   });
 
-  /// Returns if <em>tachanun</em> is recited during <em>shacharis</em> on the day in question. See the many
-  /// <em>minhag</em> based settings that are available in this class.
+  /// Returns if _tachanun_ is recited during _shacharis_ on the day in question. See the many
+  /// _minhag_ based settings that are available in this class.
   ///
-  /// @param jewishCalendar the Jewish calendar day.
-  /// @return if <em>tachanun</em> is recited during <em>shacharis</em>.
-  /// @see #isTachanunRecitedMincha(JewishCalendar)
+  /// - [jewishCalendar]: the Jewish calendar day.
+  /// Returns if _tachanun_ is recited during _shacharis_.
+  /// See also [isTachanunRecitedMincha].
   bool isTachanunRecitedShacharis(JewishCalendar jewishCalendar) {
     final holidayIndex = jewishCalendar.getYomTovIndex();
     final day = jewishCalendar.getJewishDayOfMonth();
@@ -264,11 +253,11 @@ class TefilaRules {
     return !res;
   }
 
-  /// Returns if <em>tachanun</em> is recited during <em>mincha</em> on the day in question.
+  /// Returns if _tachanun_ is recited during _mincha_ on the day in question.
   ///
-  /// @param jewishCalendar the Jewish calendar day.
-  /// @return if <em>tachanun</em> is recited during <em>mincha</em>.
-  /// @see #isTachanunRecitedShacharis(JewishCalendar)
+  /// - [jewishCalendar]: the Jewish calendar day.
+  /// Returns if _tachanun_ is recited during _mincha_.
+  /// See also [isTachanunRecitedShacharis].
   bool isTachanunRecitedMincha(JewishCalendar jewishCalendar) {
     final tomorrow = jewishCalendar.clone();
 
@@ -287,21 +276,21 @@ class TefilaRules {
     return !res;
   }
 
-  /// Returns if it is the Jewish day (starting the evening before) to start reciting <em>Vesein Tal Umatar Livracha</em>
-  /// (<em>Sheailas Geshamim</em>). In Israel this is the 7th day of {@link JewishDate#CHESHVAN <em>Marcheshvan</em>}.
+  /// Returns if it is the Jewish day (starting the evening before) to start reciting _Vesein Tal Umatar Livracha_
+  /// (_Sheailas Geshamim_). In Israel this is the 7th day of [JewishDate.CHESHVAN].
   /// Outside Israel recitation starts on the evening of December 4th (or 5th if it is the year before a civil leap year)
   /// in the 21st century and shifts a day forward every century not evenly divisible by 400. This method will return true
-  /// if <em>vesein tal umatar</em> on the current Jewish date that starts on the previous night, so Dec 5/6 will be
-  /// returned by this method in the 21st century. <em>vesein tal umatar</em> is not recited on <em>Shabbos</em> and the
-  /// start date will be delayed a day when the start day is on a <em>Shabbos</em> (this can only occur out of Israel).
+  /// if _vesein tal umatar_ on the current Jewish date that starts on the previous night, so Dec 5/6 will be
+  /// returned by this method in the 21st century. _vesein tal umatar_ is not recited on _Shabbos_ and the
+  /// start date will be delayed a day when the start day is on a _Shabbos_ (this can only occur out of Israel).
   ///
-  /// @param jewishCalendar the Jewish calendar day.
+  /// - [jewishCalendar]: the Jewish calendar day.
   ///
-  /// @return true if it is the first Jewish day (starting the prior evening of reciting <em>Vesein Tal Umatar Livracha</em>
-  ///         (<em>Sheailas Geshamim</em>).
+  /// Returns true if it is the first Jewish day (starting the prior evening of reciting _Vesein Tal Umatar Livracha_
+  /// (_Sheailas Geshamim_).
   ///
-  /// @see #isVeseinTalUmatarStartingTonight(JewishCalendar)
-  /// @see #isVeseinTalUmatarRecited(JewishCalendar)
+  /// See also [isVeseinTalUmatarStartingTonight].
+  /// See also [isVeseinTalUmatarRecited].
   bool isVeseinTalUmatarStartDate(JewishCalendar jewishCalendar) {
     if (jewishCalendar.inIsrael &&
         jewishCalendar.getJewishMonth() == JewishDate.CHESHVAN &&
@@ -321,21 +310,20 @@ class TefilaRules {
         (tted == 47);
   }
 
-  /// Returns if true if tonight is the first night to start reciting <em>Vesein Tal Umatar Livracha</em> (
-  /// <em>Sheailas Geshamim</em>). In Israel this is the 7th day of {@link JewishDate#CHESHVAN
-  /// <em>Marcheshvan</em>} (so the 6th will return true). Outside Israel recitation starts on the evening
+  /// Returns if true if tonight is the first night to start reciting _Vesein Tal Umatar Livracha_ (
+  /// _Sheailas Geshamim_). In Israel this is the 7th day of [JewishDate.CHESHVAN] (so the 6th will return true). Outside Israel recitation starts on the evening
   /// of December 4th (or 5th if it is the year before a civil leap year) in the 21st century and shifts a
-  /// day forward every century not evenly divisible by 400. <em>Vesein tal umatar</em> is not recited on
-  /// <em>Shabbos</em> and the start date will be delayed a day when the start day is on a <em>Shabbos</em>
+  /// day forward every century not evenly divisible by 400. _Vesein tal umatar_ is not recited on
+  /// _Shabbos_ and the start date will be delayed a day when the start day is on a _Shabbos_
   /// (this can only occur out of Israel).
   ///
-  /// @param jewishCalendar the Jewish calendar day.
+  /// - [jewishCalendar]: the Jewish calendar day.
   ///
-  /// @return true if it is the first Jewish day (starting the prior evening of reciting <em>Vesein Tal Umatar
-  ///         Livracha</em> (<em>Sheailas Geshamim</em>).
+  /// Returns true if it is the first Jewish day (starting the prior evening of reciting <em>Vesein Tal Umatar
+  /// Livracha</em> (_Sheailas Geshamim_).
   ///
-  /// @see #isVeseinTalUmatarStartDate(JewishCalendar)
-  /// @see #isVeseinTalUmatarRecited(JewishCalendar)
+  /// See also [isVeseinTalUmatarStartDate].
+  /// See also [isVeseinTalUmatarRecited].
   bool isVeseinTalUmatarStartingTonight(JewishCalendar jewishCalendar) {
     if (jewishCalendar.inIsrael &&
         (jewishCalendar.getJewishMonth() == JewishDate.CHESHVAN &&
@@ -355,15 +343,15 @@ class TefilaRules {
         (tted == 46);
   }
 
-  /// Returns if <em>Vesein Tal Umatar Livracha</em> (<em>Sheailas Geshamim</em>) is recited. This will return
-  /// true for the entire season, even on <em>Shabbos</em> when it is not recited.
+  /// Returns if _Vesein Tal Umatar Livracha_ (_Sheailas Geshamim_) is recited. This will return
+  /// true for the entire season, even on _Shabbos_ when it is not recited.
   ///
-  /// @param jewishCalendar the Jewish calendar day.
+  /// - [jewishCalendar]: the Jewish calendar day.
   ///
-  /// @return true if <em>Vesein Tal Umatar Livracha</em> (<em>Sheailas Geshamim</em>) is recited.
+  /// Returns true if _Vesein Tal Umatar Livracha_ (_Sheailas Geshamim_) is recited.
   ///
-  /// @see #isVeseinTalUmatarStartDate(JewishCalendar)
-  /// @see #isVeseinTalUmatarStartingTonight(JewishCalendar)
+  /// See also [isVeseinTalUmatarStartDate].
+  /// See also [isVeseinTalUmatarStartingTonight].
   bool isVeseinTalUmatarRecited(JewishCalendar jewishCalendar) {
     if (jewishCalendar.getJewishMonth() == JewishDate.NISSAN &&
         jewishCalendar.getJewishDayOfMonth() < 15) {
@@ -380,47 +368,47 @@ class TefilaRules {
     }
   }
 
-  /// Returns if <em>Vesein Beracha</em> is recited. It is recited from 15 {@link JewishDate#NISSAN <em>Nissan</em>} to the
-  /// point that {@link #isVeseinTalUmatarRecited(JewishCalendar) <em>vesein tal umatar</em> is recited}.
+  /// Returns if _Vesein Beracha_ is recited. It is recited from 15 [JewishDate.NISSAN] to the
+  /// point that [isVeseinTalUmatarRecited].
   ///
-  /// @param jewishCalendar the Jewish calendar day.
-  /// @return true if <em>Vesein Beracha</em> is recited.
-  /// @see #isVeseinTalUmatarRecited(JewishCalendar)
+  /// - [jewishCalendar]: the Jewish calendar day.
+  /// Returns true if _Vesein Beracha_ is recited.
+  /// See also [isVeseinTalUmatarRecited].
   bool isVeseinBerachaRecited(JewishCalendar jewishCalendar) {
     return !isVeseinTalUmatarRecited(jewishCalendar);
   }
 
-  /// Returns if the date is the start date for reciting <em>Mashiv Haruach Umorid Hageshem</em>. The date is 22
-  /// {@link JewishDate#TISHREI <em>Tishrei</em>}.
+  /// Returns if the date is the start date for reciting _Mashiv Haruach Umorid Hageshem_. The date is 22
+  /// [JewishDate.TISHREI].
   ///
-  /// @param jewishCalendar the Jewish calendar day.
-  /// @return true if the date is the start date for reciting <em>Mashiv Haruach Umorid Hageshem</em>.
-  /// @see #isMashivHaruachEndDate(JewishCalendar)
-  /// @see #isMashivHaruachRecited(JewishCalendar)
+  /// - [jewishCalendar]: the Jewish calendar day.
+  /// Returns true if the date is the start date for reciting _Mashiv Haruach Umorid Hageshem_.
+  /// See also [isMashivHaruachEndDate].
+  /// See also [isMashivHaruachRecited].
   bool isMashivHaruachStartDate(JewishCalendar jewishCalendar) {
     return jewishCalendar.getJewishMonth() == JewishDate.TISHREI &&
         jewishCalendar.getJewishDayOfMonth() == 22;
   }
 
-  /// Returns if the date is the end date for reciting <em>Mashiv Haruach Umorid Hageshem</em>. The date is 15
-  /// {@link JewishDate#NISSAN <em>Nissan</em>}.
+  /// Returns if the date is the end date for reciting _Mashiv Haruach Umorid Hageshem_. The date is 15
+  /// [JewishDate.NISSAN].
   ///
-  /// @param jewishCalendar the Jewish calendar day.
-  /// @return true if the date is the end date for reciting <em>Mashiv Haruach Umorid Hageshem</em>.
-  /// @see #isMashivHaruachStartDate(JewishCalendar)
-  /// @see #isMashivHaruachRecited(JewishCalendar)
+  /// - [jewishCalendar]: the Jewish calendar day.
+  /// Returns true if the date is the end date for reciting _Mashiv Haruach Umorid Hageshem_.
+  /// See also [isMashivHaruachStartDate].
+  /// See also [isMashivHaruachRecited].
   bool isMashivHaruachEndDate(JewishCalendar jewishCalendar) {
     return jewishCalendar.getJewishMonth() == JewishDate.NISSAN &&
         jewishCalendar.getJewishDayOfMonth() == 15;
   }
 
-  /// Returns if <em>Mashiv Haruach Umorid Hageshem</em> is recited. This period starts on 22 {@link
-  /// JewishDate#TISHREI <em>Tishrei</em>} and ends on the 15th day of {@link JewishDate#NISSAN <em>Nissan</em>}.
+  /// Returns if _Mashiv Haruach Umorid Hageshem_ is recited. This period starts on 22 {@link
+  /// JewishDate#TISHREI _Tishrei_} and ends on the 15th day of [JewishDate.NISSAN].
   ///
-  /// @param jewishCalendar the Jewish calendar day.
-  /// @return true if <em>Mashiv Haruach Umorid Hageshem</em> is recited.
-  /// @see #isMashivHaruachStartDate(JewishCalendar)
-  /// @see #isMashivHaruachEndDate(JewishCalendar)
+  /// - [jewishCalendar]: the Jewish calendar day.
+  /// Returns true if _Mashiv Haruach Umorid Hageshem_ is recited.
+  /// See also [isMashivHaruachStartDate].
+  /// See also [isMashivHaruachEndDate].
   bool isMashivHaruachRecited(JewishCalendar jewishCalendar) {
     JewishDate startDate = JewishDate.initDate(
         jewishYear: jewishCalendar.getJewishYear(),
@@ -436,26 +424,26 @@ class TefilaRules {
         jewishCalendar.compareTo(endDate) < 0;
   }
 
-  /// Returns if <em>Morid Hatal</em> (or the lack of reciting <em>Mashiv Haruach</em> following <em>nussach Ashkenaz</em>) is
-  /// recited. This period starts on the 15th day of {@link JewishDate#NISSAN <em>Nissan</em>} and ends on 22 {@link
-  /// JewishDate#TISHREI <em>Tishrei</em>}.
+  /// Returns if _Morid Hatal_ (or the lack of reciting _Mashiv Haruach_ following _nussach Ashkenaz_) is
+  /// recited. This period starts on the 15th day of [JewishDate.NISSAN] and ends on 22 {@link
+  /// JewishDate#TISHREI _Tishrei_}.
   ///
-  /// @param jewishCalendar the Jewish calendar day.
+  /// - [jewishCalendar]: the Jewish calendar day.
   ///
-  /// @return true if <em>Morid Hatal</em> (or the lack of reciting <em>Mashiv Haruach</em> following <em>nussach Ashkenaz</em>) is recited.
+  /// Returns true if _Morid Hatal_ (or the lack of reciting _Mashiv Haruach_ following _nussach Ashkenaz_) is recited.
   bool isMoridHatalRecited(JewishCalendar jewishCalendar) {
     return !isMashivHaruachRecited(jewishCalendar) ||
         isMashivHaruachStartDate(jewishCalendar) ||
         isMashivHaruachEndDate(jewishCalendar);
   }
 
-  /// Returns if <em>hallel</em> is recited on the day in question. This will return true for both <em>hallel shalem</em>
-  /// and <em>chatzi hallel</em>. See {@link #isHallelShalemRecited(JewishCalendar)} to know if the complete <em>hallel</em>
+  /// Returns if _hallel_ is recited on the day in question. This will return true for both _hallel shalem_
+  /// and _chatzi hallel_. See [isHallelShalemRecited] to know if the complete _hallel_
   /// is recited.
   ///
-  /// @param jewishCalendar the Jewish calendar day.
-  /// @return if <em>hallel</em> is recited.
-  /// @see #isHallelShalemRecited(JewishCalendar)
+  /// - [jewishCalendar]: the Jewish calendar day.
+  /// Returns if _hallel_ is recited.
+  /// See also [isHallelShalemRecited].
   bool isHallelRecited(JewishCalendar jewishCalendar) {
     int day = jewishCalendar.getJewishDayOfMonth();
     int month = jewishCalendar.getJewishMonth();
@@ -496,12 +484,12 @@ class TefilaRules {
     return false;
   }
 
-  /// Returns if <em>hallel shalem</em> is recited on the day in question. This will always return false if {@link
+  /// Returns if _hallel shalem_ is recited on the day in question. This will always return false if {@link
   /// #isHallelRecited(JewishCalendar)} returns false.
   ///
-  /// @param jewishCalendar the Jewish calendar day.
-  /// @return if <em>hallel shalem</em> is recited.
-  /// @see #isHallelRecited(JewishCalendar)
+  /// - [jewishCalendar]: the Jewish calendar day.
+  /// Returns if _hallel shalem_ is recited.
+  /// See also [isHallelRecited].
   bool isHallelShalemRecited(JewishCalendar jewishCalendar) {
     int day = jewishCalendar.getJewishDayOfMonth();
     int month = jewishCalendar.getJewishMonth();
