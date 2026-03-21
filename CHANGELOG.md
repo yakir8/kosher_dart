@@ -1,3 +1,13 @@
+## 2.0.19
+- Fixed Yom Ha'atzmaut and Yom Hazikaron postponement rules for years when they fall on Friday or Saturday
+- Added `JewishDate.back()` support for `Calendar.MONTH` — backward Jewish month rolling with correct Tishrei/Nissan boundary handling
+- Overhauled all source file documentation to use effective Dart doc style (`///`) instead of Javadoc (`/** */`), including proper cross-references, Markdown formatting and Dart-idiomatic conventions
+- Fixed dangling library doc comments in `JewishDate`, `JewishCalendar` and `HebrewDateFormatter`
+- Fixed all `dart analyze` lint warnings: removed unnecessary library name, converted to super parameters, replaced explicit null comparisons with null-aware operators (`?.`)
+- Enabled `dangling_library_doc_comments` lint rule in `analysis_options.yaml`
+- Added comprehensive unit tests covering Jewish date navigation, leap years, Gregorian month days, Parsha calculation, Yomi calculators and zmanim calendar
+- Added GitHub Actions CI workflow to run unit tests on every push and pull request to master
+
 ## 2.0.18
 - Updated intl dependency constraint from ^0.19.0 to ^0.20.1
 - Updated the Dart SDK constraint to >=3.0.0 <4.0.0 to ensure compatibility with newer SDK
