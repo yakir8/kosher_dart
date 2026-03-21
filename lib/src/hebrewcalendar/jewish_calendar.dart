@@ -1503,16 +1503,26 @@ class JewishCalendar extends JewishDate {
       case JewishDate.IYAR:
         if (isUseModernHolidays() &&
             ((day == 4 && dayOfWeek == JewishDate.tuesday) ||
-                ((day == 3 || day == 2) && dayOfWeek == 4) ||
-                (day == 5 && dayOfWeek == JewishDate.monday))) {
+                ((day == 3 || day == 2) &&
+                    dayOfWeek == JewishDate.wednesday) ||
+                ((day == 5 || day == 6) &&
+                    dayOfWeek == JewishDate.monday))) {
           return YOM_HAZIKARON;
         }
-        // if 5 Iyar falls on Wed Yom Haatzmaut is that day. If it fal1s on Friday or Shabbos it is moved back to
-        // Thursday. If it falls on Monday it is moved to Tuesday
+        // if 5 Iyar falls on Tue, Wed or Thu, Yom Haatzmaut is that day.
+        // If it falls on Friday or Shabbos it is moved back to Thursday.
+        // If it falls on Sunday it is moved forward to Tuesday.
+        // If it falls on Monday it is moved to Tuesday.
         if (isUseModernHolidays() &&
-            ((day == 5 && dayOfWeek == JewishDate.wednesday) ||
-                ((day == 4 || day == 3) && dayOfWeek == JewishDate.thursday) ||
-                (day == 6 && dayOfWeek == JewishDate.tuesday))) {
+            ((day == 5 &&
+                    dayOfWeek != JewishDate.friday &&
+                    dayOfWeek != JewishDate.saturday &&
+                    dayOfWeek != JewishDate.sunday &&
+                    dayOfWeek != JewishDate.monday) ||
+                ((day == 4 || day == 3) &&
+                    dayOfWeek == JewishDate.thursday) ||
+                ((day == 6 || day == 7) &&
+                    dayOfWeek == JewishDate.tuesday))) {
           return YOM_HAATZMAUT;
         }
         if (day == 14) {

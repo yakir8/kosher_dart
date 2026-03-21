@@ -304,6 +304,65 @@ void main() {
       expect(d.getJewishDayOfMonth(), equals(15));
     });
 
+    test('back one month (regular month)', () {
+      final d = JewishDate();
+      d.setJewishDate(5784, JewishDate.CHESHVAN, 15);
+      d.back(Calendar.MONTH, 1);
+      expect(d.getJewishMonth(), equals(JewishDate.TISHREI));
+      expect(d.getJewishDayOfMonth(), equals(15));
+    });
+
+    test('back one month from Tishrei goes to Elul of previous year', () {
+      final d = JewishDate();
+      d.setJewishDate(5784, JewishDate.TISHREI, 15);
+      d.back(Calendar.MONTH, 1);
+      expect(d.getJewishYear(), equals(5783));
+      expect(d.getJewishMonth(), equals(JewishDate.ELUL));
+      expect(d.getJewishDayOfMonth(), equals(15));
+    });
+
+    test('back one month from Nissan goes to Adar (non-leap year)', () {
+      // 5785 is a non-leap year, so going back from Nissan should land on Adar (12)
+      final d = JewishDate();
+      d.setJewishDate(5785, JewishDate.NISSAN, 15);
+      d.back(Calendar.MONTH, 1);
+      expect(d.getJewishMonth(), equals(JewishDate.ADAR));
+    });
+
+    test('back one month from Nissan goes to Adar II (leap year)', () {
+      // 5784 is a leap year, so going back from Nissan should land on Adar II (13)
+      final d = JewishDate();
+      d.setJewishDate(5784, JewishDate.NISSAN, 15);
+      d.back(Calendar.MONTH, 1);
+      expect(d.getJewishMonth(), equals(JewishDate.ADAR_II));
+    });
+
+    test('back month adjusts day when new month has fewer days', () {
+      // Tishrei has 30 days; Elul has only 29 days
+      final d = JewishDate();
+      d.setJewishDate(5784, JewishDate.TISHREI, 30);
+      d.back(Calendar.MONTH, 1);
+      expect(d.getJewishYear(), equals(5783));
+      expect(d.getJewishMonth(), equals(JewishDate.ELUL));
+      expect(d.getJewishDayOfMonth(), equals(29)); // adjusted from 30 to 29
+    });
+
+    test('back multiple months', () {
+      final d = JewishDate();
+      d.setJewishDate(5784, JewishDate.KISLEV, 15);
+      d.back(Calendar.MONTH, 2);
+      expect(d.getJewishMonth(), equals(JewishDate.TISHREI));
+      expect(d.getJewishDayOfMonth(), equals(15));
+    });
+
+    test('back one year', () {
+      final d = JewishDate();
+      d.setJewishDate(5784, JewishDate.NISSAN, 15);
+      d.back(Calendar.YEAR, 1);
+      expect(d.getJewishYear(), equals(5783));
+      expect(d.getJewishMonth(), equals(JewishDate.NISSAN));
+    });
+
     test('getDayOfWeek returns value between 1 and 7', () {
       final d = JewishDate();
       d.setJewishDate(5784, JewishDate.TISHREI, 1);

@@ -8,6 +8,11 @@
 ///   Atzeret, Chanukah days 1 and 8, Purim, Purim Katan, Tu BeShvat,
 ///   Tisha BeAv) and confirms that a plain weekday returns -1.
 ///
+/// - **Modern Israeli holidays (postponement rules)** — verifies correct
+///   handling of Yom Hazikaron and Yom Ha'atzmaut for all postponement
+///   scenarios: standard (Wednesday), Friday→Thursday, Saturday→Thursday,
+///   and Monday→Tuesday.
+///
 /// - **Holidays inside Israel** — checks cases where the Israel schedule
 ///   differs from the Diaspora (e.g. 16 Nisan is Chol Hamoed in Israel vs.
 ///   a second day of Pesach outside Israel; 22 Tishrei behaviour).
@@ -256,6 +261,105 @@ void main() {
         ..inIsrael = false
         ..setJewishDate(5785, JewishDate.ADAR, 14); // only Adar
       expect(c.getYomTovIndex(), equals(JewishCalendar.PURIM));
+    });
+  });
+
+  // ────────────────────────────────────────────────────────────────
+  // Modern holidays: Yom Hazikaron & Yom Ha'atzmaut postponements
+  //
+  // 5 Iyar can only fall on Wed/Fri/Sat/Mon in the Hebrew calendar.
+  // Postponement rules:
+  //   Wed  → no change (5 Iyar = Yom Ha'atzmaut)
+  //   Fri  → moved back 1 day to 4 Iyar (Thursday)
+  //   Sat  → moved back 2 days to 3 Iyar (Thursday)
+  //   Mon  → moved forward 1 day to 6 Iyar (Tuesday)   ← Issue #42
+  // ────────────────────────────────────────────────────────────────
+  group('JewishCalendar - Yom Hazikaron & Yom Ha\'atzmaut postponements', () {
+    JewishCalendar cal() => JewishCalendar()
+      ..inIsrael = true
+      ..setUseModernHolidays(true);
+
+    // ── 5783: 5 Iyar = Wednesday (standard, no postponement) ──────
+    // 15 Nissan 5783 = Thursday → 5 Iyar 5783 = Wednesday
+    test('5783: Yom Hazikaron on 4 Iyar (Tuesday) when 5 Iyar is Wednesday',
+        () {
+      final c = cal()..setJewishDate(5783, JewishDate.IYAR, 4);
+      expect(c.getYomTovIndex(), equals(JewishCalendar.YOM_HAZIKARON));
+    });
+
+    test('5783: Yom Ha\'atzmaut on 5 Iyar (Wednesday) — standard case', () {
+      final c = cal()..setJewishDate(5783, JewishDate.IYAR, 5);
+      expect(c.getYomTovIndex(), equals(JewishCalendar.YOM_HAATZMAUT));
+    });
+
+    // ── 5782: 5 Iyar = Friday → moved back to 4 Iyar (Thursday) ──
+    // 15 Nissan 5782 = Saturday → 5 Iyar 5782 = Friday
+    test('5782: Yom Hazikaron on 3 Iyar (Wednesday) when 5 Iyar is Friday',
+        () {
+      final c = cal()..setJewishDate(5782, JewishDate.IYAR, 3);
+      expect(c.getYomTovIndex(), equals(JewishCalendar.YOM_HAZIKARON));
+    });
+
+    test('5782: Yom Ha\'atzmaut on 4 Iyar (Thursday) when 5 Iyar is Friday',
+        () {
+      final c = cal()..setJewishDate(5782, JewishDate.IYAR, 4);
+      expect(c.getYomTovIndex(), equals(JewishCalendar.YOM_HAATZMAUT));
+    });
+
+    test('5782: 5 Iyar itself (Friday) is not Yom Ha\'atzmaut', () {
+      final c = cal()..setJewishDate(5782, JewishDate.IYAR, 5);
+      expect(c.getYomTovIndex(), isNot(equals(JewishCalendar.YOM_HAATZMAUT)));
+    });
+
+    // ── 5781: 5 Iyar = Saturday → moved back to 3 Iyar (Thursday) ─
+    // 15 Nissan 5781 = Sunday → 5 Iyar 5781 = Saturday
+    test('5781: Yom Hazikaron on 2 Iyar (Wednesday) when 5 Iyar is Saturday',
+        () {
+      final c = cal()..setJewishDate(5781, JewishDate.IYAR, 2);
+      expect(c.getYomTovIndex(), equals(JewishCalendar.YOM_HAZIKARON));
+    });
+
+    test(
+        '5781: Yom Ha\'atzmaut on 3 Iyar (Thursday) when 5 Iyar is Saturday',
+        () {
+      final c = cal()..setJewishDate(5781, JewishDate.IYAR, 3);
+      expect(c.getYomTovIndex(), equals(JewishCalendar.YOM_HAATZMAUT));
+    });
+
+    test('5781: 5 Iyar itself (Saturday) is not Yom Ha\'atzmaut', () {
+      final c = cal()..setJewishDate(5781, JewishDate.IYAR, 5);
+      expect(c.getYomTovIndex(), isNot(equals(JewishCalendar.YOM_HAATZMAUT)));
+    });
+
+    // ── 5784: 5 Iyar = Monday → moved forward to 6 Iyar (Tuesday) ─
+    // This is the case reported in issue #42 (תשפ״ד).
+    // 15 Nissan 5784 = Tuesday → 5 Iyar 5784 = Monday
+    test(
+        '5784: Yom Hazikaron on 5 Iyar (Monday) when 5 Iyar falls on Monday',
+        () {
+      final c = cal()..setJewishDate(5784, JewishDate.IYAR, 5);
+      expect(c.getYomTovIndex(), equals(JewishCalendar.YOM_HAZIKARON));
+    });
+
+    test(
+        '5784: Yom Ha\'atzmaut on 6 Iyar (Tuesday) when 5 Iyar falls on Monday — issue #42',
+        () {
+      final c = cal()..setJewishDate(5784, JewishDate.IYAR, 6);
+      expect(c.getYomTovIndex(), equals(JewishCalendar.YOM_HAATZMAUT));
+    });
+
+    test('5784: 5 Iyar (Monday) is Yom Hazikaron, not Yom Ha\'atzmaut', () {
+      final c = cal()..setJewishDate(5784, JewishDate.IYAR, 5);
+      expect(c.getYomTovIndex(), isNot(equals(JewishCalendar.YOM_HAATZMAUT)));
+    });
+
+    // ── Verify useModernHolidays=false returns no modern holidays ──
+    test('Modern holidays not returned when useModernHolidays is false', () {
+      final c = JewishCalendar()
+        ..inIsrael = true
+        ..setUseModernHolidays(false)
+        ..setJewishDate(5784, JewishDate.IYAR, 6);
+      expect(c.getYomTovIndex(), isNot(equals(JewishCalendar.YOM_HAATZMAUT)));
     });
   });
 }

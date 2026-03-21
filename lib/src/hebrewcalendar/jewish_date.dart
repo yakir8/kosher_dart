@@ -1210,38 +1210,33 @@ class JewishDate implements Comparable<JewishDate> {
         _gregorianMonth = 12;
         _gregorianYear--;
       } else {
-        _gregorianMonth--;
+        _gregorianDayOfMonth--;
       }
-      // change to last day of previous month
-      _gregorianDayOfMonth =
-          _getLastDayOfGregorianMonth(_gregorianMonth, _gregorianYear);
-    } else {
-      _gregorianDayOfMonth--;
-    }
-    // change Jewish date
-    if (_jewishDay == 1) {
-      // if first day of the Jewish month
-      if (_jewishMonth == NISSAN) {
-        _jewishMonth = _getLastMonthOfJewishYear(_jewishYear);
-      } else if (_jewishMonth == TISHREI) {
-        // if Rosh Hashana
-        _jewishYear--;
-        _jewishMonth--;
+      // change Jewish date
+      if (_jewishDay == 1) {
+        // if first day of the Jewish month
+        if (_jewishMonth == NISSAN) {
+          _jewishMonth = _getLastMonthOfJewishYear(_jewishYear);
+        } else if (_jewishMonth == TISHREI) {
+          // if Rosh Hashana
+          _jewishYear--;
+          _jewishMonth--;
+        } else {
+          _jewishMonth--;
+        }
+        _jewishDay = getDaysInJewishMonth();
       } else {
-        _jewishMonth--;
+        _jewishDay--;
       }
-      _jewishDay = getDaysInJewishMonth();
-    } else {
-      _jewishDay--;
-    }
 
-    if (_dayOfWeek == 1) {
-      // if first day of week, loop back to Saturday
-      _dayOfWeek = 7;
-    } else {
-      _dayOfWeek--;
+      if (_dayOfWeek == 1) {
+        // if first day of week, loop back to Saturday
+        _dayOfWeek = 7;
+      } else {
+        _dayOfWeek--;
+      }
+      _gregorianAbsDate--; // change the absolute date
     }
-    _gregorianAbsDate--; // change the absolute date
   }
 
   /// See also [Object.equals.].
