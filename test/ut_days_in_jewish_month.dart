@@ -7,6 +7,8 @@
 ///
 /// Each type can occur in both regular and leap years, giving six possible
 /// year structures in total. This file tests representative years for all six.
+library;
+
 import 'package:test/test.dart';
 import 'package:kosher_dart/kosher_dart.dart';
 

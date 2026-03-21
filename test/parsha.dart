@@ -8,6 +8,8 @@
 /// [formatWeeklyParsha] returns the parsha for the upcoming Shabbat from any
 /// given day, while [formatParsha] returns the parsha for the current day
 /// (only non-null on Shabbat).
+library;
+
 import 'package:test/test.dart';
 import 'package:kosher_dart/kosher_dart.dart';
 

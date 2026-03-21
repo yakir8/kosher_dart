@@ -33,6 +33,8 @@
 /// - **Omer counting** — verifies [JewishCalendar.getDayOfOmer] returns the
 ///   correct count on day 1 (16 Nisan), day 33 (Lag BaOmer, 18 Iyar),
 ///   day 49 (5 Sivan), and -1 outside the Omer period.
+library;
+
 import 'package:test/test.dart';
 import 'package:kosher_dart/kosher_dart.dart';
 
@@ -144,7 +146,9 @@ void main() {
       expect(c.getYomTovIndex(), equals(JewishCalendar.CHOL_HAMOED_PESACH));
     });
 
-    test('Shemini Atzeret in Israel: 22 Tishrei is Shemini Atzeret (code returns SHEMINI_ATZERES for both)', () {
+    test(
+        'Shemini Atzeret in Israel: 22 Tishrei is Shemini Atzeret (code returns SHEMINI_ATZERES for both)',
+        () {
       // In Israel, 22 Tishrei is both Shemini Atzeret and Simchat Torah,
       // but the implementation returns SHEMINI_ATZERES for 22 Tishrei regardless.
       // SIMCHAS_TORAH (19) is only returned for 23 Tishrei outside Israel.
@@ -294,8 +298,7 @@ void main() {
 
     // ── 5782: 5 Iyar = Friday → moved back to 4 Iyar (Thursday) ──
     // 15 Nissan 5782 = Saturday → 5 Iyar 5782 = Friday
-    test('5782: Yom Hazikaron on 3 Iyar (Wednesday) when 5 Iyar is Friday',
-        () {
+    test('5782: Yom Hazikaron on 3 Iyar (Wednesday) when 5 Iyar is Friday', () {
       final c = cal()..setJewishDate(5782, JewishDate.IYAR, 3);
       expect(c.getYomTovIndex(), equals(JewishCalendar.YOM_HAZIKARON));
     });
@@ -319,8 +322,7 @@ void main() {
       expect(c.getYomTovIndex(), equals(JewishCalendar.YOM_HAZIKARON));
     });
 
-    test(
-        '5781: Yom Ha\'atzmaut on 3 Iyar (Thursday) when 5 Iyar is Saturday',
+    test('5781: Yom Ha\'atzmaut on 3 Iyar (Thursday) when 5 Iyar is Saturday',
         () {
       final c = cal()..setJewishDate(5781, JewishDate.IYAR, 3);
       expect(c.getYomTovIndex(), equals(JewishCalendar.YOM_HAATZMAUT));
@@ -334,8 +336,7 @@ void main() {
     // ── 5784: 5 Iyar = Monday → moved forward to 6 Iyar (Tuesday) ─
     // This is the case reported in issue #42 (תשפ״ד).
     // 15 Nissan 5784 = Tuesday → 5 Iyar 5784 = Monday
-    test(
-        '5784: Yom Hazikaron on 5 Iyar (Monday) when 5 Iyar falls on Monday',
+    test('5784: Yom Hazikaron on 5 Iyar (Monday) when 5 Iyar falls on Monday',
         () {
       final c = cal()..setJewishDate(5784, JewishDate.IYAR, 5);
       expect(c.getYomTovIndex(), equals(JewishCalendar.YOM_HAZIKARON));

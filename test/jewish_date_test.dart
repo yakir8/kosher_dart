@@ -28,6 +28,8 @@
 ///
 /// - **Absolute date arithmetic** — verifies that the absolute day counter
 ///   increments/decrements by exactly 1 when navigating forward/backward.
+library;
+
 import 'package:test/test.dart';
 import 'package:kosher_dart/kosher_dart.dart';
 

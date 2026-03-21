@@ -3,6 +3,8 @@
 /// Verifies that setting a Jewish date correctly maps to the expected Gregorian
 /// date, and that known dates such as Rosh Hashana 5771 compute without
 /// entering an infinite loop (a regression guard).
+library;
+
 import 'package:test/test.dart';
 import 'package:kosher_dart/kosher_dart.dart';
 

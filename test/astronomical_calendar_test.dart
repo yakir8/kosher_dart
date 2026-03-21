@@ -39,6 +39,8 @@
 ///
 /// Note: [AstronomicalCalendar] is not exported from `kosher_dart.dart`, so
 /// this file imports it directly from its source path.
+library;
+
 import 'package:test/test.dart';
 import 'package:kosher_dart/kosher_dart.dart';
 import 'package:kosher_dart/src/astronomical_calendar.dart';

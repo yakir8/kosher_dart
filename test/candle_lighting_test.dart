@@ -7,6 +7,8 @@
 ///
 /// All times in these tests are formatted as "HH:mm" in local time for
 /// Jerusalem (UTC+2 / UTC+3 DST), which is the fixed test location.
+library;
+
 import 'package:intl/intl.dart';
 import 'package:test/test.dart';
 import 'package:kosher_dart/kosher_dart.dart';

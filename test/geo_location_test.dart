@@ -31,6 +31,8 @@
 ///
 /// - **Local mean time offset** — checks that the Prime Meridian with a UTC
 ///   clock returns an offset of approximately 0.
+library;
+
 import 'package:test/test.dart';
 import 'package:kosher_dart/kosher_dart.dart';
 

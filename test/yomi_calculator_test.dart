@@ -6,6 +6,8 @@
 /// matches the historically correct value.
 ///
 /// The [HebrewDateFormatter] is used only for debug printing.
+library;
+
 import 'package:test/test.dart';
 import 'package:kosher_dart/kosher_dart.dart';
 

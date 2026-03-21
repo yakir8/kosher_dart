@@ -7,6 +7,8 @@
 ///
 /// The [HebrewDateFormatter] is used only for printing; it does not affect
 /// the assertions.
+library;
+
 import 'package:test/test.dart';
 import 'package:kosher_dart/kosher_dart.dart';
 

@@ -5,6 +5,8 @@
 /// - A standard leap year (2012, divisible by 4) — February has 29 days.
 /// - A century year that is NOT a leap year (2100, divisible by 100 but not 400).
 /// - A 400-year leap year (2400) — February has 29 days.
+library;
+
 import 'package:test/test.dart';
 
 import 'package:kosher_dart/kosher_dart.dart';

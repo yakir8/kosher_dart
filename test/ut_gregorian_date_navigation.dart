@@ -5,6 +5,8 @@
 /// both the resulting Gregorian fields and the corresponding Jewish calendar
 /// fields are correct. This ensures that the dual-calendar state machine in
 /// [JewishDate] stays consistent across month and year rollovers.
+library;
+
 import 'package:test/test.dart';
 import 'package:kosher_dart/kosher_dart.dart';
 
