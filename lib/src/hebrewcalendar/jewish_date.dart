@@ -20,32 +20,31 @@ import 'package:intl/intl.dart';
 import 'package:kosher_dart/src/hebrewcalendar/hebrew_date_formatter.dart';
 
 /// The JewishDate is the base calendar class, that supports maintenance of a [DateTime]
-/// instance along with the corresponding Jewish date. This class can use the standard Java Date and Calendar
-/// classes for setting and maintaining the dates, but it does not subclass these classes or use them internally
-/// in any calculations. This class also does not have a concept of a time (which the Date class does). Please
-/// note that the calendar does not currently support dates prior to 1/1/1 Gregorian. Also keep in mind that the
-/// Gregorian calendar started on October 15, 1582, so any calculations prior to that are suspect (at least from
-/// a Gregorian perspective). While 1/1/1 Gregorian and forward are technically supported, any calculations prior to [Hillel II's (Hakatan's](http://en.wikipedia.org/wiki/Hillel_II)) calendar (4119 in the Jewish Calendar / 359
-/// CE Julian as recorded by [Rav Hai Gaon](http://en.wikipedia.org/wiki/Hai_Gaon)) would be just an
-/// approximation.
+/// instance along with the corresponding Jewish date. This class does not have a concept of a time
+/// (which the [DateTime] class does). Please note that the calendar does not currently support dates
+/// prior to 1/1/1 Gregorian. Also keep in mind that the Gregorian calendar started on October 15, 1582,
+/// so any calculations prior to that are suspect (at least from a Gregorian perspective). While 1/1/1
+/// Gregorian and forward are technically supported, any calculations prior to
+/// [Hillel II (Hakatan)](http://en.wikipedia.org/wiki/Hillel_II)'s calendar (4119 in the Jewish
+/// Calendar / 359 CE Julian as recorded by [Rav Hai Gaon](http://en.wikipedia.org/wiki/Hai_Gaon))
+/// would be just an approximation.
 ///
-/// This open source Java code was written by [Avrom Finkelstien](http://www.facebook.com/avromf) from his C++
-/// code. It was refactored to fit the KosherJava Zmanim API with simplification of the code, enhancements and some bug
-/// fixing.
+/// This open source Dart code was ported from the KosherJava Zmanim library originally written by
+/// [Avrom Finkelstien](http://www.facebook.com/avromf) in C++ and refactored to Java by Eliyahu
+/// Hershfeld, with simplification of the code, enhancements and some bug fixing.
 ///
 /// Some of Avrom's original C++ code was translated from
 /// [C/C++ code](https://web.archive.org/web/20120124134148/http://emr.cs.uiuc.edu/~reingold/calendar.C) in
 /// [Calendrical Calculations](http://www.calendarists.com) by Nachum Dershowitz and Edward M.
-/// Reingold, Software-- Practice & Experience, vol. 20, no. 9 (September, 1990), pp. 899- 928. Any method with the mark
-/// "ND+ER" indicates that the method was taken from this source with minor modifications.
+/// Reingold, Software-- Practice & Experience, vol. 20, no. 9 (September, 1990), pp. 899-928. Any
+/// method marked "ND+ER" indicates that the method was taken from this source with minor modifications.
 ///
-/// If you are looking for a class that implements a Jewish calendar version of the Calendar class, one is available from
-/// the ICU (International Components for Unicode) project, formerly part of
+/// If you are looking for a class that implements a Jewish calendar version of the calendar, one is
+/// available from the ICU (International Components for Unicode) project, formerly part of
 /// IBM's DeveloperWorks.
 ///
 /// See also [JewishCalendar].
 /// See also [HebrewDateFormatter].
-/// See also [DateTime].
 /// See also [DateTime].
 /// © Avrom Finkelstien 2002
 /// © Eliyahu Hershfeld 2011 - 2019
@@ -177,8 +176,8 @@ class JewishDate implements Comparable<JewishDate> {
   int? _minute;
   int? _second;
 
-  /// The month, where 1 == January, 2 == February, etc... Note that this is different than the Java's Calendar class
-  /// where January ==0
+  /// The month, where 1 == January, 2 == February, etc. Note that the public API uses 0-based months
+  /// (0 == January) to match legacy behavior, but this internal field uses 1-based months.
   late int _gregorianMonth;
 
   /// The day of the Gregorian month
@@ -202,17 +201,17 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// Creates a Jewish date based on a Jewish year, month and day of month.
   ///
-  /// - [jewishYear]: 
+  /// - [jewishYear]:
   ///   the Jewish year
-  /// - [jewishMonth]: 
+  /// - [jewishMonth]:
   ///   the Jewish month. The method expects a 1 for Nissan ... 12 for Adar and 13 for Adar II. Use the
   ///   constants [NISSAN] ... [ADAR] (or [ADAR_II] for a leap year Adar II) to avoid any
   ///   confusion.
-  /// - [jewishDayOfMonth]: 
+  /// - [jewishDayOfMonth]:
   ///   the Jewish day of month. If 30 is passed in for a month with only 29 days (for example [IYAR],
   ///   or [KISLEV] in a year that [isKislevShort]), the 29th (last valid date of the month)
   ///   will be set
-  /// Throws [ArgumentError] 
+  /// Throws [ArgumentError]
   ///             if the day of month is < 1 or > 30, or a year of < 0 is passed in.
   JewishDate.initDate(
       {required int jewishYear,
@@ -227,11 +226,11 @@ class JewishDate implements Comparable<JewishDate> {
     setJewishDate(jewishYear, jewishMonth, jewishDayOfMonth);
   }
 
-  /// A constructor that initializes the date to the [Date] paremeter.
+  /// A constructor that initializes the date to the [DateTime] parameter.
   ///
-  /// - [date]: 
-  ///   the `Date` to set the calendar to
-  /// Throws [ArgumentError] 
+  /// - [dateTime]:
+  ///   the [DateTime] to set the calendar to
+  /// Throws [ArgumentError]
   ///             if the date would fall prior to the January 1, 1 AD
   JewishDate.fromDateTime(DateTime dateTime) {
     setDate(dateTime);
@@ -265,7 +264,7 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// Sets the molad hours.
   ///
-  /// - [moladHours]: 
+  /// - [moladHours]:
   ///   the molad hours to set
   /// See also [getMoladHours].
   /// See also [getMolad].
@@ -291,7 +290,7 @@ class JewishDate implements Comparable<JewishDate> {
   /// minutes and [setMoladChalakim] , so 793 (TaShTZaG) parts would have the minutes set to
   /// 44 and chalakim to 1.
   ///
-  /// - [moladMinutes]: 
+  /// - [moladMinutes]:
   ///   the molad minutes to set
   /// See also [getMoladMinutes].
   /// See also [setMoladChalakim].
@@ -306,7 +305,7 @@ class JewishDate implements Comparable<JewishDate> {
   /// [setMoladMinutes] and chalakim, so 793 (TaShTZaG) parts would have the minutes set to 44 and
   /// chalakim to 1.
   ///
-  /// - [moladChalakim]: 
+  /// - [moladChalakim]:
   ///   the molad chalakim/parts to set
   /// See also [getMoladChalakim].
   /// See also [setMoladMinutes].
@@ -331,7 +330,7 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// Returns the last day in a gregorian month
   ///
-  /// - [month]: 
+  /// - [month]:
   ///   the Gregorian month
   /// Returns the last day of the Gregorian month
   int getLastDayOfGregorianMonth(int month) {
@@ -340,9 +339,9 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// Returns the number of days in a given month in a given month and year.
   ///
-  /// - [month]: 
+  /// - [month]:
   ///   the month. As with other cases in this class, this is 1-based, not zero-based.
-  /// - [year]: 
+  /// - [year]:
   ///   the year (only impacts February)
   /// Returns the number of days in the month in the given year
   static int _getLastDayOfGregorianMonth(int month, int year) {
@@ -392,12 +391,12 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// Computes the absolute date from a Gregorian date. ND+ER
   ///
-  /// - [year]: 
+  /// - [year]:
   ///   the Gregorian year
-  /// - [month]: 
+  /// - [month]:
   ///   the Gregorian month. Unlike the Java Calendar where January has the value of 0,This expects a 1 for
   ///   January
-  /// - [dayOfMonth]: 
+  /// - [dayOfMonth]:
   ///   the day of the month (1st, 2nd, etc...)
   /// Returns the absolute Gregorian day
   static int _gregorianDateToAbsDate(int year, int month, int dayOfMonth) {
@@ -419,7 +418,7 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// Returns if the year is a Jewish leap year. Years 3, 6, 8, 11, 14, 17 and 19 in the 19 year cycle are leap years.
   ///
-  /// - [year]: 
+  /// - [year]:
   ///   the Jewish year.
   /// Returns true if it is a leap year
   /// See also [isJewishLeapYear].
@@ -439,7 +438,7 @@ class JewishDate implements Comparable<JewishDate> {
   /// Returns the last month of a given Jewish year. This will be 12 on a non [isJewishLeapYear]
   /// or 13 on a leap year.
   ///
-  /// - [year]: 
+  /// - [year]:
   ///   the Jewish year.
   /// Returns 12 on a non leap year or 13 on a leap year
   /// See also [isJewishLeapYear].
@@ -450,7 +449,7 @@ class JewishDate implements Comparable<JewishDate> {
   /// Returns the number of days elapsed from the Sunday prior to the start of the Jewish calendar to the mean
   /// conjunction of Tishri of the Jewish year.
   ///
-  /// - [year]: 
+  /// - [year]:
   ///   the Jewish year
   /// Returns the number of days elapsed from prior to the molad Tohu BaHaRaD (Be = Monday, Ha= 5 hours and Rad =204
   /// chalakim/parts) prior to the start of the Jewish calendar, to the mean conjunction of Tishri of the
@@ -487,16 +486,16 @@ class JewishDate implements Comparable<JewishDate> {
   // }
 
   /// Adds the 4 dechiyos for molad Tishrei. These are:
-  /// 
+  ///
   /// - Lo ADU Rosh - Rosh Hashana can't fall on a Sunday, Wednesday or Friday. If the molad fell on one of these
-  /// days, Rosh Hashana is delayed to the following day.</li>
+  ///   days, Rosh Hashana is delayed to the following day.
   /// - Molad Zaken - If the molad of Tishrei falls after 12 noon, Rosh Hashana is delayed to the following day. If
-  /// the following day is ADU, it will be delayed an additional day.</li>
+  ///   the following day is ADU, it will be delayed an additional day.
   /// - GaTRaD - If on a non leap year the molad of Tishrei falls on a Tuesday (Ga) on or after 9 hours (T) and 204
-  /// chalakim (TRaD) it is delayed till Thursday (one day delay, plus one day for Lo ADU Rosh)</li>
+  ///   chalakim (TRaD) it is delayed till Thursday (one day delay, plus one day for Lo ADU Rosh).
   /// - BeTuTaKFoT - if the year following a leap year falls on a Monday (Be) on or after 15 hours (Tu) and 589
-  /// chalakim (TaKFoT) it is delayed till Tuesday</li>
-  /// 
+  ///   chalakim (TaKFoT) it is delayed till Tuesday.
+  ///
   ///
   /// - [year]: the year
   /// - [moladDay]: the molad day
@@ -541,9 +540,9 @@ class JewishDate implements Comparable<JewishDate> {
   /// Returns the number of chalakim (parts - 1080 to the hour) from the original hypothetical Molad Tohu to the year
   /// and month passed in.
   ///
-  /// - [year]: 
+  /// - [year]:
   ///   the Jewish year
-  /// - [month]: 
+  /// - [month]:
   ///   the Jewish month the Jewish month, with the month numbers starting from Nisan. Use the JewishDate
   ///   constants such as [JewishDate.TISHREI].
   /// Returns the number of chalakim (parts - 1080 to the hour) from the original hypothetical Molad Tohu
@@ -576,9 +575,9 @@ class JewishDate implements Comparable<JewishDate> {
   /// Converts the [JewishDate.NISSAN] based constants used by this class to numeric month starting from
   /// [JewishDate.TISHREI]. This is required for Molad claculations.
   ///
-  /// - [year]: 
+  /// - [year]:
   ///   The Jewish year
-  /// - [month]: 
+  /// - [month]:
   ///   The Jewish Month
   /// Returns the Jewish month of the year starting with Tishrei
   static int _getJewishMonthOfYear(int year, int month) {
@@ -586,29 +585,29 @@ class JewishDate implements Comparable<JewishDate> {
     return (month + (isLeapYear ? 6 : 5)) % (isLeapYear ? 13 : 12) + 1;
   }
 
-  /// Validates the components of a Jewish date for validity. It will throw an [IllegalArgumentException] if the
+  /// Validates the components of a Jewish date for validity. It will throw an [ArgumentError] if the
   /// Jewish date is earlier than 18 Teves, 3761 (1/1/1 Gregorian), a month < 1 or > 12 (or 13 on a
   /// [isJewishLeapYear]), the day of month is < 1 or > 30, an hour < 0 or > 23, a minute < 0
-  /// or > 59 or chalakim < 0 or > 17. For larger a larger number of chalakim such as 793 (TaShTzaG) break the chalakim into
-  /// minutes (18 chalakim per minutes, so it would be 44 minutes and 1 chelek in the case of 793/TaShTzaG).
+  /// or > 59 or chalakim < 0 or > 17. For a larger number of chalakim such as 793 (TaShTzaG) break the chalakim into
+  /// minutes (18 chalakim per minute, so it would be 44 minutes and 1 chelek in the case of 793/TaShTzaG).
   ///
-  /// - [year]: 
+  /// - [year]:
   ///   the Jewish year to validate. It will reject any year <= 3761 (lower than the year 1 Gregorian).
-  /// - [month]: 
+  /// - [month]:
   ///   the Jewish month to validate. It will reject a month < 1 or > 12 (or 13 on a leap year) .
-  /// - [dayOfMonth]: 
+  /// - [dayOfMonth]:
   ///   the day of the Jewish month to validate. It will reject any value < 1 or > 30 TODO: check calling
   ///   methods to see if there is any reason that the class can validate that 30 is invalid for some months.
-  /// - [hours]: 
+  /// - [hours]:
   ///   the hours (for molad calculations). It will reject an hour < 0 or > 23
-  /// - [minutes]: 
+  /// - [minutes]:
   ///   the minutes (for molad calculations). It will reject a minute < 0 or > 59
-  /// - [chalakim]: 
+  /// - [chalakim]:
   ///   the chalakim/parts (for molad calculations). It will reject a chalakim < 0 or > 17. For larger numbers
   ///   such as 793 (TaShTzaG) break the chalakim into minutes (18 chalakim per minutes, so it would be 44
   ///   minutes and 1 chelek in the case of 793/TaShTzaG)
   ///
-  /// Throws [ArgumentError] 
+  /// Throws [ArgumentError]
   ///             if a A Jewish date earlier than 18 Teves, 3761 (1/1/1 Gregorian), a month < 1 or > 12 (or 13 on a
   ///             leap year), the day of month is < 1 or > 30, an hour < 0 or > 23, a minute < 0 or > 59 or
   ///             chalakim < 0 or > 17. For larger a larger number of chalakim such as 793 (TaShTzaG) break the chalakim
@@ -648,19 +647,18 @@ class JewishDate implements Comparable<JewishDate> {
     }
   }
 
-  /// Validates the components of a Gregorian date for validity. It will throw an [IllegalArgumentException] if a
+  /// Validates the components of a Gregorian date for validity. It will throw an [ArgumentError] if a
   /// year of < 1, a month < 0 or > 11 or a day of month < 1 is passed in.
   ///
-  /// - [year]: 
+  /// - [year]:
   ///   the Gregorian year to validate. It will reject any year < 1.
-  /// - [month]: 
-  ///   the Gregorian month number to validate. It will enforce that the month is between 0 - 11 like a
-  ///   [GregorianCalendar], where [Calendar.JANUARY] has a value of 0.
-  /// - [dayOfMonth]: 
+  /// - [month]:
+  ///   the Gregorian month number to validate. It will enforce that the month is between 0 - 11
+  ///   (0 = January), matching the legacy 0-based month convention used by this class.
+  /// - [dayOfMonth]:
   ///   the day of the Gregorian month to validate. It will reject any value < 1, but will allow values > 31
-  ///   since calling methods will simply set it to the maximum for that month. TODO: check calling methods to
-  ///   see if there is any reason that the class needs days > the maximum.
-  /// Throws [ArgumentError] 
+  ///   since calling methods will simply set it to the maximum for that month.
+  /// Throws [ArgumentError]
   ///             if a year of < 1, a month < 0 or > 11 or a day of month < 1 is passed in
   /// See also [validateGregorianYear].
   /// See also [validateGregorianMonth].
@@ -673,9 +671,9 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// Validates a Gregorian month for validity.
   ///
-  /// - [month]: 
-  ///   the Gregorian month number to validate. It will enforce that the month is between 0 - 11 like a
-  ///   [GregorianCalendar], where [Calendar.JANUARY] has a value of 0.
+  /// - [month]:
+  ///   the Gregorian month number to validate. It will enforce that the month is between 0 - 11
+  ///   (0 = January), matching the legacy 0-based month convention used by this class.
   static void _validateGregorianMonth(int month) {
     if (month > 11 || month < 0) {
       throw ArgumentError(
@@ -685,7 +683,7 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// Validates a Gregorian day of month for validity.
   ///
-  /// - [dayOfMonth]: 
+  /// - [dayOfMonth]:
   ///   the day of the Gregorian month to validate. It will reject any value < 1, but will allow values > 31
   ///   since calling methods will simply set it to the maximum for that month. TODO: check calling methods to
   ///   see if there is any reason that the class needs days > the maximum.
@@ -698,7 +696,7 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// Validates a Gregorian year for validity.
   ///
-  /// - [year]: 
+  /// - [year]:
   ///   the Gregorian year to validate. It will reject any year < 1.
   static void _validateGregorianYear(int year) {
     if (year < 1) {
@@ -708,7 +706,7 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// Returns the number of days for a given Jewish year. ND+ER
   ///
-  /// - [year]: 
+  /// - [year]:
   ///   the Jewish year
   /// Returns the number of days for a given Jewish year.
   /// See also [isCheshvanLong].
@@ -731,7 +729,7 @@ class JewishDate implements Comparable<JewishDate> {
   /// Returns if Cheshvan is long in a given Jewish year. The method name isLong is done since in a Kesidran (ordered)
   /// year Cheshvan is short. ND+ER
   ///
-  /// - [year]: 
+  /// - [year]:
   ///   the year
   /// Returns true if Cheshvan is long in Jewish year.
   /// See also [isCheshvanLong].
@@ -752,7 +750,7 @@ class JewishDate implements Comparable<JewishDate> {
   /// Returns if Kislev is short (29 days VS 30 days) in a given Jewish year. The method name isShort is done since in
   /// a Kesidran (ordered) year Kislev is long. ND+ER
   ///
-  /// - [year]: 
+  /// - [year]:
   ///   the Jewish year
   /// Returns true if Kislev is short for the given Jewish year.
   /// See also [isKislevShort].
@@ -789,9 +787,9 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// Returns the number of days of a Jewish month for a given month and year.
   ///
-  /// - [month]: 
+  /// - [month]:
   ///   the Jewish month
-  /// - [year]: 
+  /// - [year]:
   ///   the Jewish Year
   /// Returns the number of days for a given Jewish month
   static int _getDaysInJewishMonth(int month, int year) {
@@ -844,13 +842,13 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// Returns the absolute date of Jewish date. ND+ER
   ///
-  /// - [year]: 
+  /// - [year]:
   ///   the Jewish year. The year can't be negative
-  /// - [month]: 
+  /// - [month]:
   ///   the Jewish month starting with Nisan. Nisan expects a value of 1 etc till Adar with a value of 12. For
   ///   a leap year, 13 will be the expected value for Adar II. Use the constants [JewishDate.NISSAN]
   ///   etc.
-  /// - [dayOfMonth]: 
+  /// - [dayOfMonth]:
   ///   the Jewish day of month. valid values are 1-30. If the day of month is set to 30 for a month that only
   ///   has 29 days, the day will be set as 29.
   /// Returns the absolute date of the Jewish date.
@@ -878,7 +876,7 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// Returns the number of days from the Jewish epoch from the number of chalakim from the epoch passed in.
   ///
-  /// - [chalakim]: 
+  /// - [chalakim]:
   ///   the number of chalakim since the beginning of Sunday prior to BaHaRaD
   /// Returns the number of days from the Jewish epoch
   static int _moladToAbsDate(double chalakim) {
@@ -887,7 +885,7 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// Sets the molad time (hours minutes and chalakim) based on the number of chalakim since the start of the day.
   ///
-  /// - [chalakim]: 
+  /// - [chalakim]:
   ///   the number of chalakim since the start of the day.
   void _setMoladTime(int chalakim) {
     int adjustedChalakim = chalakim;
@@ -900,11 +898,11 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// returns the number of days from Rosh Hashana of the date passed in, to the full date passed in.
   ///
-  /// - [year]: 
+  /// - [year]:
   ///   the Jewish year
-  /// - [month]: 
+  /// - [month]:
   ///   the Jewish month
-  /// - [dayOfMonth]: 
+  /// - [dayOfMonth]:
   ///   the day in the Jewish month
   /// Returns the number of days
   static int _getDaysSinceStartOfJewishYear(
@@ -936,12 +934,12 @@ class JewishDate implements Comparable<JewishDate> {
         getJewishYear(), getJewishMonth(), getJewishDayOfMonth());
   }
 
-  /// Sets the date based on a [Calendar] object. Modifies the Jewish date as well.
+  /// Sets the date based on a [DateTime] object. Modifies the Jewish date as well.
   ///
-  /// - [calendar]: 
-  ///   the `Calendar` to set the calendar to
-  /// Throws [ArgumentError] 
-  ///             if the [Calendar.ERA] is [GregorianCalendar.BC]
+  /// - [dateTime]:
+  ///   the [DateTime] to set the calendar to
+  /// Throws [ArgumentError]
+  ///             if the date is in the BC era
   void setDate(DateTime dateTime) {
     if (DateFormat('G').format(dateTime) == 'BC') {
       throw ArgumentError(
@@ -960,27 +958,26 @@ class JewishDate implements Comparable<JewishDate> {
     _dayOfWeek = (_gregorianAbsDate % 7).abs() + 1; // set day of week
   }
 
-  /// Sets the Gregorian Date, and updates the Jewish date accordingly. Like the Java Calendar A value of 0 is expected
-  /// for January.
+  /// Sets the Gregorian Date, and updates the Jewish date accordingly. A value of 0 is expected
+  /// for January (0-based months).
   ///
-  /// - [year]: 
+  /// - [year]:
   ///   the Gregorian year
-  /// - [month]: 
-  ///   the Gregorian month. Like the Java Calendar, this class expects 0 for January
-  /// - [dayOfMonth]: 
+  /// - [month]:
+  ///   the Gregorian month. This class expects 0 for January (0-based)
+  /// - [dayOfMonth]:
   ///   the Gregorian day of month. If this is > the number of days in the month/year, the last valid date of
   ///   the month will be set
-  /// Throws [ArgumentError] 
+  /// Throws [ArgumentError]
   ///             if a year of < 1, a month < 0 or > 11 or a day of month < 1 is passed in
   void setGregorianDate(int year, int month, int dayOfMonth) {
     _validateGregorianDate(year, month, dayOfMonth);
     _setInternalGregorianDate(year, month + 1, dayOfMonth);
   }
 
-  /// Sets the hidden internal representation of the Gregorian date , and updates the Jewish date accordingly. While
-  /// public getters and setters have 0 based months matching the Java Calendar classes, This class internally
-  /// represents the Gregorian month starting at 1. When this is called it will not adjust the month to match the Java
-  /// Calendar classes.
+  /// Sets the hidden internal representation of the Gregorian date and updates the Jewish date accordingly. While
+  /// public getters and setters have 0-based months (0 = January), this class internally represents the Gregorian
+  /// month starting at 1. When this is called it will not adjust the month to the 0-based convention.
   ///
   /// - [year]: the year
   /// - [month]: the month
@@ -1004,25 +1001,25 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// Sets the Jewish Date and updates the Gregorian date accordingly.
   ///
-  /// - [year]: 
+  /// - [year]:
   ///   the Jewish year. The year can't be negative
-  /// - [month]: 
+  /// - [month]:
   ///   the Jewish month starting with Nisan. A value of 1 is expected for Nissan ... 12 for Adar and 13 for
   ///   Adar II. Use the constants [NISSAN] ... [ADAR] (or [ADAR_II] for a leap year Adar
   ///   II) to avoid any confusion.
-  /// - [dayOfMonth]: 
+  /// - [dayOfMonth]:
   ///   the Jewish day of month. valid values are 1-30. If the day of month is set to 30 for a month that only
   ///   has 29 days, the day will be set as 29.
   ///
-  /// - [hours]: 
+  /// - [hours]:
   ///   the hour of the day. Used for Molad calculations
-  /// - [minutes]: 
+  /// - [minutes]:
   ///   the minutes. Used for Molad calculations
-  /// - [chalakim]: 
+  /// - [chalakim]:
   ///   the chalakim/parts. Used for Molad calculations. The chalakim should not exceed 17. Minutes should be
   ///   used for larger numbers.
   ///
-  /// Throws [ArgumentError] 
+  /// Throws [ArgumentError]
   ///             if a A Jewish date earlier than 18 Teves, 3761 (1/1/1 Gregorian), a month < 1 or > 12 (or 13 on a
   ///             leap year), the day of month is < 1 or > 30, an hour < 0 or > 23, a minute < 0 > 59 or chalakim < 0 >
   ///             17. For larger a larger number of chalakim such as 793 (TaShTzaG) break the chalakim into minutes (18
@@ -1074,27 +1071,22 @@ class JewishDate implements Comparable<JewishDate> {
     return HebrewDateFormatter().format(this);
   }
 
-  /// Rolls the date, month or year forward by the amount passed in. It modifies both the Gregorian and Jewish dates accordingly.
-  /// If manipulation beyond the fields supported here is required, use the [Calendar] class [Calendar.add]
-  /// or [Calendar.roll] methods in the following manner.
-  ///
+  /// Rolls the date, month or year forward by the amount passed in. It modifies both the Gregorian and Jewish
+  /// dates accordingly. If manipulation beyond the fields supported here is required, use [DateTime] arithmetic
+  /// and pass the result back via [setDate]. For example:
   ///
   /// ```dart
-  ///  <code>
-  ///  	Calendar cal = jewishDate.getTime(); // get a DateTime representation of the JewishDate
-  ///  	cal.add(Calendar.MONTH, 3); // add 3 Gregorian months
-  ///  	jewishDate.setDate(cal); // set the updated calendar back to this class
-  ///  </code>
+  /// DateTime cal = jewishDate.getGregorianCalendar();
+  /// cal = DateTime(cal.year, cal.month + 3, cal.day); // add 3 Gregorian months
+  /// jewishDate.setDate(cal); // set the updated calendar back to this class
   /// ```
   ///
-  /// - [field]: the calendar field to be forwarded. The must be [Calendar.DATE], [Calendar.MONTH] or [Calendar.YEAR]
+  /// - [field]: the calendar field to be forwarded. Must be [Calendar.DATE], [Calendar.MONTH] or [Calendar.YEAR]
   /// - [amount]: the positive amount to move forward
   /// Throws [ArgumentError] if the field is anything besides [Calendar.DATE], [Calendar.MONTH] or [Calendar.YEAR]
   /// or if the amount is less than 1
   ///
   /// See also [back].
-  /// See also [Calendar.add].
-  /// See also [Calendar.roll].
   void forward([Calendar field = Calendar.DATE, int amount = 1]) {
     if (field != Calendar.DATE &&
         field != Calendar.MONTH &&
@@ -1184,31 +1176,74 @@ class JewishDate implements Comparable<JewishDate> {
     }
   }
 
-  /// Rolls the date back by 1 day. It modifies both the Gregorian and Jewish dates accordingly. The API does not
-  /// currently offer the ability to forward more than one day at a time, or to forward by month or year. If such
-  /// manipulation is required use the [Calendar] class [Calendar.add] or
-  /// [Calendar.roll] methods in the following manner.
+  /// Rolls the Jewish date back by the number of months passed in.
+  /// This modifies both the Gregorian and Jewish dates accordingly.
+  /// If the day of the month is invalid for the new month (e.g., 30 Tishrei rolling back to 30 Elul,
+  /// which has 29 days), the day is adjusted to the last valid day of the new month.
   ///
+  /// - [amount]: the number of months to roll the month backward
+  /// Throws [ArgumentError] if the amount is less than 1
+  void _backwardJewishMonth(int amount) {
+    if (amount < 1) {
+      throw ArgumentError(
+          "the amount of months to backward has to be greater than zero.");
+    }
+    for (int i = 0; i < amount; i++) {
+      if (getJewishMonth() == TISHREI) {
+        // If Tishrei, move to Elul of the previous year
+        setJewishYear(getJewishYear() - 1);
+        setJewishMonth(ELUL);
+      } else if (getJewishMonth() == NISSAN) {
+        // If Nissan, move to Adar (non-leap year) or Adar II (leap year)
+        setJewishMonth(_getLastMonthOfJewishYear(getJewishYear()));
+      } else {
+        // Otherwise, move to the previous month
+        setJewishMonth(getJewishMonth() - 1);
+      }
+    }
+  }
+
+  /// Rolls the date back by the specified field and amount. Supports [Calendar.DATE] (default),
+  /// [Calendar.MONTH], and [Calendar.YEAR].
   ///
-  /// ```dart
-  ///  <code>
-  ///  	Calendar cal = jewishDate.getTime(); // get a DateTime representation of the JewishDate
-  ///  	cal.add(Calendar.MONTH, -3); // subtract 3 Gregorian months
-  ///  	jewishDate.setDate(cal); // set the updated calendar back to this class
-  ///  </code>
-  /// ```
+  /// When rolling back by [Calendar.DATE], it modifies both the Gregorian and Jewish dates accordingly.
+  /// When rolling back by [Calendar.MONTH], it calls [_backwardJewishMonth].
+  /// When rolling back by [Calendar.YEAR], it decrements the Jewish year.
   ///
-  /// See also [back].
-  /// See also [Calendar.add].
-  /// See also [Calendar.roll].
-  void back() {
-    // Change Gregorian date
-    if (_gregorianDayOfMonth == 1) {
-      // if first day of month
-      if (_gregorianMonth == 1) {
-        // if first day of year
-        _gregorianMonth = 12;
-        _gregorianYear--;
+  /// - [field]: the calendar field to roll back. Must be [Calendar.DATE], [Calendar.MONTH], or [Calendar.YEAR]
+  /// - [amount]: the positive number of units to roll back (defaults to 1)
+  /// Throws [ArgumentError] if the field is unsupported or the amount is less than 1
+  ///
+  /// See also [forward].
+  void back([Calendar field = Calendar.DATE, int amount = 1]) {
+    if (field == Calendar.MONTH) {
+      _backwardJewishMonth(amount);
+      return;
+    } else if (field == Calendar.YEAR) {
+      setJewishYear(getJewishYear() - amount);
+      return;
+    } else if (field != Calendar.DATE) {
+      throw ArgumentError(
+          "Unsupported field was passed to back(). Only Calendar.DATE, Calendar.MONTH or Calendar.YEAR are supported.");
+    }
+    if (amount < 1) {
+      throw ArgumentError(
+          "JewishDate.back() does not support amounts less than 1. See JewishDate.forward()");
+    }
+    for (int i = 0; i < amount; i++) {
+      // Change Gregorian date
+      if (_gregorianDayOfMonth == 1) {
+        // if first day of month
+        if (_gregorianMonth == 1) {
+          // if first day of year
+          _gregorianMonth = 12;
+          _gregorianYear--;
+        } else {
+          _gregorianMonth--;
+        }
+        // change to last day of previous month
+        _gregorianDayOfMonth =
+            _getLastDayOfGregorianMonth(_gregorianMonth, _gregorianYear);
       } else {
         _gregorianDayOfMonth--;
       }
@@ -1239,7 +1274,7 @@ class JewishDate implements Comparable<JewishDate> {
     }
   }
 
-  /// See also [Object.equals.].
+  /// Two [JewishDate] objects are equal if they represent the same absolute date.
   @override
   bool operator ==(Object object) {
     if (identical(this, object)) {
@@ -1266,7 +1301,8 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// Returns the Gregorian month (between 0-11).
   ///
-  /// Returns the Gregorian month (between 0-11). Like the DateTime, months are 0 based.
+  /// Returns the Gregorian month (between 0-11). Note: this class uses 0-based months (0 = January)
+  /// for its public API, unlike [DateTime] which uses 1-based months.
   int getGregorianMonth() {
     return _gregorianMonth;
   }
@@ -1278,7 +1314,7 @@ class JewishDate implements Comparable<JewishDate> {
     return _gregorianDayOfMonth;
   }
 
-  /// Returns the Gregotian year.
+  /// Returns the Gregorian year.
   ///
   /// Returns the Gregorian year
   int getGregorianYear() {
@@ -1317,10 +1353,10 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// Sets the Gregorian month.
   ///
-  /// - [month]: 
+  /// - [month]:
   ///   the Gregorian month
   ///
-  /// Throws [ArgumentError] 
+  /// Throws [ArgumentError]
   ///             if a month < 0 or > 11 is passed in
   void setGregorianMonth(int month) {
     _validateGregorianMonth(month);
@@ -1329,9 +1365,9 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// sets the Gregorian year.
   ///
-  /// - [year]: 
+  /// - [year]:
   ///   the Gregorian year.
-  /// Throws [ArgumentError] 
+  /// Throws [ArgumentError]
   ///             if a year of < 1 is passed in
   void setGregorianYear(int year) {
     _validateGregorianYear(year);
@@ -1340,9 +1376,9 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// sets the Gregorian Day of month.
   ///
-  /// - [dayOfMonth]: 
+  /// - [dayOfMonth]:
   ///   the Gregorian Day of month.
-  /// Throws [ArgumentError] 
+  /// Throws [ArgumentError]
   ///             if the day of month of < 1 is passed in
   void setGregorianDayOfMonth(int dayOfMonth) {
     _validateGregorianDayOfMonth(dayOfMonth);
@@ -1351,10 +1387,10 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// sets the Jewish month.
   ///
-  /// - [month]: 
+  /// - [month]:
   ///   the Jewish month from 1 to 12 (or 13 years in a leap year). The month count starts with 1 for Nisan
   ///   and goes to 13 for Adar II
-  /// Throws [ArgumentError] 
+  /// Throws [ArgumentError]
   ///             if a month < 1 or > 12 (or 13 on a leap year) is passed in
   void setJewishMonth(int month) {
     setJewishDate(_jewishYear, month, _jewishDay);
@@ -1362,20 +1398,20 @@ class JewishDate implements Comparable<JewishDate> {
 
   /// sets the Jewish year.
   ///
-  /// - [year]: 
+  /// - [year]:
   ///   the Jewish year
-  /// Throws [ArgumentError] 
+  /// Throws [ArgumentError]
   ///             if a year of < 3761 is passed in. The same will happen if the year is 3761 and the month and day
-  ///             previously set are < 18 Teves (preior to Jan 1, 1 AD)
+  ///             previously set are < 18 Teves (prior to Jan 1, 1 AD)
   void setJewishYear(int year) {
     setJewishDate(year, _jewishMonth, _jewishDay);
   }
 
   /// sets the Jewish day of month.
   ///
-  /// - [dayOfMonth]: 
+  /// - [dayOfMonth]:
   ///   the Jewish day of month
-  /// Throws [ArgumentError] 
+  /// Throws [ArgumentError]
   ///             if the day of month is < 1 or > 30 is passed in
   void setJewishDayOfMonth(int dayOfMonth) {
     setJewishDate(_jewishYear, _jewishMonth, dayOfMonth);
@@ -1388,9 +1424,7 @@ class JewishDate implements Comparable<JewishDate> {
     return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
   }
 
-  /// A method that creates a [deep copy](http://en.wikipedia.org/wiki/Object_copy#Deep_copy) of the object.
-  ///
-  /// See also [Object.clone].
+  /// Creates a [deep copy](http://en.wikipedia.org/wiki/Object_copy#Deep_copy) of this object.
   JewishDate clone() {
     JewishDate clone = JewishDate();
     clone.setGregorianDate(
@@ -1398,7 +1432,7 @@ class JewishDate implements Comparable<JewishDate> {
     return clone;
   }
 
-  /// See also [Object.hashCode].
+  /// Returns a hash code based on the absolute Gregorian date.
   @override
   int get hashCode {
     int result = 17;
