@@ -31,7 +31,6 @@ import 'package:kosher_dart/kosher_dart.dart';
 /// - כ׳ שבט ו׳ אלפים
 /// 
 /// © Eliyahu Hershfeld 2011 - 2020
-
 class HebrewDateFormatter {
   ///Sets the formatter to format in Hebrew in the various formatting methods.
   bool hebrewFormat = false;

@@ -22,26 +22,6 @@ import 'package:kosher_dart/src/hebrewcalendar/yerushalmi_yomi_calculator.dart';
 import 'package:kosher_dart/src/hebrewcalendar/yomi_calculator.dart';
 import 'package:kosher_dart/src/util/geo_location.dart';
 
-/// The JewishCalendar extends the JewishDate class and adds calendar methods.
-///
-/// This open source Java code was originally ported by [Avrom Finkelstien](http://www.facebook.com/avromf)
-/// from his C++ code. It was refactored to fit the KosherJava Zmanim API with simplification of the code, enhancements
-/// and some bug fixing. The class allows setting whether the holiday and parsha scheme follows the Israel scheme or outside Israel
-/// scheme. The default is the outside Israel scheme.
-/// The parsha code was ported by Y. Paritcher from his [libzmanim](https://github.com/yparitcher/libzmanim) code.
-///
-/// TODO: Some do not belong in this class, but here is a partial list of what should still be implemented in some form:
-/// 
-/// - Add Isru Chag
-/// - Mishna yomis etc
-/// 
-///
-/// See also [DateTime].
-/// See also [DateTime].
-/// © Y Paritcher 2019
-/// © Avrom Finkelstien 2002
-/// © Eliyahu Hershfeld 2011 - 2019
-
 /// List of _parshiyos_. [NONE] indicates a week without a _parsha_, while the enum for the _parsha_ of
 /// [VZOS_HABERACHA] exists for consistency, but is not currently used.
 enum Parsha {
@@ -123,6 +103,24 @@ enum DayOfWeek {
   SATURDAY
 }
 
+/// The JewishCalendar extends the [JewishDate] class and adds calendar methods.
+///
+/// This open source Dart code was originally ported by [Avrom Finkelstien](http://www.facebook.com/avromf)
+/// from his C++ code. It was refactored to fit the KosherJava Zmanim API with simplification of the code,
+/// enhancements and some bug fixing. The class allows setting whether the holiday and parsha scheme follows
+/// the Israel scheme or outside Israel scheme. The default is the outside Israel scheme.
+/// The parsha code was ported by Y. Paritcher from his [libzmanim](https://github.com/yparitcher/libzmanim) code.
+///
+/// TODO: Some do not belong in this class, but here is a partial list of what should still be implemented:
+///
+/// - Add Isru Chag
+/// - Mishna yomis etc
+///
+/// See also [JewishDate].
+/// See also [HebrewDateFormatter].
+/// © Y Paritcher 2019
+/// © Avrom Finkelstien 2002
+/// © Eliyahu Hershfeld 2011 - 2019
 class JewishCalendar extends JewishDate {
   /// The 14th day of Nisan, the day before of Pesach (Passover).
   static const int EREV_PESACH = 0;

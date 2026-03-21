@@ -19,6 +19,8 @@ import 'dart:core';
 import 'package:intl/intl.dart';
 import 'package:kosher_dart/src/hebrewcalendar/hebrew_date_formatter.dart';
 
+enum Calendar { DATE, MONTH, YEAR }
+
 /// The JewishDate is the base calendar class, that supports maintenance of a [DateTime]
 /// instance along with the corresponding Jewish date. This class does not have a concept of a time
 /// (which the [DateTime] class does). Please note that the calendar does not currently support dates
@@ -48,9 +50,6 @@ import 'package:kosher_dart/src/hebrewcalendar/hebrew_date_formatter.dart';
 /// See also [DateTime].
 /// © Avrom Finkelstien 2002
 /// © Eliyahu Hershfeld 2011 - 2019
-
-enum Calendar { DATE, MONTH, YEAR }
-
 class JewishDate implements Comparable<JewishDate> {
   /// Value of the month field indicating Nissan, the first numeric month of the year in the Jewish calendar. With the
   /// year starting at [TISHREI], it would actually be the 7th (or 8th in a [isJewishLeapYear]) month of the year.
