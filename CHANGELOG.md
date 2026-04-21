@@ -1,3 +1,6 @@
+## 2.0.20
+- Updated package description to be cleaner and more accurate
+
 ## 2.0.19
 - Fixed Yom Ha'atzmaut and Yom Hazikaron postponement rules for years when they fall on Friday or Saturday
 - Added `JewishDate.back()` support for `Calendar.MONTH` — backward Jewish month rolling with correct Tishrei/Nissan boundary handling
