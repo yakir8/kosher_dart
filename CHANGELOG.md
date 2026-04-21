@@ -1,4 +1,5 @@
 ## 2.0.20
+- Improve runtime performance across core calculation functions
 - Updated package description to be cleaner and more accurate
 
 ## 2.0.19
