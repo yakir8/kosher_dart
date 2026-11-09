@@ -19,6 +19,17 @@ import 'dart:core';
 import 'package:kosher_dart/src/util/astronomical_calculator.dart';
 import 'package:kosher_dart/src/util/geo_location.dart';
 
+// Default for an omitted end of day: Dart cannot tell it from an explicit null,
+// which must yield null as in KosherJava. Internal to this package.
+const DateTime omittedDayBound = _OmittedDayBound();
+
+class _OmittedDayBound implements DateTime {
+  const _OmittedDayBound();
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
+
 /// A Java calendar that calculates astronomical times such as [getSunrise], [getSunset] and twilight times. This class contains a [getCalendar] and can therefore use the standard
 /// Calendar functionality to change dates etc... The calculation engine used to calculate the astronomical times can be
 /// changed to a different implementation by implementing the abstract [AstronomicalCalculator] and setting it with
@@ -386,17 +397,22 @@ class AstronomicalCalendar {
   /// - [endOfDay]: 
   ///   The end of the day.
   ///
-  /// Returns the `long` millisecond length of the temporal hour. If the calculation can't be computed a
-  /// double.nan will be returned. See detailed explanation on top of the page.
+  /// Returns the `long` millisecond length of the temporal hour. If the calculation can't be computed, or a
+  /// null start or end of day is passed, double.minPositive will be returned. See detailed explanation on top of
+  /// the page. Called without arguments, sea level sunrise and sunset are used.
   ///
   /// See also [getTemporalHour].
-  double getTemporalHour([DateTime? startOfDay, DateTime? endOfDay]) {
-    if (startOfDay == null || endOfDay == null) {
+  double getTemporalHour(
+      [DateTime? startOfDay, DateTime? endOfDay = omittedDayBound]) {
+    if (identical(endOfDay, omittedDayBound)) {
       startOfDay = getSeaLevelSunrise();
       endOfDay = getSeaLevelSunset();
     }
-    return (endOfDay!.millisecondsSinceEpoch -
-            startOfDay!.millisecondsSinceEpoch) /
+    if (startOfDay == null || endOfDay == null) {
+      return double.minPositive;
+    }
+    return (endOfDay.millisecondsSinceEpoch -
+            startOfDay.millisecondsSinceEpoch) /
         12;
   }
 
@@ -414,10 +430,14 @@ class AstronomicalCalendar {
   /// Returns the `Date` representing Sun's transit. If the calculation can't be computed such as in the
   /// Arctic Circle where there is at least one day a year where the sun does not rise, and one where it does
   /// not set, null will be returned. See detailed explanation on top of the page.
-  DateTime? getSunTransit([DateTime? startOfDay, DateTime? endOfDay]) {
-    if (startOfDay == null || endOfDay == null) {
+  DateTime? getSunTransit(
+      [DateTime? startOfDay, DateTime? endOfDay = omittedDayBound]) {
+    if (identical(endOfDay, omittedDayBound)) {
       startOfDay = getSeaLevelSunrise();
       endOfDay = getSeaLevelSunset();
+    }
+    if (startOfDay == null || endOfDay == null) {
+      return null;
     }
     double temporalHour = getTemporalHour(startOfDay, endOfDay);
     return getTimeOffset(startOfDay, temporalHour * 6);
