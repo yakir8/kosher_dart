@@ -1543,7 +1543,7 @@ class JewishCalendar extends JewishDate {
         break;
       case JewishDate.TAMMUZ:
         // push off the fast day if it falls on Shabbos
-        if ((day == 17 && dayOfWeek != JewishDate.friday) ||
+        if ((day == 17 && dayOfWeek != JewishDate.saturday) ||
             (day == 18 && dayOfWeek == JewishDate.sunday)) {
           return SEVENTEEN_OF_TAMMUZ;
         }
