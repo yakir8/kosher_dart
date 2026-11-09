@@ -321,7 +321,8 @@ class HebrewDateFormatter {
     "Yom Ha'atzmaut",
     "Yom Yerushalayim",
     "Lag B'Omer",
-    "Shushan Purim Katan"
+    "Shushan Purim Katan",
+    "Isru Chag"
   ];
 
   /// Hebrew holiday list
@@ -361,7 +362,8 @@ class HebrewDateFormatter {
     'יום העצמאות',
     'יום ירושלים',
     'ל״ג בעומר',
-    'פורים שושן קטן'
+    'פורים שושן קטן',
+    'אסרו חג'
   ];
 
   final List<String> _hebrewShortHolidays = [
@@ -400,7 +402,8 @@ class HebrewDateFormatter {
     'יום העצמאות',
     'יום ירושלים',
     'ל״ג בעומר',
-    'פורים שושן קטן'
+    'פורים שושן קטן',
+    'אסרו חג'
   ];
 
   static final List<String> _longOmerDay = [
