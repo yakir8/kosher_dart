@@ -1,3 +1,7 @@
+## Unreleased
+- Fixed `JewishCalendar.isYomTov()` returning true on _Erev Yom Tov_ (Erev Pesach, Shavuos, Rosh Hashana, Yom Kippur and Succos), as in KosherJava; Hoshana Rabba, 20 Nisan and minor holidays such as Chanukah are still _Yom Tov_ (#67)
+- `TefilaRules.isTachanunRecitedShacharis()` checks _Erev Yom Tov_ explicitly instead of relying on the old `isYomTov()` behavior
+
 ## 2.0.20
 - Improve runtime performance across core calculation functions
 - Updated package description to be cleaner and more accurate

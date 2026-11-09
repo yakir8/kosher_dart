@@ -1665,7 +1665,7 @@ class JewishCalendar extends JewishDate {
 
   /// Returns true if the current day is _Yom Tov_. The method returns true even for holidays such as [CHANUKAH]
   /// and minor ones such as [TU_BEAV] and [PESACH_SHENI]. _Erev Yom Tov_ (with the exception of
-  /// [HOSHANA_RABBA], _erev_ the second days of _Pesach_) returns false, as do [isTaanis] besides [YOM_KIPPUR]. Use [isAssurBemelacha] to find the days that have a prohibition of work.
+  /// [HOSHANA_RABBA] and _erev_ the second days of _Pesach_) returns false, as do [isTaanis] besides [YOM_KIPPUR]. Use [isAssurBemelacha] to find the days that have a prohibition of work.
   ///
   ///  See also [getYomTovIndex].
   /// Returns true if the current day is a Yom Tov
@@ -1677,9 +1677,8 @@ class JewishCalendar extends JewishDate {
   bool isYomTov() {
     int holidayIndex = getYomTovIndex();
     if ((isErevYomTov() &&
-            (holidayIndex != HOSHANA_RABBA &&
-                (holidayIndex == CHOL_HAMOED_PESACH &&
-                    getJewishDayOfMonth() != 20))) ||
+            !(holidayIndex == HOSHANA_RABBA ||
+                holidayIndex == CHOL_HAMOED_PESACH)) ||
         (isTaanis() && holidayIndex != YOM_KIPPUR)) {
       return false;
     }

@@ -216,13 +216,11 @@ class TefilaRules {
                                 !tachanunRecited13SivanOutOfIsrael
                             ? 14
                             : 13))) ||
+        jewishCalendar.isErevYomTov() ||
         (jewishCalendar.isYomTov() &&
             (!jewishCalendar.isTaanis() ||
                 (!tachanunRecitedPesachSheni &&
-                    holidayIndex ==
-                        JewishCalendar
-                            .PESACH_SHENI))) // Erev YT is included in isYomTov()
-        ||
+                    holidayIndex == JewishCalendar.PESACH_SHENI))) ||
         (!jewishCalendar.inIsrael &&
             !tachanunRecitedPesachSheni &&
             !tachanunRecited15IyarOutOfIsrael &&
