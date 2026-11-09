@@ -543,7 +543,7 @@ class GeoLocation {
 
   /// Create clone of this GeoLocation
   GeoLocation clone() {
-    return GeoLocation.setLocation(getLocationName(), getLatitude(),
-        getLongitude(), DateTime.parse(getDateTime().toIso8601String()));
+    return GeoLocation.setLocation(
+        getLocationName(), getLatitude(), getLongitude(), getDateTime());
   }
 }

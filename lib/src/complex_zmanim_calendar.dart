@@ -2750,10 +2750,14 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         [AstronomicalCalendar] documentation.
   DateTime? getSolarMidnight() {
     ZmanimCalendar clonedCal = ZmanimCalendar.intGeolocation(geoLocation);
-    clonedCal.setCalendar(DateTime.parse(getCalendar().toIso8601String()));
-    clonedCal.setCalendar(clonedCal.getCalendar().add(const Duration(days: 1)));
+    DateTime today = getCalendar();
+    // Only the date is used; reparsing a zoned DateTime or adding 24 hours can keep the same date.
+    clonedCal.setCalendar(DateTime.utc(today.year, today.month, today.day + 1));
     DateTime? sunset = getSeaLevelSunset();
     DateTime? sunrise = clonedCal.getSeaLevelSunrise();
+    if (sunset == null || sunrise == null) {
+      return null;
+    }
     return AstronomicalCalendar.getTimeOffset(
         sunset, getTemporalHour(sunset, sunrise) * 6);
   }
@@ -3219,15 +3223,17 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
         getElevationAdjustedSunset(), 50 * AstronomicalCalendar.MINUTE_MILLIS);
   }
 
-  DateTime? getMidday() => getSolarMidnight()!.add(const Duration(hours: -12));
+  DateTime? getMidday() => getSolarMidnight()?.add(const Duration(hours: -12));
 
   /// A method that return Shabbos entry date of this week
   DateTime getShabbosStartTime() {
     ComplexZmanimCalendar complexZmanimCalendar = clone();
     int weekday = (complexZmanimCalendar.getCalendar().weekday + 7) % 7 + 1;
     int delta = 6 - weekday % 7;
-    complexZmanimCalendar.setCalendar(
-        complexZmanimCalendar.getCalendar().add(Duration(days: delta)));
+    DateTime today = complexZmanimCalendar.getCalendar();
+    // Calendar days: adding 24-hour durations across a DST change lands on the wrong date.
+    complexZmanimCalendar
+        .setCalendar(DateTime.utc(today.year, today.month, today.day + delta));
     DateTime? date = complexZmanimCalendar.getSunset();
     return date!.add(Duration(minutes: _shiftTime()));
   }
@@ -3237,8 +3243,9 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     ComplexZmanimCalendar complexZmanimCalendar = clone();
     int weekday = (complexZmanimCalendar.getCalendar().weekday + 7) % 7 + 1;
     int delta = 7 - weekday % 7;
-    complexZmanimCalendar.setCalendar(
-        complexZmanimCalendar.getCalendar().add(Duration(days: delta)));
+    DateTime today = complexZmanimCalendar.getCalendar();
+    complexZmanimCalendar
+        .setCalendar(DateTime.utc(today.year, today.month, today.day + delta));
     DateTime? date = complexZmanimCalendar
         .getBainHasmashosRT13Point5MinutesBefore7Point083Degrees();
     return date!.add(const Duration(minutes: 22));
@@ -3270,9 +3277,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   }
 
   DateTime? getTaanisStartTime({bool inIsrael = false, isAshkenaz = false}) {
-    JewishCalendar jewishCalendar = JewishCalendar.fromDateTime(
-        DateTime.parse(getCalendar().toIso8601String()));
-    DateTime calendar = DateTime.parse(getCalendar().toIso8601String());
+    JewishCalendar jewishCalendar = JewishCalendar.fromDateTime(getCalendar());
+    DateTime calendar = getCalendar();
     jewishCalendar.inIsrael = inIsrael;
     while (!jewishCalendar.isTaanis()) {
       calendar = calendar.add(const Duration(days: 1));
@@ -3292,9 +3298,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   }
 
   DateTime? getTaanisExitTime({bool inIsrael = false, isAshkenaz = false}) {
-    JewishCalendar jewishCalendar = JewishCalendar.fromDateTime(
-        DateTime.parse(getCalendar().toIso8601String()));
-    DateTime calendar = DateTime.parse(getCalendar().toIso8601String());
+    JewishCalendar jewishCalendar = JewishCalendar.fromDateTime(getCalendar());
+    DateTime calendar = getCalendar();
     jewishCalendar.inIsrael = inIsrael;
     while (!jewishCalendar.isTaanis()) {
       calendar = calendar.add(const Duration(days: 1));
