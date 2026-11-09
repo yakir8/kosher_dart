@@ -713,7 +713,7 @@ class HebrewDateFormatter {
     }
     if (hebrewFormat) {
       return longOmerFormat
-          ? _longOmerDay[omer]
+          ? _longOmerDay[omer - 1]
           : "${formatHebrewNumber(omer)} $hebrewOmerPrefixעומר";
     } else {
       if (omer == 33) {
