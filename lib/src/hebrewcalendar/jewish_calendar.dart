@@ -241,6 +241,17 @@ class JewishCalendar extends JewishDate {
   /// Is the calendar set to Israel, where some holidays have different rules.
   bool inIsrael = false;
 
+  /// Is the location a city surrounded by a wall from the time of Yehoshua (_mukaf choma_), where
+  /// [SHUSHAN_PURIM] is celebrated instead of regular [PURIM]. This should be set for Yerushalayim,
+  /// Shushan and other such cities.
+  ///
+  /// See also [isPurim].
+  ///
+  /// ```dart
+  /// final jc = JewishCalendar()..isMukafChoma = true;
+  /// ```
+  bool isMukafChoma = false;
+
   ///Is the calendar set to use modern Israeli holidays such as Yom Haatzmaut.
   ///See also [isUseModernHolidays].
   ///See also [setUseModernHolidays].
@@ -1878,6 +1889,19 @@ class JewishCalendar extends JewishDate {
     return getYomTovIndex() == CHANUKAH;
   }
 
+  /// Returns true if the day is Purim: [SHUSHAN_PURIM] in a _mukaf choma_ ([isMukafChoma]) and regular
+  /// [PURIM] elsewhere.
+  ///
+  /// ```dart
+  /// final jc = JewishCalendar()
+  ///   ..isMukafChoma = true
+  ///   ..setJewishDate(5784, JewishDate.ADAR_II, 15);
+  /// print(jc.isPurim()); // true
+  /// ```
+  bool isPurim() {
+    return getYomTovIndex() == (isMukafChoma ? SHUSHAN_PURIM : PURIM);
+  }
+
   /// Returns if the day is Rosh Chodesh. Rosh Hashana will return false
   ///
   /// Returns true if it is Rosh Chodesh. Rosh Hashana will return false
@@ -2253,6 +2277,7 @@ class JewishCalendar extends JewishDate {
     final newJewishCalendar = JewishCalendar.initDate(
         getJewishYear(), getJewishMonth(), getJewishDayOfMonth());
     newJewishCalendar.inIsrael = inIsrael;
+    newJewishCalendar.isMukafChoma = isMukafChoma;
     return newJewishCalendar;
   }
 }

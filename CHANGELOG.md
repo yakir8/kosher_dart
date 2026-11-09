@@ -1,3 +1,6 @@
+## Unreleased
+- Added `JewishCalendar.isMukafChoma` and `JewishCalendar.isPurim()`: Shushan Purim in a city surrounded by a wall, regular Purim elsewhere, as in KosherJava
+
 ## 2.0.20
 - Improve runtime performance across core calculation functions
 - Updated package description to be cleaner and more accurate
