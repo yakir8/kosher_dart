@@ -236,7 +236,7 @@ class JewishCalendar extends JewishDate {
   static const int SHUSHAN_PURIM_KATAN = 35;
 
   /// The day following the last day of Pesach, Shavuos and Sukkos.
-  static const int ISRU_CHAG = 35;
+  static const int ISRU_CHAG = 36;
 
   /// Is the calendar set to Israel, where some holidays have different rules.
   bool inIsrael = false;
@@ -1500,6 +1500,9 @@ class JewishCalendar extends JewishDate {
         if (day >= 17 && day <= 20 || (day == 16 && inIsrael)) {
           return CHOL_HAMOED_PESACH;
         }
+        if (day == (inIsrael ? 22 : 23)) {
+          return ISRU_CHAG;
+        }
         if (isUseModernHolidays() &&
             ((day == 26 && dayOfWeek == JewishDate.thursday) ||
                 (day == 28 && dayOfWeek == JewishDate.monday) ||
@@ -1550,6 +1553,9 @@ class JewishCalendar extends JewishDate {
         }
         if (day == 6 || (day == 7 && !inIsrael)) {
           return SHAVUOS;
+        }
+        if (day == (inIsrael ? 7 : 8)) {
+          return ISRU_CHAG;
         }
         break;
       case JewishDate.TAMMUZ:
@@ -1606,6 +1612,9 @@ class JewishCalendar extends JewishDate {
         }
         if (day == 23 && !inIsrael) {
           return SIMCHAS_TORAH;
+        }
+        if (day == (inIsrael ? 23 : 24)) {
+          return ISRU_CHAG;
         }
         break;
       case JewishDate.KISLEV: // no yomtov in CHESHVAN
@@ -1693,7 +1702,7 @@ class JewishCalendar extends JewishDate {
         (isTaanis() && holidayIndex != YOM_KIPPUR)) {
       return false;
     }
-    return getYomTovIndex() != -1;
+    return holidayIndex != -1 && holidayIndex != ISRU_CHAG;
   }
 
   /// Returns true if the _Yom Tov_ day has a _melacha_ (work)  prohibition. This method will return false for a
