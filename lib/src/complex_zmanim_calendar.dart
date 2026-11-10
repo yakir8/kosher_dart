@@ -3236,7 +3236,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   DateTime getShabbosExitTime() {
     ComplexZmanimCalendar complexZmanimCalendar = clone();
     int weekday = (complexZmanimCalendar.getCalendar().weekday + 7) % 7 + 1;
-    int delta = 7 - weekday % 7;
+    int delta = (7 - weekday % 7) % 7;
     complexZmanimCalendar.setCalendar(
         complexZmanimCalendar.getCalendar().add(Duration(days: delta)));
     DateTime? date = complexZmanimCalendar
