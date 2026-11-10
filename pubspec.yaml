@@ -2,7 +2,7 @@ name: kosher_dart
 description: A Dart library for calculating Jewish zmanim (halachic times) including
   astronomical times for prayers, Shabbat, and other Jewish religious observances.
 
-version: 2.0.20
+version: 2.1.0
 
 homepage: https://github.com/yakir8/kosher_dart
 #author: Yakir Benin

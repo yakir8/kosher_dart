@@ -1,9 +1,22 @@
-## Unreleased
+## 2.1.0
 - Added `TefilaRules.isAlHanissimRecited()`, `isYaalehVeyavoRecited()` and `isMizmorLesodaRecited()` with the `mizmorLesodaRecitedErevYomKippurAndPesach` setting (Sephardi custom), as in KosherJava
 - Added single-holiday checks to `JewishCalendar`, as in KosherJava: `isRoshHashana()`, `isYomKippur()`, `isSuccos()`, `isHoshanaRabba()`, `isShminiAtzeres()`, `isSimchasTorah()`, `isPesach()`, `isShavuos()` and `isTishaBav()`
 - Added `JewishCalendar.isMukafChoma` and `JewishCalendar.isPurim()`: Shushan Purim in a city surrounded by a wall, regular Purim elsewhere, as in KosherJava
 - Fixed `JewishCalendar.isYomTov()` returning true on _Erev Yom Tov_ (Erev Pesach, Shavuos, Rosh Hashana, Yom Kippur and Succos), as in KosherJava; Hoshana Rabba, 20 Nisan and minor holidays such as Chanukah are still _Yom Tov_ (#67)
 - `TefilaRules.isTachanunRecitedShacharis()` checks _Erev Yom Tov_ explicitly instead of relying on the old `isYomTov()` behavior
+- Fixed `JewishCalendar.getYomTovIndex()` reporting the 17 Tammuz fast on Shabbos as well as on the postponed Sunday (#71)
+- Added Isru Chag with its own holiday index (`ISRU_CHAG` = 36), so it no longer collides with Shushan Purim Katan; `getYomTovIndex()` now returns it, with English and Hebrew names (#69)
+- Fixed `ZmanimCalendar.getCandleLighting()` returning _tzais_ instead of a time before sunset on a Friday that is the first day of Yom Tov (#63)
+- Fixed the long Omer text (`longOmerFormat`) showing the next day's count, and throwing `RangeError` on day 49 (#75)
+- Fixed `HebrewDateFormatter.format(pattern:)`: `yyyy` no longer prints the year twice, time tokens no longer change month names, and `E` returns the day of the week; the pattern is now formatted in a single pass (#74)
+- Generic zmanim methods return null when the start or end of the day is missing instead of falling back to sunrise and sunset (for example, MGA 16.1° in London in June no longer returns the GRA time), which also removes an endless recursion when there is no sunrise (#76)
+- Fixed `getSolarMidnight()` returning solar noon, and date copies landing on the previous day, when the calendar holds a zoned date such as `TZDateTime` (#77, #86)
+- Fixed `ComplexZmanimCalendar.getShabbosExitTime()` skipping a week when today is already Shabbos (#78)
+- Fixed the Yerushalmi Daf Yomi calculator: cycle ends, the observed (deferred) Tisha B'Av, time zones, and a page past the end of a tractate (#72)
+- `GeoLocation` validates latitude, longitude and elevation, and fixed DMS longitude updates throwing after a western longitude was set (#68)
+- Faster `JewishDate` jumps of many days and Gregorian date conversion (#73), and constant lookup lists in `formatHebrewNumber()` (#70)
+- Candle lighting tests no longer depend on the machine's time zone (#65)
+- Renamed `CLAUDE.md` (its name ended with a space), which broke cloning on Windows (#64)
 
 ## 2.0.20
 - Improve runtime performance across core calculation functions
