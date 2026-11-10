@@ -173,6 +173,100 @@ void main() {
     });
   });
 
+  group('GeoLocation - DMS correctness and validation', () {
+    test('DMS east longitude converts to a positive decimal', () {
+      final g = GeoLocation();
+      g.setLongitude(degrees: 35, minutes: 14, seconds: 43.0, direction: 'E');
+      expect(g.getLongitude(), closeTo(35.245278, 0.000001));
+    });
+
+    test('DMS longitude replaces both positive and negative values', () {
+      final g = GeoLocation();
+      g.setLongitude(degrees: 74, minutes: 12, seconds: 0, direction: 'W');
+      expect(g.getLongitude(), closeTo(-74.2, 0.000001));
+      g.setLongitude(degrees: 73, minutes: 30, seconds: 0, direction: 'W');
+      expect(g.getLongitude(), closeTo(-73.5, 0.000001));
+      g.setLongitude(degrees: 35, minutes: 15, seconds: 0, direction: 'E');
+      expect(g.getLongitude(), closeTo(35.25, 0.000001));
+    });
+
+    test('accepts minutes and seconds just below 60', () {
+      final g = GeoLocation();
+      g.setLatitude(degrees: 31, minutes: 59, seconds: 59.999, direction: 'N');
+      g.setLongitude(degrees: 34, minutes: 59, seconds: 59.999, direction: 'E');
+      expect(g.getLatitude(), closeTo(32, 0.000001));
+      expect(g.getLongitude(), closeTo(35, 0.000001));
+    });
+
+    test('rejects partial DMS input', () {
+      final g = GeoLocation();
+      expect(() => g.setLatitude(degrees: 31, minutes: 0, direction: 'N'),
+          throwsArgumentError);
+      expect(() => g.setLongitude(degrees: 35, minutes: 0, seconds: 0),
+          throwsArgumentError);
+    });
+
+    test('DMS limits include exact poles and antimeridian', () {
+      final g = GeoLocation();
+      g.setLatitude(degrees: 90, minutes: 0, seconds: 0, direction: 'S');
+      g.setLongitude(degrees: 180, minutes: 0, seconds: 0, direction: 'W');
+      expect(g.getLatitude(), -90);
+      expect(g.getLongitude(), -180);
+      expect(
+          () => g.setLatitude(
+              degrees: 90, minutes: 0, seconds: 0.01, direction: 'N'),
+          throwsArgumentError);
+      expect(
+          () => g.setLongitude(
+              degrees: 180, minutes: 1, seconds: 0, direction: 'E'),
+          throwsArgumentError);
+    });
+
+    test('rejects invalid DMS components without changing coordinates', () {
+      final g = GeoLocation();
+      for (final invalid in <({int degrees, int minutes, double seconds})>[
+        (degrees: -1, minutes: 0, seconds: 0),
+        (degrees: 1, minutes: -1, seconds: 0),
+        (degrees: 1, minutes: 60, seconds: 0),
+        (degrees: 1, minutes: 0, seconds: -0.5),
+        (degrees: 1, minutes: 0, seconds: 60),
+        (degrees: 1, minutes: 0, seconds: double.nan),
+      ]) {
+        expect(
+            () => g.setLatitude(
+                degrees: invalid.degrees,
+                minutes: invalid.minutes,
+                seconds: invalid.seconds,
+                direction: 'N'),
+            throwsArgumentError);
+        expect(
+            () => g.setLongitude(
+                degrees: invalid.degrees,
+                minutes: invalid.minutes,
+                seconds: invalid.seconds,
+                direction: 'E'),
+            throwsArgumentError);
+      }
+      expect(g.getLatitude(), 51.4772);
+      expect(g.getLongitude(), 0);
+    });
+
+    test('rejects NaN and infinite decimal coordinates and elevation', () {
+      final g = GeoLocation();
+      for (final invalid in [
+        double.nan,
+        double.infinity,
+        double.negativeInfinity
+      ]) {
+        expect(() => g.setLatitude(latitude: invalid), throwsArgumentError);
+        expect(() => g.setLongitude(longitude: invalid), throwsArgumentError);
+        expect(() => g.setElevation(invalid), throwsArgumentError);
+      }
+      expect(g.getLatitude(), 51.4772);
+      expect(g.getLongitude(), 0);
+    });
+  });
+
   // ────────────────────────────────────────────────────────────────
   // Antimeridian adjustment
   // ────────────────────────────────────────────────────────────────

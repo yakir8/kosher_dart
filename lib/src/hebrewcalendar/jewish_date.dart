@@ -387,6 +387,23 @@ class JewishDate implements Comparable<JewishDate> {
     return _gregorianAbsDate;
   }
 
+  // Days before each 1-indexed Gregorian month in a common year; slot 0 is unused.
+  static const List<int> _daysBeforeGregorianMonth = [
+    0,
+    0,
+    31,
+    59,
+    90,
+    120,
+    151,
+    181,
+    212,
+    243,
+    273,
+    304,
+    334
+  ];
+
   /// Computes the absolute date from a Gregorian date. ND+ER
   ///
   /// - [year]:
@@ -398,20 +415,18 @@ class JewishDate implements Comparable<JewishDate> {
   ///   the day of the month (1st, 2nd, etc...)
   /// Returns the absolute Gregorian day
   static int _gregorianDateToAbsDate(int year, int month, int dayOfMonth) {
-    int absDate = dayOfMonth;
-    for (int m = month - 1; m > 0; m--) {
-      absDate += _getLastDayOfGregorianMonth(
-          m, year); // days in prior months of the year
-    }
-    return absDate // days this year
-        +
-        365 * (year - 1) // days in previous years ignoring leap days
-        +
-        (year - 1) ~/ 4 // Julian leap days before this year
-        -
-        (year - 1) ~/ 100 // minus prior century years
-        +
-        (year - 1) ~/ 400; // plus prior years divisible by 400
+    final priorYear = year - 1;
+    final leapDay =
+        month > 2 && ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0)
+            ? 1
+            : 0;
+    return dayOfMonth +
+        _daysBeforeGregorianMonth[month] +
+        leapDay +
+        365 * priorYear +
+        priorYear ~/ 4 -
+        priorYear ~/ 100 +
+        priorYear ~/ 400;
   }
 
   /// Returns if the year is a Jewish leap year. Years 3, 6, 8, 11, 14, 17 and 19 in the 19 year cycle are leap years.
@@ -1100,6 +1115,12 @@ class JewishDate implements Comparable<JewishDate> {
           "JewishDate.forward() does not support amounts less than 1. See JewishDate.back()");
     }
     if (field == Calendar.DATE) {
+      // A large date jump need not visit every intervening day.
+      // For small movements preserve the cheap increment-only path.
+      if (amount >= 64) {
+        _absDateToDate(_gregorianAbsDate + amount);
+        return;
+      }
       // Change Gregorian date
       for (int i = 0; i < amount; i++) {
         if (_gregorianDayOfMonth ==
@@ -1230,6 +1251,10 @@ class JewishDate implements Comparable<JewishDate> {
     if (amount < 1) {
       throw ArgumentError(
           "JewishDate.back() does not support amounts less than 1. See JewishDate.forward()");
+    }
+    if (amount >= 64 && _gregorianAbsDate > amount) {
+      _absDateToDate(_gregorianAbsDate - amount);
+      return;
     }
     for (int i = 0; i < amount; i++) {
       // Change Gregorian date

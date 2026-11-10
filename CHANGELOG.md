@@ -1,3 +1,10 @@
+## Unreleased
+- Added `TefilaRules.isAlHanissimRecited()`, `isYaalehVeyavoRecited()` and `isMizmorLesodaRecited()` with the `mizmorLesodaRecitedErevYomKippurAndPesach` setting (Sephardi custom), as in KosherJava
+- Added single-holiday checks to `JewishCalendar`, as in KosherJava: `isRoshHashana()`, `isYomKippur()`, `isSuccos()`, `isHoshanaRabba()`, `isShminiAtzeres()`, `isSimchasTorah()`, `isPesach()`, `isShavuos()` and `isTishaBav()`
+- Added `JewishCalendar.isMukafChoma` and `JewishCalendar.isPurim()`: Shushan Purim in a city surrounded by a wall, regular Purim elsewhere, as in KosherJava
+- Fixed `JewishCalendar.isYomTov()` returning true on _Erev Yom Tov_ (Erev Pesach, Shavuos, Rosh Hashana, Yom Kippur and Succos), as in KosherJava; Hoshana Rabba, 20 Nisan and minor holidays such as Chanukah are still _Yom Tov_ (#67)
+- `TefilaRules.isTachanunRecitedShacharis()` checks _Erev Yom Tov_ explicitly instead of relying on the old `isYomTov()` behavior
+
 ## 2.0.20
 - Improve runtime performance across core calculation functions
 - Updated package description to be cleaner and more accurate
