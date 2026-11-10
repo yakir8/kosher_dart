@@ -575,6 +575,10 @@ class HebrewDateFormatter {
     }
   }
 
+  // One token scan, so formatted month/day text is never re-substituted.
+  static final RegExp _datePatternTokens =
+      RegExp(r'yyy|yy|dd|MM|mm|hh|HH|ss|[aED]|[/\-: ]');
+
   /// Formats the Jewish date. The default format is "day Month year", for example if the formatter is set to Hebrew
   /// it will כ״א שבט תשכ״ט, and the format "21 Shevat, 5729" if not. The format can be change by pattern variable.
   /// The following symbol are available in explicit patterns:
@@ -600,65 +604,45 @@ class HebrewDateFormatter {
   /// If the formatter is set to Hebrew, it will format in the form, "day Month year"
   /// by default for example כ״א שבט תשכ״ט, and the format "21 Shevat, 5729" if not.
   String format(JewishDate jewishDate, {String pattern = 'dd MM yy'}) {
-    String formatDate;
-    StringBuffer stringBuffer = StringBuffer();
-    RegExp exp =
-        RegExp(r"(dd)|(MM)|(yy)|(yyy)|(mm)|(hh)|(HH)|(ss)|[aED]|[/\-: ]");
-    Iterable<Match> matches = exp.allMatches(pattern);
-    for (var element in matches) {
-      stringBuffer.write(element.group(0));
-    }
-    formatDate = stringBuffer.toString();
-    // fix for "Sivan", "Adar"
-    final String pasedFormatDate = stringBuffer.toString();
-    if (pasedFormatDate.contains("dd")) {
-      formatDate = formatDate.replaceAll(
-          "dd",
-          hebrewFormat
+    final buffer = StringBuffer();
+    DateTime? gregorian;
+    for (final match in _datePatternTokens.allMatches(pattern)) {
+      final token = match.group(0)!;
+      switch (token) {
+        case 'dd':
+          buffer.write(hebrewFormat
               ? formatHebrewNumber(jewishDate.getJewishDayOfMonth())
-              : '${jewishDate.getJewishDayOfMonth()}');
-    }
-    if (pasedFormatDate.contains("MM")) {
-      formatDate = formatDate.replaceAll("MM", formatMonth(jewishDate));
-    }
-    if (pasedFormatDate.contains("yy")) {
-      formatDate = formatDate.replaceAll(
-          "yy",
-          hebrewFormat
+              : jewishDate.getJewishDayOfMonth());
+          break;
+        case 'MM':
+          buffer.write(formatMonth(jewishDate));
+          break;
+        case 'yy':
+        case 'yyy':
+          buffer.write(hebrewFormat
               ? formatHebrewNumber(jewishDate.getJewishYear())
-              : '${jewishDate.getJewishYear()}');
+              : jewishDate.getJewishYear());
+          break;
+        case 'E':
+          buffer.write(formatDayOfWeek(jewishDate));
+          break;
+        case 'D':
+          // 1-based ordinal day of the Hebrew year, not the year's length.
+          buffer.write(jewishDate.getDaysSinceStartOfJewishYear());
+          break;
+        case 'hh':
+        case 'HH':
+        case 'mm':
+        case 'ss':
+        case 'a':
+          gregorian ??= jewishDate.getGregorianCalendar();
+          buffer.write(DateFormat(token).format(gregorian));
+          break;
+        default:
+          buffer.write(token);
+      }
     }
-    if (pasedFormatDate.contains("hh")) {
-      formatDate = formatDate.replaceAll(
-          "hh", DateFormat("hh").format(jewishDate.getGregorianCalendar()));
-    }
-    if (pasedFormatDate.contains("HH")) {
-      formatDate = formatDate.replaceAll(
-          "HH", DateFormat("HH").format(jewishDate.getGregorianCalendar()));
-    }
-    if (pasedFormatDate.contains("mm")) {
-      formatDate = formatDate.replaceAll(
-          "mm", DateFormat("mm").format(jewishDate.getGregorianCalendar()));
-    }
-    if (pasedFormatDate.contains("ss")) {
-      formatDate = formatDate.replaceAll(
-          "ss", DateFormat("ss").format(jewishDate.getGregorianCalendar()));
-    }
-    if (pasedFormatDate.contains("a")) {
-      formatDate = formatDate.replaceAll(
-          "a", DateFormat("a").format(jewishDate.getGregorianCalendar()));
-    }
-    // fix for "Elul"
-    if (pasedFormatDate.contains(" E ")) {
-      formatDate =
-          formatDate.replaceAll(" E ", ' ${formatDayOfWeek(jewishDate)} ');
-    }
-    if (pasedFormatDate.contains("D")) {
-      formatDate = formatDate.replaceAll(
-          "D", jewishDate.getDaysInJewishYear().toString());
-    }
-
-    return formatDate;
+    return buffer.toString();
   }
 
   /// Returns a string of the current Hebrew month such as "Tishrei".
