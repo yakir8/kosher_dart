@@ -845,7 +845,7 @@ class HebrewDateFormatter {
     const String ALAFIM = "אלפים";
     const String EFES = "אפס";
 
-    List<String> jHundreds = [
+    const jHundreds = <String>[
       "",
       "ק",
       "ר",
@@ -857,10 +857,10 @@ class HebrewDateFormatter {
       "תת",
       "תתק"
     ];
-    List<String> jTens = ["", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ"];
-    List<String> jTenEnds = ["", "י", "ך", "ל", "ם", "ן", "ס", "ע", "ף", "ץ"];
-    List<String> tavTaz = ["טו", "טז"];
-    List<String> jOnes = ["", "א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט"];
+    const jTens = <String>["", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ"];
+    const jTenEnds = <String>["", "י", "ך", "ל", "ם", "ן", "ס", "ע", "ף", "ץ"];
+    const tavTaz = <String>["טו", "טז"];
+    const jOnes = <String>["", "א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט"];
 
     if (number == 0) {
       // do we really need this? Should it be applicable to a date?
