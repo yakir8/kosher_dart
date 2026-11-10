@@ -222,13 +222,8 @@ class ZmanimCalendar extends AstronomicalCalendar {
   ///         method. If the calculation can't be computed such as in the Arctic Circle where there is at least one day
   ///         a year where the sun does not rise, and one where it does not set, a null will be returned. See detailed
   ///         explanation on top of the [AstronomicalCalendar] documentation.
-  DateTime? getSofZmanShma(DateTime? startOfDay, DateTime? endOfDay) {
-    if (startOfDay != null && endOfDay != null) {
-      return getShaahZmanisBasedZman(startOfDay, endOfDay, 3);
-    }
-    return getSofZmanShma(
-        getElevationAdjustedSunrise(), getElevationAdjustedSunset());
-  }
+  DateTime? getSofZmanShma(DateTime? startOfDay, DateTime? endOfDay) =>
+      getShaahZmanisBasedZman(startOfDay, endOfDay, 3);
 
   /// This method returns the latest _zman krias shema_ (time to recite shema in the morning) that is 3 *
   /// _[getShaahZmanisGra] shaos zmaniyos_ (solar hours) after [getSunrise] sunrise or
@@ -334,10 +329,8 @@ class ZmanimCalendar extends AstronomicalCalendar {
   ///         to this method. If the calculation can't be computed such as in the Arctic Circle where there is at least
   ///         one day a year where the sun does not rise, and one where it does not set, a null will be returned. See
   ///         detailed explanation on top of the [AstronomicalCalendar] documentation.
-  DateTime? getSofZmanTfila(DateTime? startOfDay, DateTime? endOfDay) {
-    double shaahZmanis = getTemporalHour(startOfDay, endOfDay);
-    return AstronomicalCalendar.getTimeOffset(startOfDay, shaahZmanis * 4);
-  }
+  DateTime? getSofZmanTfila(DateTime? startOfDay, DateTime? endOfDay) =>
+      getShaahZmanisBasedZman(startOfDay, endOfDay, 4);
 
   /// This method returns the latest _zman tfila_ (time to recite shema in the morning) that is 4 *
   /// _[getShaahZmanisGra] shaos zmaniyos_ (solar hours) after [getSunrise] sunrise or
@@ -390,12 +383,14 @@ class ZmanimCalendar extends AstronomicalCalendar {
   ///         passed to this method. If the calculation can't be computed such as in the Arctic Circle where there is
   ///         at least one day a year where the sun does not rise, and one where it does not set, a null will be
   ///         returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
-  DateTime? getMinchaGedola([DateTime? startOfDay, DateTime? endOfDay]) {
-    if (startOfDay != null && endOfDay != null) {
-      return getShaahZmanisBasedZman(startOfDay, endOfDay, 6.5);
+  /// Called without arguments, the day runs from sunrise to sunset (GRA). A null start or end of day returns null.
+  DateTime? getMinchaGedola(
+      [DateTime? startOfDay, DateTime? endOfDay = omittedDayBound]) {
+    if (identical(endOfDay, omittedDayBound)) {
+      startOfDay = getElevationAdjustedSunrise();
+      endOfDay = getElevationAdjustedSunset();
     }
-    return getMinchaGedola(
-        getElevationAdjustedSunrise(), getElevationAdjustedSunset());
+    return getShaahZmanisBasedZman(startOfDay, endOfDay, 6.5);
   }
 
   /// A generic method for calculating _mincha ketana_, (the preferred time to recite the mincha prayers in
@@ -416,12 +411,14 @@ class ZmanimCalendar extends AstronomicalCalendar {
   ///         at least one day a year where the sun does not rise, and one where it does not set, a null will be
   ///         returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
   ///
-  DateTime? getMinchaKetana([DateTime? startOfDay, DateTime? endOfDay]) {
-    if (startOfDay != null && endOfDay != null) {
-      return getShaahZmanisBasedZman(startOfDay, endOfDay, 9.5);
+  /// Called without arguments, the day runs from sunrise to sunset (GRA). A null start or end of day returns null.
+  DateTime? getMinchaKetana(
+      [DateTime? startOfDay, DateTime? endOfDay = omittedDayBound]) {
+    if (identical(endOfDay, omittedDayBound)) {
+      startOfDay = getElevationAdjustedSunrise();
+      endOfDay = getElevationAdjustedSunset();
     }
-    return getMinchaKetana(
-        getElevationAdjustedSunrise(), getElevationAdjustedSunset());
+    return getShaahZmanisBasedZman(startOfDay, endOfDay, 9.5);
   }
 
   /// A generic method for calculating _plag hamincha_ (the earliest time that Shabbos can be started) that is
@@ -440,12 +437,14 @@ class ZmanimCalendar extends AstronomicalCalendar {
   ///         passed to this method. If the calculation can't be computed such as in the Arctic Circle where there is
   ///         at least one day a year where the sun does not rise, and one where it does not set, a null will be
   ///         returned. See detailed explanation on top of the [AstronomicalCalendar] documentation.
-  DateTime? getPlagHamincha([DateTime? startOfDay, DateTime? endOfDay]) {
-    if (startOfDay != null && endOfDay != null) {
-      return getShaahZmanisBasedZman(startOfDay, endOfDay, 10.75);
+  /// Called without arguments, the day runs from sunrise to sunset (GRA). A null start or end of day returns null.
+  DateTime? getPlagHamincha(
+      [DateTime? startOfDay, DateTime? endOfDay = omittedDayBound]) {
+    if (identical(endOfDay, omittedDayBound)) {
+      startOfDay = getElevationAdjustedSunrise();
+      endOfDay = getElevationAdjustedSunset();
     }
-    return getPlagHamincha(
-        getElevationAdjustedSunrise(), getElevationAdjustedSunset());
+    return getShaahZmanisBasedZman(startOfDay, endOfDay, 10.75);
   }
 
   /// A method that returns a _shaah zmanis_ ([getTemporalHour] temporal hour) according to
@@ -559,7 +558,10 @@ class ZmanimCalendar extends AstronomicalCalendar {
   /// where it does not set, a null will be  returned. See detailed explanation on top of the {@link
   /// AstronomicalCalendar} documentation.
   DateTime? getShaahZmanisBasedZman(
-      DateTime startOfDay, DateTime endOfDay, double hours) {
+      DateTime? startOfDay, DateTime? endOfDay, double hours) {
+    if (startOfDay == null || endOfDay == null) {
+      return null;
+    }
     double shaahZmanis = getTemporalHour(startOfDay, endOfDay);
     return AstronomicalCalendar.getTimeOffset(startOfDay, shaahZmanis * hours);
   }

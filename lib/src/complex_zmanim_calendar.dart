@@ -706,7 +706,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// or sunset based. See detailed explanation on top of the [AstronomicalCalendar] documentation.
   DateTime? getZmanisBasedOffset(double hours) {
     double shaahZmanis = getShaahZmanisGra();
-    if (shaahZmanis == double.negativeInfinity || hours == 0) {
+    if (shaahZmanis == double.minPositive || hours == 0) {
       return null;
     }
     if (hours > 0) {
@@ -2703,8 +2703,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         computed such as in the Arctic Circle where there is at least one day a year where the sun does not rise,
   ///         and one where it does not set, a null will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
-  DateTime? getSofZmanBiurChametzGRA() => AstronomicalCalendar.getTimeOffset(
-      getElevationAdjustedSunrise(), getShaahZmanisGra() * 5);
+  DateTime? getSofZmanBiurChametzGRA() => getShaahZmanisBasedZman(
+      getElevationAdjustedSunrise(), getElevationAdjustedSunset(), 5);
 
   /// This method returns the latest time for burning chametz on Erev Pesach according to the opinion of the
   /// _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_ based on _alos_
@@ -2721,7 +2721,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getShaahZmanisMGA]_
   /// _see [getAlos72]_
   DateTime? getSofZmanBiurChametzMGA72Minutes() =>
-      AstronomicalCalendar.getTimeOffset(getAlos72(), getShaahZmanisMGA() * 5);
+      getShaahZmanisBasedZman(getAlos72(), getTzais72(), 5);
 
   /// This method returns the latest time for burning _chametz_ on _Erev Pesach_ according to the opinion
   /// of the _[Magen Avraham (MGA)](https://en.wikipedia.org/wiki/Avraham_Gombinern)_ based on _alos_
@@ -2738,8 +2738,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   /// _see [getShaahZmanis16Point1Degrees]_
   /// _see [getAlos16Point1Degrees]_
   DateTime? getSofZmanBiurChametzMGA16Point1Degrees() =>
-      AstronomicalCalendar.getTimeOffset(
-          getAlos16Point1Degrees(), getShaahZmanis16Point1Degrees() * 5);
+      getShaahZmanisBasedZman(
+          getAlos16Point1Degrees(), getTzais16Point1Degrees(), 5);
 
   /// A method that returns "solar" midnight, or the time when the sun is at its [nadir](http://en.wikipedia.org/wiki/Nadir).
   /// **Note:** this method is experimental and might be removed.
@@ -2754,8 +2754,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
     clonedCal.setCalendar(clonedCal.getCalendar().add(const Duration(days: 1)));
     DateTime? sunset = getSeaLevelSunset();
     DateTime? sunrise = clonedCal.getSeaLevelSunrise();
-    return AstronomicalCalendar.getTimeOffset(
-        sunset, getTemporalHour(sunset, sunrise) * 6);
+    return getSunTransit(sunset, sunrise);
   }
 
   /// A method that returns the _[Baal Hatanya](https://en.wikipedia.org/wiki/Shneur_Zalman_of_Liadi)_'s
@@ -2918,9 +2917,8 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
   ///         computed such as in the Arctic Circle where there is at least one day a year where the sun does not rise,
   ///         and one where it does not set, a null will be returned. See detailed explanation on top of the
   ///         [AstronomicalCalendar] documentation.
-  DateTime? getSofZmanBiurChametzBaalHatanya() =>
-      AstronomicalCalendar.getTimeOffset(
-          getSunriseBaalHatanya(), getShaahZmanisBaalHatanya() * 5);
+  DateTime? getSofZmanBiurChametzBaalHatanya() => getShaahZmanisBasedZman(
+      getSunriseBaalHatanya(), getSunsetBaalHatanya(), 5);
 
   /// This method returns the time of _mincha gedola_. _Mincha gedola_ is the earliest time one can pray
   /// mincha. The _[Rambam](https://en.wikipedia.org/wiki/Maimonides)_ is of the opinion that it is
@@ -3219,7 +3217,7 @@ class ComplexZmanimCalendar extends ZmanimCalendar {
         getElevationAdjustedSunset(), 50 * AstronomicalCalendar.MINUTE_MILLIS);
   }
 
-  DateTime? getMidday() => getSolarMidnight()!.add(const Duration(hours: -12));
+  DateTime? getMidday() => getSolarMidnight()?.add(const Duration(hours: -12));
 
   /// A method that return Shabbos entry date of this week
   DateTime getShabbosStartTime() {
