@@ -1,4 +1,5 @@
 ## Unreleased
+- Added single-holiday checks to `JewishCalendar`, as in KosherJava: `isRoshHashana()`, `isYomKippur()`, `isSuccos()`, `isHoshanaRabba()`, `isShminiAtzeres()`, `isSimchasTorah()`, `isPesach()`, `isShavuos()` and `isTishaBav()`
 - Added `JewishCalendar.isMukafChoma` and `JewishCalendar.isPurim()`: Shushan Purim in a city surrounded by a wall, regular Purim elsewhere, as in KosherJava
 
 ## 2.0.20

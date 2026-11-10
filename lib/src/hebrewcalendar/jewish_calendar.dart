@@ -1889,6 +1889,61 @@ class JewishCalendar extends JewishDate {
     return getYomTovIndex() == CHANUKAH;
   }
 
+  /// Returns true if the current day is _Rosh Hashana_ (either of its days).
+  ///
+  /// See also [isYomTov] and [ROSH_HASHANA].
+  bool isRoshHashana() => getYomTovIndex() == ROSH_HASHANA;
+
+  /// Returns true if the current day is _Yom Kippur_.
+  ///
+  /// See also [isYomTov] and [YOM_KIPPUR].
+  bool isYomKippur() => getYomTovIndex() == YOM_KIPPUR;
+
+  /// Returns true if the current day is _Succos_: the _Yom Tov_ of _Succos_, _Chol Hamoed Succos_ or
+  /// [HOSHANA_RABBA]. _Shemini Atzeres_ and _Simchas Torah_ are not included.
+  ///
+  /// See also [isCholHamoedSuccos], [isHoshanaRabba] and [isShminiAtzeres].
+  bool isSuccos() {
+    final holidayIndex = getYomTovIndex();
+    return holidayIndex == SUCCOS || holidayIndex == CHOL_HAMOED_SUCCOS || holidayIndex == HOSHANA_RABBA;
+  }
+
+  /// Returns true if the current day is _Hoshana Rabba_ (21 Tishrei).
+  ///
+  /// See also [isSuccos] and [HOSHANA_RABBA].
+  bool isHoshanaRabba() => getYomTovIndex() == HOSHANA_RABBA;
+
+  /// Returns true if the current day is _Shemini Atzeres_ (22 Tishrei, which in Israel is also
+  /// _Simchas Torah_).
+  ///
+  /// See also [isSimchasTorah] and [SHEMINI_ATZERES].
+  bool isShminiAtzeres() => getYomTovIndex() == SHEMINI_ATZERES;
+
+  /// Returns true if the current day is _Simchas Torah_ (23 Tishrei). Always false [inIsrael], where
+  /// it falls on _Shemini Atzeres_.
+  ///
+  /// See also [isShminiAtzeres] and [SIMCHAS_TORAH].
+  bool isSimchasTorah() => getYomTovIndex() == SIMCHAS_TORAH;
+
+  /// Returns true if the current day is _Pesach_: the _Yom Tov_ of _Pesach_ or _Chol Hamoed Pesach_.
+  ///
+  /// See also [isCholHamoedPesach] and [PESACH].
+  bool isPesach() {
+    final holidayIndex = getYomTovIndex();
+    return holidayIndex == PESACH || holidayIndex == CHOL_HAMOED_PESACH;
+  }
+
+  /// Returns true if the current day is _Shavuos_ (either of its days outside Israel).
+  ///
+  /// See also [SHAVUOS].
+  bool isShavuos() => getYomTovIndex() == SHAVUOS;
+
+  /// Returns true if the current day is _Tisha Be'Av_ (the 9th of Av, or the 10th when the 9th is
+  /// _Shabbos_).
+  ///
+  /// See also [isTaanis] and [TISHA_BEAV].
+  bool isTishaBav() => getYomTovIndex() == TISHA_BEAV;
+
   /// Returns true if the day is Purim: [SHUSHAN_PURIM] in a _mukaf choma_ ([isMukafChoma]) and regular
   /// [PURIM] elsewhere.
   ///
