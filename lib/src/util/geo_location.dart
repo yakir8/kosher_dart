@@ -104,7 +104,7 @@ class GeoLocation {
   /// - [elevation]: 
   ///   The elevation to set in Meters. An IllegalArgumentException will be thrown if the value is a negative.
   void setElevation(double elevation) {
-    if (elevation < 0) {
+    if (!elevation.isFinite || elevation < 0) {
       throw ArgumentError("Elevation cannot be negative");
     }
     _elevation = elevation;
@@ -128,7 +128,7 @@ class GeoLocation {
       String? direction,
       double? latitude}) {
     if (latitude != null) {
-      if (latitude > 90 || latitude < -90) {
+      if (!latitude.isFinite || latitude > 90 || latitude < -90) {
         throw ArgumentError("Latitude must be between -90 and  90");
       }
       _latitude = latitude;
@@ -136,14 +136,20 @@ class GeoLocation {
         minutes == null ||
         seconds == null ||
         direction == null) {
-      throw ArgumentError(
-          "Longitude must be between 0 and  180.  Use a direction of W instead of negative.");
+      throw ArgumentError("Specify either latitude or all DMS components.");
     } else {
+      if (degrees < 0 ||
+          minutes < 0 ||
+          minutes >= 60 ||
+          !seconds.isFinite ||
+          seconds < 0 ||
+          seconds >= 60) {
+        throw ArgumentError("Invalid latitude degrees, minutes or seconds.");
+      }
       double tempLat = degrees + ((minutes + (seconds / 60.0)) / 60.0);
-      if (tempLat > 90 || tempLat < 0) {
-        //FIXME An exception should be thrown if degrees, minutes or seconds are negative
+      if (tempLat > 90) {
         throw ArgumentError(
-            "Latitude must be between 0 and  90. Use direction of S instead of negative.");
+            "Latitude must be between 0 and 90. Use direction S for south.");
       }
       if (direction == "S") {
         tempLat *= -1;
@@ -179,7 +185,7 @@ class GeoLocation {
       String? direction,
       double? longitude}) {
     if (longitude != null) {
-      if (longitude > 180 || longitude < -180) {
+      if (!longitude.isFinite || longitude > 180 || longitude < -180) {
         throw ArgumentError("Longitude must be between -180 and  180");
       }
       _longitude = longitude;
@@ -187,14 +193,20 @@ class GeoLocation {
         minutes == null ||
         seconds == null ||
         direction == null) {
-      throw ArgumentError(
-          "Longitude must be between 0 and  180.  Use a direction of W instead of negative.");
+      throw ArgumentError("Specify either longitude or all DMS components.");
     } else {
+      if (degrees < 0 ||
+          minutes < 0 ||
+          minutes >= 60 ||
+          !seconds.isFinite ||
+          seconds < 0 ||
+          seconds >= 60) {
+        throw ArgumentError("Invalid longitude degrees, minutes or seconds.");
+      }
       double longTemp = degrees + ((minutes + (seconds / 60.0)) / 60.0);
-      if (longTemp > 180 || _longitude < 0) {
-        //FIXME An exception should be thrown if degrees, minutes or seconds are negative
+      if (longTemp > 180) {
         throw ArgumentError(
-            "Longitude must be between 0 and  180.  Use a direction of W instead of negative.");
+            "Longitude must be between 0 and 180. Use direction W for west.");
       }
       if (direction == "W") {
         longTemp *= -1;
